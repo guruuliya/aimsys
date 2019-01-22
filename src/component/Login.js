@@ -6,8 +6,11 @@ import {
     KeyboardAvoidingView, Platform
 } from 'react-native';
 
-
 export default class Login extends Component {
+    // eslint-disable-next-line no-undef
+    static navigationOptions = {
+        header: null
+    };
     render() {
         return (
             <SafeAreaView style={styles.container}>
@@ -33,7 +36,7 @@ export default class Login extends Component {
                                     // eslint-disable-next-line global-require
                                     source={require('../images/logo.png')}
                                 />
-                               
+
                             </View>
                             <View style={styles.infoContainer}>
                                 <TextInput
@@ -55,14 +58,19 @@ export default class Login extends Component {
                                     ref={'txtPassword'}
                                 />
                                 <TouchableOpacity style={styles.buttonContainer}>
-                                    <Text style={styles.buttonText}>SIGN IN</Text>
+                                    <Text
+                                        style={styles.buttonText}
+                                        onPress={() => this.props.navigation.navigate('Details')}
+                                    >
+                                        SIGN IN
+                                    </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
                 </KeyboardAvoidingView>
             </SafeAreaView>
-        )
+        );
     }
 }
 const styles = StyleSheet.create({
@@ -113,4 +121,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 18
     }
-})
+});
