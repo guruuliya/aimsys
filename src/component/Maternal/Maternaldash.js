@@ -9,13 +9,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-
-export default class Workerdashboard extends Component {
+class MaternalDash extends Component {
     static navigationOptions = {
         title: 'Home',
-        headerLeft: null,
         headerStyle: {
-            backgroundColor: '#203546',
+            backgroundColor: '#355870',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -26,39 +24,23 @@ export default class Workerdashboard extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.top}>
-                    <View style={styles.profilepic} />
-                </View>
-                <View style={styles.center} />
                 <View style={styles.bottom}>
-
                     <View style={styles.bottomitem}>
                         <TouchableOpacity
                             style={styles.bottomitemInner}
-                            onPress={() =>
-                                this.props.navigation.navigate('Timeline')}
+                            onPress={() => this.props.navigation.navigate('ChildRegistration')}
                         >
-                            <Text style={styles.bottomitemInnerContent}>Timeline</Text>
+                            <Text style={styles.bottomitemInnerContent}>{'Child \n Registration'}</Text>
                         </TouchableOpacity>
                     </View>
 
                     <View style={styles.bottomitem}>
                         <TouchableOpacity
                             style={styles.bottomitemInner}
-                            onPress={() =>
-                                this.props.navigation.navigate('DemographyDash')}
-                        >
-                            <Text style={styles.bottomitemInnerContent}>Demographics</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.bottomitem}>
-                        <TouchableOpacity
-                            style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('MaternalDash')}
+                            onPress={() => this.props.navigation.navigate('InjectionRecords')}
                         >
                             <Text style={styles.bottomitemInnerContent}>
-                                {'Maternal\n&\nChild Nutrition'}
+                                {'Injection \n Records'}
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -66,10 +48,20 @@ export default class Workerdashboard extends Component {
                     <View style={styles.bottomitem}>
                         <TouchableOpacity
                             style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('infrastructure')}
+                            onPress={() => this.props.navigation.navigate('ChildNutrition')}
                         >
-                            <Text style={styles.bottomitemInnerContent}>Infrastructure
-                                </Text>
+                            <Text style={styles.bottomitemInnerContent}>
+                                {'Child \n Nutrition'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.bottomitem}>
+                        <TouchableOpacity
+                            style={styles.bottomitemInner}
+                            onPress={() => this.props.navigation.navigate('FoodNutri')}
+                        >
+                            <Text style={styles.bottomitemInnerContent}> {'Food \n Details'}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -82,41 +74,21 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    top: {
-        height: '35%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#395870',
-    },
-    profilepic: {
-        width: 140,
-        height: 140,
-        borderRadius: 100,
-        borderWidth: 4,
-        borderColor: '#fff',
-        backgroundColor: '#fff',
-    },
-    center: {
-        height: '10%',
-        backgroundColor: '#203546',
-    },
+
     bottom: {
-        height: '55%',
+        height: '50%',
         backgroundColor: '#fff',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        padding: 3,
+        padding: 5,
     },
     bottomitem: {
         width: '50%',
         height: '50%',
-        padding: 3,
+        padding: 5,
     },
     bottomitemInner: {
         flex: 1,
-        // borderRadius: 10,
-        // borderWidth: 4,
-        // borderColor: '#292929',
         backgroundColor: '#395870',
         alignItems: 'center',
         justifyContent: 'center',
@@ -125,10 +97,10 @@ const styles = StyleSheet.create({
     bottomitemInnerContent: {
         fontSize: 18,
         color: '#fff',
-        // fontFamily:'verdana',
-        //   fontWeight: 'bold',
         textAlign: 'center',
         padding: 5,
     }
 
 });
+
+export { MaternalDash };

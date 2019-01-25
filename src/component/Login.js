@@ -60,7 +60,8 @@ export default class Login extends Component {
                                 <TouchableOpacity style={styles.buttonContainer}>
                                     <Text
                                         style={styles.buttonText}
-                                        onPress={() => this.props.navigation.navigate('Details')}
+                                        onPress={() => 
+                                            this.props.navigation.navigate('Dashboard')}
                                     >
                                         SIGN IN
                                     </Text>

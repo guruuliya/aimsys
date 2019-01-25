@@ -7,9 +7,15 @@
     "test": "jest"
   },
   "dependencies": {
+    "native-base": "^2.10.0",
     "react": "16.6.3",
     "react-native": "0.57.8",
+    "react-native-datepicker": "^1.7.2",
+    "react-native-flexi-radio-button": "^0.2.2",
     "react-native-gesture-handler": "^1.0.12",
+    "react-native-image-picker": "^0.28.0",
+    "react-native-simple-radio-button": "^2.7.3",
+    "react-native-ui-xg": "0.0.6",
     "react-navigation": "^3.0.9"
   },
   "devDependencies": {
