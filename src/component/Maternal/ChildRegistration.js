@@ -4,6 +4,16 @@ import { Container, Content, ListItem, Text, Radio, Right, Left, View } from 'na
 import { CardSection, Card, Input, Header, Radio1, Button, MyDatepicker } from '../Common';
 
 class ChildRegistration extends Component {
+    static navigationOptions = {
+        title: 'Child Registration ',
+        headerStyle: {
+            backgroundColor: '#203546',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
     constructor() {
         super();
         this.state = {
@@ -16,7 +26,6 @@ class ChildRegistration extends Component {
     render() {
         return (
             <ScrollView>
-                <Header headerText={'INJECTION RECORDS'} />
                 <Card>
                     <CardSection>
                         <Input

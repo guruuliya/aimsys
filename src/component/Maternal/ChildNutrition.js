@@ -1,414 +1,321 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
-import { Left, Radio } from 'native-base';
-import { CardSection, Card, Input, Header, Button } from '../Common';
+import { StyleSheet, Dimensions } from 'react-native';
+import {
+    Container,
+    Content,
+    ListItem,
+    Radio,
+    Card,
+    Text,
+    CheckBox,
+    Body,
+    Button,
+    CardItem,
+    Input
+} from 'native-base';
+import { ScrollView } from 'react-native-gesture-handler';
 
 class ChildNutrition extends Component {
-    
+    static navigationOptions = {
+        title: 'Child Nutrition ',
+        headerStyle: {
+            backgroundColor: '#203546',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
+
     constructor() {
         super();
         this.state = {
-            itemSelected: null,
+            underweight: null,
             isHidden: false,
-            itemSelected1: null,
             isHidden1: false,
-            itemSelected2: null,
             isHidden2: false,
-            itemSelected3: null,
-            isHidden3: false,
-            itemSelected4: null,
-            isHidden4: false,
-            itemSelected5: null,
-            isHidden5: false,
-            itemSelected6: null,
-            isHidden6: false,
-            itemSelected7: null,
-            isHidden7: false,
-            itemSelected8: null,
-            isHidden8: false,
+            well: false,
+            wasting: null,
+            stunting: null,
+            feedSelected: null,
+            breastfeedSelected: null,
+            birthweightSelected: null,
+            compliSelected: null,
+            institutionSelected:null
         };
     }
+
     render() {
         return (
-            <ScrollView>
-                <Header headerText={'CHILD NUTRITION'} />
 
-                <Card>
-                    <CardSection>
-                        <Input
-                            placeholder="Household Number"
-                            label="Household Number"
-                            autoCorrect={false}
-                        //value={this.state.password}
-                        //  onChangeText={password => this.setState({ password })}
-                        />
+            <Container>
+                <ScrollView>
+                    <Content>
+                        <Card>
+                            <CardItem>
+                                <Text>Underweight?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={styles.textStyle}>Yes:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({ underweight: 'yes', isHidden: true })}
+                                    selected={this.state.underweight === 'yes'}
+                                />
+                                <Text style={styles.textStyle}>No:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({ underweight: 'no', isHidden: false })}
+                                    selected={this.state.underweight === 'no'}
+                                />
+                            </CardItem>
 
-                    </CardSection>
-
-                    <CardSection>
-                        <Input
-                            placeholder="Child Name"
-                            label="Child Name"
-                            autoCorrect={false}
-                        //value={this.state.password}
-                        //  onChangeText={password => this.setState({ password })}
-                        />
-
-                    </CardSection>
-
-
-                    <CardSection>
-                        <Left><Text style={styles.labelStyle}>Underweight</Text></Left>
-
-                        <Text style={{ padding: 1 }}> Yes</Text>
-
-                        <Radio
-                            onPress={() => {
-                                this.setState({ itemSelected: 'Yes', isHidden: true });
-                                console.log(this.state.isHidden);
-                            }
-                            }
-                            selected={this.state.itemSelected === 'Yes'}
-
-                        />
-
-
-                        <Text style={{ padding: 1 }}>No</Text>
-
-                        <Radio
-                            style={{ paddingRight: 66 }} onPress={() => {
-                                this.setState({ itemSelected: 'No', isHidden: false });
-                                console.log(this.state.isHidden);
-                            }
-                            }
-                            selected={this.state.itemSelected === 'No'}
-                        />
-
-                    </CardSection>
-                    {
-                        this.state.isHidden ?
-                            <View>
-                                <Card>
-                                    <CardSection>
+                            {
+                                this.state.isHidden ?
+                                    <Card>
+                                        <ListItem>
                                         <Input
                                             placeholder='age'
                                             label='Age'
                                         />
-                                    </CardSection>
-
-                                    <CardSection>
+                                        </ListItem>
+                                        <ListItem>
                                         <Input
-                                            placeholder='Weight'
-                                            label='Weight'
+                                            placeholder='weight'
+                                            label='weight'
                                         />
-                                    </CardSection>
-
-                                </Card>
-                            </View>
-                            : null
-                    }
-
-                    <CardSection>
-                        <Left><Text style={styles.labelStyle}>Wasting</Text></Left>
-
-                        <Text style={{ padding: 1 }}> Yes</Text>
-
-                        <Radio
-                            onPress={() => {
-                                this.setState({ itemSelected1: 'Yes', isHidden1: true });
-                                console.log(this.state.isHidden1);
+                                        </ListItem>
+                                        
+                                    </Card>
+                                    : null
                             }
-                            }
-                            selected={this.state.itemSelected1 === 'Yes'}
+                        </Card>
 
-                        />
+                        <Card>
+                            <CardItem>
+                                <Text>Wasting?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={styles.textStyle}>Yes:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({ wasting: 'yes', isHidden1:true })
+                                    }
+                                    selected={this.state.wasting === 'yes'}
+                                />
+                                <Text style={styles.textStyle}>No:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({ wasting: 'no', isHidden1: false })}
 
-
-                        <Text style={{ padding: 1 }}>No</Text>
-
-                        <Radio
-                            style={{ paddingRight: 66 }} onPress={() => {
-                                this.setState({ itemSelected1: 'No', isHidden1: false });
-                                console.log(this.state.isHidden1);
-                            }
-                            }
-                            selected={this.state.itemSelected1 === 'No'}
-                        />
-
-                    </CardSection>
-                    {
-                        this.state.isHidden1 ?
-                            <View>
-                                <Card>
-                                    <CardSection>
+                                    selected={this.state.wasting === 'no'}
+                                />
+                            </CardItem>
+                            {
+                                this.state.isHidden1 ?
+                                    <Card>
+                                        <ListItem>
                                         <Input
                                             placeholder='age'
                                             label='Age'
                                         />
-                                    </CardSection>
-
-                                    <CardSection>
+                                        </ListItem>
+                                        <ListItem>
                                         <Input
-                                            placeholder='Weight'
-                                            label='Weight'
+                                            placeholder='weight'
+                                            label='weight'
                                         />
-                                    </CardSection>
-                                    <CardSection>
+                                        </ListItem>
+                                        <ListItem>
                                         <Input
-                                            placeholder='Height'
-                                            label='Height'
+                                            placeholder='height'
+                                            label='height'
                                         />
-                                    </CardSection>
-
-                                </Card>
-                            </View>
-                            : null
-                    }
-
-
-                    <CardSection>
-                        <Left><Text style={styles.labelStyle}>Stunting</Text></Left>
-
-                        <Text style={{ padding: 1 }}> Yes</Text>
-
-                        <Radio
-                            onPress={() => {
-                                this.setState({ itemSelected2: 'Yes', isHidden2: true });
-                                console.log(this.state.isHidden2);
+                                        </ListItem>
+                                        
+                                    </Card>
+                                    : null
                             }
-                            }
-                            selected={this.state.itemSelected2 === 'Yes'}
+                        </Card>
 
-                        />
+                        <Card>
+                            <CardItem>
+                                <Text>Stunting?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={styles.textStyle}>Yes:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({ stunting: 'yes', isHidden2:true})
+                                    }
+                                    selected={this.state.stunting === 'yes'}
+                                />
+                                <Text style={styles.textStyle}>No:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({ stunting: 'no', isHidden2:false })}
 
-
-                        <Text style={{ padding: 1 }}>No</Text>
-
-                        <Radio
-                            style={{ paddingRight: 66 }} onPress={() => {
-                                this.setState({ itemSelected2: 'No', isHidden2: false });
-                                console.log(this.state.isHidden2);
-                            }
-                            }
-                            selected={this.state.itemSelected2 === 'No'}
-                        />
-
-                    </CardSection>
-                    {
-                        this.state.isHidden2 ?
-                            <View>
-                                <Card>
-                                    <CardSection>
+                                    selected={this.state.stunting === 'no'}
+                                />
+                            </CardItem>
+                            {
+                                this.state.isHidden2 ?
+                                    <Card>
+                                        <ListItem>
                                         <Input
                                             placeholder='age'
                                             label='Age'
                                         />
-                                    </CardSection>
-                                    <CardSection>
+                                        </ListItem>
+                                        <ListItem>
                                         <Input
-                                            placeholder='Height'
-                                            label='Height'
+                                            placeholder='height'
+                                            label='height'
                                         />
-                                    </CardSection>
-
-                                </Card>
-                            </View>
-                            : null
-                    }
-
-                    <CardSection>
-                        <Left><Text style={styles.labelStyle}>New born with low birth weight less then 2500 grams</Text></Left>
-                        <View style={{ marginTop: 48, marginLeft: -100, flexDirection: 'row' }}>
-                            <Text style={{ padding: 1 }}> Yes</Text>
-
-                            <Radio
-                                onPress={() => {
-                                    this.setState({ itemSelected3: 'Yes', isHidden3: true });
-                                    console.log(this.state.isHidden3);
-                                }
-                                }
-                                selected={this.state.itemSelected3 === 'Yes'}
-
-                            />
-
-
-                            <Text style={{ padding: 1 }}>No</Text>
-
-                            <Radio
-                                style={{ paddingRight: 66 }} onPress={() => {
-                                    this.setState({ itemSelected3: 'No', isHidden3: false });
-                                    console.log(this.state.isHidden3);
-                                }
-                                }
-                                selected={this.state.itemSelected3 === 'No'}
-                            />
-                        </View>
-                    </CardSection>
-
-                    <CardSection>
-                        <Left><Text style={styles.labelStyle}>Early iniation of Breastfeeding</Text></Left>
-                        <View style={{ marginTop: 38, marginLeft: -60, flexDirection: 'row' }}>
-                            <Text style={{ padding: 1 }}> Yes</Text>
-
-                            <Radio
-                                onPress={() => {
-                                    this.setState({ itemSelected4: 'Yes', isHidden4: true });
-                                    console.log(this.state.isHidden4);
-                                }
-                                }
-                                selected={this.state.itemSelected4 === 'Yes'}
-
-                            />
-
-
-                            <Text style={{ padding: 1 }}>No</Text>
-
-                            <Radio
-                                style={{ paddingRight: 66 }} onPress={() => {
-                                    this.setState({ itemSelected4: 'No', isHidden4: false });
-                                    console.log(this.state.isHidden4);
-                                }
-                                }
-                                selected={this.state.itemSelected4 === 'No'}
-                            />
-                        </View>
-
-                    </CardSection>
-
-                    <CardSection>
-                        <Left><Text style={styles.labelStyle}>Exclusive Breastfeeding</Text></Left>
-
-                        <Text style={{ padding: 1 }}> Yes</Text>
-
-                        <Radio
-                            onPress={() => {
-                                this.setState({ itemSelected5: 'Yes', isHidden5: true });
-                                console.log(this.state.isHidden5);
+                                        </ListItem>
+                                        
+                                    </Card>
+                                    : null
                             }
-                            }
-                            selected={this.state.itemSelected5 === 'Yes'}
+                        </Card>
 
-                        />
+                        <Card>
+                            <CardItem>
+                                <Text>New born with low birth weight less then 2500 grams?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={styles.textStyle}>Yes:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({  birthweightSelected: 'yes' })
+                                    }
+                                    selected={this.state. birthweightSelected === 'yes'}
+                                />
+                                <Text style={styles.textStyle}>No:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({  birthweightSelected: 'no', })}
+
+                                    selected={this.state. birthweightSelected === 'no'}
+                                />
+                            </CardItem>
+                        </Card>
+
+                        <Card>
+                            <CardItem>
+                                <Text>Early iniation of Breastfeeding?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={styles.textStyle}>Yes:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({ breastfeedSelected: 'yes' })
+                                    }
+                                    selected={this.state.breastfeedSelected === 'yes'}
+                                />
+                                <Text style={styles.textStyle}>No:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({ breastfeedSelected: 'no', })}
+
+                                    selected={this.state.breastfeedSelected === 'no'}
+                                />
+                            </CardItem>
+                        </Card>
+
+                        <Card>
+                            <CardItem>
+                                <Text>Exclusive Breastfeeding?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={styles.textStyle}>Yes:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({  feedSelected: 'yes' })
+                                    }
+                                    selected={this.state. feedSelected === 'yes'}
+                                />
+                                <Text style={styles.textStyle}>No:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({  feedSelected: 'no', })}
+
+                                    selected={this.state. feedSelected === 'no'}
+                                />
+                            </CardItem>
+                        </Card>
+
+                        <Card>
+                            <CardItem>
+                                <Text>Children inititaed appropriate complementary feeding?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={styles.textStyle}>Yes:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({  compliSelected: 'yes' })
+                                    }
+                                    selected={this.state.compliSelected === 'yes'}
+                                />
+                                <Text style={styles.textStyle}>No:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({  compliSelected: 'no', })}
+
+                                    selected={this.state. compliSelected === 'no'}
+                                />
+                            </CardItem>
+                        </Card>
+
+                        <Card>
+                            <CardItem>
+                                <Text>Institutional deliveries?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={styles.textStyle}>Yes:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({  institutionSelected: 'yes' })
+                                    }
+                                    selected={this.state. institutionSelected === 'yes'}
+                                />
+                                <Text style={styles.textStyle}>No:</Text>
+                                <Radio
+                                    // eslint-disable-next-line max-len
+                                    onPress={() => this.setState({  institutionSelected: 'no', })}
+
+                                    selected={this.state. institutionSelected === 'no'}
+                                />
+                            </CardItem>
+                        </Card>
 
 
-                        <Text style={{ padding: 1 }}>No</Text>
+                        <ListItem>
+                            <Button
+                                block success
+                                style={{
+                                    width: Dimensions.get('window').width - 40,
+                                    marginLeft: 0,
+                                    marginRight: 0
+                                }}
+                            >
+                                <Text>Add</Text>
+                            </Button>
+                        </ListItem>
 
-                        <Radio
-                            style={{ paddingRight: 66 }} onPress={() => {
-                                this.setState({ itemSelected5: 'No', isHidden5: false });
-                                console.log(this.state.isHidden5);
-                            }
-                            }
-                            selected={this.state.itemSelected5 === 'No'}
-                        />
+                    </Content>
 
-                    </CardSection>
-
-                    <CardSection>
-                        <Left><Text style={styles.labelStyle}>Children inititaed appropriate complementary feeding</Text></Left>
-                        <View style={{ marginTop: 48, marginLeft: -100, flexDirection: 'row' }}>
-                            <Text style={{ padding: 1 }}> Yes</Text>
-
-                            <Radio
-                                onPress={() => {
-                                    this.setState({ itemSelected6: 'Yes', isHidden6: true });
-                                    console.log(this.state.isHidden6);
-                                }
-                                }
-                                selected={this.state.itemSelected6 === 'Yes'}
-
-                            />
-
-
-                            <Text style={{ padding: 1 }}>No</Text>
-
-                            <Radio
-                                style={{ paddingRight: 66 }} onPress={() => {
-                                    this.setState({ itemSelected6: 'No', isHidden6: false });
-                                    console.log(this.state.isHidden4);
-                                }
-                                }
-                                selected={this.state.itemSelected6 === 'No'}
-                            />
-                        </View>
-                    </CardSection>
-
-
-                    <CardSection>
-                        <Left><Text style={styles.labelStyle}>Institutional deliveries</Text></Left>
-
-                        <Text style={{ padding: 1 }}> Yes</Text>
-
-                        <Radio
-                            onPress={() => {
-                                this.setState({ itemSelected7: 'Yes', isHidden7: true });
-                                console.log(this.state.isHidden7);
-                            }
-                            }
-                            selected={this.state.itemSelected7 === 'Yes'}
-
-                        />
-
-
-                        <Text style={{ padding: 1 }}>No</Text>
-
-                        <Radio
-                            style={{ paddingRight: 66 }} onPress={() => {
-                                this.setState({ itemSelected7: 'No', isHidden7: false });
-                                console.log(this.state.isHidden7);
-                            }
-                            }
-                            selected={this.state.itemSelected7 == 'No'}
-                        />
-                    </CardSection>
-
-                    <CardSection>
-                        <Left><Text style={styles.labelStyle}>Immunization Coverage</Text></Left>
-
-                        <Text style={{ padding: 1 }}> Yes</Text>
-
-                        <Radio
-                            onPress={() => {
-                                this.setState({ itemSelected8: 'Yes', isHidden8: true });
-                                console.log(this.state.isHidden8);
-                            }
-                            }
-                            selected={this.state.itemSelected8 === 'Yes'}
-
-                        />
-
-                        <Text style={{ padding: 1 }}>No</Text>
-
-                        <Radio
-                            style={{ paddingRight: 66 }}
-                            onPress={() => this.setState({ itemSelected8: 'No', isHidden8: false })}
-                            selected={this.state.itemSelected8 === 'No'}
-                        />
-
-                    </CardSection>
-
-                    <CardSection>
-                        <Button children="Add" />
-                    </CardSection>
-                </Card>
-
-            </ScrollView>
-
+                </ScrollView>
+            </Container>
         );
     }
 }
 
-const styles = {
-    errorTextStyle: {
-        fontSize: 20,
-        alignSelf: 'center',
-        color: 'red'
-    },
-    labelStyle: {
-        fontSize: 18,
-        paddingLeft: 16,
-        flex: 1,
+const styles = StyleSheet.create({
+    textStyle: {
+        padding: 5
     }
-};
+});
 
 export { ChildNutrition };
+
