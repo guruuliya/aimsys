@@ -1,6 +1,7 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Login from './Login';
 import Workerdashboard from './Workerdashboard';
+import AuthLoading from './AuthLoading';
 import {
   BuildingPicture, BuildingStatus, DrinkingWater,
   InfrastructureDash, Medicine, PlayGround, Toilet,
@@ -22,9 +23,16 @@ import {
   Children, DemographyDash,
   HouseHold, Pregnancy
 } from './Demography/';
+import Splash from './Splash';
 
 const RootStack = createStackNavigator({
-  Home: {
+  AuthLoading: {
+    screen: AuthLoading
+  },
+  Splash: {
+    screen: Splash
+  },
+  Login: {
     screen: Login,
   },
   Dashboard: {
@@ -98,7 +106,7 @@ const RootStack = createStackNavigator({
   }
 },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'AuthLoading',
   }
 
 );
