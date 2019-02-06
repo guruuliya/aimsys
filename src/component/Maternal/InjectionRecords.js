@@ -4,6 +4,17 @@ import { Text, Radio, Left, View } from 'native-base';
 import { CardSection, Card, Input, Button, MyDatepicker } from '../Common';
 
 class InjectionRecords extends Component {
+    static navigationOptions = {
+        title: 'Injection Records',
+        headerStyle: {
+            backgroundColor: '#203546',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
+
     constructor() {
         super();
         this.state = {
