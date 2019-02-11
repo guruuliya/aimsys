@@ -3,12 +3,10 @@ import Login from './Login';
 import Workerdashboard from './Workerdashboard';
 import AuthLoading from './AuthLoading';
 import {
-  BuildingPicture, BuildingStatus, DrinkingWater,
-  InfrastructureDash, Medicine, PlayGround, Toilet,
-  WeighInfants, WeighMother, Facility
+  BuildingPicture,
+  InfrastructureDash, Facility
 } from './infrastructure/';
-
-
+import BuildingStatus from './infrastructure/BulidingStatus';
 import Timeline from './TimeLine/Timeline';
 import HealthSupplies from './TimeLine/HealthSupplies';
 import FoodSupplies from './TimeLine/FoodSupplies';
@@ -44,29 +42,11 @@ const RootStack = createStackNavigator({
   Facility: {
     screen: Facility
   },
-  Water: {
-    screen: DrinkingWater
-  },
   buildingPicture: {
     screen: BuildingPicture
   },
   buildingStatus: {
     screen: BuildingStatus
-  },
-  Medicine: {
-    screen: Medicine
-  },
-  PlayGround: {
-    screen: PlayGround
-  },
-  WeighInfants: {
-    screen: WeighInfants
-  },
-  WeighMother: {
-    screen: WeighMother
-  },
-  Toilet: {
-    screen: Toilet
   },
   Timeline: {
     screen: Timeline
