@@ -11,6 +11,9 @@ import {
     CardItem,
     Left,
 } from 'native-base';
+import { connect } from 'react-redux';
+import { bStatusUpdate, bStatusCreate } from '../../actions';
+
 
 class BuildingStatus extends Component {
     static navigationOptions = {
@@ -23,12 +26,17 @@ class BuildingStatus extends Component {
             fontWeight: 'bold',
         },
     };
-    
+
     constructor() {
         super();
         this.state = {
             itemSelected: 'null',
-        };       
+        };
+    }
+
+    onButtonPress() {
+        const { option } = this.props;
+        this.props.bStatusCreate({ option });
     }
 
     render() {
@@ -43,24 +51,24 @@ class BuildingStatus extends Component {
                             <Left><Text style={styles.textStyle}>Owned</Text></Left>
                             <Radio
                                 // eslint-disable-next-line max-len
-                                onPress={() => this.setState({ itemSelected: 'owned' })}
-                                selected={this.state.itemSelected === 'owned'}
+                                onPress={() => this.props.bStatusUpdate({ name: 'option', value: 'owned' })}
+                                selected={this.props.option === 'owned'}
                             />
                         </CardItem>
                         <CardItem>
                             <Left><Text style={styles.textStyle}>Rented:</Text></Left>
                             <Radio
                                 // eslint-disable-next-line max-len
-                                onPress={() => this.setState({ itemSelected: 'rented' })}
-                                selected={this.state.itemSelected === 'rented'}
+                                onPress={() => this.props.bStatusUpdate({ name: 'option', value: 'rented' })}
+                                selected={this.props.option === 'rented'}
                             />
                         </CardItem>
                         <CardItem>
                             <Left><Text style={styles.textStyle}>Gifted</Text></Left>
                             <Radio
                                 // eslint-disable-next-line max-len
-                                onPress={() => this.setState({ itemSelected: 'gifted' })}
-                                selected={this.state.itemSelected === 'gifted'}
+                                onPress={() => this.props.bStatusUpdate({ name: 'option', value: 'gifted' })}
+                                selected={this.props.option === 'gifted'}
                             />
                         </CardItem>
                         <ListItem>
@@ -71,6 +79,7 @@ class BuildingStatus extends Component {
                                     marginLeft: 0,
                                     marginRight: 0
                                 }}
+                                onPress={this.onButtonPress.bind(this)}
                             >
                                 <Text>Add</Text>
                             </Button>
@@ -88,4 +97,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export { BuildingStatus };
+const mapStateToProps = (state) => {
+    console.log(state);
+    const { option } = state.bstatus;
+    return { option };
+};
+
+export default connect(mapStateToProps, { bStatusUpdate, bStatusCreate })(BuildingStatus);
