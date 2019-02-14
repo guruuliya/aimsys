@@ -8,3 +8,6 @@ export const FETCH_USER = 'fetch_user';
 //Building Status update
 export const BSTATUS_UPDATE = 'bstatus_update';
 export const BSTATUS_CREATE = 'bstatus_create';
+export const BSTATUS_CHECK = 'bstatus_check';
+export const BSTATUS_FETCH = 'bstatus_fetch';
+export const BSTATUS_REMOVE = 'bstatus_remove';

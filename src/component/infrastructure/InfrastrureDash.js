@@ -8,6 +8,8 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+import { checkBStatus } from '../../actions';
 
 
 class InfrastructureDash extends Component {
@@ -21,6 +23,11 @@ class InfrastructureDash extends Component {
             fontWeight: 'bold',
         },
     };
+
+    componentWillMount() {
+        console.log('check');
+        this.props.checkBStatus();
+    }
 
     render() {
         return (
@@ -95,4 +102,4 @@ const styles = StyleSheet.create({
 
 });
 
-export { InfrastructureDash };
+export default connect(null, { checkBStatus })(InfrastructureDash);

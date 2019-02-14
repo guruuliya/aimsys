@@ -2,14 +2,13 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Login from './Login';
 import Workerdashboard from './Workerdashboard';
 import AuthLoading from './AuthLoading';
-import {
-  BuildingPicture,
-  InfrastructureDash, Facility
-} from './infrastructure/';
+import { BuildingPicture, Facility } from './infrastructure/';
+import InfrastructureDash from './infrastructure/InfrastrureDash';
 import BuildingStatus from './infrastructure/BulidingStatus';
 import Timeline from './TimeLine/Timeline';
 import HealthSupplies from './TimeLine/HealthSupplies';
 import FoodSupplies from './TimeLine/FoodSupplies';
+import BuildingStatusUpdate from './infrastructure/BuildingStatusUpdate';
 
 import {
   ChildNutrition, ChildRegistration,
@@ -47,6 +46,9 @@ const RootStack = createStackNavigator({
   },
   buildingStatus: {
     screen: BuildingStatus
+  },
+  BuildingStatusUpdate: {
+    screen: BuildingStatusUpdate
   },
   Timeline: {
     screen: Timeline

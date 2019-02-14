@@ -13,10 +13,10 @@ import {
     Left
 } from 'native-base';
 import { connect } from 'react-redux';
-import { bStatusUpdate, bStatusCreate, checkBStatus, bStatusFetch, bStatusDelete } from '../../actions';
+import { bStatusUpdate, bStatusSave, bStatusFetch } from '../../actions';
 
 
-class BuildingStatus extends Component {
+class BuildingStatusUpdate extends Component {
     static navigationOptions = {
         title: 'Infrastructure',
         headerStyle: {
@@ -28,60 +28,27 @@ class BuildingStatus extends Component {
         },
     };
 
+    constructor() {
+        super();
+        this.state = {
+            itemSelected: 'null',
+        };
+    }
+
     componentWillMount() {
         this.props.bStatusFetch();
+        _.each(this.props.buildingstatus, (val) => {
+            this.props.bStatusUpdate({ name: 'option', value: val.option });
+        });
     }
 
     onButtonPress() {
         const { option } = this.props;
-        console.log(option);
-        this.props.bStatusCreate({ option });
+        const navigate = this.props.navigation;
+        this.props.bStatusSave({ option }, this.props.buildingstatus[0].uid, navigate);
     }
 
     renderContent() {
-        if (this.props.status) {
-            return (this.props.buildingstatus.map((value) => {
-                return (
-                    <Content>
-                        <Card>
-                            <CardItem>
-                                <Text>How you Own the Present Buliding?</Text>
-                            </CardItem>
-                            <CardItem key={value.uid}>
-                                <Text style={styles.itemtext}>This Building is: {value.option}</Text>
-                            </CardItem>
-                            <ListItem>
-                                <Button
-                                    block info
-                                    style={{
-                                        width: Dimensions.get('window').width - 40,
-                                        marginLeft: 0,
-                                        marginRight: 0
-                                    }}
-                                    onPress={() => this.props.navigation.navigate('BuildingStatusUpdate', this.props.buildingstatus)}
-                                >
-                                    <Text>Edit</Text>
-                                </Button>
-                            </ListItem>
-                            <ListItem>
-                                <Button
-                                    block danger
-                                    style={{
-                                        width: Dimensions.get('window').width - 40,
-                                        marginLeft: 0,
-                                        marginRight: 0
-                                    }}
-                                    onPress={() => this.props.bStatusDelete(value.uid)}
-                                >
-                                    <Text>Remove</Text>
-                                </Button>
-                            </ListItem>
-                        </Card>
-                    </Content>
-                );
-            })
-            );
-        }
         return (<Content>
             <Card>
                 <CardItem>
@@ -121,7 +88,7 @@ class BuildingStatus extends Component {
                         }}
                         onPress={this.onButtonPress.bind(this)}
                     >
-                        <Text>Add</Text>
+                        <Text>Update</Text>
                     </Button>
                 </ListItem>
             </Card>
@@ -144,13 +111,13 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { option, status } = state.bfstatus;
+    const { option } = state.bfstatus;
     const buildingstatus = _.map(state.bstatus, (val, uid) => {
         return { ...val, uid };
     });
     console.log(buildingstatus);
-    return { option, status, buildingstatus };
+    return { option, buildingstatus };
 };
 
 export default connect(mapStateToProps,
-    { bStatusUpdate, bStatusCreate, checkBStatus, bStatusFetch, bStatusDelete })(BuildingStatus);
+    { bStatusUpdate, bStatusSave, bStatusFetch })(BuildingStatusUpdate);
