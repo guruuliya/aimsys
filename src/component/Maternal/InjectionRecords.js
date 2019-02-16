@@ -198,4 +198,4 @@ const styles = {
     }
 };
 
-export { InjectionRecords };
+export {InjectionRecords} ;

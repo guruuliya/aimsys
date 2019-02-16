@@ -12,11 +12,14 @@ import HealthSupplies from './TimeLine/HealthSupplies';
 import FoodSupplies from './TimeLine/FoodSupplies';
 
 import {
-  ChildNutrition, ChildRegistration,
-  FoodNutri, InjectionRecords,
-  MaternalDash
+  ChildNutrition,
+  FoodNutri,
+  MaternalDash,
+  InjectionRecords
 } from './Maternal/';
-
+import ChildTab from './Maternal/ChildTab';
+import ChildRegistration from './Maternal/ChildRegistration';
+import ChildSearch from './Maternal/ChildSearch';
 import {
   Children, DemographyDash,
   HouseHold, Pregnancy
@@ -65,6 +68,12 @@ const RootStack = createStackNavigator({
   },
   ChildRegistration: {
     screen: ChildRegistration
+  },
+  ChildSearch: {
+    screen: ChildSearch
+  },
+  ChildTab: {
+    screen: ChildTab
   },
   InjectionRecords: {
     screen: InjectionRecords

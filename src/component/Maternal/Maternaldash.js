@@ -28,7 +28,7 @@ class MaternalDash extends Component {
                     <View style={styles.bottomitem}>
                         <TouchableOpacity
                             style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('ChildRegistration')}
+                            onPress={() => this.props.navigation.navigate('ChildTab')}
                         >
                             <Text style={styles.bottomitemInnerContent}>{'Child \n Registration'}</Text>
                         </TouchableOpacity>
