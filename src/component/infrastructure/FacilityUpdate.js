@@ -15,10 +15,13 @@ import {
     CardItem
 } from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
-import { facilityForm, facilityCreate, facilityStatus, facilityFetch, facilityDelete } from '../../actions';
+import {
+    facilityForm, facilityCreate, facilityUpdate
+
+} from '../../actions';
 
 
-class Facility extends Component {
+class FacilityUpdate extends Component {
     static navigationOptions = {
         title: 'Infrastructure',
         headerStyle: {
@@ -30,86 +33,21 @@ class Facility extends Component {
         },
     };
 
-
     componentWillMount() {
-        this.props.facilityStatus();
-        this.props.facilityFetch();
+        _.each(this.props.facilities, (val) => {
+            _.each(val, (v, prop) => {
+                this.props.facilityForm({ name: prop, value: v });
+            });
+        });
     }
 
     onButtonPress() {
+        const navigate = this.props.navigation;
         const { Water, Medicine, Mother, Infant, Play, Toilet } = this.props;
-        this.props.facilityCreate({ Water, Medicine, Mother, Infant, Play, Toilet });
+        this.props.facilityUpdate({ Water, Medicine, Mother, Infant, Play, Toilet }, this.props.facilities[0].uid, navigate);
     }
 
     renderContent() {
-        if (this.props.status) {
-            return (this.props.facilities.map((value, index) => {
-                return (
-                    <Content>
-                        <Card key={index + 1}>
-                            <CardItem>
-                                <Text>Do You have Medicine?</Text>
-                            </CardItem>
-                            <CardItem>
-                                <Text style={styles.itemtext}>{value.Medicine}</Text>
-                            </CardItem>
-                            <CardItem>
-                                <Text>Do You have Palyground?</Text>
-                            </CardItem>
-                            <CardItem>
-                                <Text style={styles.itemtext}>{value.Play}</Text>
-                            </CardItem>
-                            <CardItem>
-                                <Text>Do You have Functional Toilet?</Text>
-                            </CardItem>
-                            <CardItem>
-                                <Text style={styles.itemtext}>{value.Toilet}</Text>
-                            </CardItem>
-                            <CardItem>
-                                <Text>Do You have Weigh Scale for Infants?</Text>
-                            </CardItem>
-                            <CardItem>
-                                <Text style={styles.itemtext}>{value.Infant}</Text>
-                            </CardItem>
-                            <CardItem>
-                                <Text>Do You have Weigh Scale for Mother?</Text>
-                            </CardItem>
-                            <CardItem>
-                                <Text style={styles.itemtext}>{value.Water}</Text>
-                            </CardItem>
-
-                            <ListItem>
-                                <Button
-                                    block info
-                                    style={{
-                                        width: Dimensions.get('window').width - 40,
-                                        marginLeft: 0,
-                                        marginRight: 0
-                                    }}
-                                    onPress={() => this.props.navigation.navigate('FacilityUpdate', this.props.facilities)}
-                                >
-                                    <Text>Edit</Text>
-                                </Button>
-                            </ListItem>
-                            <ListItem>
-                                <Button
-                                    block danger
-                                    style={{
-                                        width: Dimensions.get('window').width - 40,
-                                        marginLeft: 0,
-                                        marginRight: 0
-                                    }}
-                                    onPress={() => this.props.facilityDelete(value.uid)}
-                                >
-                                    <Text>Remove</Text>
-                                </Button>
-                            </ListItem>
-                        </Card>
-                    </Content>
-                );
-            })
-            );
-        }
         return (
             <ScrollView>
                 <Content>
@@ -280,7 +218,7 @@ class Facility extends Component {
                             }}
                             onPress={this.onButtonPress.bind(this)}
                         >
-                            <Text>Add</Text>
+                            <Text>Update</Text>
                         </Button>
                     </ListItem>
                 </Content>
@@ -310,5 +248,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps,
-    { facilityForm, facilityCreate, facilityStatus, facilityFetch, facilityDelete })(Facility);
+    { facilityForm, facilityCreate, facilityUpdate })(FacilityUpdate);
 

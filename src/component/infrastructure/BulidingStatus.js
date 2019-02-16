@@ -13,7 +13,10 @@ import {
     Left
 } from 'native-base';
 import { connect } from 'react-redux';
-import { bStatusUpdate, bStatusCreate, checkBStatus, bStatusFetch, bStatusDelete } from '../../actions';
+import {
+    bStatusUpdate, bStatusCreate,
+    checkBStatus, bStatusFetch, bStatusDelete
+} from '../../actions';
 
 
 class BuildingStatus extends Component {
@@ -34,7 +37,6 @@ class BuildingStatus extends Component {
 
     onButtonPress() {
         const { option } = this.props;
-        console.log(option);
         this.props.bStatusCreate({ option });
     }
 
@@ -148,7 +150,6 @@ const mapStateToProps = (state) => {
     const buildingstatus = _.map(state.bstatus, (val, uid) => {
         return { ...val, uid };
     });
-    console.log(buildingstatus);
     return { option, status, buildingstatus };
 };
 

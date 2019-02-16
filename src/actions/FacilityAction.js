@@ -1,22 +1,21 @@
 import firebase from 'firebase';
-import {
-    BSTATUS_UPDATE, BSTATUS_CREATE,
-    BSTATUS_CHECK, BSTATUS_FETCH, BSTATUS_REMOVE
-} from './types';
+import { FACILTY_FORM, FACILITY_CHECK, FACILITY_FETCH, FACILITY_CREATE, FACILITY_REMOVE } from './types';
 
-export const bStatusUpdate = ({ name, value }) => ({
-    type: BSTATUS_UPDATE,
-    payload: { name, value }
-});
+export const facilityForm = ({ name, value }) => {
+    return {
+        type: FACILTY_FORM,
+        payload: { name, value }
+    };
+};
 
-export const bStatusCreate = ({ option }) => {
+export const facilityCreate = ({ Water, Medicine, Mother, Infant, Play, Toilet }) => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/buildingstatus`)
-            .push({ option })
+        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/facilities`)
+            .push({ Water, Medicine, Mother, Infant, Play, Toilet })
             .then(() => {
                 dispatch({
-                    type: BSTATUS_CREATE
+                    type: FACILITY_CREATE
                 });
             })
             .catch((error) => {
@@ -26,21 +25,21 @@ export const bStatusCreate = ({ option }) => {
 };
 
 
-export function checkBStatus() {
+export function facilityStatus() {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/`)
             .once('value', snapshot => {
-                if (snapshot.hasChild('buildingstatus')) {
+                if (snapshot.hasChild('facilities')) {
                     console.log('exists');
                     dispatch({
-                        type: BSTATUS_CHECK,
+                        type: FACILITY_CHECK,
                         payload: true
                     });
                 } else {
                     console.log('not');
                     dispatch({
-                        type: BSTATUS_CHECK,
+                        type: FACILITY_CHECK,
                         payload: false
                     });
                 }
@@ -48,47 +47,48 @@ export function checkBStatus() {
     };
 }
 
-export const bStatusFetch = () => {
+export const facilityFetch = () => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/buildingstatus`)
+        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/facilities`)
             .on('value', snapshot => {
                 dispatch({
-                    type: BSTATUS_FETCH,
+                    type: FACILITY_FETCH,
                     payload: snapshot.val() || ''
                 });
             });
     };
 };
 
-export const bStatusDelete = (key) => {
+export const facilityDelete = (key) => {
     console.log(key);
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/buildingstatus/${key}`)
+        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/facilities/${key}`)
             .remove()
             .then(() => {
                 dispatch({
-                    type: BSTATUS_REMOVE,
+                    type: FACILITY_REMOVE,
                     payload: ''
                 });
             });
     };
 };
 
-export const bStatusSave = ({ option }, key, navigate) => {
-    console.log(option);
+export const facilityUpdate = ({ Water, Medicine, Mother, Infant, Play, Toilet }, key, navigate) => {
+    console.log(key);
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/buildingstatus/${key}`)
-            .set({ option })
+        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/facilities/${key}`)
+            .set({ Water, Medicine, Mother, Infant, Play, Toilet })
             .then(() => {
                 console.log('updated');
                 dispatch({
-                    type: BSTATUS_CREATE,
+                    type: FACILITY_CREATE,
                     payload: ''
                 });
-                navigate.navigate('buildingStatus');
+                navigate.navigate('Facility');
             });
     };
 };
+

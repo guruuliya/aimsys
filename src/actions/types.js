@@ -11,3 +11,10 @@ export const BSTATUS_CREATE = 'bstatus_create';
 export const BSTATUS_CHECK = 'bstatus_check';
 export const BSTATUS_FETCH = 'bstatus_fetch';
 export const BSTATUS_REMOVE = 'bstatus_remove';
+
+//Facility
+export const FACILTY_FORM = 'facility_form';
+export const FACILITY_CREATE = 'facility_create';
+export const FACILITY_FETCH = 'facility_fetch';
+export const FACILITY_REMOVE = 'facility_remove';
+export const FACILITY_CHECK = 'facility_check';

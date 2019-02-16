@@ -28,13 +28,7 @@ class BuildingStatusUpdate extends Component {
         },
     };
 
-    constructor() {
-        super();
-        this.state = {
-            itemSelected: 'null',
-        };
-    }
-
+   
     componentWillMount() {
         this.props.bStatusFetch();
         _.each(this.props.buildingstatus, (val) => {
