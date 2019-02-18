@@ -20,10 +20,10 @@ class ChildTab extends Component {
       <Container>
         {/* <Header hasTabs /> */}
         <Tabs style={styles.tabstyle}>
-          <Tab style={styles.tabstyle} heading={ <TabHeading style={styles.tabstyle}><Icon name="" /><Text>search</Text></TabHeading>}>
+          <Tab style={styles.tabstyle} heading={ <TabHeading style={styles.tabstyle}><Icon name="list" /><Text>Search</Text></TabHeading>}>
             <ChildSearch />
           </Tab>
-          <Tab style={styles.tabstyle} heading={ <TabHeading style={styles.tabstyle}><Icon name="contact" /><Text>create</Text></TabHeading>}>
+          <Tab style={styles.tabstyle} heading={ <TabHeading style={styles.tabstyle}><Icon name="contact" /><Text>Create</Text></TabHeading>}>
             <ChildRegistration />
           </Tab>
         </Tabs>

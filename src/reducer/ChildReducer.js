@@ -4,9 +4,10 @@ const INITIAL_STATE = {
     HNumber: '',
     CName: '',
     CMotherName: '',
+    childList:'',
     option: '',
-    DPickdob: '2011-05-12',
-    DPickregdate: '2011-05-12'
+    DPickdob: new Date(),
+    DPickregdate: new Date(),
 }; 
 
 export default (state = INITIAL_STATE, action) => {

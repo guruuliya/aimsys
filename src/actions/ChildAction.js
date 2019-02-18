@@ -9,7 +9,7 @@ export const childUpdate = ({ name, value }) => {
 };
 
 export const childCreate = ({ HNumber, CName, CMotherName, option, DPickdob, DPickregdate }) => {
-    const { currentUser } = firebase.auth(); 
+    const { currentUser } = firebase.auth();
     return (dispatch) => {
         console.log(firebase.auth());
         firebase.database().ref(`/users/${currentUser.uid}/child`)
@@ -18,7 +18,7 @@ export const childCreate = ({ HNumber, CName, CMotherName, option, DPickdob, DPi
                 dispatch({
                     action: CHILDCREATE
                 });
-               // ActionSheet.childList({ type: reset });
+                // ActionSheet.childList({ type: reset });
             })
             .catch((error) => {
                 console.log(error);
@@ -27,8 +27,8 @@ export const childCreate = ({ HNumber, CName, CMotherName, option, DPickdob, DPi
 };
 
 export const childFetch = () => {
-    const { currentUser } = firebase.auth(); 
-     
+    const { currentUser } = firebase.auth();
+
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/child`)
             .on('value', snapshot => {
@@ -36,4 +36,4 @@ export const childFetch = () => {
 
             });
     };
-}; 
+};

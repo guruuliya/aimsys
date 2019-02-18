@@ -13,13 +13,14 @@ import FoodSupplies from './TimeLine/FoodSupplies';
 
 import {
   ChildNutrition,
-  FoodNutri,
   MaternalDash,
   InjectionRecords
 } from './Maternal/';
 import ChildTab from './Maternal/ChildTab';
 import ChildRegistration from './Maternal/ChildRegistration';
 import ChildSearch from './Maternal/ChildSearch';
+import FoodNutri from './Maternal/FoodNutri';
+
 import {
   Children, DemographyDash,
   HouseHold, Pregnancy

@@ -1,22 +1,45 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
-import { Container, Content, ListItem, Text, Radio, Right, Left, View } from 'native-base';
-import { CardSection, Card, Input, Header, Radio1, Button } from '../Common';
+import { ScrollView, Alert } from 'react-native';
+import { Container, Content, ListItem, Text, Right, Left, View } from 'native-base';
+import { CardSection, Card, Header, Input, Button, Icon } from '../Common';
+import { Radio, CardItem, Picker } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 import { connect } from 'react-redux';
-import { childUpdate, childCreate } from '../../actions/ChildAction';
+import { childUpdate, childCreate} from '../../actions/ChildAction';
 
 class ChildRegistration extends Component {
+   
     onButtonPress() {
-        const { HNumber, CName, CMotherName, option, DPickdob, DPickregdate } = this.props;
-        this.props.childCreate({ HNumber, CName, CMotherName, option, DPickdob, DPickregdate });
+        const { HNumber, CName, CMotherName,childList, option, DPickdob, DPickregdate } = this.props;
+        this.props.childCreate({ HNumber, CName, CMotherName,childList, option, DPickdob, DPickregdate });
+        Alert.alert(
+            'Oops !',
+            'Inserted Successfully',
+            [
+                { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            ],
+            { cancelable: false }
+        )
     }
-      
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          selected: undefined
+        };
+      }
+      onValueChange(value) {
+        this.setState({
+          selected: value
+        });
+      }
+
+
     render() {
         return (
             <ScrollView>
                 <Card>
-                    <CardSection>
+                    <CardSection style={styles.cardsectionStyle}>
                         <Input
                             placeholder="Household Number"
                             autoCorrect={false}
@@ -26,6 +49,19 @@ class ChildRegistration extends Component {
                         //onChangeText={email => this.setState({ email })}
                         />
                     </CardSection>
+                    {/* <CardSection>
+                        <Picker style={styles.textStyle}
+                            mode="dropdown"
+                            iosIcon={<Icon name="arrow-down" />}
+                            placeholder="Select your SIM"
+                            placeholderStyle={{ color: "#bfc6ea" }}
+                            placeholderIconColor="#007aff"
+                            style={{ width: undefined }}
+                            selectedValue={this.state.childList}
+                            onValueChange={value=> this.props.childUpdate({name:'childList',value})}
+                        >
+                        </Picker>
+                    </CardSection> */}
 
                     <CardSection>
                         <Input
@@ -47,51 +83,69 @@ class ChildRegistration extends Component {
                             value={this.props.CMotherName}
                         />
                     </CardSection>
+                    
 
                     <CardSection>
-                        <Left><Text style={styles.labelStyle}>Gender</Text></Left>
+                        <CardItem>
+                            <Text style={styles.textStyle}>Gender</Text>
+                        </CardItem>
+                        <CardItem>
 
-                        <Text style={{ padding: 2 }}> Male</Text>
+                            <Text style={styles.textStyle}> Male</Text>
 
-                        <Radio onPress={() => this.props.childUpdate({ name: 'option', value: 'Male' })}
-                            selected={this.props.option === 'Male'}
+                            <Radio onPress={() => this.props.childUpdate({ name: 'option', value: 'Male' })}
+                                selected={this.props.option === 'Male'}
 
-                        />
+                            />
 
 
-                        <Text style={{ padding: 2 }}>Female</Text>
+                            <Text style={styles.textStyle}>Female</Text>
 
-                        <Radio style={{ paddingRight: 66 }} onPress={() => this.props.childUpdate({ name: 'option', value: 'Female' })}
-                            selected={this.props.option === 'Female'}
-                        />
+                            <Radio  onPress={() => this.props.childUpdate({ name: 'option', value: 'Female' })}
+                                selected={this.props.option === 'Female'}
+                            />
+                        </CardItem>
+                    </CardSection>
+
+
+                    <CardSection>
+                        <CardItem>
+                            <Text style={styles.textStyle}>Date Of Birth</Text>
+                        </CardItem>
+                        <CardItem>
+                            <DatePicker
+                                mode="date"
+                                placeholder="select date"
+                                format="YYYY-MM-DD"
+                                onDateChange={value => this.props.childUpdate({ name: 'DPickdob', value })}
+                                date={this.props.DPickdob}
+                            />
+                        </CardItem>
 
                     </CardSection>
                     <CardSection>
-                    <Left><Text style={styles.labelStyle}>Date Of Birth</Text></Left>
-                        <DatePicker style={{ paddingRight: 5, paddingLeft: 3, flex:2}}
-                            mode="date"
-                            placeholder="select date"
-                            format="YYYY-MM-DD"
-                            onDateChange={value => this.props.childUpdate({ name: 'DPickdob', value })}
-                            date={this.props.DPickdob}
-                        />
+                        <CardItem>
+                            <Text style={styles.textStyle}>Registered date</Text>
+                        </CardItem>
+                        <CardItem>
+                            <DatePicker
+                                mode="date"
+                                placeholder="select date"
+                                format="YYYY-MM-DD"
+                                onDateChange={value => this.props.childUpdate({ name: 'DPickregdate', value })}
+                                date={this.props.DPickregdate}
+                            />
+                        </CardItem>
+                    </CardSection>
+                    <Card>
+                        <CardSection>
 
-                    </CardSection>
-                    <CardSection>
-                    <Left><Text style={styles.labelStyle}>Registered date</Text></Left>
-                        <DatePicker style={{ paddingRight: 5, paddingLeft: 3, flex:2}}
-                            mode="date"
-                            placeholder="select date"
-                            format="YYYY-MM-DD"
-                            onDateChange={value => this.props.childUpdate({ name: 'DPickregdate', value })}
-                            date={this.props.DPickregdate}
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <Button onPress={this.onButtonPress.bind(this)}>
-                            <Text>Register</Text>
-                        </Button>
-                    </CardSection>
+                            <Button onPress={this.onButtonPress.bind(this)}>
+                                <Text style={{ color: 'red' }}>Register</Text>
+                            </Button>
+
+                        </CardSection>
+                    </Card>
 
 
                 </Card >
@@ -102,38 +156,26 @@ class ChildRegistration extends Component {
 }
 
 const styles = {
-    errorTextStyle: {
-        fontSize: 20,
-        alignSelf: 'center',
-        color: 'red'
+   
+    textStyle: {
+        padding: 5,
+        fontSize: 18,
+        color: 'blue',
+    
     },
-    labelStyle: {
-        fontSize: 14,
-        paddingLeft: 16,
-        flex: 1,
-    },
-    // labelStyle: {
-    //     fontSize: 18,
-    //     paddingLeft: 20,
-    //     flex: 1
-
-    // },
-    containerStyle: {
-        height: 40,
-        flex: 1,
-        flexDirection: 'row',
+    buttonStyle: {
         alignItems: 'center'
-
     }
 };
+
 const mapStateToProps = (state) => {
     console.log(state);
-    const { HNumber, CName, CMotherName, option, DPickdob, DPickregdate } = state.child;
+    const { HNumber, CName, CMotherName,option, DPickdob, DPickregdate } = state.child;
     return { HNumber, CName, CMotherName, option, DPickdob, DPickregdate };
 };
 
 export default connect(mapStateToProps, {
-    childUpdate, childCreate
+    childUpdate, childCreate, 
 })(ChildRegistration);
 
 
