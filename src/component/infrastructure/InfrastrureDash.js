@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { checkBStatus } from '../../actions';
+import { statusCheck } from '../../actions';
 
 
 class InfrastructureDash extends Component {
@@ -25,8 +25,7 @@ class InfrastructureDash extends Component {
     };
 
     componentWillMount() {
-        console.log('check');
-        this.props.checkBStatus();
+        this.props.statusCheck();
     }
 
     render() {
@@ -102,4 +101,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default connect(null, { checkBStatus })(InfrastructureDash);
+export default connect(null, { statusCheck })(InfrastructureDash);

@@ -1,5 +1,9 @@
 import firebase from 'firebase';
-import { FACILTY_FORM, FACILITY_CHECK, FACILITY_FETCH, FACILITY_CREATE, FACILITY_REMOVE } from './types';
+import { Alert } from 'react-native';
+import {
+    FACILTY_FORM, FACILITY_FETCH, FACILITY_CREATE,
+    FACILITY_REMOVE, FACILITY_LOADING_START, FACILITY_LOADING_END
+} from './types';
 
 export const facilityForm = ({ name, value }) => {
     return {
@@ -11,9 +15,17 @@ export const facilityForm = ({ name, value }) => {
 export const facilityCreate = ({ Water, Medicine, Mother, Infant, Play, Toilet }) => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/facilities`)
+        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/facilities`)
             .push({ Water, Medicine, Mother, Infant, Play, Toilet })
             .then(() => {
+                Alert.alert(
+                    'Successfull...!',
+                    'Record Inserted Successfully...',
+                    [
+                        { text: 'OK', onPress: () => console.log('OK Pressed') },
+                    ],
+                    { cancelable: false },
+                );
                 dispatch({
                     type: FACILITY_CREATE
                 });
@@ -25,36 +37,19 @@ export const facilityCreate = ({ Water, Medicine, Mother, Infant, Play, Toilet }
 };
 
 
-export function facilityStatus() {
-    const { currentUser } = firebase.auth();
-    return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/`)
-            .once('value', snapshot => {
-                if (snapshot.hasChild('facilities')) {
-                    console.log('exists');
-                    dispatch({
-                        type: FACILITY_CHECK,
-                        payload: true
-                    });
-                } else {
-                    console.log('not');
-                    dispatch({
-                        type: FACILITY_CHECK,
-                        payload: false
-                    });
-                }
-            });
-    };
-}
-
 export const facilityFetch = () => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/facilities`)
+        fetchLoad(dispatch);
+        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/facilities`)
             .on('value', snapshot => {
                 dispatch({
                     type: FACILITY_FETCH,
                     payload: snapshot.val() || ''
+                });
+                dispatch({
+                    type: FACILITY_LOADING_END,
+                    payload: false
                 });
             });
     };
@@ -64,14 +59,32 @@ export const facilityDelete = (key) => {
     console.log(key);
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/facilities/${key}`)
-            .remove()
-            .then(() => {
-                dispatch({
-                    type: FACILITY_REMOVE,
-                    payload: ''
-                });
-            });
+        Alert.alert(
+            'Need Attention...!',
+            'Do you want delete this record?',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK',
+                    onPress: () =>
+                        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/facilities/${key}`)
+                            .remove()
+                            .then(() => {
+                                dispatch({
+                                    type: FACILITY_REMOVE,
+                                    payload: ''
+                                });
+                            })
+                },
+            ],
+            { cancelable: false },
+        );
+
+
     };
 };
 
@@ -79,10 +92,17 @@ export const facilityUpdate = ({ Water, Medicine, Mother, Infant, Play, Toilet }
     console.log(key);
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/employees/Infrastructure/facilities/${key}`)
+        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/facilities/${key}`)
             .set({ Water, Medicine, Mother, Infant, Play, Toilet })
-            .then(() => {
-                console.log('updated');
+            .then(() => {  
+                Alert.alert(
+                    'Successfull...!',
+                    'Record Updated Successfully...',
+                    [
+                        { text: 'OK', onPress: () => console.log('OK Pressed') },
+                    ],
+                    { cancelable: true }
+                );              
                 dispatch({
                     type: FACILITY_CREATE,
                     payload: ''
@@ -92,3 +112,6 @@ export const facilityUpdate = ({ Water, Medicine, Mother, Infant, Play, Toilet }
     };
 };
 
+const fetchLoad = (dispatch) => {
+    dispatch({ type: FACILITY_LOADING_START, payload: true });
+};

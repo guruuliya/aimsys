@@ -1,4 +1,7 @@
-import { FACILTY_FORM, FACILITY_CREATE, FACILITY_CHECK, FACILITY_REMOVE } from '../actions/types';
+import {
+    FACILTY_FORM, FACILITY_CREATE, FACILITY_CHECK,
+    FACILITY_REMOVE, FACILITY_LOADING_START, FACILITY_LOADING_END
+} from '../actions/types';
 
 const INITIAL_STATE = {
     Water: '',
@@ -8,11 +11,11 @@ const INITIAL_STATE = {
     Play: '',
     Toilet: '',
     status: '',
-    uid: ''
+    uid: '',
+    Loadding: false
 };
 
 export default (state = INITIAL_STATE, action) => {
-    console.log(action.type);
     switch (action.type) {
         case FACILITY_CHECK:
             return { ...state, status: action.payload };
@@ -22,6 +25,10 @@ export default (state = INITIAL_STATE, action) => {
             return { INITIAL_STATE, status: true };
         case FACILITY_REMOVE:
             return { status: false };
+        case FACILITY_LOADING_START:
+            return { ...state, Loadding: true };
+        case FACILITY_LOADING_END:
+            return { ...state, Loadding: false };
         default:
             return state;
     }
