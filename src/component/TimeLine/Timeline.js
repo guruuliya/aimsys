@@ -15,27 +15,40 @@ export default class Timeline extends Component {
 
     render() {
         return (
-            
+
             <View style={styles.container}>
-            
+
                 <View style={styles.bottom}>
 
                     <View style={styles.bottomitem}>
                         <TouchableOpacity style={styles.bottomitemInner}
-                        onPress={() => this.props.navigation.navigate('Food')}
+                            //DailyUsagePeople changed to DailyUsagePeopleTab
+                            onPress={() => this.props.navigation.navigate('DailyUsagePeopleTab')}
                         >
                             <View style={styles.bottomitemInner}>
-                                <Text style={styles.bottomitemInnerContent}>Food Supplies</Text>
+                                <Text style={styles.bottomitemInnerContent}>DailyUsagePeople</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
 
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity style={styles.bottomitemInner} 
-                        onPress={() => this.props.navigation.navigate('Health')}
+                        <TouchableOpacity style={styles.bottomitemInner}
+                            onPress={() => this.props.navigation.navigate('DailyUsageStockTab')}
                         >
                             <View style={styles.bottomitemInner}>
-                                <Text style={styles.bottomitemInnerContent}>Healthcare Supplies</Text>
+                                <Text style={styles.bottomitemInnerContent}>DailyUsageStock</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+
+
+
+                    <View style={styles.bottomitem}>
+                        <TouchableOpacity style={styles.bottomitemInner}
+                            onPress={() => this.props.navigation.navigate('MedicineLog')}
+                        >
+                            <View style={styles.bottomitemInner}>
+                                <Text style={styles.bottomitemInnerContent}>Medicine Log</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -73,7 +86,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#fff',
         textAlign: 'center',
-        padding: 5,
+        padding: 5, 
     }
 
 });
