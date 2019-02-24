@@ -6,6 +6,10 @@ import FacilityFormReducer from './FacilityFormReducer';
 import FacilityReducer from './FacilityReducer';
 import BPictureFormReducer from './BPictureFormReducer';
 import BPictureReducer from './BPictureReducer';
+import DailyUsagePeopleReducer from './DailyUsagePeopleReducer';
+import DailyUsageStockReducer from './DailyUsageStockReducer';
+import DailyUsagePeopleFetchReducer from './DailyUsagePeopleFetchReducer';
+import DailyUsageStockFetchReducer from './DailyUsageStockFetchReducer';
 
 export default combineReducers({
     auth: AuthReducer,
@@ -14,5 +18,9 @@ export default combineReducers({
     facilityform: FacilityFormReducer,
     facility: FacilityReducer,
     BPictureForm: BPictureFormReducer,
-    BPic: BPictureReducer
+    BPic: BPictureReducer,
+    DailyUsagePeopleKey: DailyUsagePeopleReducer,
+    DailyUsageStockKey: DailyUsageStockReducer,
+    DailyUsagePeopleFetchKey: DailyUsagePeopleFetchReducer,
+    DailyUsageStockFetchKey: DailyUsageStockFetchReducer
 });
