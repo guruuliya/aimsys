@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Spinner } from 'native-base';
 import { SearchBar } from 'react-native-elements';
-import ListChild from './ListChild';
+import Child from './ListChild';
 import { Card, CardSection } from '../Common';
 import { childFetch } from '../../actions/ChildAction';
 

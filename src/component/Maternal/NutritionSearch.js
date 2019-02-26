@@ -4,20 +4,20 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Spinner } from 'native-base';
 import { SearchBar } from 'react-native-elements';
-import ListChild from './ListChild';
 import { Card, CardSection } from '../Common';
-import { childFetch } from '../../actions/ChildAction';
+import { NutritionFetch } from '../../actions/NutritionAction';
+import ListNutrition from './ListNutrition';
 
 
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
 });
 
-class ChildSearch extends Component {
+class NutritionSearch extends Component {
   state = {};
 
   componentWillMount() {
-    this.props.childFetch();
+    this.props.NutritionFetch();
     this.createDataSource(this.props);
   }
 
@@ -25,16 +25,16 @@ class ChildSearch extends Component {
     this.createDataSource(nextProps);
   }
 
-  createDataSource({ childF }) {
-    var values = Object.values(childF);
+  createDataSource({ nutritionF }) {
+    var values = Object.values(nutritionF);
     this.state = {
       "resultset": values,
       searchName: ''
     }
   }
 
-  renderRow(child) {
-    return <ListChild child={child} />;
+  renderRow(nutrition) {
+    return <ListNutrition nutrition={nutrition} />;
   }
 
   onSearchValueChange = (value, index) => {
@@ -98,11 +98,11 @@ class ChildSearch extends Component {
 
 
 const mapStateToProps = state => {
-  const { Loading } = state.child;
-  const childF = _.map(state.childF, (val, uid) => {
+  const { Loading } = state.nutrition;
+  const nutritionF = _.map(state.nutritionF, (val, uid) => {
     return { ...val, uid };
   });
-  return { Loading, childF };
+  return { Loading, nutritionF };
 };
 
-export default connect(mapStateToProps, { childFetch })(ChildSearch);
+export default connect(mapStateToProps, { NutritionFetch })(NutritionSearch);

@@ -4,20 +4,20 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Spinner } from 'native-base';
 import { SearchBar } from 'react-native-elements';
-import ListChild from './ListChild';
 import { Card, CardSection } from '../Common';
-import { childFetch } from '../../actions/ChildAction';
+import { InjectionFetch } from '../../actions/InjectionAction';
+import ListInjection from './ListInjection';
 
 
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
 });
 
-class ChildSearch extends Component {
+class InjectionSearch extends Component {
   state = {};
 
   componentWillMount() {
-    this.props.childFetch();
+    this.props.InjectionFetch();
     this.createDataSource(this.props);
   }
 
@@ -25,16 +25,16 @@ class ChildSearch extends Component {
     this.createDataSource(nextProps);
   }
 
-  createDataSource({ childF }) {
-    var values = Object.values(childF);
+  createDataSource({ injectionF }) {
+    var values = Object.values(injectionF);
     this.state = {
       "resultset": values,
       searchName: ''
     }
   }
 
-  renderRow(child) {
-    return <ListChild child={child} />;
+  renderRow(injection) {
+    return <ListInjection injection={injection} />;
   }
 
   onSearchValueChange = (value, index) => {
@@ -66,7 +66,8 @@ class ChildSearch extends Component {
     const dataSource = ds.cloneWithRows(jsonsearch);
 
     return (
-      <View>
+      <ScrollView>
+
         <SearchBar
           placeholder="Type Here..."
           lightTheme
@@ -74,35 +75,36 @@ class ChildSearch extends Component {
           onChangeText={this.onSearchValueChange}
           value={this.state.searchName}
         />
+
         {
           this.props.Loading ?
             <View>
               <Spinner />
             </View> :
-            <ScrollView>
-              <Card>
-                <CardSection>
-                  <ListView
-                    enableEmptySections
-                    dataSource={dataSource}
-                    renderRow={this.renderRow}
-                  />
-                </CardSection>
-              </Card>
-            </ScrollView>
+
+            <Card>
+              <CardSection>
+                <ListView
+                  enableEmptySections
+                  dataSource={dataSource}
+                  renderRow={this.renderRow}
+                />
+              </CardSection>
+            </Card>
+
         }
-      </View>
+      </ScrollView>
     );
   }
 }
 
 
 const mapStateToProps = state => {
-  const { Loading } = state.child;
-  const childF = _.map(state.childF, (val, uid) => {
+  const { Loading } = state.injection;
+  const injectionF = _.map(state.injectionF, (val, uid) => {
     return { ...val, uid };
   });
-  return { Loading, childF };
+  return { Loading, injectionF };
 };
 
-export default connect(mapStateToProps, { childFetch })(ChildSearch);
+export default connect(mapStateToProps, { InjectionFetch })(InjectionSearch);

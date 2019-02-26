@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Tab, Tabs,Icon,TabHeading,Text } from 'native-base';
-import { StyleSheet,  View, TouchableOpacity, ActivityIndicator } from 'react-native';
- import ChildSearch  from './ChildSearch';
- import ChildRegistration from './ChildRegistration';
+import { StyleSheet,  View, TouchableOpacity } from 'react-native';
+import InjectionSearch from './InjectionSearch';
+import InjectionRecords from './InjectionRecords';
 
-class ChildTab extends Component {
+
+class InjectionTab extends Component {
   static navigationOptions = {
-    title: 'Registration',
+    title: 'Injection Records',
     headerStyle: {
         backgroundColor: '#203546',
     },
@@ -18,12 +19,13 @@ class ChildTab extends Component {
   render() {
     return (
       <Container>
+        {/* <Header hasTabs /> */}
         <Tabs style={styles.tabstyle}>
-          <Tab style={styles.tabstyle} heading={ <TabHeading style={styles.tabstyle}><Icon name="list" /><Text>Search</Text></TabHeading>}>
-            <ChildSearch />
+          <Tab style={styles.tabstyle} heading={ <TabHeading style={styles.tabstyle}><Icon name="list" /><Text>List</Text></TabHeading>}>
+            <InjectionSearch />
           </Tab>
           <Tab style={styles.tabstyle} heading={ <TabHeading style={styles.tabstyle}><Icon name="contact" /><Text>Create</Text></TabHeading>}>
-            <ChildRegistration />
+            <InjectionRecords />
           </Tab>
         </Tabs>
       </Container>
@@ -37,4 +39,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ChildTab ;
+export default InjectionTab ;

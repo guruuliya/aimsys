@@ -12,20 +12,34 @@ import HealthSupplies from './TimeLine/HealthSupplies';
 import FoodSupplies from './TimeLine/FoodSupplies';
 
 import {
-  ChildNutrition,
   MaternalDash,
-  InjectionRecords
 } from './Maternal/';
+import ChildNutrition from './Maternal/ChildNutrition';
+import NutritionTab from './Maternal/NutritionTab';
+import NutritionSearch from './Maternal/NutritionSearch';
+import NutritionEditForm from './Maternal/NutritionEditForm';
+import ListNutrition from './Maternal/ListNutrition';
 import ChildTab from './Maternal/ChildTab';
 import ChildRegistration from './Maternal/ChildRegistration';
 import ChildSearch from './Maternal/ChildSearch';
 import FoodNutri from './Maternal/FoodNutri';
+import ChildEditForm from './Maternal/ChildEditForm';
+import ChildView from './Maternal/ChildView';
+import ListChild from './Maternal/ListChild';
+import InjectionRecords from './Maternal/InjectionRecords';
+import InjectionSearch from './Maternal/InjectionSearch';
+import InjectionEditForm from './Maternal/InjectionEditForm';
+import ListInjection from './Maternal/ListInjection';
+import InjectionTab from './Maternal/InjectionTab';
+import NutritionView from './Maternal/NutritionView';
+import InjectionView from './Maternal/InjectionView';
 
 import {
   Children, DemographyDash,
   HouseHold, Pregnancy
 } from './Demography/';
 import Splash from './Splash';
+import { List } from 'native-base';
 
 const RootStack = createStackNavigator({
   AuthLoading: {
@@ -64,6 +78,21 @@ const RootStack = createStackNavigator({
   ChildNutrition: {
     screen: ChildNutrition
   },
+  NutritionTab: {
+    screen: NutritionTab
+  },
+  NutritionEditForm: {
+    screen: NutritionEditForm
+  },
+  ListNutrition: {
+    screen: ListNutrition
+  },
+  NutritionSearch: {
+    screen: NutritionSearch
+  },
+  NutritionView: {
+    screen: NutritionView
+  },
   FoodNutri: {
     screen: FoodNutri
   },
@@ -76,11 +105,35 @@ const RootStack = createStackNavigator({
   ChildTab: {
     screen: ChildTab
   },
+  ChildEditForm: {
+    screen: ChildEditForm
+  },
+  ListChild: {
+    screen: ListChild
+  },
+  ChildView: {
+    screen: ChildView
+  },
   InjectionRecords: {
     screen: InjectionRecords
   },
   MaternalDash: {
     screen: MaternalDash
+  },
+  InjectionSearch: {
+    screen: InjectionSearch
+  },
+  InjectionEditForm: {
+    screen: InjectionEditForm
+  },
+  ListInjection: {
+    screen: ListInjection
+  },
+  InjectionView: {
+    screen: InjectionView
+  },
+  InjectionTab: {
+    screen: InjectionTab
   },
   Children: {
     screen: Children

@@ -10,7 +10,29 @@ export const BSTATUS_UPDATE = 'bstatus_update';
 export const BSTATUS_CREATE = 'bstatus_create';
 
 export const CHILDUPDATE = 'childupdate';
-export const CHILDCREATE = 'childcreate';
+export const CHILD_CREATE = 'childcreate';
 export const CHILDFETCH='childfetch';
+export const CHILD_SAVE='childsave';
+export const CHILDDELETESUCCESS='childdelete';
+export const CHILD_FETCH_LOAD_START='child_fetch_load_start';
+export const CHILD_FETCH_LOAD_END='child_fetch_load_end';
 
- 
+// export const FETCH_CHILD='fetchchild';
+
+export const NUTRITIONUPDATE = 'nutritionupdate';
+export const NUTRITION_CREATE = 'nutritioncreate';
+export const NUTRITIONFETCH='nutritionfetch';
+export const NUTRITION_SAVE='nutritionsave';
+export const NUTRITIONDELETESUCCESS='nutritiondelete'; 
+
+export const NUTRITION_FETCH_LOAD_START='nutrition_fetch_load_start';
+export const NUTRITION_FETCH_LOAD_END='nutrition_fetch_load_end';
+
+
+export const INJECTIONUPDATE = 'injectionupdate';
+export const INJECTION_CREATE = 'injectioncreate';
+export const INJECTIONFETCH='injectionfetch';
+export const INJECTION_SAVE='injectionsave';
+export const INJECTIONDELETESUCCESS='injectiondelete'; 
+export const INJECTION_FETCH_LOAD_START='injection_fetch_load_start';
+export const INJECTION_FETCH_LOAD_END='injection_fetch_load_end';
