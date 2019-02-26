@@ -28,7 +28,7 @@ class MaternalDash extends Component {
                     <View style={styles.bottomitem}>
                         <TouchableOpacity
                             style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('ChildRegistration')}
+                            onPress={() => this.props.navigation.navigate('ChildTab')}
                         >
                             <Text style={styles.bottomitemInnerContent}>{'Child \n Registration'}</Text>
                         </TouchableOpacity>
@@ -37,7 +37,7 @@ class MaternalDash extends Component {
                     <View style={styles.bottomitem}>
                         <TouchableOpacity
                             style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('InjectionRecords')}
+                            onPress={() => this.props.navigation.navigate('InjectionTab')}
                         >
                             <Text style={styles.bottomitemInnerContent}>
                                 {'Injection \n Records'}
@@ -48,7 +48,7 @@ class MaternalDash extends Component {
                     <View style={styles.bottomitem}>
                         <TouchableOpacity
                             style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('ChildNutrition')}
+                            onPress={() => this.props.navigation.navigate('NutritionTab')}
                         >
                             <Text style={styles.bottomitemInnerContent}>
                                 {'Child \n Nutrition'}
@@ -56,14 +56,6 @@ class MaternalDash extends Component {
                         </TouchableOpacity>
                     </View>
 
-                    <View style={styles.bottomitem}>
-                        <TouchableOpacity
-                            style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('FoodNutri')}
-                        >
-                            <Text style={styles.bottomitemInnerContent}> {'Food \n Details'}</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
             </View>
         );

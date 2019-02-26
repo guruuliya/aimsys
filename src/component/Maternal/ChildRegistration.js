@@ -1,105 +1,46 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
-import { Container, Content, ListItem, Text, Radio, Right, Left, View } from 'native-base';
-import { CardSection, Card, Input, Header, Radio1, Button, MyDatepicker } from '../Common';
+import { ScrollView, Alert } from 'react-native';
+import { Container, Content, ListItem, Text, Right, Left, View } from 'native-base';
+import { CardSection, Card, Header, Input, Button, Icon } from '../Common';
+import { Radio, CardItem, Picker } from 'native-base';
+import DatePicker from 'react-native-datepicker';
+import { connect } from 'react-redux';
+import ChildRegistrationForm from './ChildRegistrationForm';
+import { childUpdate, childCreate } from '../../actions/ChildAction';
 
 class ChildRegistration extends Component {
-    static navigationOptions = {
-        title: 'Child Registration ',
-        headerStyle: {
-            backgroundColor: '#203546',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
-    };
-    constructor() {
-        super();
+
+    onButtonPress() {
+        const { HNumber, CName, CMotherName, option, DPickdob, DPickregdate } = this.props;
+        this.props.childCreate({ HNumber, CName, CMotherName, option, DPickdob, DPickregdate });
+        Alert.alert(
+            'Oops !',
+            'Inserted Successfully',
+            [
+                { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            ],
+            { cancelable: false }
+        )
+    }
+
+    constructor(props) {
+        super(props);
         this.state = {
-            itemSelected: null,
-            isHidden: false,
-            itemSelected1: null,
-            isHidden1: false
-        }
+            selected: undefined,
+        };
     }
     render() {
         return (
             <ScrollView>
                 <Card>
+                    <ChildRegistrationForm {...this.props} edit='no' />
                     <CardSection>
-                        <Input
-                            placeholder="Household Number"
-                            autoCorrect={false}
-                            label="Household Number"
-                        //value={this.state.email}
-                        //onChangeText={email => this.setState({ email })}
-                        />
-                    </CardSection>
-
-                    <CardSection>
-                        <Input
-                            placeholder="Child Name"
-                            label="Child Name"
-                            autoCorrect={false}
-                        //value={this.state.password}
-                        //  onChangeText={password => this.setState({ password })}
-                        />
-                    </CardSection>
-
-
-                    <CardSection>
-                        <Input
-                            placeholder="Pregnant Mother Name"
-                            label="Mother Name"
-                            autoCorrect={false}
-                        //value={this.state.password}
-                        //  onChangeText={password => this.setState({ password })}
-                        />
-                    </CardSection>
-
-
-                    <CardSection>
-                        <Left><Text style={styles.labelStyle}>Gender</Text></Left>
-
-                        <Text style={{ padding: 1 }}> Male</Text>
-
-                        <Radio
-                            onPress={() => this.setState({ itemSelected: 'Male', isHidden: false })}
-                            selected={this.state.itemSelected === 'Male'}
-
-                        />
-
-
-                        <Text style={{ padding: 1 }}>Female</Text>
-
-                        <Radio
-                            style={{ paddingRight: 66 }}
-                            onPress={() => {
-                                this.setState({ itemSelected: 'Female', isHidden: true });
-                                console.log(this.state.isHidden);
-
-                            }
-                            }
-                            selected={this.state.itemSelected == 'Female'}
-                        />
+                        <Button onPress={this.onButtonPress.bind(this)}>
+                            Register
+                         </Button>
 
                     </CardSection>
-
-
-                    <CardSection>
-                        <MyDatepicker
-                            label="Date of birth"
-                        />
-                    </CardSection>
-
-                    <CardSection>
-                        <Button children="Add" />
-
-                    </CardSection>
-
-
-                </Card >
+                </Card>
             </ScrollView>
 
         );
@@ -107,18 +48,26 @@ class ChildRegistration extends Component {
 }
 
 const styles = {
-    errorTextStyle: {
-        fontSize: 20,
-        alignSelf: 'center',
-        color: 'red'
+
+    textStyle: {
+        padding: 5,
+        fontSize: 18,
+        color: 'blue',
+
     },
-    labelStyle: {
-        fontSize: 14,
-        paddingLeft: 16,
-        flex: 1,
-
-
+    buttonStyle: {
+        alignItems: 'center'
     }
 };
 
-export { ChildRegistration };
+const mapStateToProps = (state) => {
+    console.log(state);
+    const { HNumber, CName, CMotherName, option, DPickdob, DPickregdate } = state.child;
+    return { HNumber, CName, CMotherName, option, DPickdob, DPickregdate };
+};
+
+export default connect(mapStateToProps, {
+    childUpdate, childCreate,
+})(ChildRegistration);
+
+

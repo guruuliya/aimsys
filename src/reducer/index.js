@@ -10,6 +10,12 @@ import DailyUsagePeopleReducer from './DailyUsagePeopleReducer';
 import DailyUsageStockReducer from './DailyUsageStockReducer';
 import DailyUsagePeopleFetchReducer from './DailyUsagePeopleFetchReducer';
 import DailyUsageStockFetchReducer from './DailyUsageStockFetchReducer';
+import ChildReducer from './ChildReducer';
+import ChildFetchReducer from './ChildFetchReducer';
+import NutritionReducer from './NutritionReducer';
+import NutritionFetchReducer from './NutritionFetchReducer';
+import InjectionReducer from './InjectionReducer';
+import InjectionFetchReducer from './InjectionFetchReducer';
 
 export default combineReducers({
     auth: AuthReducer,
@@ -22,5 +28,11 @@ export default combineReducers({
     DailyUsagePeopleKey: DailyUsagePeopleReducer,
     DailyUsageStockKey: DailyUsageStockReducer,
     DailyUsagePeopleFetchKey: DailyUsagePeopleFetchReducer,
-    DailyUsageStockFetchKey: DailyUsageStockFetchReducer
+    DailyUsageStockFetchKey: DailyUsageStockFetchReducer,
+    child: ChildReducer,
+    childF: ChildFetchReducer,
+    nutrition: NutritionReducer,
+    nutritionF: NutritionFetchReducer,
+    injection: InjectionReducer,
+    injectionF: InjectionFetchReducer
 });

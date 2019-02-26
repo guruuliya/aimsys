@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
-import { Text, Radio, Left, View } from 'native-base';
-import { CardSection, Card, Input, Button, MyDatepicker } from '../Common';
+import { ScrollView, Alert } from 'react-native';
+import { Container, Content, ListItem, Text, Right, Left, View } from 'native-base';
+import { CardSection, Card, Header, Input, Button, Icon } from '../Common';
+import { Radio, CardItem, Picker } from 'native-base';
+import DatePicker from 'react-native-datepicker';
+import { connect } from 'react-redux';
+import InjectionForm from './InjectionForm';
+import { InjectionUpdate, InjectionCreate } from '../../actions/InjectionAction';
 
 class InjectionRecords extends Component {
-    static navigationOptions = {
-        title: 'Injection Records',
-        headerStyle: {
-            backgroundColor: '#203546',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
-    };
-
+    onButtonPress() {
+        const { HNumber, CName,DPickdob, poliodate,hepa,BCG,DPT1,hepa1,OPV1,DPT2,hepa2,OPV2,DPT3,hepa3,OPV3,dadara1,nutri1,dptbooster,dadara2,complete } = this.props;
+        this.props.InjectionCreate({ HNumber, CName,DPickdob, poliodate,hepa,BCG,DPT1,hepa1,OPV1,DPT2,hepa2,OPV2,DPT3,hepa3,OPV3,dadara1,nutri1,dptbooster,dadara2,complete });
+        Alert.alert(
+            'Oops !',
+            'Inserted Successfully',
+            [
+                { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            ],
+            { cancelable: false }
+        )
+    }
     constructor() {
         super();
         this.state = {
@@ -28,155 +34,16 @@ class InjectionRecords extends Component {
     render() {
         return (
             <ScrollView>
-                <Card>
+                   
+                   <Card>
+                    <InjectionForm {...this.props} />
                     <CardSection>
-                        <Input
-                            placeholder="Household Number"
-                            autoCorrect={false}
-                            label="Household Number"
-                        //value={this.state.email}
-                        //onChangeText={email => this.setState({ email })}
-                        />
-                    </CardSection>
-
-                    <CardSection>
-                        <Input
-                            placeholder="Child Name"
-                            label="Child Name"
-                            autoCorrect={false}
-                        //value={this.state.password}
-                        //  onChangeText={password => this.setState({ password })}
-                        />
-                    </CardSection>
-
-                    <CardSection>
-                        <MyDatepicker
-                            label="Date of birth"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="Registered date"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="polio After Birth"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="Hepatitis B0 Dose"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="BCG"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="DPT1"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="Hepatitis B1"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="OPV1"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="DPT2"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="Hepatitis B2"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="OPV2"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="DPT3"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="Hepatitis B3"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="OPV3"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="DADARA1"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="Nutrition 1st Dose "
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker
-                            label="DPT Booster"
-                        />
-                    </CardSection>
-                    <CardSection>
-                        <MyDatepicker label="DADARA2 " />
-                    </CardSection>
-
-
-                    <CardSection>
-                        <Left>
-                            <Text
-                                style={styles.labelStyle}
-                            >
-                                First year injection has completed or not?</Text>
-                        </Left>
-                        <View style={{ marginTop: 38, marginLeft: -45, flexDirection: 'row' }}>
-                            <Text style={{ padding: 1 }}> Yes</Text>
-
-                            <Radio
-                                onPress={() => {
-                                    this.setState({ itemSelected1: 'Yes', isHidden1: false });
-                                    console.log(this.state.isHidden1);
-                                }
-                                }
-                                selected={this.state.itemSelected1 === 'yes'}
-
-                            />
-
-
-                            <Text style={{ padding: 1 }}>No</Text>
-
-                            <Radio
-                                style={{ paddingRight: 66 }} onPress={() => {
-                                    this.setState({ itemSelected1: 'No', isHidden1: true });
-                                    console.log(this.state.isHidden1);
-                                }
-                                }
-                                selected={this.state.itemSelected1 === 'No'}
-                            />
-                        </View>
+                        <Button onPress={this.onButtonPress.bind(this)}>
+                            Register
+                         </Button>
 
                     </CardSection>
-                    <CardSection>
-                        <Button children="Add" />
-                    </CardSection>
-                </Card >
+                </Card>
             </ScrollView>
 
         );
@@ -193,9 +60,26 @@ const styles = {
         fontSize: 14,
         paddingLeft: 16,
         flex: 1,
+    },
+        textStyle: {
+            padding: 5,
+            fontSize: 18,
+            color: 'blue',
+    
+        },
+        dateStyle: {
+            paddingRight:5
+        }
 
 
-    }
 };
 
-export { InjectionRecords };
+const mapStateToProps = (state) => {
+    console.log(state);
+    const { HNumber, CName,DPickdob, poliodate,hepa,BCG,DPT1,hepa1,OPV1,DPT2,hepa2,OPV2,DPT3,hepa3,OPV3,dadara1,nutri1,dptbooster,dadara2,complete} = state.injection;
+    return { HNumber, CName,DPickdob, poliodate,hepa,BCG,DPT1,hepa1,OPV1,DPT2,hepa2,OPV2,DPT3,hepa3,OPV3,dadara1,nutri1,dptbooster,dadara2,complete};
+};
+
+export default connect(mapStateToProps, {
+    InjectionUpdate, InjectionCreate,
+})(InjectionRecords);
