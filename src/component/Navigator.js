@@ -22,17 +22,12 @@ import DailyUsagePeopleSearch from './TimeLine/DailyUsagePeopleSearch';
 import DailyUsagePeopleListItem from './TimeLine/DailyUsagePeopleListItem';
 import DailyUsagePeopleView from './TimeLine/DailyUsagePeopleView';
 import DailyUsagePeopleViewOption from './TimeLine/DailyUsagePeopleViewOption';
-
 import DailyUsageStockTab from './TimeLine/DailyUsageStockTab';
 import DailyUsageStockSearch from './TimeLine/DailyUsageStockSearch';
 import DailyUsageStockListItem from './TimeLine/DailyUsageStockListItem';
 import DailyUsageStockView from './TimeLine/DailyUsageStockView';
 import DailyUsageStockViewOption from './TimeLine/DailyUsageStockViewOption';
-
-
-import {
-  MaternalDash,
-} from './Maternal/';
+import { MaternalDash } from './Maternal/';
 import ChildNutrition from './Maternal/ChildNutrition';
 import NutritionTab from './Maternal/NutritionTab';
 import NutritionSearch from './Maternal/NutritionSearch';
@@ -52,13 +47,17 @@ import ListInjection from './Maternal/ListInjection';
 import InjectionTab from './Maternal/InjectionTab';
 import NutritionView from './Maternal/NutritionView';
 import InjectionView from './Maternal/InjectionView';
-
-import {
-  Children, DemographyDash,
-  HouseHold, Pregnancy
-} from './Demography/';
+import { Children, DemographyDash } from './Demography/';
 import Splash from './Splash';
-import { List } from 'native-base';
+import HouseHoldListItem from './Demography/HouseHoldListItem';
+import Householdtab from './Demography/Householdtab';
+import HouseHoldEdit from './Demography/HouseHoldEdit';
+import HouseholdView from './Demography/HouseholdView';
+import PregnancyTab from './Demography/PregnancyTab';
+import PregnancyEdit from './Demography/PregnancyEdit';
+import PregnancyView from './Demography/PregnancyView';
+import HouseHold from './Demography/HouseHold';
+import HouseHoldMemberName from './Demography/HouseHoldMemberName';
 
 const RootStack = createStackNavigator({
   AuthLoading: {
@@ -207,11 +206,37 @@ const RootStack = createStackNavigator({
   DemographyDash: {
     screen: DemographyDash
   },
+  Householdtab: {
+    screen: Householdtab
+  },
   HouseHold: {
     screen: HouseHold
   },
-  Pregnancy: {
-    screen: Pregnancy
+
+  HouseHoldMemberName: {
+    screen: HouseHoldMemberName
+  },
+  HouseHoldListItem:
+  {
+    screen: HouseHoldListItem
+  },
+  HouseHoldEdit: {
+    screen: HouseHoldEdit
+  },
+  HouseholdView: {
+    screen: HouseholdView
+  },
+  PregnancyTab:
+  {
+    screen: PregnancyTab
+  },
+  PregnancyEdit:
+  {
+    screen: PregnancyEdit
+  },
+  PregnancyView:
+  {
+    screen: PregnancyView
   }
 },
   {

@@ -75,3 +75,13 @@ export const INJECTION_SAVE = 'injectionsave';
 export const INJECTIONDELETESUCCESS = 'injectiondelete';
 export const INJECTION_FETCH_LOAD_START = 'injection_fetch_load_start';
 export const INJECTION_FETCH_LOAD_END = 'injection_fetch_load_end';
+export const HOUSEHOLD_UPDATE='HouseholdUpdate';
+export const HOUSEHOLD_CREATE='HouseHoldCreate';
+export const HOUSEHOLD_FETCH_SUCCESS='HouseholdFetch';
+export const HOUSEHOLD_SAVE='HouseHoldSave';
+
+export const HOUSEHOLD_Name_FETCH_SUCCESS='HOUSEHOLD_Name';
+export const PREGNANCY_UPDATE='PregnancyUpdate';
+export const PREGNANCY_CREATE='PregnancyCreate';
+export const  PREGNANCYS_FETCH_SUCCESS='Pregnancy_Fetch_Success';
+export const PREGNENT_SAVE='PregnentSave';

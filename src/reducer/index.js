@@ -16,6 +16,11 @@ import NutritionReducer from './NutritionReducer';
 import NutritionFetchReducer from './NutritionFetchReducer';
 import InjectionReducer from './InjectionReducer';
 import InjectionFetchReducer from './InjectionFetchReducer';
+import HouseholdReducer from './HouseholdReducer';
+import HouseholdFetchReducer from './HouseholdFetchReducer';
+import PregnancyReducer from './PregnancyReducer';
+import PregnancyFormReducer from './PregnancyFormReducer';
+import HouseHoldNameFetchReducer from './HouseHoldNameFetchReducer';
 
 export default combineReducers({
     auth: AuthReducer,
@@ -34,5 +39,11 @@ export default combineReducers({
     nutrition: NutritionReducer,
     nutritionF: NutritionFetchReducer,
     injection: InjectionReducer,
-    injectionF: InjectionFetchReducer
+    injectionF: InjectionFetchReducer,
+    HouseHoldForm: HouseholdReducer,
+    HouseHold: HouseholdFetchReducer,
+    HouseHoldName: HouseHoldNameFetchReducer,
+    PregnancyForm: PregnancyFormReducer,
+    PregnancyFetch: PregnancyReducer
+
 });
