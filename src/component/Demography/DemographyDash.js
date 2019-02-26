@@ -21,7 +21,7 @@ class DemographyDash extends Component {
                     <View style={styles.bottomitem}>
                         <TouchableOpacity
                             style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('HouseHold')}
+                            onPress={() => this.props.navigation.navigate('Householdtab')}
                         >
                             <Text style={styles.bottomitemInnerContent}>Registerd Household</Text>
                         </TouchableOpacity>
@@ -30,7 +30,7 @@ class DemographyDash extends Component {
                     <View style={styles.bottomitem}>
                         <TouchableOpacity
                             style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('Pregnancy')}
+                            onPress={() => this.props.navigation.navigate('PregnancyTab')}
                         >
                             <Text style={styles.bottomitemInnerContent}>
                                 {'Pregnancy\n Women'}
@@ -41,7 +41,7 @@ class DemographyDash extends Component {
                     <View style={styles.bottomitem}>
                         <TouchableOpacity
                             style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('Children')}
+                            onPress={() => this.props.navigation.navigate('Picker')}
                         >
                             <Text style={styles.bottomitemInnerContent}>
                                 {'Children \n 0-6 Years'}
