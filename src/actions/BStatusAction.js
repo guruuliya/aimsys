@@ -11,25 +11,40 @@ export const bStatusUpdate = ({ name, value }) => ({
 });
 
 export const bStatusCreate = ({ option }) => {
+    const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/buildingstatus`)
-            .push({ option })
-            .then(() => {
-                Alert.alert(
-                    'Successfull...!',
-                    'Record Inserted Successfully...',
-                    [
-                        { text: 'OK', onPress: () => console.log('OK Pressed') },
-                    ],
-                    { cancelable: true }
-                );
-                dispatch({
-                    type: BSTATUS_CREATE
-                });
-            })
-            .catch((error) => {
-                console.log(error);
+        database.ref(`/users/${currentUser.uid}/Infrastructure/`)
+            .once('value', snapshot => {
+                if (snapshot.hasChild('buildingstatus')) {
+                    Alert.alert(
+                        'Oops...!',
+                        'Data Already Exists...',
+                        [
+                            { text: 'OK', onPress: () => console.log('OK Pressed') },
+                        ],
+                        { cancelable: true }
+                    );
+                } else {
+                    database.ref(`/users/${currentUser.uid}/Infrastructure/buildingstatus`)
+                        .push({ option })
+                        .then(() => {
+                            Alert.alert(
+                                'Successfull...!',
+                                'Record Inserted Successfully...',
+                                [
+                                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                                ],
+                                { cancelable: true }
+                            );
+                            dispatch({
+                                type: BSTATUS_CREATE
+                            });
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
             });
     };
 };

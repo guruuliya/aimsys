@@ -21,6 +21,7 @@ export const bPictureForm = ({ name, value }) => {
 
 
 export const bPictureCreate = ({ BPicture }) => {
+    const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         const imageFile = RNFetchBlob.wrap(BPicture);
@@ -37,25 +38,38 @@ export const bPictureCreate = ({ BPicture }) => {
                 return imageRef.getDownloadURL();
             })
             .then((url) => {
-                console.log(url);
-                firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/buildingImage`)
-                    .push({ BPicture: url })
-                    .then(() => {
-                        dispatch({
-                            type: BPICTURE_CREATE,
-                            payload: ''
-                        });
-                        Alert.alert(
-                            'Successfull....!',
-                            'Image Uploaded Successfully..',
-                            [
-                                { text: 'OK', onPress: () => console.log('OK Pressed') },
-                            ],
-                            { cancelable: false },
-                        );
-                    })
-                    .catch((error) => {
-                        console.log(error);
+                database.ref(`/users/${currentUser.uid}/Infrastructure/`)
+                    .once('value', snapshot => {
+                        if (snapshot.hasChild('buildingImage')) {
+                            Alert.alert(
+                                'Oops...!',
+                                'Data Already Exists...',
+                                [
+                                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                                ],
+                                { cancelable: true }
+                            );
+                        } else {
+                            database.ref(`/users/${currentUser.uid}/Infrastructure/buildingImage`)
+                                .push({ BPicture: url })
+                                .then(() => {
+                                    dispatch({
+                                        type: BPICTURE_CREATE,
+                                        payload: ''
+                                    });
+                                    Alert.alert(
+                                        'Successfull....!',
+                                        'Image Uploaded Successfully..',
+                                        [
+                                            { text: 'OK', onPress: () => console.log('OK Pressed') },
+                                        ],
+                                        { cancelable: false },
+                                    );
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                });
+                        }
                     });
             })
             .catch((error) => { console.log(error); });
@@ -93,7 +107,7 @@ export const bPictureRemove = (key) => {
                     style: 'cancel',
                 },
                 {
-                    text: 'OK', 
+                    text: 'OK',
                     onPress: () =>
                         firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/buildingImage/${key}`)
                             .remove()
