@@ -62,7 +62,6 @@ const
         projectText: {
             flex: 0.7,
             flexDirection: 'column',
-            justifyContent: 'center'
         },
         projectTextchild1: {
             flex: 0.2,

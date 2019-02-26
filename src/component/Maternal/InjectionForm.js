@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Picker } from 'native-base';
+import { Text, View, Picker } from 'react-native';
 import { CardSection, Card, Input } from '../Common';
 import { Radio, CardItem } from 'native-base';
 import DatePicker from 'react-native-datepicker';
@@ -10,8 +10,8 @@ import firebase from 'firebase';
 
 class InjectionForm extends Component {
     state = {
-        snapshotList: '',
-        scores: '',
+        snapshotList: {},
+        scores: {},
     };
 
     search(HNumber) {
@@ -61,7 +61,7 @@ class InjectionForm extends Component {
                 </CardSection>
 
                 <CardSection>
-                    <Picker selectedValue={this.props.CName}
+                    <Picker selectedValue={this.state.pickerSelection}
                         style={[{ width: 290, height: 50, color: 'black' }]}
                         onValueChange={(value) => this.props.InjectionUpdate({ name: 'CName', value })}>
                         <Picker.Item label='Select Child Name' value='' />

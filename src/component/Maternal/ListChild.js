@@ -60,8 +60,7 @@ class ListChild extends Component {
 const styles = StyleSheet.create({
         projectText: {
             flex: 0.7,
-            flexDirection: 'column',
-            justifyContent: 'center'
+            flexDirection: 'column'
         },
         projectTextchild1: {
             flex: 0.2,

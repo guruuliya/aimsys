@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Picker } from 'native-base';
+import { Text, View, Picker } from 'react-native';
 import { CardSection, Card, Input } from '../Common';
 import { Radio, CardItem } from 'native-base';
 import DatePicker from 'react-native-datepicker';
@@ -10,17 +10,16 @@ import firebase from 'firebase';
 
 class ChildRegistrationForm extends Component {
     state = {
-        snapshotList: '',
-        scores: '',
-        searchStatus: ''
+        snapshotList:{},
+        scores:{}
+        
     };
 
-    search(HHNumber) {
+    search(HNumber) {
         this.setState({ searchStatus: 'no' });
-        console.log(HHNumber);
         const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${HHNumber}`)
-        const query = db.orderByChild('HHNumber').equalTo(HHNumber)
+        const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${HNumber}`)
+        const query = db.orderByChild('HHNumber').equalTo(HNumber)
         query.on('value', snapshot => {
             if (snapshot.val()) {
                 this.setState({ scores: snapshot.val() });
@@ -36,8 +35,9 @@ class ChildRegistrationForm extends Component {
         var keys = Object.keys(scores);
         for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
-            var Name = scores[k].HHName;
-            pickerArr.push(<Picker.Item label={Name} value={k} />);
+           var Name = scores[k].HHName;
+           console.log('getpicker',Name);
+            pickerArr.push(<Picker.Item label={Name} value={Name} />);
         }
         return pickerArr;
     }
@@ -62,13 +62,13 @@ render() {
             </CardSection>
 
             <CardSection>
-                <Picker selectedValue={this.props.CMotherName}
+                <Picker selectedValue={this.state.pickerSelection}
                     style={[{ width: 290, height: 50, color: 'black' }]}
                     onValueChange={(value) => this.props.childUpdate({ name: 'CMotherName', value })}>
                     <Picker.Item label='Select Mother Name' value='' />
-                    {this.getPickerElements()}
+                     {this.getPickerElements()} 
                 </Picker>
-            </CardSection>
+            </CardSection> 
 
             <CardSection>
                 <Input

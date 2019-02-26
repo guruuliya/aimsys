@@ -10,6 +10,14 @@ class ListInjection extends Component {
 
         const { HNumber, CName } = this.props.injection;
         return (
+            CName === 'No Record Found' ?
+                <View style={styles.projectRow} >
+                    <View style={styles.projectText} >
+                        <Text style={styles.itemName}>
+                            {CName}
+                        </Text>
+                    </View>
+                </View> :
             <View style={styles.projectRow} >
 
                 <View style={styles.projectText} >

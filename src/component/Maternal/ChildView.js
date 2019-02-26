@@ -58,10 +58,6 @@ class ChildView extends Component {
             }
 
             <Text>{"\n"}</Text>
-            <Button block danger onPress={this.handleOnPress} >
-            <Icon name="md-save" />
-              <Text>EXPORT TO PDF</Text>
-            </Button>
             <Text>{"\n"}</Text>
             <Text>{"\n"}</Text>
           </Form>
