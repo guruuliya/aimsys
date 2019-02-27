@@ -25,7 +25,7 @@ export default class ResultMessage extends Component {
                 <Content padder>
                     <Text>{"\n"}</Text>        
                          <View>
-                                      <Text style={styles.successfield}>Data recorded sucesssfully!</Text>:
+                                      <Text style={styles.successfield}>Data recorded sucesssfully!</Text>
                             <Text>{"\n"}</Text>
                             <View>
                                 <Button style={styles.btn} block dark onPress={() => this.props.navigation.navigate('Timeline')}>
