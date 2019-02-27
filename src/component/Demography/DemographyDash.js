@@ -52,7 +52,7 @@ class DemographyDash extends Component {
                     <View style={styles.bottomitem}>
                         <TouchableOpacity
                             style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('HouseHold')}
+                            onPress={() => this.props.navigation.navigate('')}
                         >
                             <Text
                                 style={styles.bottomitemInnerContent}
