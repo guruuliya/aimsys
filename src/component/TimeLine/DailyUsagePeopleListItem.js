@@ -13,37 +13,13 @@ class DailyUsagePeopleListItem extends Component {
     this.state = {}
 
   }
-
-  // constructor(){
-  //     super();
-  //     this.onRowPress = this.onRowPress.bind(this);
-  //  }
-  // onRowPress(){
-  //    // console.log('onRowPress');
-  //     console.log("----------START---------DailyUsagePeopleListItem----START---------------");
-  //     const navigateAction = NavigationActions.navigate({
-  //         routeName: 'DailyUsagePeopleView',
-
-  //         params: {user: 'Lucy'},
-
-  //       });
-  //       console.log(routeName);
-  //       console.log('______________');
-  //       this.props.navigation.dispatch(navigateAction); 
-  //    // const navigate = this.props.navigation;
-  //    // console.log(navigate);
-  //    //  console.log(this.props.navigation.navigate('DailyUsagePeople',this.props.child));
-  //     console.log("-----------END--------DailyUsagePeopleListItem-----END--------------");
-  //     //this.props.navigation.navigate('DailyUsagePeople');
-  //     //console.log(this.props.navigation.navigate('DailyUsagePeople'));
-  // }
   render() {
     // const { }= this.props.child;
     const { six_months_to_one_year, one_year_to_three_year, three_year_to_six_year, pw_prenatal, pw_postnatal, pw_3rdgrade, pw_4thgrade, DPickdob, total1, total2, totalfinal } = this.props.child;
 
     //const { navigate } = this.props.navigation;
     return (
-
+<View>{DPickdob !== 'No Records Found' ?
       <View style={styles.projectRow} >
          <View style={styles.projectText} >
 
@@ -76,25 +52,8 @@ class DailyUsagePeopleListItem extends Component {
        </TouchableWithoutFeedback>
        </View>
 
-
-
-       {/* <View style={styles.moreContainer}>
-       <View>
-        <Icon name="eye" size={30} style={styles.moreIcon} />
-              <Text style={styles.moreIcon} >View</Text>
-       </View>
-       </View> */}
-       {/* <View>
-        <Icon name="eye" size={30} style={styles.moreIcon} />
-              <Text style={styles.moreIcon} >View</Text>
-       </View> */}
-      
-
-        {/* <View style={styles.moreContainer}>
-
-          <Icon name="chevron-right" size={15} style={styles.moreIcon} />
-        </View> */}
-
+      </View>  : <View style={styles.pt}><Text style={styles.moreContainer}>No records found please try again</Text></View>
+      }
       </View>
 
     );

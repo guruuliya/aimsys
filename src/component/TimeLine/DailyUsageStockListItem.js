@@ -5,7 +5,6 @@ import { Container, Content, InputGroup, Button, CheckBox, List, Body, Card, For
 import { withNavigation } from 'react-navigation';
 import Moment from 'moment'
 import Icon from 'react-native-vector-icons/FontAwesome';
-//import { ScrollView } from 'react-native-gesture-handler';
 
 class DailyUsageStockListItem extends Component {
   constructor(props) {
@@ -14,31 +13,7 @@ class DailyUsageStockListItem extends Component {
 
   }
 
-  // constructor(){
-  //     super();
-  //     this.onRowPress = this.onRowPress.bind(this);
-  //  }
-  // onRowPress(){
-  //    // console.log('onRowPress');
-  //     console.log("----------START---------DailyUsageStockListItem----START---------------");
-  //     const navigateAction = NavigationActions.navigate({
-  //         routeName: 'DailyUsageStockView',
-
-  //         params: {user: 'Lucy'},
-
-  //       });
-  //       console.log(routeName);
-  //       console.log('______________');
-  //       this.props.navigation.dispatch(navigateAction); 
-  //    // const navigate = this.props.navigation;
-  //    // console.log(navigate);
-  //    //  console.log(this.props.navigation.navigate('DailyUsageStock',this.props.child));
-  //     console.log("-----------END--------DailyUsageStockListItem-----END--------------");
-  //     //this.props.navigation.navigate('DailyUsageStock');
-  //     //console.log(this.props.navigation.navigate('DailyUsageStock'));
-  // }
   render() {
-    // const { }= this.props.child;
     const { food_received,
       food_provided,
       food_remaining,
@@ -57,11 +32,10 @@ class DailyUsageStockListItem extends Component {
       Extra,
       DPickdobStock } = this.props.child;
 
-    //const { navigate } = this.props.navigation;
     return (
-
-      <View style={styles.projectRow} >
-         <View style={styles.projectText} >
+      <View>{DPickdobStock !== 'No Records Found' ?
+        <View style={styles.projectRow} >
+          <View style={styles.projectText} >
 
             <Text style={styles.itemName}  >Report of {"\t"}
               {DPickdobStock}
@@ -70,54 +44,38 @@ class DailyUsageStockListItem extends Component {
               {`${Moment(this.props.child).fromNow()}`}
             </Text>
           </View>
-        
-        
-        <View style={styles.projectTextchild1}>
-
-          <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('DailyUsageStockViewOption', { child: this.props.child }) }}>
-        <View>
-        <Icon name="eye" size={30} style={styles.moreIcon} />
-              <Text style={styles.moreIcon} >View</Text>
-       </View>
-       </TouchableWithoutFeedback>
-       </View>
-
-       <View style={styles.projectTextchild2}>
-
-          <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('DailyUsageStockView', { child: this.props.child }) }}>
-        <View>
-        <Icon name="edit" size={30} style={styles.moreIcon} />
-              <Text style={styles.moreIcon} >Edit</Text>
-       </View>
-       </TouchableWithoutFeedback>
-       </View>
 
 
+          <View style={styles.projectTextchild1}>
 
-       {/* <View style={styles.moreContainer}>
-       <View>
-        <Icon name="eye" size={30} style={styles.moreIcon} />
-              <Text style={styles.moreIcon} >View</Text>
-       </View>
-       </View> */}
-       {/* <View>
-        <Icon name="eye" size={30} style={styles.moreIcon} />
-              <Text style={styles.moreIcon} >View</Text>
-       </View> */}
-      
+            <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('DailyUsageStockViewOption', { child: this.props.child }) }}>
+              <View>
+                <Icon name="eye" size={30} style={styles.moreIcon} />
+                <Text style={styles.moreIcon} >View</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
 
-        {/* <View style={styles.moreContainer}>
+          <View style={styles.projectTextchild2}>
 
-          <Icon name="chevron-right" size={15} style={styles.moreIcon} />
-        </View> */}
-
+            <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('DailyUsageStockView', { child: this.props.child }) }}>
+              <View>
+                <Icon name="edit" size={30} style={styles.moreIcon} />
+                <Text style={styles.moreIcon} >Edit</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </View>
+        : <View style={styles.pt}><Text style={styles.moreContainer}>No records found please try again</Text></View>
+      }
       </View>
-
     );
   }
 }
 const styles = StyleSheet.create({
-
+  pt: {
+    flex: 1,
+  },
   projectText: {
     flex: 0.7,
     flexDirection: 'column'
@@ -160,4 +118,3 @@ const styles = StyleSheet.create({
 
 
 export default withNavigation(DailyUsageStockListItem);
-//export default DailyUsageStockListItem;
