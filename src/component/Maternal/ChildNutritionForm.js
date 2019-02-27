@@ -1,14 +1,53 @@
 import React, { Component } from 'react';
-import { Text, View } from 'native-base';
+import { Text, View,Picker } from 'native-base';
 import { CardSection, Card, Input } from '../Common';
 import { Radio, CardItem } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 import { connect } from 'react-redux';
 import { NutritionUpdate } from '../../actions/NutritionAction';
+import firebase from 'firebase';
 
 
 class ChildNutritionForm extends Component {
+    state = {
+        snapshotList: {},
+        scores: {},
+    };
+
+    search(HNumber) {
+        console.log('Hnumber', HNumber);
+        const { currentUser } = firebase.auth();
+        const db = firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`)
+        const query = db.orderByChild('HNumber').equalTo(HNumber)
+        query.on('value', snapshot => {
+            if (snapshot.val()) {
+                this.setState({ scores: snapshot.val() });
+            } else {
+                this.setState({ scores: { noData: { CName: 'No Data' } } });
+            }
+        })
+    }
+
+    getPickerElements() {
+        var pickerArr = [];
+        var scores = this.state.scores;
+        console.log('year', scores);
+        var keys = Object.keys(scores);
+        for (var i = 0; i < keys.length; i++) {
+            var k = keys[i];
+            var Name = scores[k].CName;
+            pickerArr.push(<Picker.Item label={Name} value={Name} />);
+        }
+        return pickerArr;
+    }
+
+    calFun(text) {
+        this.props.NutritionUpdate({ name: 'HNumber', value: text });
+        this.search(text);
+    }
     render() {
+
+        
         return (
             <View>
 
@@ -17,7 +56,7 @@ class ChildNutritionForm extends Component {
                             placeholder="Household Number"
                             autoCorrect={false}
                             label="Household Number"
-                            onChangeText={value => this.props.NutritionUpdate({ name: 'HNumber', value })}
+                            onChangeText={this.calFun.bind(this)}
                             value={this.props.HNumber}
                         />
                     </CardSection>
@@ -26,14 +65,13 @@ class ChildNutritionForm extends Component {
 
                
                     <CardSection>
-                        <Input
-                            placeholder="Child Name"
-                            autoCorrect={false}
-                            label="Child Name"
-                            onChangeText={value => this.props.NutritionUpdate({ name: 'CName', value })}
-                            value={this.props.CName}
-                        />
-                    </CardSection>
+                    <Picker selectedValue={this.state.pickerSelection}
+                        style={[{ width: 290, height: 50, color: 'black' }]}
+                        onValueChange={(value) => this.props.NutritionUpdate({ name: 'CName', value })}>
+                        <Picker.Item label='Select Child Name' value='' />
+                        {this.getPickerElements()}
+                    </Picker>
+                </CardSection>
                
 
                

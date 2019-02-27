@@ -33,7 +33,7 @@ class ChildRegistration extends Component {
         return (
             <ScrollView>
                 <Card>
-                    <ChildRegistrationForm {...this.props} edit='no' />
+                     <ChildRegistrationForm {...this.props} edit='no' />
                     <CardSection>
                         <Button onPress={this.onButtonPress.bind(this)}>
                             Register
