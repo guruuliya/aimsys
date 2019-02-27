@@ -23,16 +23,12 @@ export default class ResultMessage extends Component {
         return (
             <Container style={styles.back} >
                 <Content padder>
-                    <Text>{"\n"}</Text>
-                   
-                    
-                        <View>
-                        { (Param==='dailyUsageCreateSuccess') ?<Text style={styles.successfield}>Data updated sucesssfully!</Text>:
-                           <Text style={styles.successfield}>Data entered sucesssfully!</Text>
-                        }
+                    <Text>{"\n"}</Text>        
+                         <View>
+                                      <Text style={styles.successfield}>Data recorded sucesssfully!</Text>:
                             <Text>{"\n"}</Text>
                             <View>
-                                <Button style={styles.btn} block dark onPress={() => this.props.navigation.navigate('DailyUsagePeopleTab')}>
+                                <Button style={styles.btn} block dark onPress={() => this.props.navigation.navigate('Timeline')}>
                                     <Text>Go Back</Text>
                                 </Button></View>
                             <Text>{"\n"}</Text>

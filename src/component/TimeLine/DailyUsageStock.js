@@ -307,9 +307,6 @@ class DailyUsageStock extends Component {
                  textStyle={{ color: "green" }}
                  placeHolderTextStyle={{ color: "#f7c744" }}
                 />
-                <Text>
-                  Date: {this.state.chosenDate.toString().substr(4, 12)}
-                </Text>
               </ListItem>
               <Text>{"\n"}</Text>
             </Card>

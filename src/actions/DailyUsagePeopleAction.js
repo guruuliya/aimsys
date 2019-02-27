@@ -39,27 +39,17 @@ export const dailyUsageCreate = ({ six_months_to_one_year, one_year_to_three_yea
             })
             .catch((error) => {
                 console.log(error);
-                // dailyUsageCreateFail(dispatch,navigate);
+    
             });
-        // }
+     
     };
 };
-
-// const dailyUsageCreateFail = (dispatch,navigate) => {
-//     dispatch({
-//         type: DAILY_USAGE_CREATE_FAIL,
-//         payload: ''
-//     });
-//     console.log("then then iam  hen guru");
-//     navigate.navigate('ResultMessage', { paramName: 'dailyUsageCreateFail' });
-// };
 
 export const dailyUsageCreateSuccess = (dispatch, navigate) => {
     dispatch({
         type: DAILY_USAGE_CREATE_SUCCESS,
         payload: ''
     });
-   // console.log("then then iam  hen guru");
     navigate.navigate('ResultMessage', { paramName: 'dailyUsageCreateSuccess' });
 };
 
@@ -79,34 +69,23 @@ export const dailyUsageSaveChangeseSuccess = (dispatch, navigate) => {
         type: DAILY_USAGE_SAVECHANGES_SUCCESS,
         payload: ''
     });
-    //console.log("then then iam  hen guru");
     navigate.navigate('ResultMessage', { paramName: 'dailyUsagesavechangesSuccess' });
 };
 
 
 
-export const dailyUsageSaveChanges = ({ six_months_to_one_year, one_year_to_three_year, three_year_to_six_year, pw_prenatal, pw_postnatal, pw_3rdgrade, pw_4thgrade, DPickdob, total1, total2, totalfinal,uid,navigate}) => {
+export const dailyUsageSaveChanges = ({ six_months_to_one_year, one_year_to_three_year, three_year_to_six_year, pw_prenatal, pw_postnatal, pw_3rdgrade, pw_4thgrade, DPickdob, total1, total2, totalfinal, uid, navigate }) => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        console.log(firebase.auth());
-        console.log("dailyUsageSaveChanges");
-        // if (six_months_to_one_year != '' && one_year_to_three_year != '' && three_year_to_six_year != '') {
-        //     dailyUsageCreateFail(dispatch,navigate);
-
-        // } else {
-
 
         firebase.database().ref(`/users/${currentUser.uid}/Timeline/DailyUsagePeople/${uid}`)
             .set({ six_months_to_one_year, one_year_to_three_year, three_year_to_six_year, pw_prenatal, pw_postnatal, pw_3rdgrade, pw_4thgrade, DPickdob, total1, total2, totalfinal })
             .then(() => {
-                console.log("savedddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-               dailyUsageCreateSuccess(dispatch, navigate)
+                dailyUsageCreateSuccess(dispatch, navigate)
             })
             .catch((error) => {
                 console.log(error);
-                // dailyUsageCreateFail(dispatch,navigate);
             });
-        // }
     };
 };
 
