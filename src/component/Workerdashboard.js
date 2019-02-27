@@ -16,6 +16,17 @@ export default class Workerdashboard extends Component {
     static navigationOptions = {
         title: 'Home',
         headerLeft: null,
+        headerRight: (
+            <Button
+                style={{ margin: 5, backgroundColor: '#395870', borderRadius: 10, width: 100 }}
+                onPress={() => firebase.auth().signOut()}
+            >
+                <Text
+                    style={{ color: '#ffffff', marginLeft: 25, fontWeight: 'bold' }}>
+                    Logout
+                </Text>
+            </Button>
+        ),
         headerStyle: {
             backgroundColor: '#203546',
         },
@@ -25,29 +36,13 @@ export default class Workerdashboard extends Component {
         },
     };
 
-    logOutUser() {        
-        firebase.auth().signOut();       
-    }
-
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.top}>
                     <View style={styles.profilepic} />
                 </View>
-                <View style={styles.center}>
-                    <Button
-                        block success
-                        style={{
-                            width: Dimensions.get('window').width - 40,
-                            marginLeft: 0,
-                            marginRight: 0
-                        }}
-                        onPress={this.logOutUser}
-                    >
-                        <Text>Add</Text>
-                    </Button>
-                </View>
+                <View style={styles.center} />
                 <View style={styles.bottom}>
 
                     <View style={styles.bottomitem}>
