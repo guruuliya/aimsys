@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Container, Content, ListItem,InputGroup, Button, CheckBox, Text, List, Body,Icon, Card, Form, Input, Label } from 'native-base';
+import { Container, Content, ListItem, InputGroup, Button, CheckBox, Text, List, Body, Icon, Card, Form, Input, Label } from 'native-base';
 import { dailyUsageStockUpdate, dailyUsageStockCreate } from '../../actions/DailyUsageStockAction';
 import DatePicker from 'react-native-datepicker';
 
@@ -28,7 +28,7 @@ class DailyUsageStock extends Component {
   }
 
   onButtonPress() {
-    const{food_received,
+    const { food_received,
       food_provided,
       food_remaining,
       nutritious_food,
@@ -44,13 +44,14 @@ class DailyUsageStock extends Component {
       green_gram,
       food_provided_today,
       Extra,
-      DPickdobStock} = this.props;
+      DPickdobStock } = this.props;
     // console.log(this.props.navigation);
     console.log('inside onButtonPress');
     // const navigate = this.props.navigation;
     const navigate = this.props.navigation;
 
-    this.props.dailyUsageStockCreate({food_received,
+    this.props.dailyUsageStockCreate({
+      food_received,
       food_provided,
       food_remaining,
       nutritious_food,
@@ -96,8 +97,8 @@ class DailyUsageStock extends Component {
                   <InputGroup >
                     <Label style={styles.block_row_left_element}>Food Received </Label>
                     <Input style={styles.block_row_right_element} placeholder="Food Received"
-                     value={parseInt(this.props.food_received)}
-                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_received', value })}
+                      value={parseInt(this.props.food_received)}
+                      onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_received', value })}
                     />
                   </InputGroup>
                 </ListItem>
@@ -107,9 +108,9 @@ class DailyUsageStock extends Component {
                 <ListItem style={styles.block_row} >
                   <InputGroup >
                     <Label style={styles.block_row_left_element}>Food Provided </Label>
-                    <Input style={styles.block_row_right_element} placeholder="Food Provided" 
-                    value={parseInt(this.props.food_provided)}
-                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_provided', value })}
+                    <Input style={styles.block_row_right_element} placeholder="Food Provided"
+                      value={parseInt(this.props.food_provided)}
+                      onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_provided', value })}
                     />
                   </InputGroup>
                 </ListItem>
@@ -120,8 +121,8 @@ class DailyUsageStock extends Component {
                   <InputGroup >
                     <Label style={styles.block_row_left_element}>Food Remaining </Label>
                     <Input style={styles.block_row_right_element} placeholder="Food Remaining"
-                     value={parseInt(this.props.food_remaining)}
-                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_remaining', value })}
+                      value={parseInt(this.props.food_remaining)}
+                      onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_remaining', value })}
                     />
                   </InputGroup>
                 </ListItem>
@@ -136,10 +137,10 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Nutritious </Label>
-                  <Input style={styles.block_row_right_element} placeholder="Nutritious Food" 
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'nutritious_food', value })}
-                  
+                  <Input style={styles.block_row_right_element} placeholder="Nutritious Food"
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'nutritious_food', value })}
+
                   />
                 </InputGroup>
               </ListItem>
@@ -148,9 +149,9 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Protien Food</Label>
-                  <Input style={styles.block_row_right_element} placeholder="Protien Food" 
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'protien_food', value })}
+                  <Input style={styles.block_row_right_element} placeholder="Protien Food"
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'protien_food', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -159,9 +160,9 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Oil</Label>
-                  <Input style={styles.block_row_right_element} placeholder="Oil" 
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'oil', value })}
+                  <Input style={styles.block_row_right_element} placeholder="Oil"
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'oil', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -171,8 +172,8 @@ class DailyUsageStock extends Component {
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Jaggery</Label>
                   <Input style={styles.block_row_right_element} placeholder="Jaggery"
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'jaggery', value })}
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'jaggery', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -182,8 +183,8 @@ class DailyUsageStock extends Component {
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Chilli</Label>
                   <Input style={styles.block_row_right_element} placeholder="Chilli"
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'chilli', value })}
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'chilli', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -192,9 +193,9 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Egg</Label>
-                  <Input style={styles.block_row_right_element} placeholder="Egg" 
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'egg', value })}
+                  <Input style={styles.block_row_right_element} placeholder="Egg"
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'egg', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -203,9 +204,9 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Salt</Label>
-                  <Input style={styles.block_row_right_element} placeholder="Salt" 
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'salt', value })}
+                  <Input style={styles.block_row_right_element} placeholder="Salt"
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'salt', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -214,9 +215,9 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Grams</Label>
-                  <Input style={styles.block_row_right_element} placeholder="Grams" 
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'grams', value })}
+                  <Input style={styles.block_row_right_element} placeholder="Grams"
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'grams', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -225,9 +226,9 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Mustard Seeds</Label>
-                  <Input style={styles.block_row_right_element} placeholder="Mustard Seeds" 
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'mustard_seeds', value })}
+                  <Input style={styles.block_row_right_element} placeholder="Mustard Seeds"
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'mustard_seeds', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -236,9 +237,9 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Amalice Rich</Label>
-                  <Input style={styles.block_row_right_element} placeholder="Amalice Rich" 
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'amalice_rich', value })}
+                  <Input style={styles.block_row_right_element} placeholder="Amalice Rich"
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'amalice_rich', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -249,8 +250,8 @@ class DailyUsageStock extends Component {
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Green gram</Label>
                   <Input style={styles.block_row_right_element} placeholder="Green gram"
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'green_gram', value })}
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'green_gram', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -260,9 +261,9 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Food provided today</Label>
-                  <Input style={styles.block_row_right_element} placeholder="Food provided today" 
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_provided_today', value })}
+                  <Input style={styles.block_row_right_element} placeholder="Food provided today"
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_provided_today', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -271,9 +272,9 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Extra</Label>
-                  <Input style={styles.block_row_right_element} placeholder="Extra" 
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'Extra', value })}
+                  <Input style={styles.block_row_right_element} placeholder="Extra"
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'Extra', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -296,16 +297,16 @@ class DailyUsageStock extends Component {
               <Label style={styles.dateblockalign}>Select the date for the above data</Label>
               <ListItem style={styles.dateblockalign}>
                 <DatePicker
-                 mode="date"
-                 placeholder="select date"
-                 format="YYYY-MM-DD"
-                 onDateChange={value => this.props.dailyUsageStockUpdate({ name: 'DPickdobStock', value })}
-                 date={this.props.DPickdobStock}
-                 animationType={"fade"}
-                 // androidMode={"default"}
-                 placeHolderText="Click here to select date"
-                 textStyle={{ color: "green" }}
-                 placeHolderTextStyle={{ color: "#f7c744" }}
+                  mode="date"
+                  placeholder="select date"
+                  format="YYYY-MM-DD"
+                  onDateChange={value => this.props.dailyUsageStockUpdate({ name: 'DPickdobStock', value })}
+                  date={this.props.DPickdobStock}
+                  animationType={"fade"}
+                  // androidMode={"default"}
+                  placeHolderText="Click here to select date"
+                  textStyle={{ color: "green" }}
+                  placeHolderTextStyle={{ color: "#f7c744" }}
                 />
               </ListItem>
               <Text>{"\n"}</Text>
@@ -384,7 +385,9 @@ const mapStateToProps = (state) => {
     food_provided_today,
     Extra,
     DPickdobStock } = state.DailyUsageStockKey;
-  return { food_received,food_provided,food_remaining, nutritious_food, protien_food,oil, jaggery, chilli,egg,salt,grams,mustard_seeds,amalice_rich,green_gram,food_provided_today,Extra, DPickdobStock
+  return {
+    food_received, food_provided, food_remaining, nutritious_food, protien_food, oil, jaggery, chilli, egg, salt, grams, mustard_seeds, amalice_rich, green_gram, food_provided_today, Extra, DPickdobStock
   };
 };
+
 export default connect(mapStateToProps, { dailyUsageStockUpdate, dailyUsageStockCreate })(DailyUsageStock);

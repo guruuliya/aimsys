@@ -19,6 +19,7 @@
     "react-native-image-picker": "^0.28.0",
     "react-native-progress": "^3.5.0",
     "react-native-simple-radio-button": "^2.7.3",
+    "react-native-swiper": "^1.5.14",
     "react-native-ui-xg": "0.0.6",
     "react-native-vector-icons": "^6.3.0",
     "react-navigation": "^3.0.9",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
+    "eslint-config-rallycoding": "^3.2.0",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.51.1",
     "react-test-renderer": "16.6.3"
