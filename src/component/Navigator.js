@@ -1,4 +1,8 @@
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import React from 'react';
+import { Icon } from 'native-base';
+import {
+  createSwitchNavigator, createDrawerNavigator, createStackNavigator, createAppContainer
+} from 'react-navigation';
 import Login from './Login';
 import Workerdashboard from './Workerdashboard';
 import AuthLoading from './AuthLoading';
@@ -22,20 +26,16 @@ import {
   Children, DemographyDash,
   HouseHold, Pregnancy
 } from './Demography/';
-import Splash from './Splash';
 
 const RootStack = createStackNavigator({
-  AuthLoading: {
-    screen: AuthLoading
-  },
-  Splash: {
-    screen: Splash
-  },
-  Login: {
-    screen: Login,
-  },
   Dashboard: {
     screen: Workerdashboard,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerLeft:
+          <Icon name="ios-refresh" onPress={() => navigation.openDrawer()} />
+      };
+    }
   },
   infrastructure: {
     screen: InfrastructureDash
@@ -94,13 +94,29 @@ const RootStack = createStackNavigator({
   Pregnancy: {
     screen: Pregnancy
   }
+});
+
+const DrawerNavigation = createDrawerNavigator({
+  Dashboard: {
+    screen: RootStack
+  }
+});
+
+const SwitchNavigator = createSwitchNavigator({
+  AuthLoading: {
+    screen: AuthLoading
+  },
+  Login: {
+    screen: Login,
+  },
+  Dashboard: {
+    screen: DrawerNavigation
+  },
 },
   {
     initialRouteName: 'AuthLoading',
-  }
+  });
 
-);
-
-const Navigator = createAppContainer(RootStack);
+const Navigator = createAppContainer(SwitchNavigator);
 
 export default Navigator;
