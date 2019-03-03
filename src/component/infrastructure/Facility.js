@@ -24,14 +24,13 @@ class Facility extends Component {
             fontWeight: 'bold',
         },
     };
-
-
     componentWillMount() {
         this.props.facilityFetch();
     }
 
     onButtonPress() {
         const { Water, Medicine, Mother, Infant, Play, Toilet } = this.props;
+        
         if (Water !== '' || Medicine !== '' || Mother !== '' || Infant !== '' || Play !== '' || Toilet !== '') {
             this.props.facilityCreate({ Water, Medicine, Mother, Infant, Play, Toilet });
         } else {

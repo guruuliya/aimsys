@@ -13,25 +13,40 @@ export const facilityForm = ({ name, value }) => {
 };
 
 export const facilityCreate = ({ Water, Medicine, Mother, Infant, Play, Toilet }) => {
+    const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/facilities`)
-            .push({ Water, Medicine, Mother, Infant, Play, Toilet })
-            .then(() => {
-                Alert.alert(
-                    'Successfull...!',
-                    'Record Inserted Successfully...',
-                    [
-                        { text: 'OK', onPress: () => console.log('OK Pressed') },
-                    ],
-                    { cancelable: false },
-                );
-                dispatch({
-                    type: FACILITY_CREATE
-                });
-            })
-            .catch((error) => {
-                console.log(error);
+        database.ref(`/users/${currentUser.uid}/Infrastructure/`)
+            .once('value', snapshot => {
+                if (snapshot.hasChild('facilities')) {
+                    Alert.alert(
+                        'Oops...!',
+                        'Data Already Exists...',
+                        [
+                            { text: 'OK', onPress: () => console.log('OK Pressed') },
+                        ],
+                        { cancelable: true }
+                    );
+                } else {
+                    database.ref(`/users/${currentUser.uid}/Infrastructure/facilities`)
+                        .push({ Water, Medicine, Mother, Infant, Play, Toilet })
+                        .then(() => {
+                            Alert.alert(
+                                'Successfull...!',
+                                'Record Inserted Successfully...',
+                                [
+                                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                                ],
+                                { cancelable: false },
+                            );
+                            dispatch({
+                                type: FACILITY_CREATE
+                            });
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
             });
     };
 };
@@ -83,8 +98,6 @@ export const facilityDelete = (key) => {
             ],
             { cancelable: false },
         );
-
-
     };
 };
 
@@ -94,7 +107,7 @@ export const facilityUpdate = ({ Water, Medicine, Mother, Infant, Play, Toilet }
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/facilities/${key}`)
             .set({ Water, Medicine, Mother, Infant, Play, Toilet })
-            .then(() => {  
+            .then(() => {
                 Alert.alert(
                     'Successfull...!',
                     'Record Updated Successfully...',
@@ -102,7 +115,7 @@ export const facilityUpdate = ({ Water, Medicine, Mother, Infant, Play, Toilet }
                         { text: 'OK', onPress: () => console.log('OK Pressed') },
                     ],
                     { cancelable: true }
-                );              
+                );
                 dispatch({
                     type: FACILITY_CREATE,
                     payload: ''

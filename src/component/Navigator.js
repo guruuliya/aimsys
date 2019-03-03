@@ -1,4 +1,8 @@
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import React from 'react';
+import { Icon } from 'native-base';
+import {
+  createSwitchNavigator, createDrawerNavigator, createStackNavigator, createAppContainer
+} from 'react-navigation';
 import Login from './Login';
 import Workerdashboard from './Workerdashboard';
 import AuthLoading from './AuthLoading';
@@ -48,7 +52,6 @@ import InjectionTab from './Maternal/InjectionTab';
 import NutritionView from './Maternal/NutritionView';
 import InjectionView from './Maternal/InjectionView';
 import { Children, DemographyDash } from './Demography/';
-import Splash from './Splash';
 import HouseHoldListItem from './Demography/HouseHoldListItem';
 import Householdtab from './Demography/Householdtab';
 import HouseHoldEdit from './Demography/HouseHoldEdit';
@@ -60,17 +63,14 @@ import HouseHold from './Demography/HouseHold';
 import HouseHoldMemberName from './Demography/HouseHoldMemberName';
 
 const RootStack = createStackNavigator({
-  AuthLoading: {
-    screen: AuthLoading
-  },
-  Splash: {
-    screen: Splash
-  },
-  Login: {
-    screen: Login,
-  },
   Dashboard: {
     screen: Workerdashboard,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerLeft:
+          <Icon name="ios-refresh" onPress={() => navigation.openDrawer()} />
+      };
+    }
   },
   infrastructure: {
     screen: InfrastructureDash
@@ -238,13 +238,29 @@ const RootStack = createStackNavigator({
   {
     screen: PregnancyView
   }
+});
+
+const DrawerNavigation = createDrawerNavigator({
+  Dashboard: {
+    screen: RootStack
+  }
+});
+
+const SwitchNavigator = createSwitchNavigator({
+  AuthLoading: {
+    screen: AuthLoading
+  },
+  Login: {
+    screen: Login,
+  },
+  Dashboard: {
+    screen: DrawerNavigation
+  },
 },
   {
     initialRouteName: 'AuthLoading',
-  }
+  });
 
-);
-
-const Navigator = createAppContainer(RootStack);
+const Navigator = createAppContainer(SwitchNavigator);
 
 export default Navigator;
