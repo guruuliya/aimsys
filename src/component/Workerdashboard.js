@@ -12,17 +12,16 @@ import { Button } from 'native-base';
 import firebase from 'firebase';
 
 export default class Workerdashboard extends Component {
-
     static navigationOptions = {
         title: 'Home',
-        headerLeft: null,
         headerRight: (
             <Button
                 style={{ margin: 5, backgroundColor: '#395870', borderRadius: 10, width: 100 }}
                 onPress={() => firebase.auth().signOut()}
             >
                 <Text
-                    style={{ color: '#ffffff', marginLeft: 25, fontWeight: 'bold' }}>
+                    style={{ color: '#ffffff', marginLeft: 25, fontWeight: 'bold' }}
+                >
                     Logout
                 </Text>
             </Button>
