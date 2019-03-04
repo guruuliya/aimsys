@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'native-base';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   createSwitchNavigator, createDrawerNavigator, createStackNavigator, createAppContainer
 } from 'react-navigation';
@@ -68,7 +68,13 @@ const RootStack = createStackNavigator({
     navigationOptions: ({ navigation }) => {
       return {
         headerLeft:
-          <Icon name="ios-refresh" onPress={() => navigation.openDrawer()} />
+          <Icon
+            style={{ paddingLeft: 10 }}
+            name="md-menu"
+            onPress={() => navigation.openDrawer()}
+            size={35}
+            color="white"
+          />
       };
     }
   },
