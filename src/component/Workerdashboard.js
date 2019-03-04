@@ -7,8 +7,8 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
-import { Button } from 'native-base';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import Swiper from 'react-native-swiper';
 import firebase from 'firebase';
 
 export default class Workerdashboard extends Component {
@@ -38,52 +38,60 @@ export default class Workerdashboard extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.top}>
-                    <View style={styles.profilepic} />
+                <View style={styles.top}>             
+                    <Swiper autoplay={true} style={styles.wrapper} >
+                        <View style={styles.slide}>
+                          <Image style={styles.iconswipe} source={require('../images/timeline.png')} />
+                          <Text style={styles.text}>Timeline section allows you to add information about daily resource usage at the Anganwadi Centres</Text>
+                        </View>
+
+                        <View style={styles.slide}>
+                           <Image style={styles.iconswipe} source={require('../images/demographics.png')} />
+                           <Text style={styles.text}>Demographics section allows you to add information about the number of beneficiaries covered under ICDS</Text>
+                        </View>
+                        <View style={styles.slide}>
+                           <Image style={styles.iconswipe} source={require('../images/malchild.png')} />
+                           <Text style={styles.text}>Maternal and Child nutrition section allows you to add information about the Maternal and child nutrition beneficiaries </Text>
+                        </View>
+                        <View style={styles.slide}>
+                           <Image style={styles.iconswipe} source={require('../images/infra.png')} />
+                           <Text style={styles.text}>Infrastructure section allows you to add information about the infrastructure facilities available at the Anganwadi Centres</Text>
+                        </View>
+                    </Swiper>
                 </View>
-                <View style={styles.center} />
                 <View style={styles.bottom}>
-
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity
-                            style={styles.bottomitemInner}
-                            onPress={() =>
-                                this.props.navigation.navigate('Timeline')}
-                        >
-                            <Text style={styles.bottomitemInnerContent}>Timeline</Text>
+                        <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('Timeline')} >
+                            <View>
+                                <Image style={styles.icon} source={require('../images/timeline.png')} />
+                            </View>
                         </TouchableOpacity>
                     </View>
 
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity
-                            style={styles.bottomitemInner}
-                            onPress={() =>
-                                this.props.navigation.navigate('DemographyDash')}
-                        >
-                            <Text style={styles.bottomitemInnerContent}>Demographics</Text>
+                        <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('DemographyDash')}  >
+                            <View>
+                                <Image style={styles.icon} source={require('../images/demographics.png')} />
+                            </View>
                         </TouchableOpacity>
                     </View>
 
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity
-                            style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('MaternalDash')}
-                        >
-                            <Text style={styles.bottomitemInnerContent}>
-                                {'Maternal\n&\nChild Nutrition'}
-                            </Text>
+                        <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('MaternalDash')} >
+                            <View>
+                                <Image style={styles.icon} source={require('../images/malchild.png')} />
+                            </View>
                         </TouchableOpacity>
                     </View>
 
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity
-                            style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('infrastructure')}
-                        >
-                            <Text style={styles.bottomitemInnerContent}>Infrastructure
-                                </Text>
+                        <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('infrastructure')} >
+                            <View>
+                                <Image style={styles.icon} source={require('../images/infra.png')} />
+                            </View>
                         </TouchableOpacity>
                     </View>
+
                 </View>
             </View>
         );
@@ -95,10 +103,11 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     top: {
-        height: '35%',
+        margin: 3,
+        height: '45%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#395870',
+        backgroundColor: '#ffff',
     },
     profilepic: {
         width: 140,
@@ -124,14 +133,12 @@ const styles = StyleSheet.create({
     bottomitem: {
         width: '50%',
         height: '50%',
-        padding: 3,
+        padding: 8
+        ,
     },
     bottomitemInner: {
-        flex: 1,
-        // borderRadius: 10,
-        // borderWidth: 4,
-        // borderColor: '#292929',
-        backgroundColor: '#395870',
+        flex: 1, 
+        backgroundColor: '#DCDCDC',
         alignItems: 'center',
         justifyContent: 'center',
 
@@ -141,6 +148,42 @@ const styles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
         padding: 5,
-    }
+    },
 
+    menuBox: {
+        backgroundColor: '#DCDCDC',
+        width: 100,
+        height: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 12
+    },
+    icon: {
+        width: 200,
+        height: 200,
+    },
+    iconswipe: { 
+        width: 130,
+        height: 130,
+    },
+    info: {
+        fontSize: 22,
+        color: '#696969',
+    },
+    wrapper: {
+        backgroundColor: 'transparent',
+        padding: 200
+    },
+    slide: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: '#DCDCDC',
+        height: 300
+    },
+    text: {
+        color: '#395870',
+        fontSize: 15,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    }
 });
