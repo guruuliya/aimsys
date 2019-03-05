@@ -11,17 +11,9 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { statusCheck } from '../../actions';
 
-
 class InfrastructureDash extends Component {
     static navigationOptions = {
-        title: 'Infrastructure',
-        headerStyle: {
-            backgroundColor: '#203546',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
+        title: 'Infrastructure'
     };
 
     componentWillMount() {

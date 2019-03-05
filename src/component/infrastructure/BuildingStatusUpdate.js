@@ -2,15 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import {
-    Container,
-    Content,
-    ListItem,
-    Radio,
-    Card,
-    Text,
-    Button,
-    CardItem,
-    Left
+    Container, Content, ListItem, Radio, Card, Text, Button, CardItem, Left
 } from 'native-base';
 import { connect } from 'react-redux';
 import { bStatusUpdate, bStatusSave, bStatusFetch } from '../../actions';
@@ -18,17 +10,10 @@ import { bStatusUpdate, bStatusSave, bStatusFetch } from '../../actions';
 
 class BuildingStatusUpdate extends Component {
     static navigationOptions = {
-        title: 'Infrastructure',
-        headerStyle: {
-            backgroundColor: '#203546',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
+        title: 'Infrastructure'
     };
 
-   
+
     componentWillMount() {
         this.props.bStatusFetch();
         _.each(this.props.buildingstatus, (val) => {

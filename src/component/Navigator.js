@@ -1,8 +1,11 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
-  createSwitchNavigator, createDrawerNavigator, createStackNavigator, createAppContainer
+  createSwitchNavigator, createDrawerNavigator, createStackNavigator, createAppContainer,
+  DrawerItems
 } from 'react-navigation';
+import { Container, Header, Body } from 'native-base';
+import { Image } from 'react-native';
 import Login from './Login';
 import Workerdashboard from './Workerdashboard';
 import AuthLoading from './AuthLoading';
@@ -62,21 +65,33 @@ import PregnancyView from './Demography/PregnancyView';
 import HouseHold from './Demography/HouseHold';
 import HouseHoldMemberName from './Demography/HouseHoldMemberName';
 
+const CustomDrawerContentComponent = (props) => (
+  <Container>
+    <Header style={{ height: 200 }}>
+      <Body>
+        <Image
+          style={{ width: 150, height: 150, marginLeft: 45 }}
+          source={require('../images/logo.png')}
+        />
+      </Body>
+    </Header>
+    <DrawerItems {...props} />
+  </Container>
+);
+
 const RootStack = createStackNavigator({
-  Dashboard: {
+  Home: {
     screen: Workerdashboard,
-    navigationOptions: ({ navigation }) => {
-      return {
-        headerLeft:
-          <Icon
-            style={{ paddingLeft: 10 }}
-            name="md-menu"
-            onPress={() => navigation.openDrawer()}
-            size={35}
-            color="white"
-          />
-      };
-    }
+    navigationOptions: ({ navigation }) => ({
+      headerLeft:
+        <Icon
+          style={{ paddingLeft: 10 }}
+          name="md-menu"
+          onPress={() => navigation.openDrawer()}
+          size={35}
+          color="white"
+        />
+    })
   },
   infrastructure: {
     screen: InfrastructureDash
@@ -129,8 +144,6 @@ const RootStack = createStackNavigator({
   DailyUsagePeopleViewOption: {
     screen: DailyUsagePeopleViewOption
   },
-
-
   DailyUsageStockSearch: {
     screen: DailyUsageStockSearch
   },
@@ -244,13 +257,33 @@ const RootStack = createStackNavigator({
   {
     screen: PregnancyView
   }
-});
+}, {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#203546',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }
+  }
+);
 
 const DrawerNavigation = createDrawerNavigator({
-  Dashboard: {
-    screen: RootStack
+  Home: {
+    screen: RootStack,
+    navigationOptions: {
+      drawerLabel: 'Home',
+      drawerIcon: (
+        <Icon name='md-home' style={{ color: 'green' }} />
+      ),
+    }
   }
-});
+}, {
+    initialRouteName: 'Home',
+    contentComponent: CustomDrawerContentComponent,
+  });
 
 const SwitchNavigator = createSwitchNavigator({
   AuthLoading: {

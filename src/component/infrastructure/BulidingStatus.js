@@ -2,16 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { StyleSheet, Dimensions, Alert } from 'react-native';
 import {
-    Container,
-    Content,
-    ListItem,
-    Radio,
-    Card,
-    Text,
-    Button,
-    CardItem,
-    Left,
-    Spinner
+    Container, Content, ListItem, Radio, Card, Text, Button, CardItem, Left, Spinner
 } from 'native-base';
 import { connect } from 'react-redux';
 import {
@@ -21,14 +12,7 @@ import {
 
 class BuildingStatus extends Component {
     static navigationOptions = {
-        title: 'Infrastructure',
-        headerStyle: {
-            backgroundColor: '#203546',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
+        title: 'Infrastructure'
     };
 
     componentWillMount() {

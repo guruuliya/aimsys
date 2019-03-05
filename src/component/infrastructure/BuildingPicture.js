@@ -2,32 +2,17 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Image, Text, Dimensions, Alert } from 'react-native';
 import {
-    Container,
-    Content,
-    Button,
-    Card,
-    CardItem,
-    ListItem,
-    Spinner
+    Container, Content, Button, Card, CardItem, ListItem, Spinner
 } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
-import { bPictureForm, bPictureCreate, statusCheck, bPictureFetch, bPictureRemove } from '../../actions';
-
-const options = {
-    takePhotoButtonTitle: 'Take photo'
-};
+import {
+    bPictureForm, bPictureCreate, statusCheck, bPictureFetch, bPictureRemove
+} from '../../actions';
 
 class BuildingPicture extends Component {
     static navigationOptions = {
         title: 'Infrastructure',
-        headerStyle: {
-            backgroundColor: '#203546',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
     };
 
     constructor(props) {
@@ -71,8 +56,7 @@ class BuildingPicture extends Component {
             maxHeight: 1000
         }
             , (response) => {
-                console.log('Response = ', response);
-
+               // console.log('Response = ', response);
                 if (response.didCancel) {
                     console.log('User cancelled image picker');
                 } else if (response.error) {
@@ -81,10 +65,6 @@ class BuildingPicture extends Component {
                     console.log('User tapped custom button: ', response.customButton);
                 } else {
                     const source = { uri: response.uri };
-
-                    // You can also display the image using data:
-                    // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
                     this.props.bPictureForm({ name: 'BPicture', value: response.uri });
                     this.setState({
                         avatarSource: source,
@@ -111,7 +91,7 @@ class BuildingPicture extends Component {
                                     style={{ width: '100%', height: 200 }}
                                 />
                             </CardItem>
-                            <ListItem> 
+                            <ListItem>
                                 <Button
                                     block info
                                     style={{

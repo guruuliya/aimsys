@@ -2,32 +2,15 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Image, Text, Dimensions } from 'react-native';
 import {
-    Container,
-    Content,
-    Button,
-    Card,
-    CardItem,
-    ListItem,
-    Spinner
+    Container, Content, Button, Card, CardItem, ListItem
 } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
 import { bPictureForm, bPictureUpdate } from '../../actions';
 
-const options = {
-    takePhotoButtonTitle: 'Take photo'
-};
-
 class BuildingPictureUpdate extends Component {
     static navigationOptions = {
-        title: 'Infrastructure',
-        headerStyle: {
-            backgroundColor: '#203546',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
+        title: 'Infrastructure'
     };
 
     constructor(props) {
@@ -46,13 +29,11 @@ class BuildingPictureUpdate extends Component {
         });
     }
 
-
     onButtonPress() {
         const navigate = this.props.navigation;
         const { BPicture } = this.props;
         this.props.bPictureUpdate({ BPicture }, this.props.navigation.state.params.child[0].uid, navigate);
     }
-
 
     myFun = () => {
         ImagePicker.showImagePicker({
@@ -65,7 +46,7 @@ class BuildingPictureUpdate extends Component {
             maxWidth: 720,
             maxHeight: 1000
         }, (response) => {
-            console.log('Response = ', response);
+          //  console.log('Response = ', response);
             if (response.didCancel) {
                 console.log('User cancelled image picker');
             } else if (response.error) {
@@ -74,10 +55,6 @@ class BuildingPictureUpdate extends Component {
                 console.log('User tapped custom button: ', response.customButton);
             } else {
                 const source = { uri: response.uri };
-
-                // You can also display the image using data:
-                // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
                 this.props.bPictureForm({ name: 'BPicture', value: response.uri });
                 this.setState({
                     avatarSource: source,

@@ -9,53 +9,33 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
-import firebase from 'firebase';
 
 export default class Workerdashboard extends Component {
     static navigationOptions = {
-        title: 'Home',
-        headerRight: (
-            <Button
-                style={{ margin: 5, backgroundColor: '#395870', borderRadius: 10, width: 100 }}
-                onPress={() => firebase.auth().signOut()}
-            >
-                <Text
-                    style={{ color: '#ffffff', marginLeft: 25, fontWeight: 'bold' }}
-                >
-                    Logout
-                </Text>
-            </Button>
-        ),
-        headerStyle: {
-            backgroundColor: '#203546',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
+        title: 'Home',       
     };
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.top}>             
+                <View style={styles.top}>
                     <Swiper autoplay={true} style={styles.wrapper} >
                         <View style={styles.slide}>
-                          <Image style={styles.iconswipe} source={require('../images/timeline.png')} />
-                          <Text style={styles.text}>Timeline section allows you to add information about daily resource usage at the Anganwadi Centres</Text>
+                            <Image style={styles.iconswipe} source={require('../images/timeline.png')} />
+                            <Text style={styles.text}>Timeline section allows you to add information about daily resource usage at the Anganwadi Centres</Text>
                         </View>
 
                         <View style={styles.slide}>
-                           <Image style={styles.iconswipe} source={require('../images/demographics.png')} />
-                           <Text style={styles.text}>Demographics section allows you to add information about the number of beneficiaries covered under ICDS</Text>
+                            <Image style={styles.iconswipe} source={require('../images/demographics.png')} />
+                            <Text style={styles.text}>Demographics section allows you to add information about the number of beneficiaries covered under ICDS</Text>
                         </View>
                         <View style={styles.slide}>
-                           <Image style={styles.iconswipe} source={require('../images/malchild.png')} />
-                           <Text style={styles.text}>Maternal and Child nutrition section allows you to add information about the Maternal and child nutrition beneficiaries </Text>
+                            <Image style={styles.iconswipe} source={require('../images/malchild.png')} />
+                            <Text style={styles.text}>Maternal and Child nutrition section allows you to add information about the Maternal and child nutrition beneficiaries </Text>
                         </View>
                         <View style={styles.slide}>
-                           <Image style={styles.iconswipe} source={require('../images/infra.png')} />
-                           <Text style={styles.text}>Infrastructure section allows you to add information about the infrastructure facilities available at the Anganwadi Centres</Text>
+                            <Image style={styles.iconswipe} source={require('../images/infra.png')} />
+                            <Text style={styles.text}>Infrastructure section allows you to add information about the infrastructure facilities available at the Anganwadi Centres</Text>
                         </View>
                     </Swiper>
                 </View>
@@ -137,7 +117,7 @@ const styles = StyleSheet.create({
         ,
     },
     bottomitemInner: {
-        flex: 1, 
+        flex: 1,
         backgroundColor: '#DCDCDC',
         alignItems: 'center',
         justifyContent: 'center',
@@ -162,7 +142,7 @@ const styles = StyleSheet.create({
         width: 200,
         height: 200,
     },
-    iconswipe: { 
+    iconswipe: {
         width: 130,
         height: 130,
     },

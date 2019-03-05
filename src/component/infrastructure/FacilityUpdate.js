@@ -3,34 +3,17 @@ import React, { Component } from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import {
-    Container,
-    Content,
-    ListItem,
-    Radio,
-    Card,
-    Text,
-    CheckBox,
-    Body,
-    Button,
-    CardItem
+    Container, Content, ListItem, Radio, Card, Text, Button, CardItem
 } from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
 import {
     facilityForm, facilityCreate, facilityUpdate
-
 } from '../../actions';
 
 
 class FacilityUpdate extends Component {
     static navigationOptions = {
-        title: 'Infrastructure',
-        headerStyle: {
-            backgroundColor: '#203546',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
+        title: 'Infrastructure'
     };
 
     componentWillMount() {

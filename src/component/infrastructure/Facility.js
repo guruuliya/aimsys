@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Dimensions, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import {
-    Container, Content, ListItem,
-    Radio, Card, Text,
-    Button, CardItem, Spinner
+    Container, Content, ListItem, Radio, Card, Text, Button, CardItem, Spinner
 } from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
 import {
@@ -15,14 +13,7 @@ import {
 
 class Facility extends Component {
     static navigationOptions = {
-        title: 'Infrastructure',
-        headerStyle: {
-            backgroundColor: '#203546',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
+        title: 'Infrastructure'
     };
     componentWillMount() {
         this.props.facilityFetch();
@@ -30,7 +21,7 @@ class Facility extends Component {
 
     onButtonPress() {
         const { Water, Medicine, Mother, Infant, Play, Toilet } = this.props;
-        
+
         if (Water !== '' || Medicine !== '' || Mother !== '' || Infant !== '' || Play !== '' || Toilet !== '') {
             this.props.facilityCreate({ Water, Medicine, Mother, Infant, Play, Toilet });
         } else {
