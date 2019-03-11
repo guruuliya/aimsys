@@ -276,7 +276,7 @@ const DrawerNavigation = createDrawerNavigator({
     navigationOptions: {
       drawerLabel: 'Home',
       drawerIcon: (
-        <Icon name='md-home' style={{ color: 'green' }} />
+        <Icon name='md-home' size={32} style={{ color: 'green' }} />
       ),
     }
   }
