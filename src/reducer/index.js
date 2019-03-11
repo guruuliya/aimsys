@@ -7,16 +7,16 @@ import NutritionReducer from './NutritionReducer';
 import NutritionFetchReducer from './NutritionFetchReducer';
 import InjectionReducer from './InjectionReducer';
 import InjectionFetchReducer from './InjectionFetchReducer';
+import NotificationReducer from './NotificationReducer';
 
 export default combineReducers({
     auth: AuthReducer,
     bstatus: BStatusReducer,
     child: ChildReducer,
-    childF:ChildFetchReducer,
-    nutrition:NutritionReducer,
-    nutritionF:NutritionFetchReducer,
-    injection:InjectionReducer,
-    injectionF:InjectionFetchReducer
-
+    childF: ChildFetchReducer,
+    nutrition: NutritionReducer,
+    nutritionF: NutritionFetchReducer,
+    injection: InjectionReducer,
+    injectionF: InjectionFetchReducer,
+    notify: NotificationReducer
 });
- 

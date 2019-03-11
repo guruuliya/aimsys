@@ -99,6 +99,4 @@ const
     });
 
 
-
-
 export default withNavigation(ListInjection);
