@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { Text, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
-import { CardSection } from '../Common';
 import { withNavigation } from 'react-navigation';
 import Moment from 'moment';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { ScrollView } from 'react-native-gesture-handler';
 
-class ListChild extends Component {
+class ListNotification extends Component {
     render() {
-        const { HNumber, CName } = this.props.child;
+        const { CName } = this.props.notify;
         return (
             CName === 'No Record Found' ?
                 <View style={styles.projectRow} >
@@ -18,33 +16,31 @@ class ListChild extends Component {
                         </Text>
                     </View>
                 </View> :
-
                 <View style={styles.projectRow} >
                     <View style={styles.projectText} >
-                    <ScrollView>
                         <Text style={styles.itemName}>
-                            Report of {"\t"} {HNumber} {"\t"} {CName}
+                            {CName}
                         </Text>
-                        </ScrollView>
                         <Text style={styles.itemDetails}>Last edited {"\t"}
                             {`${Moment(this.props.child).fromNow()}`}
                         </Text>
                     </View>
+
                     <View style={styles.projectTextchild1}>
-                        <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('ChildView', { child: this.props.child }) }}>
+                        <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('NotificationView', { child: this.props.notify }); }}>
                             <View>
                                 <Icon
                                     name="eye"
                                     size={30}
                                     style={styles.moreIcon}
                                 />
-                                <Text style={styles.moreIcon}>View</Text>
+                                <Text style={styles.moreIcon}  >View</Text>
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
 
                     <View style={styles.projectTextchild2}>
-                        <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('ChildEditForm', { child: this.props.child }) }}>
+                        <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('InjectionEditForm', { injection: this.props.injection }) }}>
                             <View>
                                 <Icon
                                     name="edit"
@@ -60,7 +56,8 @@ class ListChild extends Component {
     }
 }
 
-const styles = StyleSheet.create({
+const
+    styles = StyleSheet.create({
         projectText: {
             flex: 0.7,
             flexDirection: 'column'
@@ -81,7 +78,6 @@ const styles = StyleSheet.create({
         itemName: {
             fontSize: 18,
             color: '#4A90E2',
-            textAlign:'center'
         },
         itemDetails: {
             fontSize: 12,
@@ -96,4 +92,5 @@ const styles = StyleSheet.create({
         }
     });
 
-export default withNavigation(ListChild);
+
+export default withNavigation(ListNotification);

@@ -11,7 +11,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 class MaternalDash extends Component {
     static navigationOptions = {
-        title: 'Home',
+        title: 'Maternal',
         headerStyle: {
             backgroundColor: '#355870',
         },
@@ -52,6 +52,17 @@ class MaternalDash extends Component {
                         >
                             <Text style={styles.bottomitemInnerContent}>
                                 {'Child \n Nutrition'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.bottomitem}>
+                        <TouchableOpacity
+                            style={styles.bottomitemInner}
+                            onPress={() => this.props.navigation.navigate('InjectionNotification')}
+                        >
+                            <Text style={styles.bottomitemInnerContent}>
+                                {'Notify'}
                             </Text>
                         </TouchableOpacity>
                     </View>

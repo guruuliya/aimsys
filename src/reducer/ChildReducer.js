@@ -5,9 +5,10 @@ const INITIAL_STATE = {
     HNumber: '',
     CName: '',
     CMotherName: '',
+    status: '',
     option: '',
-    DPickdob: new Date(),
-    DPickregdate: new Date(),
+    DPickdob:'1995-03-05',
+    DPickregdate: '1995-03-05',
     Loading: false
 };
 
@@ -18,7 +19,7 @@ export default (state = INITIAL_STATE, action) => {
         case CHILD_CREATE:
             return INITIAL_STATE;
         case CHILD_SAVE:
-            return INITIAL_STATE;       
+            return INITIAL_STATE;
         case CHILD_FETCH_LOAD_START:
             return { Loading: action.payload };
         case CHILD_FETCH_LOAD_END:

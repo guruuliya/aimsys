@@ -42,6 +42,7 @@ import NutritionEditForm from './Maternal/NutritionEditForm';
 import ListNutrition from './Maternal/ListNutrition';
 import ChildTab from './Maternal/ChildTab';
 import ChildRegistration from './Maternal/ChildRegistration';
+import ChildRegistrationForm from './Maternal/ChildRegistrationForm';
 import ChildSearch from './Maternal/ChildSearch';
 import FoodNutri from './Maternal/FoodNutri';
 import ChildEditForm from './Maternal/ChildEditForm';
@@ -64,6 +65,8 @@ import PregnancyEdit from './Demography/PregnancyEdit';
 import PregnancyView from './Demography/PregnancyView';
 import HouseHold from './Demography/HouseHold';
 import HouseHoldMemberName from './Demography/HouseHoldMemberName';
+import InjectionNotification from './Maternal/InjectionNotification';
+import NotificationView from './Maternal/NotificationView';
 
 const CustomDrawerContentComponent = (props) => (
   <Container>
@@ -180,6 +183,9 @@ const RootStack = createStackNavigator({
   FoodNutri: {
     screen: FoodNutri
   },
+  ChildRegistrationForm: {
+    screen: ChildRegistrationForm
+  },
   ChildRegistration: {
     screen: ChildRegistration
   },
@@ -256,6 +262,15 @@ const RootStack = createStackNavigator({
   PregnancyView:
   {
     screen: PregnancyView
+  },
+  Pregnancy: {
+    screen: Pregnancy
+  },
+  InjectionNotification: {
+    screen: InjectionNotification
+  },
+  NotificationView: {
+    screen: NotificationView
   }
 }, {
     defaultNavigationOptions: {
@@ -267,7 +282,7 @@ const RootStack = createStackNavigator({
         fontWeight: 'bold',
       },
     }
-  }
+    }  
 );
 
 const DrawerNavigation = createDrawerNavigator({

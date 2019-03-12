@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import { Alert } from 'react-native';
 import {
     CHILDUPDATE, CHILD_CREATE, CHILDFETCH,
-    CHILD_SAVE, FETCH_USER, CHILD_FETCH_LOAD_START, CHILD_FETCH_LOAD_END,CMOTHERNAMEFETCH
+    CHILD_SAVE, FETCH_USER, CHILD_FETCH_LOAD_START, CHILD_FETCH_LOAD_END, CMOTHERNAMEFETCH
 } from './types';
 import ListChild from '../component/Maternal/ListChild';
 
@@ -13,12 +13,14 @@ export const childUpdate = ({ name, value }) => {
     };
 };
 
-export const childCreate = ({ HNumber, CName, CMotherName, option, DPickdob, DPickregdate }) => {
+export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate }) => {
+    console.log('inside acton', HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate);
+
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         console.log(firebase.auth());
         firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`)
-            .push({ HNumber, CName, CMotherName, option, DPickdob, DPickregdate })
+            .push({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate })
             .then(() => {
                 dispatch({
                     type: CHILD_CREATE
@@ -53,20 +55,35 @@ export const childFetch = () => {
 //     };
 // };
 
-export const childSave = ({ HNumber, CName, CMotherName, option, DPickdob, DPickregdate, uid }) => {
+export const childSave = ({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, uid }) => {
+    console.log('uid inside godfreys slow motion', uid);
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration/${uid}`)
-            .set({ HNumber, CName, CMotherName, option, DPickdob, DPickregdate })
+            .set({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate })
             .then(() => {
                 dispatch({
                     type: CHILD_SAVE
                 });
-
-
             });
     };
 }
+
+export const deliveryUpdate = ({ status }, uid) => {
+    console.log('uid', status);
+    //  const hno = '3';
+    const Delivery = 'Yes';
+    const { currentUser } = firebase.auth();
+    return (dispatch) => {
+        firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy/${uid}`)
+            .update({ Delivery, status })
+            .then(() => {
+                dispatch({
+                    type: CHILD_SAVE
+                });
+            });
+    };
+};
 
 export const childDelete = ({ uid }, navigate) => {
     const { currentUser } = firebase.auth();

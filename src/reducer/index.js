@@ -21,6 +21,7 @@ import HouseholdFetchReducer from './HouseholdFetchReducer';
 import PregnancyReducer from './PregnancyReducer';
 import PregnancyFormReducer from './PregnancyFormReducer';
 import HouseHoldNameFetchReducer from './HouseHoldNameFetchReducer';
+import NotificationReducer from './NotificationReducer';
 
 export default combineReducers({
     auth: AuthReducer,
@@ -44,6 +45,6 @@ export default combineReducers({
     HouseHold: HouseholdFetchReducer,
     HouseHoldName: HouseHoldNameFetchReducer,
     PregnancyForm: PregnancyFormReducer,
-    PregnancyFetch: PregnancyReducer
-
+    PregnancyFetch: PregnancyReducer,
+    notify: NotificationReducer
 });
