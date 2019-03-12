@@ -98,8 +98,8 @@ export const bPictureRemove = (key) => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         Alert.alert(
-            'Alert Title',
-            'My Alert Msg',
+            'Need Attention...!',
+            'Do you want delete this record?',
             [
                 {
                     text: 'Cancel',
