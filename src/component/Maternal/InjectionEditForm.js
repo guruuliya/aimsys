@@ -30,16 +30,38 @@ class InjectionEditForm extends Component {
     }
 
     onButtonPress() {
-        const { HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete } = this.props;
-        this.props.InjectionSave({ HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete, uid: this.props.navigation.state.params.injection.uid });
-        Alert.alert(
-            'Oops !',
-            'Updated Successfully',
-            [
-                { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            ],
-            { cancelable: false }
-        )
+        // const { HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete } = this.props;
+
+        // this.props.InjectionSave({ HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete, uid: this.props.navigation.state.params.injection.uid });
+        const { HNumber, CName, update, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2 } = this.props;
+        console.log('update', update);
+        if (update === 'bcg') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, BCG);
+
+        } else if (update === 'polio') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, poliodate);
+
+        }
+        else if (update === 'hepatitis') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, hepa);
+
+        }
+        else if (update === 'dpt1') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, DPT1);
+
+        }
+        else if (update === 'hepatitis1') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, hepa1);
+
+        }
+        // Alert.alert(
+        //     'Oops !',
+        //     'Updated Successfully',
+        //     [
+        //         { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        //     ],
+        //     { cancelable: false }
+        // )
     }
 
     onAccept() {
@@ -78,8 +100,9 @@ class InjectionEditForm extends Component {
 }
 const mapStateToProps = (state) => {
 
-    const { HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete } = state.injection;
-    return { HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete };
+    const { HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete, update } = state.injection;
+    // console.log('inside edit form',HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete);
+    return { HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete, update };
 };
 
 export default connect(mapStateToProps, { InjectionUpdate, InjectionSave, InjectionDelete })(InjectionEditForm);  

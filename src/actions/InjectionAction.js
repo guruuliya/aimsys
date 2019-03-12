@@ -342,17 +342,76 @@ export const InjectionFetch = () => {
     };
 };
 
-export const InjectionSave = ({ HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete, uid }) => {
+export const InjectionSave = ({ HNumber, uid }, update, vari) => {
+    if (update === 'bcg') {
+        const BCG = vari;
+        console.log('inisde injevtion', HNumber, uid, update, vari);
+        const { currentUser } = firebase.auth();
+        return (dispatch) => {
+            firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration/${uid}`)
+                .update({ HNumber, BCG })
+                .then(() => {
+                    dispatch({
+                        type: INJECTION_SAVE
+                    });
+                });
+
+        };
+    } else if (update === 'polio') {
+        const poliodate = vari;
+        console.log('inisde injevtion', HNumber, uid, update, vari);
+        const { currentUser } = firebase.auth();
+        return (dispatch) => {
+            firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration/${uid}`)
+                .update({ HNumber, poliodate })
+                .then(() => {
+                    dispatch({
+                        type: INJECTION_SAVE
+                    });
+                });
+
+        };
+
+    } else if (update === 'hepatitis') {
+        const hepa = vari;
+        console.log('inisde injevtion', HNumber, uid, update, vari);
+        const { currentUser } = firebase.auth();
+        return (dispatch) => {
+            firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration/${uid}`)
+                .update({ HNumber, hepa })
+                .then(() => {
+                    dispatch({
+                        type: INJECTION_SAVE
+                    });
+                });
+        };
+    } else if (update === 'dpt1') {
+        const DPT1 = vari;
+        console.log('inisde injevtion', HNumber, uid, update, vari);
+        const { currentUser } = firebase.auth();
+        return (dispatch) => {
+            firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration/${uid}`)
+                .update({ HNumber, DPT1 })
+                .then(() => {
+                    dispatch({
+                        type: INJECTION_SAVE
+                    });
+                });
+        };
+  }else if (update === 'hepatitis1') {
+    const hepa1 = vari;
+    console.log('inisde injevtion', HNumber, uid, update, vari);
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/Maternal/Injection/${uid}`)
-            .set({ HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete })
+        firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration/${uid}`)
+            .update({ HNumber, hepa1 })
             .then(() => {
                 dispatch({
                     type: INJECTION_SAVE
                 });
             });
-    }; ``
+    };
+}
 };
 
 export const InjectionDelete = ({ uid }, navigate) => {
@@ -384,7 +443,7 @@ export const InjectionDelete = ({ uid }, navigate) => {
             { cancelable: false },
         );
     };
-};
+}
 
 const fetchLoad = (dispatch) => {
     dispatch({ type: NUTRITION_FETCH_LOAD_START, payload: true });
