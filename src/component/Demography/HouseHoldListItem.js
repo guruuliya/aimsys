@@ -1,29 +1,29 @@
-import React,{Component} from 'React';
-import {Text,TouchableWithoutFeedback,View,StyleSheet} from 'react-native';
+import React, { Component } from 'React';
+import { Text, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
 import Moment from 'moment';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import{withNavigation} from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 
-class HouseHoldListItem extends Component
-{
-    render()
-    {
-        const {HHNumber,HHName}=this.props.HouseHold;
+
+class HouseHoldListItem extends Component {
+    render() {
+        const { HHNumber, HHName } = this.props.HouseHold;     
+        
         return (
             <View style={styles.projectRow} >
-               
-             
-               
+
+
+
                 <View style={styles.projectText} >
-              
+
                     <Text style={styles.itemName}>HouseHold Number {"\t"} {HHNumber}
                     </Text>
 
                     <Text style={styles.itemDetails}>Last edited {"\t"}
                         {`${Moment(this.props.HouseHold).fromNow()}`}
                     </Text>
-                 </View>
+                </View>
 
                 <View style={styles.projectTextchild1}>
                     <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('HouseHoldMemberName', { HouseHold: this.props.HouseHold }) }}>
@@ -39,7 +39,7 @@ class HouseHoldListItem extends Component
                 </View>
 
                 <View style={styles.projectTextchild2}>
-                    <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('HouseHold',{ HouseHold: this.props.HouseHold }) }}>
+                    <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('HouseHold', { HouseHold: this.props.HouseHold }) }}>
                         <View>
                             <Icon
                                 name="edit"
@@ -49,9 +49,9 @@ class HouseHoldListItem extends Component
                             <Text style={styles.moreIcon} >Add</Text>
                         </View>
                     </TouchableWithoutFeedback>
-                   
+
                 </View>
-                
+
             </View>
         );
     }
@@ -93,4 +93,4 @@ const
         }
     });
 
-export default withNavigation( HouseHoldListItem);
+export default withNavigation(HouseHoldListItem);

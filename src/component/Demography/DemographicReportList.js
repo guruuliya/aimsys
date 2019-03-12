@@ -1,49 +1,34 @@
 import React, { Component } from 'React';
 import { Text, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
-import Moment from 'moment';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { withNavigation } from 'react-navigation';
-//import console = require('console');
 
-class HouseHoldMemberList extends Component {
+import { withNavigation } from 'react-navigation';
+
+class DemographicReportList extends Component {
+
     render() {
-       const {HHName,uid} = this.props.HouseHoldName
-         return (
+        const { HHName } = this.props.HouseHold;
+        console.log('Demographic', this.props.HouseHold);
+
+        //console.log('Name inside Demographic List is ',HHName);
+        return (
             <View style={styles.projectRow} >
                 <View style={styles.projectText} >
-                    <Text style={styles.itemName}>HouseHold Name {"\t"} {HHName}</Text>
-
-                    <Text style={styles.itemDetails}>Last edited {"\t"}
-                        {`${Moment(this.props.HouseHold).fromNow()}`}
+                    <Text style={styles.itemName}>HouseHold MemberName Name {'\t'} {HHName}
                     </Text>
-                    
                 </View>
 
                 <View style={styles.projectTextchild1}>
-                    <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('HouseHoldEdit', { Houseno: this.props.HouseHoldName }) }}>
+                    <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('HouseholdView', { HouseHold: this.props.HouseHold }); }}>
                         <View>
                             <Icon
                                 name="eye"
                                 size={30}
                                 style={styles.moreIcon}
                             />
-                            <Text style={styles.moreIcon}  >Edit</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
-                </View>
-
-                <View style={styles.projectTextchild2}>
-                    <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('HouseholdView', { HouseHold: this.props.HouseHoldName }) }}>
-                        <View>
-                            <Icon
-                                name="edit"
-                                size={30}
-                                style={styles.moreIcon}
-                            />
                             <Text style={styles.moreIcon} >View</Text>
                         </View>
                     </TouchableWithoutFeedback>
-
                 </View>
 
             </View>
@@ -54,17 +39,14 @@ class HouseHoldMemberList extends Component {
 const
     styles = StyleSheet.create({
         projectText: {
-            flex: 0.7,
+            flex: 0.9,
             flexDirection: 'column'
         },
         projectTextchild1: {
             flex: 0.2,
             flexDirection: 'column'
         },
-        projectTextchild2: {
-            flex: 0.1,
-            flexDirection: 'column'
-        },
+        
         projectRow: {
             flexDirection: 'row',
             justifyContent: 'flex-start',
@@ -83,8 +65,9 @@ const
             alignItems: 'center'
         },
         moreIcon: {
-            color: "#f7c744"
+            color: '#f7c744'
+            
         }
     });
 
-export default withNavigation(HouseHoldMemberList);
+export default withNavigation(DemographicReportList);

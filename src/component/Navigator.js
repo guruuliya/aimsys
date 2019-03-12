@@ -32,7 +32,7 @@ import PregnancyEdit from './Demography/PregnancyEdit';
 import PregnancyView from './Demography/PregnancyView';
 import HouseHold from './Demography/HouseHold';
 import HouseHoldMemberName from './Demography/HouseHoldMemberName';
-
+import DemographicReport from './Demography/DemographicReport';
 const RootStack = createStackNavigator({
   AuthLoading: {
     screen: AuthLoading
@@ -87,6 +87,10 @@ const RootStack = createStackNavigator({
   },
   DemographyDash: {
     screen: DemographyDash
+  },
+
+  DemographicReport:{
+    screen:DemographicReport
   },
   Householdtab: {
     screen: Householdtab

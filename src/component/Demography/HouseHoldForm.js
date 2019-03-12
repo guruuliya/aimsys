@@ -8,6 +8,9 @@ import { connect } from 'react-redux';
 import { HouseholdUpdate, HouseholdCreate, HouseHoldFormCreate } from '../../actions';
 
 class HouseHoldForm extends Component {
+    state = {
+        Designation: ''
+    }
     static navigationOptions = {
         title: 'Registration',
         headerStyle: {
@@ -18,6 +21,10 @@ class HouseHoldForm extends Component {
             fontWeight: 'bold',
         },
     };
+
+    calFun(text) {
+        this.props.HouseholdUpdate({ name: 'Designation', value: text });
+    }
     render() {
         return (
             <View>
@@ -97,13 +104,19 @@ class HouseHoldForm extends Component {
                     </CardItem>
                 </CardSection>
                 <CardSection>
-                    <Input
-                        placeholder="Enter The Designation"
-                        autoCorrect={false}
-                        label="Designation"
-                        onChangeText={value => this.props.HouseholdUpdate({ name: 'Designation', value })}
-                        value={this.props.Designation}
-                    />
+                    <Text> Ocupation</Text>
+                    <Picker
+                        selectedValue={this.props.Designation}
+                        style={{ height: 50, width: 350 }}
+                        onValueChange={this.calFun.bind(this)}>
+                        <Picker.Item label="Agriculture" value="Agriculture" />
+                        <Picker.Item label="HouseWife" value="HouseWife" />
+                        <Picker.Item label="Teacher" value="Serculture" />
+                        <Picker.Item label="Paugltry" value="tyy" />
+                       
+
+                    </Picker>
+
                 </CardSection>
                 <CardSection>
                     <Input
