@@ -67,6 +67,7 @@ import HouseHold from './Demography/HouseHold';
 import HouseHoldMemberName from './Demography/HouseHoldMemberName';
 import InjectionNotification from './Maternal/InjectionNotification';
 import NotificationView from './Maternal/NotificationView';
+import Pregnancy from './Demography/Pregnancy';
 
 const CustomDrawerContentComponent = (props) => (
   <Container>
@@ -282,7 +283,7 @@ const RootStack = createStackNavigator({
         fontWeight: 'bold',
       },
     }
-    }  
+  }
 );
 
 const DrawerNavigation = createDrawerNavigator({
