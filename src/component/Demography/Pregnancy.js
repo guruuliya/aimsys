@@ -19,8 +19,8 @@ class Pregnancy extends Component {
     };
     onButtonPress() {
         console.log('clicked');
-        const {HHNumber, PregnantName,NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, option, Dplace, FirstWeightDate, Nchild } = this.props;
-        this.props.PregnancyCreate({HHNumber, PregnantName,NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, option, Dplace, FirstWeightDate, Nchild });
+        const {HHNumber, PregnantName,NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild } = this.props;
+        this.props.PregnancyCreate({HHNumber, PregnantName,NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild });
 
     }
     render() {
@@ -45,7 +45,7 @@ class Pregnancy extends Component {
 
 
 const mapStateToProps = (state) => {
-    const {HHNumber, PregnantName, PhoneNumber, NPregnant, LPerioddate, EDeliveryplace, option, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild } = state.PregnancyForm;
-    return {HHNumber, PregnantName, PhoneNumber, NPregnant, LPerioddate, EDeliveryplace, option,  FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild };
+    const {HHNumber, PregnantName, PhoneNumber, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild } = state.PregnancyForm;
+    return {HHNumber, PregnantName, PhoneNumber, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild };
 };
 export default connect(mapStateToProps, { pregnancyUpdate, PregnancyCreate })(Pregnancy); 

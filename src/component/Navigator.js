@@ -68,6 +68,7 @@ import HouseHoldMemberName from './Demography/HouseHoldMemberName';
 import InjectionNotification from './Maternal/InjectionNotification';
 import NotificationView from './Maternal/NotificationView';
 import Pregnancy from './Demography/Pregnancy';
+import DemographicReport from './Demography/DemographicReport';
 
 const CustomDrawerContentComponent = (props) => (
   <Container>
@@ -82,6 +83,7 @@ const CustomDrawerContentComponent = (props) => (
     <DrawerItems {...props} />
   </Container>
 );
+
 
 const RootStack = createStackNavigator({
   Home: {
@@ -231,6 +233,9 @@ const RootStack = createStackNavigator({
   },
   DemographyDash: {
     screen: DemographyDash
+  },
+  DemographicReport: {
+    screen: DemographicReport
   },
   Householdtab: {
     screen: Householdtab

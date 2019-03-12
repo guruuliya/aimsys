@@ -86,3 +86,12 @@ export const PREGNANCY_CREATE = 'PregnancyCreate';
 export const PREGNANCYS_FETCH_SUCCESS = 'Pregnancy_Fetch_Success';
 export const PREGNENT_SAVE = 'PregnentSave';
 export const NOTIFICATIONFETCH = 'notificationsuccess';
+
+export const FETCH_ALL = 'FetchAll';
+export const HOUSEHOLD_Name_FETCH_SUCCESS = 'HOUSEHOLD_Name';
+export const PREGNANCY_UPDATE = 'PregnancyUpdate';
+export const PREGNANCY_CREATE = 'PregnancyCreate';
+export const PREGNANCYS_FETCH_SUCCESS = 'Pregnancy_Fetch_Success';
+export const PREGNENT_SAVE = 'PregnentSave';
+export const Pregnancy_FETCH_LOAD_START = 'PregnacyFetchStart';
+export const Pregnancy_FETCH_LOAD_END = 'PregnacyFetchEnd';

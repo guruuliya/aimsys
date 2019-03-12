@@ -7,8 +7,6 @@ import { HouseholdUpdate, HouseholdSave, HouseholdDelete } from '../../actions/H
 import HouseHoldForm from './HouseHoldForm';
 import { ScrollView } from 'react-native-gesture-handler';
 
-
-
 class HouseHoldEdit extends Component {
     static navigationOptions = {
         title: 'Household Information',
@@ -23,21 +21,15 @@ class HouseHoldEdit extends Component {
 
     state = { showModal: false };
     componentWillMount() {
-
-
-
+       //const { uid } = this.props.navigation.state.params.Houseno;
         _.each(this.props.navigation.state.params.Houseno, (value, name) => {
-
-
-            this.props.HouseholdUpdate({ name, value });
+         this.props.HouseholdUpdate({ name, value });
             console.log('data here', name, value);
         });
-
-
     }
 
     onButtonPress() {
-        const { HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option, uid } = this.props;
+        const { HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option } = this.props;
         this.props.HouseholdSave({ HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option }, this.props.navigation.state.params.Houseno.uid, HHNumber);
         Alert.alert(
             'Oops !',
@@ -45,21 +37,14 @@ class HouseHoldEdit extends Component {
             [
                 { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
             ],
-            { cancelable: false }
-        )
-
-    }
+            { cancelable: false 
+            })
+}
     onAccept() {
-
-        console.log('success');
-        console.log('----------------------');
-
-        console.log('----------------------');
         const { HHNumber } = this.props;
         const navigate = this.props.navigation;
         this.props.HouseholdDelete(this.props.navigation.state.params.Houseno.uid, navigate, HHNumber);
         this.setState({ showModal: false });
-
     }
 
     onDecline() {
@@ -97,15 +82,10 @@ class HouseHoldEdit extends Component {
                 </Card>
             </ScrollView>
         );
-
-
     }
 }
-
 const mapStateToProps = (state) => {
     const { HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option, uid } = state.HouseHoldForm;
-    console.log(HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option, uid);
     return { HHNumber, HHName, DOB, Caste, sex, Relationship, Designation, Status, Phonenumber, Address, option, uid };
-
 }
 export default connect(mapStateToProps, { HouseholdSave, HouseholdUpdate, HouseholdDelete })(HouseHoldEdit);

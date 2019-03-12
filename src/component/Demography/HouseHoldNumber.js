@@ -26,9 +26,9 @@ class HouseHoldNumber extends Component {
                         </CardSection>
                         <CardSection>
                             <Input
-                                placeholder="Enter The Location"
+                                placeholder="Enter The Address"
                                 autoCorrect={false}
-                                label=" Location"
+                                label=" Address"
                                 value={this.props.Address}
                                 onChangeText={value => this.props.HouseholdUpdate({ name: 'Address', value })}
                             />

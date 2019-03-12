@@ -2,13 +2,38 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native';
 import Moment from 'moment';
+import firebase from 'firebase';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { withNavigation } from 'react-navigation';
+import { SearchBar } from 'react-native-elements';
+
 
 class PregnancyListItem extends Component {
-    render() {
-        const { PregnantName } = this.props.PregnancyFetchName
+    state = {
+        a: [],
+        aa: ''
+      }
+    //   search(h,k) {
+    //     console.log('inside search', h , k);
+    //     const { currentUser } = firebase.auth();
+    //     const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${h}`);
+    //     // //const query = db.orderByKey().equalTo(k);
+    //     // //query.on('value', snapshot => {
+    //     //   snapshot.forEach(_child => {
+    //     //     this.setState({ a: _child.val().HHName });
+    //     //   });
+    
+    //     //});
+    //   }
+  render() {
+        const { PregnantName,HHNumber } = this.props.PregnancyFetchName;
+       console.log('inside render',PregnantName,HHNumber);
+    //    this.search(HHNumber,PregnantName);
+      
+       
         return (
+
+        
             <View style={styles.projectRow} >
                 <View style={styles.projectText} >
                     <Text style={styles.itemName}>PregnantName {"\t"} {PregnantName}

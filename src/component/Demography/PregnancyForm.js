@@ -1,10 +1,10 @@
 import firebase from 'firebase';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Text, View, Picker } from 'react-native';
 import Datepicker from 'react-native-datepicker';
+import { Radio, CardItem } from  'native-base';
 import { CardSection, Input } from '../Common';
-import { connect } from 'react-redux';
-import { Left, Radio, CardItem } from 'native-base';
 import { pregnancyUpdate } from '../../actions';
 
 class PregnancyForm extends Component {
@@ -22,18 +22,28 @@ class PregnancyForm extends Component {
             } else {
                 this.setState({ scores: { noData: { HHName: 'No Data' } } });
             }
-        })
+        });
     }
     getPickerElements() {
+        let count=0;
         var pickerArr = [];
         var scores = this.state.scores;
         var keys = Object.keys(scores);
         console.log(keys);
         for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
-            var PregnantName = scores[k].HHName;
-            pickerArr.push(<Picker.Item label={PregnantName} value={PregnantName} />);
+            console.log('pregna',keys[i]);
+            var gender=scores[k].sex;
+            if(gender === 'Female')
+            {
+                var PregnantName = scores[k].HHName;
+                pickerArr.push(<Picker.Item label={PregnantName} value={k} />);
+                    count++;
+            }    
         }
+        if(count==0)
+        pickerArr.push(<Picker.Item label={"No Data"} value={"NoData"} />);
+        
         return pickerArr;
     }
     calFun(text) {
@@ -46,6 +56,7 @@ class PregnancyForm extends Component {
                 <CardSection>
                     <Input
                         placeholder="Enter The HouseHold Number"
+                        
                         autoCorrect={false}
                         label="HouseHoldNumber"
                         value={this.props.HHNumber}
@@ -56,7 +67,7 @@ class PregnancyForm extends Component {
                     <CardItem><Text style={{ fontSize: 18 }}>Pregnant Name</Text></CardItem>
                     <CardItem>
                         <Picker
-                            selectedValue={this.state.pickerSelection}
+                            selectedValue={this.props.PregnantName}
                             style={[{ width: 290, height: 50, color: 'black' }]}
                             onValueChange={(value) => this.props.pregnancyUpdate({ prop: 'PregnantName', value })}>
                             <Picker.Item label='Select Pregnant Name' value='default' />
@@ -95,14 +106,16 @@ class PregnancyForm extends Component {
                         <Text style={{ fontSize: 18 }}>  Expected Delivery Date</Text>
                     </CardItem>
                     <CardItem>
-                        <Text>{"\t"}</Text>
-                        <Datepicker label=" Expected Delivery Date"
+                                              
+                     <Datepicker 
+                        label=" Expected Delivery Date"
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
                             date={this.props.EDeliveryplace}
-                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'EDeliveryplace', value })}
-                        />
+                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'EDeliveryplace', value })} 
+                     />
+                        
                     </CardItem>
                 </CardSection>
                 <CardSection>
@@ -113,8 +126,9 @@ class PregnancyForm extends Component {
                         <Text style={{ fontSize: 18 }}> Enter FirstDose</Text>
                     </CardItem>
                     <CardItem>
-                        <Text>{"\t\t\t\t\t\t\t\t\t"}</Text>
-                        <Datepicker label=" 1st Dose"
+                        <Text>{ " \t\t\t\t\t\t\t\t\t"}</Text>
+                        <Datepicker
+                         label=" 1st Dose"
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
@@ -130,7 +144,8 @@ class PregnancyForm extends Component {
                     </CardItem>
                     <CardItem>
                         <Text>{"\t\t\t\t\t"}</Text>
-                        <Datepicker label=" 2nd Dose"
+                        <Datepicker 
+                         label=" 2nd Dose"
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
@@ -145,7 +160,8 @@ class PregnancyForm extends Component {
                     </CardItem>
                     <CardItem>
                         <Text>{"\t\t\t\t\t"}</Text>
-                        <Datepicker label=" Delivery Date"
+                        <Datepicker 
+                         label=" Delivery Date"
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
@@ -163,23 +179,14 @@ class PregnancyForm extends Component {
                         onChangeText={value => this.props.pregnancyUpdate({ prop: 'Dplace', value })}
                     />
                 </CardSection>
-                <CardSection>
-                    <Text style={{ fontSize: 18 }}>{"\t\t\t"}Status </Text>
-                    <Text style={{ padding: 1 }}>{"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"}Born</Text>
-                    <Radio onPress={() => this.props.pregnancyUpdate({ prop: 'option', value: 'Born' })}
-                        selected={this.props.option === 'Born'}
-                    />
-                    <Text style={{ padding: 1 }}>{"\t\t"} Died</Text>
-                    <Radio style={{ paddingRight: 66 }} onPress={() => this.props.pregnancyUpdate({ prop: 'option', value: 'Died' })}
-                        selected={this.props.option === 'Died'}
-                    />
-                </CardSection>
+               
                 <CardSection>
                     <CardItem>
                         <Text style={{ fontSize: 18 }}> First weight Taken Date</Text>
                     </CardItem>
                     <CardItem>
-                        <Datepicker label=" First weight Taken Date"
+                        <Datepicker 
+                        label=" First weight Taken Date"
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
@@ -202,22 +209,10 @@ class PregnancyForm extends Component {
 
     }
 }
-const styles = {
-    errorTextStyle: {
-        fontSize: 20,
-        alignSelf: 'center',
-        color: 'red'
-    },
-    labelStyle: {
-        fontSize: 14,
-        paddingLeft: 16,
-        flex: 1,
-    }
-};
 
 const mapStateToProps = (state) => {
-    const { HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, option, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild } = state.PregnancyForm;
-    return { HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, option, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild };
+ const { HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild } = state.PregnancyForm;
+ return { HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild };
 };
 
 export default connect(mapStateToProps, { pregnancyUpdate })(PregnancyForm);

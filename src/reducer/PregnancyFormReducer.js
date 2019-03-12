@@ -13,7 +13,6 @@ const INITIAL_STATE = {
     SecondDose: '',
     DeliveryDate: '',
     Dplace: '',
-    option: '',
     FirstWeightDate: '',
     Nchild: '',
 

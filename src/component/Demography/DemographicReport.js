@@ -1,39 +1,35 @@
-import React, { Component } from 'react';
-import { ListView, ScrollView, View } from 'react-native';
 import _ from 'lodash';
+import React, { Component } from 'react';
+import {ListView,View,ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { Spinner } from 'native-base';
 import { SearchBar } from 'react-native-elements';
 import { Card, CardSection } from '../Common';
-import { HouseholdNameFetch } from '../../actions/HouseholdActions';
-import HouseHoldMemberList from './HouseHoldMemberList';
-
-
+import { FetchAll } from '../../actions/HouseholdActions';
+import DemographicReportList from './DemographicReportList';
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
 });
 
-class HouseHoldMemberName extends Component {
+class DemographicReport extends Component {
   state = {};
 
   componentWillMount() {
-    const {uid}=  this.props.navigation.state.params.HouseHold;
-   // console.log('printed here',uid);
-    this.props.HouseholdNameFetch({ uid});
+   
+    this.props.FetchAll();
     this.createDataSource(this.props);
   }
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps);
   }
-  createDataSource({ HouseHoldName }) {
-    var values = Object.values(HouseHoldName);
+  createDataSource({ Fetchall }) {
+    var values = Object.values(Fetchall);
     this.state = {
       "resultset": values,
       searchName: ''
     }
   }
-  renderRow(HouseHoldName) {
-    return <HouseHoldMemberList HouseHoldName={HouseHoldName} />;
+  renderRow(Fetchall) {
+    return <DemographicReportList HouseHold={Fetchall} />;
   }
   onSearchValueChange = (value, index) => {
     this.setState({
@@ -86,13 +82,8 @@ class HouseHoldMemberName extends Component {
   }
 }
 
-
 const mapStateToProps = state => {
-  // const { Loading } = state.child;
-  const HouseHoldName = _.map(state.HouseHoldName, (val, uid) => {
-    return { ...val, uid };
-  });
-  return { HouseHoldName };
+  const Fetchall = _.map(state.Fetchall, (val, uid) => ({ ...val, uid }));
+  return { Fetchall };
 };
-
-export default connect(mapStateToProps, { HouseholdNameFetch })(HouseHoldMemberName);
+export default connect(mapStateToProps, { FetchAll })(DemographicReport);

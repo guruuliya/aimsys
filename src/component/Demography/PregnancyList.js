@@ -65,7 +65,14 @@ class PregnancyList extends Component {
           onChangeText={this.onSearchValueChange}
           value={this.state.searchName}
         />
-        <ScrollView>
+        {/* {
+          this.props.Loading ? */}
+
+        {/* <View>
+          <Spinner />
+          </View> : */}
+        
+          <ScrollView> 
           <Card>
             <CardSection>
               <ListView
@@ -76,14 +83,17 @@ class PregnancyList extends Component {
             </CardSection>
           </Card>
         </ScrollView>
-      </View>
-    );
+       
+       </View>
+    );    
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = state => { 
+
+  //const { Loading } = state.PregnancyFetch;
   const PregnancyFetch = _.map(state.PregnancyFetch, (val, uid) => {
     return { ...val, uid };
   });
-  return { PregnancyFetch };
+  return {PregnancyFetch };
 };
 export default connect(mapStateToProps, { pregnancyFetch })(PregnancyList);

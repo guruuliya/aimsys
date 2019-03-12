@@ -38,6 +38,22 @@ class DemographyDash extends Component {
                         </TouchableOpacity>
                     </View>
 
+
+                    {/* complete  HouseHold survey */}
+
+
+
+                    <View style={styles.bottomitem}>
+                        <TouchableOpacity
+                            style={styles.bottomitemInner}
+                            onPress={() => this.props.navigation.navigate('DemographicReport')}
+                        >
+                            <Text style={styles.bottomitemInnerContent}>
+                                {'HouseHold  Survey'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+
                     <View style={styles.bottomitem}>
                         <TouchableOpacity
                             style={styles.bottomitemInner}
