@@ -59,10 +59,8 @@ class ChildRegistrationForm extends Component {
                                 autoCorrect={false}
                                 value={this.props.HNumber}
                                 onChangeText={this.calFun.bind(this)}
+                               // required={true}
                             />
-                            {!!this.state.nameError && (
-                                <Text style={{ color: 'red' }}>{this.state.nameError}</Text>
-                            )}
                         </Item>
                     </CardItem>
 

@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import { Alert } from 'react-native';
 import {
     CHILDUPDATE, CHILD_CREATE, CHILDFETCH,
-    CHILD_SAVE, FETCH_USER, CHILD_FETCH_LOAD_START, CHILD_FETCH_LOAD_END, CMOTHERNAMEFETCH
+    CHILD_SAVE, CHILD_FETCH_LOAD_START, CHILD_FETCH_LOAD_END,
 } from './types';
 import ListChild from '../component/Maternal/ListChild';
 
