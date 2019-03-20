@@ -12,31 +12,36 @@ class PregnancyListItem extends Component {
     state = {
         a: [],
         aa: ''
-      }
-    //   search(h,k) {
-    //     console.log('inside search', h , k);
-    //     const { currentUser } = firebase.auth();
-    //     const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${h}`);
-    //     // //const query = db.orderByKey().equalTo(k);
-    //     // //query.on('value', snapshot => {
-    //     //   snapshot.forEach(_child => {
-    //     //     this.setState({ a: _child.val().HHName });
-    //     //   });
-    
-    //     //});
-    //   }
-  render() {
-        const { PregnantName,HHNumber } = this.props.PregnancyFetchName;
-       console.log('inside render',PregnantName,HHNumber);
-    //    this.search(HHNumber,PregnantName);
-      
-       
-        return (
+    }
 
-        
+    componentWillMount() {
+
+        const { HHNumber, PregnantName } = this.props.PregnancyFetchName;
+
+        this.search(HHNumber, PregnantName);
+    }
+
+    search(k, h) {
+        console.log('inside search', h, k);
+        const { currentUser } = firebase.auth();
+        const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${k}/${h}`);
+        db.once('value', snapshot => {
+            console.log('i prnnn', snapshot.val().HHName);
+            this.setState({ a: snapshot.val().HHName });
+        });
+    }
+
+
+    render() {
+        const { PregnantName, HHNumber } = this.props.PregnancyFetchName;
+        //console.log('inside render',PregnantName,HHNumber);
+
+
+        return (
             <View style={styles.projectRow} >
                 <View style={styles.projectText} >
-                    <Text style={styles.itemName}>PregnantName {"\t"} {PregnantName}
+                    <Text style={styles.itemName}>
+                        PregnantName {"\t"} {this.state.a}
                     </Text>
                     <Text style={styles.itemDetails}>Last edited {"\t"}
                         {`${Moment(this.props.HouseHold).fromNow()}`}

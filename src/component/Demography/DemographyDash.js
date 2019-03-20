@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
 class DemographyDash extends Component {
-    static navigationOptions = {
+      static navigationOptions = {
         title: 'Demography',
         headerStyle: {
             backgroundColor: '#355870',
@@ -19,65 +19,41 @@ class DemographyDash extends Component {
             <View style={styles.container}>
                 <View style={styles.bottom}>
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity
-                            style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('Householdtab')}
-                        >
-                            <Text style={styles.bottomitemInnerContent}>Registerd Household</Text>
+                        <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('Householdtab')} >
+                            <View>
+                                <Image style={styles.icon} source={require('../../images/demo_registerhousehold.png')} />
+                            </View>
                         </TouchableOpacity>
                     </View>
 
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity
-                            style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('PregnancyTab')}
-                        >
-                            <Text style={styles.bottomitemInnerContent}>
-                                {'Pregnancy\n Women'}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-
-
-                    {/* complete  HouseHold survey */}
-
-
-
-                    <View style={styles.bottomitem}>
-                        <TouchableOpacity
-                            style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('DemographicReport')}
-                        >
-                            <Text style={styles.bottomitemInnerContent}>
-                                {'HouseHold  Survey'}
-                            </Text>
+                        <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('PregnancyTab')}  >
+                            <View>
+                                <Image style={styles.icon} source={require('../../images/demo_register_pwoman.png')} />
+                            </View>
                         </TouchableOpacity>
                     </View>
 
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity
-                            style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('Picker')}
-                        >
-                            <Text style={styles.bottomitemInnerContent}>
-                                {'Children \n 0-6 Years'}
-                            </Text>
+                        <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('DemographicReport')} >
+                            <View>
+                                <Image style={styles.icon} source={require('../../images/demo_searchpeople.png')} />
+                            </View>
                         </TouchableOpacity>
                     </View>
 
+
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity
-                            style={styles.bottomitemInner}
-                            onPress={() => this.props.navigation.navigate('')}
-                        >
-                            <Text
-                                style={styles.bottomitemInnerContent}
-                            >
-                                {'Lactating \n Mothers'}</Text>
+                        <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('LocationHouse')} >
+                            <View>
+                                <Image style={styles.icon} source={require('../../images/demo_searchpeople.png')} />
+                            </View>
                         </TouchableOpacity>
                     </View>
+
                 </View>
-            </View>
+                </View>
+
         );
     }
 }
@@ -86,9 +62,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-
     bottom: {
-        height: '50%',
+        height: '55%',
         backgroundColor: '#fff',
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -97,11 +72,12 @@ const styles = StyleSheet.create({
     bottomitem: {
         width: '50%',
         height: '50%',
-        padding: 5,
+        padding: 8
+        ,
     },
     bottomitemInner: {
         flex: 1,
-        backgroundColor: '#395870',
+        backgroundColor: '#275DAD',
         alignItems: 'center',
         justifyContent: 'center',
 
@@ -111,8 +87,26 @@ const styles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
         padding: 5,
-    }
+    },
 
+    menuBox: {
+        backgroundColor: '#275DAD',
+        width: 100,
+        height: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 12
+    },
+    icon: {
+        width: 200,
+        height: 200,
+    },
+    info: {
+        fontSize: 22,
+        color: '#696969',
+    },
+    
 });
+
 
 export { DemographyDash };

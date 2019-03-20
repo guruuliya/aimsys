@@ -11,7 +11,7 @@ class HouseHoldMemberList extends Component {
          return (
             <View style={styles.projectRow} >
                 <View style={styles.projectText} >
-                    <Text style={styles.itemName}>HouseHold Name {"\t"} {HHName}</Text>
+                    <Text style={styles.itemName}> {"\t"} {HHName}</Text>
 
                     <Text style={styles.itemDetails}>Last edited {"\t"}
                         {`${Moment(this.props.HouseHold).fromNow()}`}

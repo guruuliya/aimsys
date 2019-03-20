@@ -9,7 +9,8 @@ let i = 0;
 class PregnancyView extends Component {
   state = {
     a: [],
-    aa: ''
+    aa: '',
+    PhoneNumber: ''
   }
 
   static navigationOptions = {
@@ -30,22 +31,23 @@ class PregnancyView extends Component {
   }
   componentWillMount() {
 
-    const{HHNumber,PregnantName}=this.props.navigation.state.params.Pregnancy;
-    this.search(HHNumber,PregnantName);
+    const { HHNumber, PregnantName } = this.props.navigation.state.params.Pregnancy;
+    this.search(HHNumber, PregnantName);
   }
-  search(h,k) {
-    console.log('inside search', h , k);
+  search(h, k) {
+    console.log('inside search', h, k);
     const { currentUser } = firebase.auth();
     const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${h}`);
     const query = db.orderByKey().equalTo(k);
     query.on('value', snapshot => {
       snapshot.forEach(_child => {
         this.setState({ a: _child.val().HHName });
+        this.setState({ PhoneNumber: _child.val().Phonenumber });
       });
-
     });
   }
   render() {
+    console.log('inside render', this.state.PhoneNumber);
     const { PhoneNumber, NPregnant, LPerioddate, EDeliveryplace, option, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild } = this.props.navigation.state.params.Pregnancy;
     return (
       <Container style={styles.back} >
@@ -57,26 +59,24 @@ class PregnancyView extends Component {
             <Card>
               <Text>{"\n"}</Text>
               <Text style={styles.contentview}>PregnantName Name :{"\t"}{this.state.a} </Text>
-              <Text style={styles.contentview} >PhoneNumber :{"\t"}{PhoneNumber} </Text>
+              <Text style={styles.contentview} >PhoneNumber :{"\t"}{this.state.PhoneNumber} </Text>
               <Text style={styles.contentview} >No of Pregnant :{"\t"}{NPregnant} </Text>
               <Text style={styles.contentview}>Last Period:{"\t"}{LPerioddate} </Text>
               <Text style={styles.contentview}>DeliveryPlace:{"\t"}{EDeliveryplace} </Text>
-              <Text style={styles.contentview} >Status:{"\t"}{option} </Text>
-              <Text style={styles.contentview}>FirstDose:{"\t"}{FirstDose} </Text>
+                           <Text style={styles.contentview}>FirstDose:{"\t"}{FirstDose} </Text>
               <Text style={styles.contentview}>SecondDose :{"\t"}{SecondDose} </Text>
               <Text style={styles.contentview}>DeliveryDate:{"\t"}{DeliveryDate} </Text>
               <Text style={styles.contentview} >Dplace:{"\t"}{Dplace} </Text>
               <Text style={styles.contentview}>FirstWeight:{"\t"}{FirstWeightDate} </Text>
-              <Text style={styles.contentview}>Number of child  :{"\t"}{Nchild} </Text>
-              <Text>{"\n"}</Text>
+                           <Text>{"\n"}</Text>
             </Card>
             {(this.state.show) ? <Card style={styles.develop}><Text> Currently under development!!</Text></Card> : null
             }
             <Text>{"\n"}</Text>
-            <Button block danger onPress={this.handleOnPress} >
+            {/* <Button block danger onPress={this.handleOnPress} >
               <Icon name="md-save" />
               <Text>EXPORT TO PDF</Text>
-            </Button>
+            </Button> */}
             <Text>{"\n"}</Text>
             <Text>{"\n"}</Text>
           </Form>

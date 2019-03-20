@@ -80,6 +80,7 @@ export const HOUSEHOLD_CREATE = 'HouseHoldCreate';
 export const HOUSEHOLD_FETCH_SUCCESS = 'HouseholdFetch';
 export const HOUSEHOLD_SAVE = 'HouseHoldSave';
 
+export const FETCH_ALL = 'FetchAll';
 export const HOUSEHOLD_Name_FETCH_SUCCESS = 'HOUSEHOLD_Name';
 export const PREGNANCY_UPDATE = 'PregnancyUpdate';
 export const PREGNANCY_CREATE = 'PregnancyCreate';
@@ -87,7 +88,7 @@ export const PREGNANCYS_FETCH_SUCCESS = 'Pregnancy_Fetch_Success';
 export const PREGNENT_SAVE = 'PregnentSave';
 export const NOTIFICATIONFETCH = 'notificationsuccess';
 
-export const FETCH_ALL = 'FetchAll';
+
 export const Pregnancy_FETCH_LOAD_START = 'PregnacyFetchStart';
 export const Pregnancy_FETCH_LOAD_END = 'PregnacyFetchEnd';
 
@@ -99,3 +100,8 @@ export const LOCATION_FETCH = 'location_fetch';
 export const LOCATION_LOADING_START = 'location_loading_start';
 export const LOCATION_LOADING_END = 'location_loading_end';
 export const LOCATION_REMOVE = 'location_remove';
+export const PREGNANCY_FETCH_LOAD_START = 'PregnacyFetchStart';
+export const PREGNANCY_FETCH_LOAD_END = 'PregnacyFetchEnd';
+
+export const HOUSEHOLD_FETCH_LOAD_START = 'HouseholdFetchStart';
+export const HOUSEHOLD_FETCH_LOAD_END = 'HouseholdFetchEnd';

@@ -72,6 +72,7 @@ import DemographicReport from './Demography/DemographicReport';
 import AnganwadiLocation from './infrastructure/AnganwadiLocation';
 import loc from './infrastructure/loc';
 import AnganwadiLocationUpdate from './infrastructure/AnganwadiLocationUpdate';
+import LocationHouse from './Demography/Location';
 
 const CustomDrawerContentComponent = (props) => (
   <Container>
@@ -86,6 +87,7 @@ const CustomDrawerContentComponent = (props) => (
     <DrawerItems {...props} />
   </Container>
 );
+
 
 
 const RootStack = createStackNavigator({
@@ -237,6 +239,7 @@ const RootStack = createStackNavigator({
   DemographyDash: {
     screen: DemographyDash
   },
+
   DemographicReport: {
     screen: DemographicReport
   },
@@ -259,6 +262,9 @@ const RootStack = createStackNavigator({
   },
   HouseholdView: {
     screen: HouseholdView
+  },
+  LocationHouse: {
+    screen: LocationHouse
   },
   PregnancyTab:
   {

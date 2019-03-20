@@ -8,6 +8,7 @@ import { Card, CardSection } from '../Common';
 import { pregnancyFetch } from '../../actions/PregnancyActions';
 import PregnancyListItem from './PregnancyListItem';
 
+
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
 });
@@ -26,7 +27,7 @@ class PregnancyList extends Component {
     this.state = {
       "resultset": values,
       searchName: ''
-    }
+    };
   }
   renderRow(PregnancyFetch) {
     return <PregnancyListItem PregnancyFetchName={PregnancyFetch} />;
@@ -34,7 +35,7 @@ class PregnancyList extends Component {
   onSearchValueChange = (value, index) => {
     this.setState({
       "searchName": value
-    })
+    });
   }
   render() {
     const json = this.state.resultset;
@@ -44,7 +45,7 @@ class PregnancyList extends Component {
         const itemData = `${item.PregnantName} `;
         const textData = name;
         return itemData.indexOf(textData) > -1;
-      })
+      });
 
       if (jsonsearch === '') {
         jsonsearch = this.state.resultset;
@@ -53,7 +54,7 @@ class PregnancyList extends Component {
       jsonsearch = json;
     }
     if (Object.keys(jsonsearch).length === 0) {
-      jsonsearch = { 0: { HHName: 'No Record Found' } };
+      jsonsearch = { 0: { HHName: 'No Record Found', HHNumber: '', PregnantName: '' } };
     }
     const dataSource = ds.cloneWithRows(jsonsearch);
     return (
@@ -65,35 +66,34 @@ class PregnancyList extends Component {
           onChangeText={this.onSearchValueChange}
           value={this.state.searchName}
         />
-        {/* {
-          this.props.Loading ? */}
-
-        {/* <View>
-          <Spinner />
-          </View> : */}
-        
-          <ScrollView> 
-          <Card>
-            <CardSection>
-              <ListView
-                enableEmptySections
-                dataSource={dataSource}
-                renderRow={this.renderRow}
-              />
-            </CardSection>
-          </Card>
-        </ScrollView>
-       
-       </View>
-    );    
+        {
+          this.props.Loading ?
+            <View>
+              <Spinner />
+            </View> :
+            <ScrollView>
+              <Card>
+                <CardSection>
+                  <ListView
+                    enableEmptySections
+                    dataSource={dataSource}
+                    renderRow={this.renderRow}
+                  />
+                </CardSection>
+              </Card>
+            </ScrollView>
+        }
+      </View>
+    );
   }
 }
-const mapStateToProps = state => { 
-
-  //const { Loading } = state.PregnancyFetch;
+const mapStateToProps = state => {
+  const { Loading } = state.PregnancyForm;
+  console.log('loading', Loading);
   const PregnancyFetch = _.map(state.PregnancyFetch, (val, uid) => {
     return { ...val, uid };
   });
-  return {PregnancyFetch };
+  return { Loading, PregnancyFetch };
 };
+
 export default connect(mapStateToProps, { pregnancyFetch })(PregnancyList);

@@ -21,6 +21,7 @@
     "react-native-image-picker": "^0.28.0",
     "react-native-progress": "^3.5.0",
     "react-native-search-filter": "^0.1.4",
+    "react-native-maps": "^0.23.0",
     "react-native-simple-radio-button": "^2.7.3",
     "react-native-swiper": "^1.5.14",
     "react-native-ui-xg": "0.0.6",

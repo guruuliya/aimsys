@@ -1,9 +1,9 @@
 import firebase from 'firebase';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Picker } from 'react-native';
+import { Text, View, Picker, StyleSheet, TextInput } from 'react-native';
 import Datepicker from 'react-native-datepicker';
-import { Radio, CardItem } from  'native-base';
+import { CardItem } from 'native-base';
 import { CardSection, Input } from '../Common';
 import { pregnancyUpdate } from '../../actions';
 
@@ -14,8 +14,8 @@ class PregnancyForm extends Component {
     };
     search(HHNumber) {
         const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${HHNumber}`)
-        const query = db.orderByChild('HHNumber').equalTo(HHNumber)
+        const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${HHNumber}`);
+        const query = db.orderByChild('HHNumber').equalTo(HHNumber);
         query.on('value', snapshot => {
             if (snapshot.val()) {
                 this.setState({ scores: snapshot.val() });
@@ -25,25 +25,24 @@ class PregnancyForm extends Component {
         });
     }
     getPickerElements() {
-        let count=0;
+        let count = 0;
         var pickerArr = [];
         var scores = this.state.scores;
         var keys = Object.keys(scores);
         console.log(keys);
         for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
-            console.log('pregna',keys[i]);
-            var gender=scores[k].sex;
-            if(gender === 'Female')
-            {
+            console.log('pregna', keys[i]);
+            var gender = scores[k].sex;
+            if (gender === 'Female') {
                 var PregnantName = scores[k].HHName;
                 pickerArr.push(<Picker.Item label={PregnantName} value={k} />);
-                    count++;
-            }    
+                count++;
+            }
         }
-        if(count==0)
-        pickerArr.push(<Picker.Item label={"No Data"} value={"NoData"} />);
-        
+        if (count == 0)
+            pickerArr.push(<Picker.Item label={"No Data"} value={"NoData"} />);
+
         return pickerArr;
     }
     calFun(text) {
@@ -52,167 +51,268 @@ class PregnancyForm extends Component {
     }
     render() {
         return (
-            <View>
-                <CardSection>
-                    <Input
-                        placeholder="Enter The HouseHold Number"
-                        
-                        autoCorrect={false}
-                        label="HouseHoldNumber"
-                        value={this.props.HHNumber}
-                        onChangeText={this.calFun.bind(this)}
-                    />
-                </CardSection>
-                <CardSection>
-                    <CardItem><Text style={{ fontSize: 18 }}>Pregnant Name</Text></CardItem>
-                    <CardItem>
+            <View style={styles.container}>
+                <View style={styles.mainview}>
+                    <View style={styles.inputContainer}>
+                        <TextInput style={styles.inputs}
+                            placeholder="Enter The HouseHold Number"
+                            underlineColorAndroid='transparent'
+                            autoCorrect={false}
+                            placeholderTextColor='#355870'
+                            value={this.props.HHNumber}
+                            onChangeText={this.calFun.bind(this)}
+                        />
+                    </View>
+
+                    <View style={styles.inputContainer}>
                         <Picker
+                            style={styles.picker} itemStyle={styles.pickerItem}
                             selectedValue={this.props.PregnantName}
-                            style={[{ width: 290, height: 50, color: 'black' }]}
-                            onValueChange={(value) => this.props.pregnancyUpdate({ prop: 'PregnantName', value })}>
+                            onValueChange={(value) => this.props.pregnancyUpdate({ prop: 'PregnantName', value })}
+                        >
                             <Picker.Item label='Select Pregnant Name' value='default' />
                             {this.getPickerElements()}
                         </Picker>
-                    </CardItem>
-                </CardSection>
-                <CardSection>
-                    <Input
-                        placeholder="Enter Number of Pregnant"
-                        autoCorrect={false}
-                        label="Number of Pregnant"
-                        value={this.props.NPregnant}
-                        onChangeText={value => this.props.pregnancyUpdate({ prop: 'NPregnant', value })}
-                    />
-                </CardSection>
+                    </View>
 
-                <CardSection>
-                    <CardItem>
-                        <Text style={{ fontSize: 18 }}> Enter Lat Period Date</Text>
-                    </CardItem>
-                    <CardItem>
-                        <Text>{"\t\t\t"}</Text>
-                        <Datepicker label=" Last Period Date"
+                    <View style={styles.inputContainer}>
+                        <TextInput style={styles.inputs}
+                            placeholder="Enter Number of Pregnancies"
+                            autoCorrect={false}
+                            value={this.props.NPregnant}
+                            onChangeText={value => this.props.pregnancyUpdate({ prop: 'NPregnant', value })}
+                        />
+                    </View>
+
+                    <View style={styles.inputContainer}>
+
+                        <Datepicker style={styles.dateblock}
+                            placeholder="select date"
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
                             date={this.props.LPerioddate}
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'LPerioddate', value })}
                         />
-                    </CardItem>
-                </CardSection>
+                    </View>
 
-                <CardSection>
-                    <CardItem>
-                        <Text style={{ fontSize: 18 }}>  Expected Delivery Date</Text>
-                    </CardItem>
-                    <CardItem>
-                                              
-                     <Datepicker 
-                        label=" Expected Delivery Date"
+                    <View style={styles.inputContainer}>
+                        <Datepicker style={styles.dateblock}
+                            placeholder="select date"
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
                             date={this.props.EDeliveryplace}
-                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'EDeliveryplace', value })} 
-                     />
-                        
-                    </CardItem>
-                </CardSection>
-                <CardSection>
-                    <Text>T T date</Text>
-                </CardSection>
-                <CardSection>
-                    <CardItem>
-                        <Text style={{ fontSize: 18 }}> Enter FirstDose</Text>
-                    </CardItem>
-                    <CardItem>
-                        <Text>{ " \t\t\t\t\t\t\t\t\t"}</Text>
-                        <Datepicker
-                         label=" 1st Dose"
+                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'EDeliveryplace', value })}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Datepicker style={styles.dateblock}
+                            placeholder="select first dose"
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
                             date={this.props.FirstDose}
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'FirstDose', value })}
                         />
-                    </CardItem>
-                </CardSection>
+                    </View>
 
-                <CardSection>
-                    <CardItem>
-                        <Text style={{ fontSize: 18 }}> Enter Second Dose</Text>
-                    </CardItem>
-                    <CardItem>
-                        <Text>{"\t\t\t\t\t"}</Text>
-                        <Datepicker 
-                         label=" 2nd Dose"
+                    <View style={styles.inputContainer}>
+                        <Datepicker style={styles.dateblock}
+                            label=" 2nd Dose"
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
                             date={this.props.SecondDose}
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'SecondDose', value })}
                         />
-                    </CardItem>
-                </CardSection>
-                <CardSection>
-                    <CardItem>
-                        <Text style={{ fontSize: 18 }}> Enter Delivery Date</Text>
-                    </CardItem>
-                    <CardItem>
-                        <Text>{"\t\t\t\t\t"}</Text>
-                        <Datepicker 
-                         label=" Delivery Date"
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <Datepicker style={styles.dateblock}
+                            label=" Delivery Date"
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
                             date={this.props.DeliveryDate}
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'DeliveryDate', value })}
                         />
-                    </CardItem>
-                </CardSection>
-                <CardSection>
-                    <Input
-                        placeholder={"\t\t\t\t\t Enter Delivery Place"}
-                        autoCorrect={false}
-                        label={" Enter DeliveryPlace"}
-                        value={this.props.Dplace}
-                        onChangeText={value => this.props.pregnancyUpdate({ prop: 'Dplace', value })}
-                    />
-                </CardSection>
-               
-                <CardSection>
-                    <CardItem>
-                        <Text style={{ fontSize: 18 }}> First weight Taken Date</Text>
-                    </CardItem>
-                    <CardItem>
-                        <Datepicker 
-                        label=" First weight Taken Date"
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <Datepicker style={styles.dateblock}
+                            label=" First weight Taken Date"
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
                             date={this.props.FirstWeightDate}
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'FirstWeightDate', value })}
                         />
-                    </CardItem>
-                </CardSection>
-                <CardSection>
-                    <Input
-                        placeholder={"\t\t\t\t\tChild Registered "}
-                        autoCorrect={false}
-                        label="Number of Child Registered "
-                        value={this.props.Nchild}
-                        onChangeText={value => this.props.pregnancyUpdate({ prop: 'Nchild', value })}
-                    />
-                </CardSection>
-            </View>
-        )
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput style={styles.inputs}
+                            placeholder={"\t\t\t\t\t Enter Delivery Place"}
+                            autoCorrect={false}
+                            label={" Enter DeliveryPlace"}
+                            value={this.props.Dplace}
+                            onChangeText={value => this.props.pregnancyUpdate({ prop: 'Dplace', value })}
+                        />
+                    </View>
 
+                </View>
+            </View>
+        );
     }
 }
 
+const resizeMode = 'center';
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        //
+        // '#DCDCDC
+        backgroundColor: '#275DAD',
+    },
+
+    mainview: {
+        margin: 18
+    },
+    card: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 10,
+        marginTop: 10,
+        marginBottom: 10,
+        flexDirection: 'row',
+        width: 350,
+        height: 45,
+        alignItems: 'center',
+    },
+    childtitle: {
+        width: 350,
+        height: 45,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#275DAD',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    inputContainer: {
+
+        borderBottomColor: '#F5FCFF',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 30,
+        borderBottomWidth: 1,
+        width: 350,
+        height: 45,
+        marginBottom: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+
+    },
+    inputs: {
+        height: 45,
+        marginLeft: 16,
+        borderBottomColor: '#FFFFFF',
+        flex: 1,
+        color: '#275DAD'
+    },
+    dateblock: {
+        width: '40%',
+        height: 45,
+        marginLeft: 30,
+        borderWidth: 0,
+        // marginLeft: 16,
+        // borderBottomColor: '#FFFFFF',
+        flex: 1,
+        color: '#355870',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    picker: {
+        width: 200,
+        borderColor: 'black',
+        borderWidth: 1,
+        height: 45,
+        marginLeft: 16,
+        borderBottomColor: '#FFFFFF',
+        flex: 1,
+    },
+    pickerItem: {
+        color: '#1F1F1F'
+    },
+    inputIcon: {
+        width: 30,
+        height: 30,
+        marginRight: 15,
+        justifyContent: 'center'
+    },
+    buttonContainer: {
+        height: 45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+        width: 300,
+        borderRadius: 30,
+        backgroundColor: 'transparent'
+    },
+    btnByRegister: {
+        height: 15,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 20,
+        width: 300,
+        backgroundColor: 'transparent'
+    },
+    loginButton: {
+        backgroundColor: '#00b5ec',
+
+        shadowColor: '#808080',
+        shadowOffset: {
+            width: 0,
+            height: 9,
+        },
+        shadowOpacity: 0.50,
+        shadowRadius: 12.35,
+
+        elevation: 19,
+    },
+    loginText: {
+        color: 'white',
+    },
+    bgImage: {
+        flex: 1,
+        resizeMode,
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+    },
+    btnText: {
+        color: 'white',
+        fontWeight: 'bold',
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 10
+    },
+    textByRegister: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 10
+    }
+});
+
 const mapStateToProps = (state) => {
- const { HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild } = state.PregnancyForm;
- return { HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild };
+    const { HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate } = state.PregnancyForm;
+    return { HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate };
 };
 
 export default connect(mapStateToProps, { pregnancyUpdate })(PregnancyForm);
