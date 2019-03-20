@@ -69,6 +69,9 @@ import InjectionNotification from './Maternal/InjectionNotification';
 import NotificationView from './Maternal/NotificationView';
 import Pregnancy from './Demography/Pregnancy';
 import DemographicReport from './Demography/DemographicReport';
+import AnganwadiLocation from './infrastructure/AnganwadiLocation';
+import loc from './infrastructure/loc';
+import AnganwadiLocationUpdate from './infrastructure/AnganwadiLocationUpdate';
 
 const CustomDrawerContentComponent = (props) => (
   <Container>
@@ -277,7 +280,16 @@ const RootStack = createStackNavigator({
   },
   NotificationView: {
     screen: NotificationView
-  }
+  },
+  AnganwadiLocation: {
+    screen: AnganwadiLocation
+  },
+  loc: {
+    screen: loc
+  },
+  AnganwadiLocationUpdate: {
+    screen: AnganwadiLocationUpdate
+  },
 }, {
     defaultNavigationOptions: {
       headerStyle: {
@@ -313,7 +325,7 @@ const SwitchNavigator = createSwitchNavigator({
   Login: {
     screen: Login,
   },
-  Dashboard: {
+  Home: {
     screen: DrawerNavigation
   },
 },

@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     },
     bottomitemInner: {
         flex: 1,
-        backgroundColor: '#DCDCDC',
+        backgroundColor: '#275DAD',
         alignItems: 'center',
         justifyContent: 'center',
 
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     },
 
     menuBox: {
-        backgroundColor: '#DCDCDC',
+        backgroundColor: '#275DAD',
         width: 100,
         height: 100,
         alignItems: 'center',
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     slide: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#DCDCDC',
+        backgroundColor: '#275DAD',
         height: 300
     },
     text: {

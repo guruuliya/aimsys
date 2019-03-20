@@ -1,16 +1,10 @@
 import {
-    FACILTY_FORM, FACILITY_CREATE, FACILITY_CHECK,
-    FACILITY_REMOVE, FACILITY_LOADING_START, FACILITY_LOADING_END
+    LOCATION_FORM, LOCATION_CHECK, LOCATION_CREATE, LOCATION_LOADING_START, LOCATION_LOADING_END, LOCATION_REMOVE
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    well: '',
-    Water: '',
-    Medicine: '',
-    Mother: '',
-    Infant: '',
-    Play: '',
-    Toilet: '',
+    latitude: 0,
+    longitude: 0,
     status: '',
     uid: '',
     Loadding: false
@@ -18,17 +12,17 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case FACILITY_CHECK:
+        case LOCATION_CHECK:
             return { ...state, status: action.payload };
-        case FACILTY_FORM:
+        case LOCATION_FORM:
             return { ...state, [action.payload.name]: action.payload.value };
-        case FACILITY_CREATE:
+        case LOCATION_CREATE:
             return { INITIAL_STATE, status: true };
-        case FACILITY_REMOVE:
+        case LOCATION_REMOVE:
             return { status: false };
-        case FACILITY_LOADING_START:
+        case LOCATION_LOADING_START:
             return { ...state, Loadding: true };
-        case FACILITY_LOADING_END:
+        case LOCATION_LOADING_END:
             return { ...state, Loadding: false };
         default:
             return state;

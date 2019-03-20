@@ -17,11 +17,11 @@ class MainApp extends Component {
     const config = {
       //Timeline
       apiKey: 'AIzaSyAZnJ33pGi_YoONvwh8lH0PHc6fOYnbjoQ',
-    authDomain: 'authentication-ac30e.firebaseapp.com',
-    databaseURL: 'https://authentication-ac30e.firebaseio.com',
-    projectId: 'authentication-ac30e',
-    storageBucket: 'authentication-ac30e.appspot.com',
-    messagingSenderId: '882138772244'
+      authDomain: 'authentication-ac30e.firebaseapp.com',
+      databaseURL: 'https://authentication-ac30e.firebaseio.com',
+      projectId: 'authentication-ac30e',
+      storageBucket: 'authentication-ac30e.appspot.com',
+      messagingSenderId: '882138772244'
     };
     if (!firebase.apps.length) {
       firebase.initializeApp(config);

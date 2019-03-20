@@ -1,6 +1,5 @@
 import firebase from 'firebase';
-import { FACILITY_CHECK, BSTATUS_CHECK, BPICTURE_CHECK } from './types';
-
+import { FACILITY_CHECK, BSTATUS_CHECK, BPICTURE_CHECK, LOCATION_CHECK } from './types';
 
 export function statusCheck() {
     const { currentUser } = firebase.auth();
@@ -37,6 +36,17 @@ export function statusCheck() {
                 } else {
                     dispatch({
                         type: BPICTURE_CHECK,
+                        payload: false
+                    });
+                }
+                if (snapshot.hasChild('Location')) {
+                    dispatch({
+                        type: LOCATION_CHECK,
+                        payload: true
+                    });
+                } else {
+                    dispatch({
+                        type: LOCATION_CHECK,
                         payload: false
                     });
                 }

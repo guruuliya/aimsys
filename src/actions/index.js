@@ -7,3 +7,4 @@ export * from './DailyUsagePeopleAction';
 export * from './DailyUsageStockAction';
 export * from './HouseholdActions';
 export * from './PregnancyActions';
+export * from './LocationAction';

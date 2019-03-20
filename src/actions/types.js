@@ -90,3 +90,12 @@ export const NOTIFICATIONFETCH = 'notificationsuccess';
 export const FETCH_ALL = 'FetchAll';
 export const Pregnancy_FETCH_LOAD_START = 'PregnacyFetchStart';
 export const Pregnancy_FETCH_LOAD_END = 'PregnacyFetchEnd';
+
+
+export const LOCATION_FORM = 'location_form';
+export const LOCATION_CREATE = 'location_create';
+export const LOCATION_CHECK = 'location_check';
+export const LOCATION_FETCH = 'location_fetch';
+export const LOCATION_LOADING_START = 'location_loading_start';
+export const LOCATION_LOADING_END = 'location_loading_end';
+export const LOCATION_REMOVE = 'location_remove';

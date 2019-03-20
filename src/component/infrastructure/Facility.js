@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Dimensions, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import {
-    Container, Content, ListItem, Radio, Card, Text, Button, CardItem, Spinner
+    Container, Content, ListItem, Radio, Card, Text, Button, CardItem, Spinner, CheckBox, Body
 } from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
 import {
@@ -133,41 +133,39 @@ class Facility extends Component {
                                 />
                             </CardItem>
 
-                            {/* {
-                            this.props.Water === 'Yes' ?
-                                <Card>
-                                    <ListItem>
-                                        <CheckBox
-                                            checked={this.state.well}
-                                            onPress={() => this.setState({ well: !this.state.well })}
-                                        />
-                                        <Body>
-                                            <Text>Well</Text>
-                                        </Body>
-                                    </ListItem>
-                                    <ListItem>
-                                        <CheckBox
-                                            checked={this.state.punchayath}
-                                            // eslint-disable-next-line max-len
-                                            onPress={() => this.setState({ punchayath: !this.state.punchayath })}
-                                        />
-                                        <Body>
-                                            <Text>Punchayath</Text>
-                                        </Body>
-                                    </ListItem>
-                                    <ListItem>
-                                        <CheckBox
-                                            checked={this.state.borewell}
-                                            // eslint-disable-next-line max-len
-                                            onPress={() => this.setState({ borewell: !this.state.borewell })}
-                                        />
-                                        <Body>
-                                            <Text>Borewell</Text>
-                                        </Body>
-                                    </ListItem>
-                                </Card>
-                                : null
-                        } */}
+                            {
+                                this.props.Water === 'Yes' ?
+                                    <Card>
+                                        <ListItem>
+                                            <CheckBox
+                                                checked={this.props.well === 'Yes'}
+                                                onPress={() => this.props.facilityForm({ name: 'well', value: 'Yes' })}
+                                            />
+                                            <Body>
+                                                <Text>Well</Text>
+                                            </Body>
+                                        </ListItem>
+                                        <ListItem>
+                                            <CheckBox
+                                            // checked={this.state.punchayath}
+                                            // onPress={() => this.setState({ punchayath: !this.state.punchayath })}
+                                            />
+                                            <Body>
+                                                <Text>Punchayath</Text>
+                                            </Body>
+                                        </ListItem>
+                                        <ListItem>
+                                            <CheckBox
+                                            // checked={this.state.borewell}
+                                            // onPress={() => this.setState({ borewell: !this.state.borewell })}
+                                            />
+                                            <Body>
+                                                <Text>Borewell</Text>
+                                            </Body>
+                                        </ListItem>
+                                    </Card>
+                                    : null
+                            }
                         </Card>
 
                         <Card>
@@ -304,11 +302,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { Water, Medicine, Mother, Infant, Play, Toilet, status, Loadding } = state.facilityform;
+    const { Water, well, Medicine, Mother, Infant, Play, Toilet, status, Loadding } = state.facilityform;
     const facilities = _.map(state.facility, (val, uid) => {
         return { ...val, uid };
     });
-    return { Water, Medicine, Mother, Infant, Play, Toilet, status, Loadding, facilities };
+    return { Water, well, Medicine, Mother, Infant, Play, Toilet, status, Loadding, facilities };
 };
 
 export default connect(mapStateToProps,
