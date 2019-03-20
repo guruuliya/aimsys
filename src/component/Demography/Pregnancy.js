@@ -32,7 +32,7 @@ class Pregnancy extends Component {
                         <PregnancyForm {...this.props} />
                         <CardSection>
                             <Button children="Add" onPress={this.onButtonPress.bind(this)} />
-                            <Button children="update" />
+                           
                         </CardSection>
 
                     </Card>

@@ -4,9 +4,8 @@ import {
     PREGNANCY_UPDATE, PREGNANCY_CREATE,
     PREGNANCYS_FETCH_SUCCESS,
     PREGNENT_SAVE,
-    Pregnancy_FETCH_LOAD_START,
-    Pregnancy_FETCH_LOAD_END,
-    
+    PREGNANCY_FETCH_LOAD_START,
+    PREGNANCY_FETCH_LOAD_END,
 } from './types';
 export const pregnancyUpdate = ({ prop, value }) => {
     return {
@@ -32,25 +31,22 @@ export const pregnancyFetch = () => {
     const { currentUser } = firebase.auth();
 
     return (dispatch) => {
-        
-       
+        fetchLoad(dispatch);
         firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy`)
             .on('value', snapshot => {
                 dispatch({ type: PREGNANCYS_FETCH_SUCCESS, payload: snapshot.val() });
-              
-                
+                dispatch({ type: PREGNANCY_FETCH_LOAD_END, payload: false });
             });
-           
     };
 };
 
-export const PregnancySave = ({ HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild,uid }) => {
-    console.log('here i Print HHNumber',HHNumber);
-    var Delivery='NO';
+export const PregnancySave = ({ HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild, uid }) => {
+    console.log('here i Print HHNumber', HHNumber);
+    var Delivery = 'NO';
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy/${uid}`)
-            .update({ HHNumber,PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild })
+            .update({ HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate })
             .then(() => {
                 dispatch({ type: PREGNENT_SAVE });
             });
@@ -85,7 +81,7 @@ export const PregnancyDelete = ({ uid }, navigate) => {
     };
 };
 
-
 const fetchLoad = (dispatch) => {
-    dispatch({ type: Pregnancy_FETCH_LOAD_START, payload: true });
+    console.log('inside action');
+    dispatch({ type: PREGNANCY_FETCH_LOAD_START, payload: true });
 };

@@ -32,7 +32,7 @@ class HouseHoldEdit extends Component {
         const { HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option } = this.props;
         this.props.HouseholdSave({ HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option }, this.props.navigation.state.params.Houseno.uid, HHNumber);
         Alert.alert(
-            'Oops !',
+            'Yes !',
             'Updated Successfully',
             [
                 { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },

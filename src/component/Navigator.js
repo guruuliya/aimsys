@@ -33,6 +33,7 @@ import PregnancyView from './Demography/PregnancyView';
 import HouseHold from './Demography/HouseHold';
 import HouseHoldMemberName from './Demography/HouseHoldMemberName';
 import DemographicReport from './Demography/DemographicReport';
+import LocationHouse from './Demography/Location';
 const RootStack = createStackNavigator({
   AuthLoading: {
     screen: AuthLoading
@@ -89,8 +90,8 @@ const RootStack = createStackNavigator({
     screen: DemographyDash
   },
 
-  DemographicReport:{
-    screen:DemographicReport
+  DemographicReport: {
+    screen: DemographicReport
   },
   Householdtab: {
     screen: Householdtab
@@ -111,6 +112,9 @@ const RootStack = createStackNavigator({
   },
   HouseholdView: {
     screen: HouseholdView
+  },
+  LocationHouse: {
+    screen: LocationHouse
   },
   PregnancyTab:
   {

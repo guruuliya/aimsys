@@ -21,7 +21,8 @@ class HouseholdView extends Component {
     }
   }
   render() {
-    const { HHNumber, HHName, sex, DOB, Status, Relationship, Phonenumber, Caste } = this.props.navigation.state.params.HouseHold;
+    const { HHNumber, HHName, sex, DOB, Status, Relationship,Designation, Phonenumber, Caste } = this.props.navigation.state.params.HouseHold;
+   
     handleOnPress = () => this.setState({ "show": 1 })
     return (
       <Container style={styles.back} >
@@ -37,7 +38,7 @@ class HouseholdView extends Component {
               <Text style={styles.contentview} >Gender :{"\t"}{sex} </Text>
               <Text style={styles.contentview} >DOB :{"\t"}{DOB} </Text>
               <Text style={styles.contentview}>Status:{"\t"}{Status} </Text>
-              <Text style={styles.contentview}>Relationship :{"\t"}{Relationship} </Text>
+              <Text style={styles.contentview}>Ocupation :{"\t"}{Designation} </Text>
               <Text style={styles.contentview} >Phonenumber:{"\t"}{Phonenumber} </Text>
               <Text style={styles.contentview}>Caste:{"\t"}{Caste} </Text>
               <Text>{"\n"}</Text>
@@ -45,11 +46,11 @@ class HouseholdView extends Component {
             {(this.state.show) ? <Card style={styles.develop}><Text> Currently under development!!</Text></Card> : null
             }
             <Text>{"\n"}</Text>
-            <Button block danger onPress={this.handleOnPress} >
+            {/* <Button block danger onPress={this.handleOnPress} >
               <Icon name="md-save" />
               <Text>EXPORT TO PDF</Text>
             </Button>
-            <Text>{"\n"}</Text>
+            <Text>{"\n"}</Text> */}
             <Text>{"\n"}</Text>
           </Form>
         </Content>

@@ -10,7 +10,7 @@ class DemographicReportList extends Component {
         const { HHName } = this.props.HouseHold;
         console.log('Demographic', this.props.HouseHold);
 
-        //console.log('Name inside Demographic List is ',HHName);
+        
         return (
             <View style={styles.projectRow} >
                 <View style={styles.projectText} >
