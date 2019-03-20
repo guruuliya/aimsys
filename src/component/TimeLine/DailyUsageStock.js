@@ -97,7 +97,9 @@ class DailyUsageStock extends Component {
                   <InputGroup >
                     <Label style={styles.block_row_left_element}>Food Received </Label>
                     <Input style={styles.block_row_right_element} placeholder="Food Received"
-                      value={parseInt(this.props.food_received)}
+                    placeholderTextColor="#FFFFFF" 
+                      value={parseInt(this.props.food_received)
+                      }
                       onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_received', value })}
                     />
                   </InputGroup>
@@ -110,6 +112,7 @@ class DailyUsageStock extends Component {
                     <Label style={styles.block_row_left_element}>Food Provided </Label>
                     <Input style={styles.block_row_right_element} placeholder="Food Provided"
                       value={parseInt(this.props.food_provided)}
+                      placeholderTextColor="#FFFFFF" 
                       onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_provided', value })}
                     />
                   </InputGroup>
@@ -122,6 +125,7 @@ class DailyUsageStock extends Component {
                     <Label style={styles.block_row_left_element}>Food Remaining </Label>
                     <Input style={styles.block_row_right_element} placeholder="Food Remaining"
                       value={parseInt(this.props.food_remaining)}
+                      placeholderTextColor="#FFFFFF" 
                       onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_remaining', value })}
                     />
                   </InputGroup>
@@ -139,6 +143,7 @@ class DailyUsageStock extends Component {
                   <Label style={styles.block_row_left_element}>Nutritious </Label>
                   <Input style={styles.block_row_right_element} placeholder="Nutritious Food"
                     value={parseInt(this.props.food_remaining)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'nutritious_food', value })}
 
                   />
@@ -151,6 +156,7 @@ class DailyUsageStock extends Component {
                   <Label style={styles.block_row_left_element}>Protien Food</Label>
                   <Input style={styles.block_row_right_element} placeholder="Protien Food"
                     value={parseInt(this.props.food_remaining)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'protien_food', value })}
                   />
                 </InputGroup>
@@ -162,6 +168,7 @@ class DailyUsageStock extends Component {
                   <Label style={styles.block_row_left_element}>Oil</Label>
                   <Input style={styles.block_row_right_element} placeholder="Oil"
                     value={parseInt(this.props.food_remaining)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'oil', value })}
                   />
                 </InputGroup>
@@ -173,6 +180,7 @@ class DailyUsageStock extends Component {
                   <Label style={styles.block_row_left_element}>Jaggery</Label>
                   <Input style={styles.block_row_right_element} placeholder="Jaggery"
                     value={parseInt(this.props.food_remaining)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'jaggery', value })}
                   />
                 </InputGroup>
@@ -184,6 +192,7 @@ class DailyUsageStock extends Component {
                   <Label style={styles.block_row_left_element}>Chilli</Label>
                   <Input style={styles.block_row_right_element} placeholder="Chilli"
                     value={parseInt(this.props.food_remaining)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'chilli', value })}
                   />
                 </InputGroup>
@@ -195,6 +204,7 @@ class DailyUsageStock extends Component {
                   <Label style={styles.block_row_left_element}>Egg</Label>
                   <Input style={styles.block_row_right_element} placeholder="Egg"
                     value={parseInt(this.props.food_remaining)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'egg', value })}
                   />
                 </InputGroup>
@@ -206,6 +216,7 @@ class DailyUsageStock extends Component {
                   <Label style={styles.block_row_left_element}>Salt</Label>
                   <Input style={styles.block_row_right_element} placeholder="Salt"
                     value={parseInt(this.props.food_remaining)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'salt', value })}
                   />
                 </InputGroup>
@@ -217,6 +228,7 @@ class DailyUsageStock extends Component {
                   <Label style={styles.block_row_left_element}>Grams</Label>
                   <Input style={styles.block_row_right_element} placeholder="Grams"
                     value={parseInt(this.props.food_remaining)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'grams', value })}
                   />
                 </InputGroup>
@@ -226,8 +238,11 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Mustard Seeds</Label>
-                  <Input style={styles.block_row_right_element} placeholder="Mustard Seeds"
-                    value={parseInt(this.props.food_remaining)}
+                  <Input style={styles.block_row_right_element}
+                    placeholderTextColor="#FFFFFF" 
+                    placeholder="Mustard Seeds"
+                    value={parseInt(this.props.food_remaining)
+                    }
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'mustard_seeds', value })}
                   />
                 </InputGroup>
@@ -239,6 +254,7 @@ class DailyUsageStock extends Component {
                   <Label style={styles.block_row_left_element}>Amalice Rich</Label>
                   <Input style={styles.block_row_right_element} placeholder="Amalice Rich"
                     value={parseInt(this.props.food_remaining)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'amalice_rich', value })}
                   />
                 </InputGroup>
@@ -251,6 +267,7 @@ class DailyUsageStock extends Component {
                   <Label style={styles.block_row_left_element}>Green gram</Label>
                   <Input style={styles.block_row_right_element} placeholder="Green gram"
                     value={parseInt(this.props.food_remaining)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'green_gram', value })}
                   />
                 </InputGroup>
@@ -262,6 +279,7 @@ class DailyUsageStock extends Component {
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Food provided today</Label>
                   <Input style={styles.block_row_right_element} placeholder="Food provided today"
+                    placeholderTextColor="#FFFFFF" 
                     value={parseInt(this.props.food_remaining)}
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_provided_today', value })}
                   />
@@ -273,6 +291,7 @@ class DailyUsageStock extends Component {
                 <InputGroup >
                   <Label style={styles.block_row_left_element}>Extra</Label>
                   <Input style={styles.block_row_right_element} placeholder="Extra"
+                    placeholderTextColor="#FFFFFF" 
                     value={parseInt(this.props.food_remaining)}
                     onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'Extra', value })}
                   />
@@ -306,7 +325,7 @@ class DailyUsageStock extends Component {
                   // androidMode={"default"}
                   placeHolderText="Click here to select date"
                   textStyle={{ color: "green" }}
-                  placeHolderTextStyle={{ color: "#f7c744" }}
+                  placeHolderTextStyle={{ color: "#275DAD" }}
                 />
               </ListItem>
               <Text>{"\n"}</Text>
@@ -349,13 +368,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     flex: 0.5,
     height: 50,
-    backgroundColor: '#f7c744'
+    backgroundColor: '#275DAD'
 
   },
   cardtitle: {
     textAlign: "center",
     borderWidth: 1,
-    borderColor: '#f7c744',
+    borderColor: '#275DAD',
     paddingTop: 10,
     paddingBottom: 10,
   },

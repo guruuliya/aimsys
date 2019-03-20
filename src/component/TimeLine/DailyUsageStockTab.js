@@ -45,10 +45,10 @@ class DailyUsageStockTab extends Component {
 
 const styles = StyleSheet.create({
   activeTabStyle: {
-    backgroundColor: '#f7c744'
+    backgroundColor: '#275DAD'
   },
   tabStyle: {
-    backgroundColor: '#355870'
+    backgroundColor: '#FFFFFF'
   }
 });
 

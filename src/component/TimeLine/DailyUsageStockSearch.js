@@ -212,7 +212,7 @@ class DailyUsageStockSearch extends Component {
               dataSource={dataSource}
               renderRow={this.renderRow}
             >
-            </ListView> : <ActivityIndicator size="large" color="#f7c744" style={styles.aistyle} />}
+            </ListView> : <ActivityIndicator size="large" color="#275DAD" style={styles.aistyle} />}
           </View>
 
         </ScrollView>
@@ -222,7 +222,7 @@ class DailyUsageStockSearch extends Component {
 }
 const styles = StyleSheet.create({
   searchtab: {
-    backgroundColor: '#f7c744',
+    backgroundColor: '#275DAD',
     // borderColor: '#f7c744',
     // color:'#355870'
     flex: 1,
