@@ -16,15 +16,20 @@ class InjectionTab extends Component {
         fontWeight: 'bold',
     },
 };
+
+constructor(props) {
+  super(props)
+  this.state = { currentTab: 0 }
+}
+
   render() {
     return (
       <Container>
-        {/* <Header hasTabs /> */}
-        <Tabs style={styles.tabstyle}>
-          <Tab style={styles.tabstyle} heading={ <TabHeading style={styles.tabstyle}><Icon name="list" /><Text>List</Text></TabHeading>}>
+        <Tabs initialPage={this.state.currentPage} onChangeTab={({ i }) => this.setState({ currentTab: i })}>
+          <Tab heading={<TabHeading style={this.state.currentTab === 0 ? styles.activeTabStyle : styles.tabStyle} ><Icon name="md-list-box" /><Text>Update Records</Text></TabHeading>}>
             <InjectionSearch />
           </Tab>
-          <Tab style={styles.tabstyle} heading={ <TabHeading style={styles.tabstyle}><Icon name="contact" /><Text>Create</Text></TabHeading>}>
+          <Tab heading={<TabHeading style={this.state.currentTab === 1 ? styles.activeTabStyle : styles.tabStyle} ><Icon name="md-create" /><Text>Create</Text></TabHeading>}>
             <InjectionRecords />
           </Tab>
         </Tabs>
@@ -39,4 +44,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default InjectionTab ;
+export default InjectionTab;

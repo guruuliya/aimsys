@@ -12,7 +12,7 @@ import HealthSupplies from './TimeLine/HealthSupplies';
 import FoodSupplies from './TimeLine/FoodSupplies';
 
 import {
-  MaternalDash,
+  MaternalDash
 } from './Maternal/';
 import ChildNutrition from './Maternal/ChildNutrition';
 import NutritionTab from './Maternal/NutritionTab';
@@ -36,6 +36,13 @@ import NutritionView from './Maternal/NutritionView';
 import InjectionView from './Maternal/InjectionView';
 import InjectionNotification from './Maternal/InjectionNotification';
 import NotificationView from './Maternal/NotificationView';
+
+import AttendanceTab from './TimeLine/AttendanceTab';
+import AttendanceRegistration from './TimeLine/AttendanceRegistration';
+import AttendanceRegistrationForm from './TimeLine/AttendanceRegistrationForm';
+import ListAttendance from './TimeLine/ListAttendance';
+import AttendanceEditForm from './TimeLine/AttendanceEditForm';
+import AttendanceView from './TimeLine/AttendanceView';
 
 import {
   Children, DemographyDash,
@@ -146,6 +153,24 @@ const RootStack = createStackNavigator({
   },
   DemographyDash: {
     screen: DemographyDash
+  },
+  AttendanceTab: {
+    screen: AttendanceTab
+  },
+  AttendanceRegistration: {
+    screen: AttendanceRegistration
+  },
+  AttendanceRegistrationForm: {
+    screen: AttendanceRegistrationForm
+  },
+  ListAttendance: {
+    screen: ListAttendance
+  },
+  AttendanceEditForm: {
+    screen: AttendanceEditForm
+  },
+  AttendanceView: {
+    screen: AttendanceView
   },
   HouseHold: {
     screen: HouseHold

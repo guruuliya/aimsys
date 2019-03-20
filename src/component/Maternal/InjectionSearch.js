@@ -69,11 +69,15 @@ class InjectionSearch extends Component {
       <ScrollView>
 
         <SearchBar
-          placeholder="Type Here..."
-          lightTheme
-          round
-          onChangeText={this.onSearchValueChange}
-          value={this.state.searchName}
+         placeholder='Type Here...'
+         lightTheme
+         round
+         containerStyle={{ backgroundColor: '#FFFFFF' }}
+         placeholderTextColor={'#FFFFFF'}
+         icon={{ color: '#FFFFFF' }}
+         onChangeText={this.onSearchValueChange}
+         value={this.state.searchName}
+         inputContainerStyle={{backgroundColor: '#275DAD' }}
         />
 
         {

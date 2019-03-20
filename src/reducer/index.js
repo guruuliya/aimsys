@@ -8,6 +8,8 @@ import NutritionFetchReducer from './NutritionFetchReducer';
 import InjectionReducer from './InjectionReducer';
 import InjectionFetchReducer from './InjectionFetchReducer';
 import NotificationReducer from './NotificationReducer';
+import AttendanceReducer from './AttendanceReducer';
+import AttendanceFetchReducer from './AttendanceFetchReducer';
 
 export default combineReducers({
     auth: AuthReducer,
@@ -18,5 +20,7 @@ export default combineReducers({
     nutritionF: NutritionFetchReducer,
     injection: InjectionReducer,
     injectionF: InjectionFetchReducer,
-    notify: NotificationReducer
+    notify: NotificationReducer,
+    attendance: AttendanceReducer,
+    attendanceF: AttendanceFetchReducer
 });

@@ -2,10 +2,13 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+import firebase from 'firebase';
 import { Container, Content, Text, Card, Form } from 'native-base';
 
 class ChildView extends Component {
-
+  state = {
+    a: []
+  }
   static navigationOptions = {
     title: 'Child Registration',
     headerStyle: {
@@ -22,12 +25,33 @@ class ChildView extends Component {
       show: '',
     }
   }
+  componentWillMount() {
+    console.log('cmotherid', this.props.navigation.state.params.child.CMotherId);
+    this.search(this.props.navigation.state.params.child.CMotherId);
+  }
+  search(h) {
+    console.log('inside search', h);
+    const { currentUser } = firebase.auth();
+    const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy/${h}`);
+    db.on('value', snapshot => {
+      const pname = snapshot.val().PregnantName;
+      const hnumber = snapshot.val().HHNumber;
+      const hb = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${hnumber}/${pname}`);
+      hb.on('value', snap => {
+        this.setState({ a: snap.val().HHName });
+      });
+    });
+  }
 
   render() {
-    console.log('HNumber');
+
+    console.log('inside render', this.state.a);
     console.log(this.props.navigation.state.params);
     const { HNumber, CName, CMotherId, option, DPickdob, DPickregdate } = this.props.navigation.state.params.child;
     // eslint-disable-next-line no-undef
+    //console.log('CMotherIDd',CMotherId);
+
+
     handleOnPress = () => this.setState({ 'show': 1 });
     return (
       <Container style={styles.back} >
@@ -41,7 +65,7 @@ class ChildView extends Component {
 
               <Text style={styles.contentview}>Child Name :{'\t'}{CName} </Text>
 
-              <Text style={styles.contentview} >Child Mothername :{'\t'}{CMotherId} </Text>
+              <Text style={styles.contentview} >Child Mothername :{'\t'}{this.state.a} </Text>
 
               <Text style={styles.contentview} >Gender :{'\t'}{option} </Text>
 

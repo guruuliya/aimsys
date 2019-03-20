@@ -54,14 +54,57 @@ class InjectionEditForm extends Component {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, hepa1);
 
         }
-        // Alert.alert(
-        //     'Oops !',
-        //     'Updated Successfully',
-        //     [
-        //         { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-        //     ],
-        //     { cancelable: false }
-        // )
+        else if (update === 'opv1') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, OPV1);
+
+        }
+        else if (update === 'dpt2') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, DPT2);
+
+        }
+        else if (update === 'hepatitis2') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, hepa2);
+
+        }
+        else if (update === 'opv2') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, OPV2);
+
+        }
+        else if (update === 'dpt3') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, DPT3);
+
+        }
+        else if (update === 'hepatitis3') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, hepa3);
+
+        }
+        else if (update === 'opv3') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, OPV3);
+
+        }
+        else if (update === 'dadara1') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, dadara1);
+
+        }
+        else if (update === 'nutrition1') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, nutri1);
+
+        }
+        else if (update === 'dptbooster') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, dptbooster);
+
+        }
+        else if (update === 'dadara2') {
+            this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, dadara2);
+
+        }
+        Alert.alert(
+            'Updated Successfully',
+            [
+                { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            ],
+            { cancelable: false }
+        );
     }
 
     onAccept() {

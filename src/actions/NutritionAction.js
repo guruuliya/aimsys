@@ -1,6 +1,6 @@
 import firebase from 'firebase';
-import {Alert} from 'react-native';
-import { NUTRITIONUPDATE, NUTRITION_CREATE, NUTRITIONFETCH, NUTRITION_SAVE, FETCH_USER,NUTRITION_FETCH_LOAD_START, NUTRITION_FETCH_LOAD_END } from './types';
+import { Alert } from 'react-native';
+import { NUTRITIONUPDATE, NUTRITION_CREATE, NUTRITIONFETCH, NUTRITION_SAVE, FETCH_USER, NUTRITION_FETCH_LOAD_START, NUTRITION_FETCH_LOAD_END } from './types';
 import ListNutrition from '../component/Maternal/ListNutrition';
 
 export const NutritionUpdate = ({ name, value }) => {
@@ -10,12 +10,12 @@ export const NutritionUpdate = ({ name, value }) => {
     };
 };
 
-export const NutritionCreate = ({HNumber, CName, Age,height,weight,under,wast,stunt,lowbirth,breastfeed,exfeed,cfeed,ideli}) => {
+export const NutritionCreate = ({ HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli }) => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         console.log(firebase.auth());
         firebase.database().ref(`/users/${currentUser.uid}/Maternal/Nutrition`)
-            .push({ HNumber, CName, Age,height,weight,under,wast,stunt,lowbirth,breastfeed,exfeed,cfeed,ideli})
+            .push({ HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli })
             .then(() => {
                 dispatch({
                     type: NUTRITION_CREATE
@@ -42,11 +42,11 @@ export const NutritionFetch = () => {
     };
 };
 
-export const NutritionSave = ({HNumber, CName, Age,height,weight,under,wast,stunt,lowbirth,breastfeed,exfeed,cfeed,ideli,uid}) => {
+export const NutritionSave = ({ HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli, uid }) => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/Maternal/Nutrition/${uid}`)
-            .set({ HNumber, CName, Age,height,weight,under,wast,stunt,lowbirth,breastfeed,exfeed,cfeed,ideli})
+            .set({ HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli })
             .then(() => {
                 dispatch({
                     type: NUTRITION_SAVE
@@ -67,7 +67,7 @@ export const NutritionDelete = ({ uid }, navigate) => {
                 {
                     text: 'Cancel', onPress: () =>
                         dispatch({
-                            type: ListNutrition 
+                            type: ListNutrition
                         }),
                     style: 'cancel',
                 },
@@ -77,7 +77,7 @@ export const NutritionDelete = ({ uid }, navigate) => {
                             .remove()
                             .then(() => {
                                 dispatch({
-                                    type: ListNutrition 
+                                    type: ListNutrition
                                 });
                                 navigate.navigate('NutritionTab');
                             })

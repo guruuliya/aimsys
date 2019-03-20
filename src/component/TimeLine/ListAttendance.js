@@ -4,47 +4,49 @@ import { CardSection } from '../Common';
 import { withNavigation } from 'react-navigation';
 import Moment from 'moment';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { ScrollView } from 'react-native-gesture-handler';
 
-class ListChild extends Component {
+class ListAttendance extends Component {
     render() {
-        const { HNumber, CName } = this.props.child;
+
+        const { ChildName } = this.props.attendance;
         return (
-            CName === 'No Record Found' ?
+            ChildName === 'No Record Found' ?
                 <View style={styles.projectRow} >
                     <View style={styles.projectText} >
                         <Text style={styles.itemName}>
-                            {CName}
+                            {ChildName}
                         </Text>
                     </View>
                 </View> :
-
                 <View style={styles.projectRow} >
+
                     <View style={styles.projectText} >
-                    <ScrollView>
-                        <Text style={styles.itemName}>
-                            Report of {"\t"} {HNumber} {"\t"} {CName}
+
+
+
+                        <Text style={styles.itemName}>Report of {"\t"} {ChildName}
                         </Text>
-                        </ScrollView>
+
                         <Text style={styles.itemDetails}>Last edited {"\t"}
-                            {`${Moment(this.props.child).fromNow()}`}
+                            {`${Moment(this.props.attendance).fromNow()}`}
                         </Text>
                     </View>
+
                     <View style={styles.projectTextchild1}>
-                        <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('ChildView', { child: this.props.child }) }}>
+                        <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('AttendanceView', { attendance: this.props.attendance }) }}>
                             <View>
                                 <Icon
                                     name="eye"
                                     size={30}
                                     style={styles.moreIcon}
                                 />
-                                <Text style={styles.moreIcon}>View</Text>
+                                <Text style={styles.moreIcon} >View</Text>
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
 
                     <View style={styles.projectTextchild2}>
-                        <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('ChildEditForm', { child: this.props.child }) }}>
+                        <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('AttendanceEditForm', { attendance: this.props.attendance }) }}>
                             <View>
                                 <Icon
                                     name="edit"
@@ -60,7 +62,8 @@ class ListChild extends Component {
     }
 }
 
-const styles = StyleSheet.create({
+const
+    styles = StyleSheet.create({
         projectText: {
             flex: 0.7,
             flexDirection: 'column'
@@ -77,24 +80,23 @@ const styles = StyleSheet.create({
             flexDirection: 'row',
             justifyContent: 'flex-start',
             padding: 15,
-            
         },
         itemName: {
             fontSize: 18,
-            color: '#275DAD',
-           // textAlign:'center'
+            color: '#4A90E2',
         },
         itemDetails: {
             fontSize: 12,
-            color: '#275DAD',
+            color: '#BBBBBB',
         },
         moreContainer: {
             justifyContent: 'center',
             alignItems: 'center'
         },
         moreIcon: {
-            color: '#275DAD'
+            color: "#f7c744"
         }
     });
 
-export default withNavigation(ListChild);
+
+export default withNavigation(ListAttendance);
