@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { connect } from 'react-redux';
 import { Alert } from 'react-native';
-import ChildNutritionForm from './ChildNutritionForm';
-import { NutritionUpdate, NutritionSave, NutritionDelete } from '../../actions/NutritionAction';
+import { connect } from 'react-redux';
+import AttendanceRegistration from './AttendanceRegistration';
+import { AttendanceUpdate, AttendanceSave, AttendanceDelete } from '../../actions/AttendanceAction';
 import { Card, CardSection, Button, Confirm } from '../Common';
 import { ScrollView } from 'react-native-gesture-handler';
 
-class NutritionEditForm extends Component {
+class AttendanceEditForm extends Component {
     state = { showModal: false };
     static navigationOptions = {
         title: 'Child Nutrition Update',
@@ -21,34 +21,24 @@ class NutritionEditForm extends Component {
     };
 
     componentWillMount() {
-        _.each(this.props.navigation.state.params.nutrition, (value, name) => {
+        _.each(this.props.navigation.state.params.attendance, (value, name) => {
 
             console.log(name);
             console.log(value);
-            this.props.NutritionUpdate({ name, value });
+            this.props.AttendanceUpdate({ name, value });
         });
     }
 
     onButtonPress() {
-        const { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = this.props;
-        this.props.NutritionSave({ HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli, uid: this.props.navigation.state.params.nutrition.uid });
-        // Alert.alert(
-        //     'Updated Successfully',
-        //     [
-        //         { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-        //     ],
-        //     { cancelable: false }
-        // )
+        const { ChildName, gender, Dob, Regdate } = this.props;
+        // eslint-disable-next-line max-len
+        this.props.AttendanceSave({ ChildName, gender, Dob, Regdate, uid: this.props.navigation.state.params.attendance.uid });
     }
 
+
     onAccept() {
-
-        console.log('success');
-        console.log('----------------------');
-
-        console.log('----------------------');
         const navigate = this.props.navigation;
-        this.props.NutritionDelete({ uid: this.props.navigation.state.params.nutrition.uid }, navigate);
+        this.props.AttendanceDelete({ uid: this.props.navigation.state.params.attendance.uid }, navigate);
         this.setState({ showModal: false });
     }
 
@@ -61,7 +51,7 @@ class NutritionEditForm extends Component {
         return (
             <ScrollView>
                 <Card>
-                    <ChildNutritionForm />
+                    <AttendanceRegistration />
                     <CardSection>
                         <Button onPress={this.onButtonPress.bind(this)}>Save Changes</Button>
                     </CardSection>
@@ -81,8 +71,8 @@ class NutritionEditForm extends Component {
 }
 const mapStateToProps = (state) => {
 
-    const { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = state.nutrition;
-    return { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli };
+    const { ChildName, gender, Dob, Regdate } = state.attendance;
+    return { ChildName, gender, Dob, Regdate };
 };
 
-export default connect(mapStateToProps, { NutritionUpdate, NutritionSave, NutritionDelete })(NutritionEditForm);  
+export default connect(mapStateToProps, { AttendanceUpdate, AttendanceSave, AttendanceDelete })(AttendanceEditForm);  

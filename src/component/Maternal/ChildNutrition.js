@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, ScrollView,Alert } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, Alert } from 'react-native';
 import { CardSection, Card, Input, Button } from '../Common';
 import { connect } from 'react-redux';
 import { NutritionUpdate, NutritionCreate } from '../../actions/NutritionAction';
@@ -8,13 +8,12 @@ import ChildNutritionForm from './ChildNutritionForm';
 
 class ChildNutrition extends Component {
 
-   
+
 
     onButtonPress() {
-        const { HNumber, CName, Age,height,weight,under,wast,stunt,lowbirth,breastfeed,exfeed,cfeed,ideli} = this.props;
-        this.props.NutritionCreate({HNumber, CName, Age,height,weight,under,wast,stunt,lowbirth,breastfeed,exfeed,cfeed,ideli });
+        const { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = this.props;
+        this.props.NutritionCreate({ HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli });
         Alert.alert(
-            'Oops !',
             'Inserted Successfully',
             [
                 { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
@@ -61,8 +60,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     console.log(state);
-    const { HNumber, CName, Age,height,weight,under,wast,stunt,lowbirth,breastfeed,exfeed,cfeed,ideli} = state.nutrition;
-    return { HNumber, CName, Age,height,weight,under,wast,stunt,lowbirth,breastfeed,exfeed,cfeed,ideli };
+    const { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = state.nutrition;
+    return { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli };
 };
 
 export default connect(mapStateToProps, {

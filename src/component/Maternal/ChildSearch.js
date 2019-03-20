@@ -66,13 +66,18 @@ class ChildSearch extends Component {
     const dataSource = ds.cloneWithRows(jsonsearch);
 
     return (
-      <View>
+      <View style={{ color: '#FFFFFF' }}>
         <SearchBar
-          placeholder="Type Here..."
+          //changeit searchbarcolor not changing  
+          placeholder='Type Here...'
           lightTheme
           round
+          containerStyle={{ backgroundColor: '#FFFFFF' }}
+          placeholderTextColor={'#FFFFFF'}
+          icon={{ color: '#FFFFFF' }}
           onChangeText={this.onSearchValueChange}
           value={this.state.searchName}
+          inputContainerStyle={{ backgroundColor: '#275DAD' }}
         />
         {
           this.props.Loading ?
@@ -80,6 +85,7 @@ class ChildSearch extends Component {
               <Spinner />
             </View> :
             <ScrollView>
+
               <Card>
                 <CardSection>
                   <ListView
@@ -89,6 +95,7 @@ class ChildSearch extends Component {
                   />
                 </CardSection>
               </Card>
+
             </ScrollView>
         }
       </View>

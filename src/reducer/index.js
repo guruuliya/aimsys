@@ -25,6 +25,8 @@ import NotificationReducer from './NotificationReducer';
 import HouseHoldFetchAll from './HouseHoldFetchAll';
 import LocationFormReducer from './LocationFormReducer';
 import LocationReduer from './LocationReduer';
+import AttendanceReducer from './AttendanceReducer';
+import AttendanceFetchReducer from './AttendanceFetchReducer';
 
 export default combineReducers({
     auth: AuthReducer,
@@ -52,5 +54,7 @@ export default combineReducers({
     notify: NotificationReducer,
     Fetchall: HouseHoldFetchAll,
     Location: LocationFormReducer,
-    LocationFetch: LocationReduer
+    LocationFetch: LocationReduer,
+    attendance: AttendanceReducer,
+    attendanceF: AttendanceFetchReducer
 });

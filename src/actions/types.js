@@ -105,3 +105,11 @@ export const PREGNANCY_FETCH_LOAD_END = 'PregnacyFetchEnd';
 
 export const HOUSEHOLD_FETCH_LOAD_START = 'HouseholdFetchStart';
 export const HOUSEHOLD_FETCH_LOAD_END = 'HouseholdFetchEnd';
+export const ATTENDANCEUPDATE = 'attendanceupdate';
+export const ATTENDANCECREATE = 'attendancecreate';
+export const ATTENDANCEFETCH = 'attendancefetch';
+export const ATTENDANCESAVE = 'attendancesave';
+export const ATTENDANCEDELETESUCCESS = 'delete';
+
+export const ATTENDANCE_FETCH_LOAD_START = 'attendance_fetch_load_start';
+export const ATTENDANCE_FETCH_LOAD_END = 'attendance_fetch_load_end';

@@ -13,24 +13,36 @@ export const childUpdate = ({ name, value }) => {
     };
 };
 
-export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate }) => {
-    console.log('inside acton', HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate);
+export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytype,health, DPickdob, DPickregdate }) => {
+    console.log('inside acton', HNumber, CName, CMotherId, status, option, babytype,health, DPickdob, DPickregdate);
+    // if (HNumber === '' || CName === '' || CMotherId === '' || status === '' || option === '' || babytype === '' || DPickdob === '' || DPickregdate === '') 
+    // {
+    //     Alert.alert(
+    //         'Please enter the details',
+    //         [
+    //             { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+    //         ],
+    //         { cancelable: false }
 
-    const { currentUser } = firebase.auth();
-    return (dispatch) => {
-        console.log(firebase.auth());
-        firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`)
-            .push({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate })
-            .then(() => {
-                dispatch({
-                    type: CHILD_CREATE
+    //     );
+    // }
+    //  else {
+        const { currentUser } = firebase.auth();
+        return (dispatch) => {
+            console.log(firebase.auth());
+            firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`)
+                 .push({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate })
+                .then(() => {
+                    dispatch({
+                        type: CHILD_CREATE
+                    });
+                    // ActionSheet.childList({ type: reset });
+                })
+                .catch((error) => {
+                    console.log(error);
                 });
-                // ActionSheet.childList({ type: reset });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
+        };
+   //}
 };
 
 export const childFetch = () => {

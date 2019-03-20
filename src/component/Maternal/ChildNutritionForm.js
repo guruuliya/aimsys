@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Picker } from 'native-base';
-import { CardSection, Card, Input } from '../Common';
-import { Radio, CardItem, Form, Item,Label } from 'native-base';
+import { CardSection, Card, } from '../Common';
+import { Radio, CardItem, Form, Item, Label, Input } from 'native-base';
 import { connect } from 'react-redux';
 import { NutritionUpdate } from '../../actions/NutritionAction';
 import firebase from 'firebase';
@@ -52,7 +52,7 @@ class ChildNutritionForm extends Component {
                 <Form>
                     <CardItem>
                         <Item floatingLabel>
-                        <Label>Eneter HouseHold Number</Label>
+                            <Label>Eneter HouseHold Number</Label>
                             <Input
                                 autoCorrect={false}
                                 onChangeText={this.calFun.bind(this)}
@@ -62,48 +62,48 @@ class ChildNutritionForm extends Component {
                     </CardItem>
 
                     <CardItem>
-                    <Item picker>
-                        <Label>Select</Label>
-                        <Picker selectedValue={this.props.CName}
-                            style={[{ width: 290, height: 50, color: 'black' }]}
-                            onValueChange={(value) => this.props.NutritionUpdate({ name: 'CName', value })}>
-                            <Picker.Item label='Select Child Name' value='' />
-                            {this.getPickerElements()}
-                        </Picker>
+                        <Item picker>
+                            <Label>Select</Label>
+                            <Picker selectedValue={this.props.CName}
+                                style={[{ width: 290, height: 50, color: 'black' }]}
+                                onValueChange={(value) => this.props.NutritionUpdate({ name: 'CName', value })}>
+                                <Picker.Item label='Select Child Name' value='' />
+                                {this.getPickerElements()}
+                            </Picker>
                         </Item>
                     </CardItem>
 
                     <CardItem>
                         <Item floatingLabel>
-                        <Label>Enter Child Age</Label>
-                        <Input
-                            autoCorrect={false}
-                            onChangeText={value => this.props.NutritionUpdate({ name: 'Age', value })}
-                            value={this.props.Age}
-                        />
+                            <Label>Enter Child Age</Label>
+                            <Input
+                                autoCorrect={false}
+                                onChangeText={value => this.props.NutritionUpdate({ name: 'Age', value })}
+                                value={this.props.Age}
+                            />
                         </Item>
                     </CardItem>
                     <CardItem>
                         <Item floatingLabel>
-                        <Label>Enter Child Height</Label>
-                        <Input 
-                            autoCorrect={false}
-                            onChangeText={value => this.props.NutritionUpdate({ name: 'height', value })}
-                            value={this.props.height}
-                        />
-                 </Item>
-                 </CardItem>
+                            <Label>Enter Child Height</Label>
+                            <Input
+                                autoCorrect={false}
+                                onChangeText={value => this.props.NutritionUpdate({ name: 'height', value })}
+                                value={this.props.height}
+                            />
+                        </Item>
+                    </CardItem>
 
                     <CardItem>
                         <Item floatingLabel>
-                        <Label>Enter Child Weight</Label>
-                        <Input
-                            autoCorrect={false}
-                            onChangeText={value => this.props.NutritionUpdate({ name: 'weight', value })}
-                            value={this.props.weight}
-                        />
+                            <Label>Enter Child Weight</Label>
+                            <Input
+                                autoCorrect={false}
+                                onChangeText={value => this.props.NutritionUpdate({ name: 'weight', value })}
+                                value={this.props.weight}
+                            />
                         </Item>
-                        </CardItem>
+                    </CardItem>
 
                     <Card>
                         <CardItem>

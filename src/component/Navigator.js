@@ -73,6 +73,14 @@ import AnganwadiLocation from './infrastructure/AnganwadiLocation';
 import loc from './infrastructure/loc';
 import AnganwadiLocationUpdate from './infrastructure/AnganwadiLocationUpdate';
 import LocationHouse from './Demography/Location';
+import AttendanceTab from './TimeLine/AttendanceTab';
+import AttendanceRegistration from './TimeLine/AttendanceRegistration';
+import AttendanceRegistrationForm from './TimeLine/AttendanceRegistrationForm';
+import ListAttendance from './TimeLine/ListAttendance';
+import AttendanceEditForm from './TimeLine/AttendanceEditForm';
+import AttendanceView from './TimeLine/AttendanceView';
+
+
 
 const CustomDrawerContentComponent = (props) => (
   <Container>
@@ -87,6 +95,7 @@ const CustomDrawerContentComponent = (props) => (
     <DrawerItems {...props} />
   </Container>
 );
+
 
 
 
@@ -245,6 +254,24 @@ const RootStack = createStackNavigator({
   },
   Householdtab: {
     screen: Householdtab
+  },
+  AttendanceTab: {
+    screen: AttendanceTab
+  },
+  AttendanceRegistration: {
+    screen: AttendanceRegistration
+  },
+  AttendanceRegistrationForm: {
+    screen: AttendanceRegistrationForm
+  },
+  ListAttendance: {
+    screen: ListAttendance
+  },
+  AttendanceEditForm: {
+    screen: AttendanceEditForm
+  },
+  AttendanceView: {
+    screen: AttendanceView
   },
   HouseHold: {
     screen: HouseHold
