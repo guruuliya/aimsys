@@ -119,6 +119,7 @@ class DailyUsagePeople extends Component {
                     //onChangeText= {(text) => this.setState({f1:parseInt(text)})} 
                     style={styles.input} placeholder="6 Months to 1 Year"
                     value={parseInt(this.props.six_months_to_one_year)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageUpdate({ name: 'six_months_to_one_year', value })}
 
                   />
@@ -134,6 +135,7 @@ class DailyUsagePeople extends Component {
                     // onChangeText={(text) => this.setState({ f2: parseInt(text) })}
                     style={styles.input} placeholder="1 Year to 3 Year"
                     value={parseInt(this.props.one_year_to_three_year)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageUpdate({ name: 'one_year_to_three_year', value })}
                   />
 
@@ -149,6 +151,7 @@ class DailyUsagePeople extends Component {
                     // onChangeText={(text) => this.setState({ f3: parseInt(text) })}
                     style={styles.input} placeholder="3 Year to 6 Year"
                     value={parseInt(this.props.three_year_to_six_year)}
+                    placeholderTextColor="#FFFFFF" 
                     onChangeText={value => this.props.dailyUsageUpdate({ name: 'three_year_to_six_year', value })}
                   />
                 </InputGroup>
@@ -160,6 +163,7 @@ class DailyUsagePeople extends Component {
                   <InputGroup >
                     <Label >Total(1)<Text>{"\t\t\t\t\t\t\t\t\t\t\t\t"}</Text> </Label>
                     <Input style={styles.input}
+                       placeholderTextColor="#FFFFFF" 
                       // onChangeText={(value) => parseInt(this.props.total1)}
                       editable={false} selectTextOnFocus={false}
                     >{this.props.total1}</Input>
@@ -184,6 +188,7 @@ class DailyUsagePeople extends Component {
                   <Label>Food Quantity 2 </Label>
                   <Input
                     keyboardType='numeric'
+                    placeholderTextColor="#FFFFFF" 
                     value={parseInt(this.props.pw_prenatal)}
                     onChangeText={value => this.props.dailyUsageUpdate({ name: 'pw_prenatal', value })}
                     style={styles.input} placeholder="Pregnant Woman (Prenatal)" />
@@ -196,6 +201,7 @@ class DailyUsagePeople extends Component {
                   <Label >Food Quantity 2 </Label>
                   <Input
                     keyboardType='numeric'
+                    placeholderTextColor="#FFFFFF" 
                     value={parseInt(this.props.pw_postnatal)}
                     onChangeText={value => this.props.dailyUsageUpdate({ name: 'pw_postnatal', value })}
                     style={styles.input} placeholder="Pregnant Woman (Postnatal)" />
@@ -208,6 +214,7 @@ class DailyUsagePeople extends Component {
                   <Label >Food Quantity 2 </Label>
                   <Input
                     keyboardType='numeric'
+                    placeholderTextColor="#FFFFFF" 
                     value={parseInt(this.props.pw_3rdgrade)}
                     onChangeText={value => this.props.dailyUsageUpdate({ name: 'pw_3rdgrade', value })}
                     style={styles.input} placeholder="3rd Grade" />
@@ -220,6 +227,7 @@ class DailyUsagePeople extends Component {
                   <Label >Food Quantity 2 </Label>
                   <Input
                     keyboardType='numeric'
+                    placeholderTextColor="#FFFFFF" 
                     value={parseInt(this.props.pw_4thgrade)}
                     onChangeText={value => this.props.dailyUsageUpdate({ name: 'pw_4thgrade', value })}
                     style={styles.input} placeholder="4th Grade" />
@@ -232,6 +240,7 @@ class DailyUsagePeople extends Component {
                   <InputGroup >
                     <Label >Total(2)<Text>{"\t\t\t\t\t\t\t\t\t\t\t\t"}</Text> </Label>
                     <Input style={styles.input}
+                    placeholderTextColor="#FFFFFF" 
                       // onChangeText={(value) => parseInt(this.props.total1)}
                       editable={false} selectTextOnFocus={false}
                     >{this.props.total2}</Input>
@@ -252,6 +261,7 @@ class DailyUsagePeople extends Component {
                   <InputGroup >
                     <Label >Total(1)<Text>{"\t\t\t\t\t\t\t\t\t\t\t\t"}</Text> </Label>
                     <Input style={styles.input}
+                    placeholderTextColor="#FFFFFF" 
                       // onChangeText={(value) => parseInt(this.props.total1)}
                       editable={false} selectTextOnFocus={false}
                     >{this.props.totalfinal}</Input>
@@ -285,7 +295,7 @@ class DailyUsagePeople extends Component {
                   // androidMode={"default"}
                   placeHolderText="Click here to select date"
                   textStyle={{ color: "green" }}
-                  placeHolderTextStyle={{ color: "#f7c744" }}
+                  placeHolderTextStyle={{ color: "#275DAD" }}
                 // //onDateChange={this.setDate}
                 // onDateChange={value => this.props.dailyUsageUpdate({ name: 'DPickdob', value })}
                 // date={this.props.DPickdob}
@@ -312,9 +322,10 @@ class DailyUsagePeople extends Component {
 }
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: '#f7c744',
+    backgroundColor: '#275DAD',
     opacity: 1,
     borderWidth: 1,
+    color: '#FFFFFF',
     borderColor: 'white',
     textAlign: 'center',
     margin: 10,
@@ -322,14 +333,14 @@ const styles = StyleSheet.create({
   },
   back: {
     borderWidth: 1,
-    borderColor: '#f7c744',
+    borderColor: '#275DAD',
     //backgroundColor:'#203546',
   },
 
   cardtitle: {
     textAlign: "center",
     borderWidth: 1,
-    borderColor: '#f7c744',
+    borderColor: '#275DAD',
     paddingTop: 10,
     paddingBottom: 10,
     //backgroundColor:'#203546',

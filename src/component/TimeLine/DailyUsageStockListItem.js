@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
 
   moreIcon: {
-    color: "#f7c744"
+    color: '#275DAD'
   }
 
 });
