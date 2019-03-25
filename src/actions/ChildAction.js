@@ -13,10 +13,10 @@ export const childUpdate = ({ name, value }) => {
     };
 };
 
-export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytype,health, DPickdob, DPickregdate }) => {
-    console.log('inside acton', HNumber, CName, CMotherId, status, option, babytype,health, DPickdob, DPickregdate);
-    // if (HNumber === '' || CName === '' || CMotherId === '' || status === '' || option === '' || babytype === '' || DPickdob === '' || DPickregdate === '') 
-    // {
+// eslint-disable-next-line max-len
+export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate }) => {
+    console.log('inside acton', HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate);
+    // if (HNumber === '' || CName === '') {
     //     Alert.alert(
     //         'Please enter the details',
     //         [
@@ -25,25 +25,24 @@ export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytyp
     //         { cancelable: false }
 
     //     );
-    // }
-    //  else {
-        const { currentUser } = firebase.auth();
-        return (dispatch) => {
-            console.log(firebase.auth());
-            firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`)
-                 .push({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate })
-                .then(() => {
-                    dispatch({
-                        type: CHILD_CREATE
-                    });
-                    // ActionSheet.childList({ type: reset });
-                })
-                .catch((error) => {
-                    console.log(error);
+    // } else {
+    const { currentUser } = firebase.auth();
+    return (dispatch) => {
+        console.log(firebase.auth());
+        firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`)
+            .push({ HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate })
+            .then(() => {
+                dispatch({
+                    type: CHILD_CREATE
                 });
-        };
-   //}
+                // ActionSheet.childList({ type: reset });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 };
+//};
 
 export const childFetch = () => {
     const { currentUser } = firebase.auth();
@@ -67,28 +66,28 @@ export const childFetch = () => {
 //     };
 // };
 
-export const childSave = ({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, uid }) => {
+export const childSave = ({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, placedied, uid }) => {
     console.log('uid inside godfreys slow motion', uid);
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration/${uid}`)
-            .set({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate })
+            .set({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, placedied })
             .then(() => {
                 dispatch({
                     type: CHILD_SAVE
                 });
             });
     };
-}
+};
 
-export const deliveryUpdate = ({ status }, uid) => {
-    console.log('uid', status);
+export const deliveryUpdate = ({ status, placedied }, uid) => {
+    console.log('uid', placedied);
     //  const hno = '3';
     const Delivery = 'Yes';
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy/${uid}`)
-            .update({ Delivery, status })
+            .update({ Delivery, status, placedied })
             .then(() => {
                 dispatch({
                     type: CHILD_SAVE
@@ -105,14 +104,16 @@ export const childDelete = ({ uid }, navigate) => {
             'Do you Want to Delete..',
             [
                 {
-                    text: 'Cancel', onPress: () =>
+                    text: 'Cancel',
+                    onPress: () =>
                         dispatch({
                             type: ListChild
                         }),
                     style: 'cancel',
                 },
                 {
-                    text: 'OK', onPress: () =>
+                    text: 'OK',
+                    onPress: () =>
                         firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration/${uid}`)
                             .remove()
                             .then(() => {
