@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import { Alert, TextInput, Picker,View,StyleSheet } from 'react-native';
+import { Alert, TextInput, Picker, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Radio, CardItem } from 'native-base';
 import Datepicker from 'react-native-datepicker';
@@ -19,39 +19,43 @@ class PregnancyEdit extends Component {
     componentWillMount() {
         _.each(this.props.navigation.state.params.Pregnancy, (value, prop) => {
             this.props.pregnancyUpdate({ prop, value });
-            //const {HHNumber}=this.props.navigation.state.params.Pregnancy;
-            console.log('value here', this.props.navigation.state.params.Pregnancy.HHNumber);
-
             this.search(this.props.navigation.state.params.Pregnancy.HHNumber);
-
         });
     }
 
 
     onButtonPress() {
         const { PregnantName, PhoneNumber, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, option, Dplace, FirstWeightDate, Nchild, HHNumber } = this.props;
+        if (HHNumber === '' || PregnantName === '' || NPregnant === '' || LPerioddate === '' || FirstDose === '' || SecondDose === '' || DeliveryDate === '') {
+            Alert.alert(
+                'Enter All The Details',
+                'Record Not Inserted');
+            }
+            else
+            {
         this.props.PregnancySave({ PregnantName, PhoneNumber, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, option, Dplace, FirstWeightDate, Nchild, uid: this.props.navigation.state.params.Pregnancy.uid, HHNumber });
         Alert.alert(
             'Yes',
             'Updated Successfully',
-            [
-                { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            ],
-            { cancelable: false }
+           
         );
+        }
     }
+
     onAccept() {
         const navigate = this.props.navigation;
         this.props.PregnancyDelete({ uid: this.props.navigation.state.params.Pregnancy.uid }, navigate);
         this.setState({ showModal: false });
     }
+
     onDecline() {
         this.setState({ showModal: false });
     }
+
     search(HHNumber) {
         const { currentUser } = firebase.auth();
         const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${HHNumber}`)
-        const query = db.orderByChild('HHNumber').equalTo(HHNumber)
+        const query = db.orderByChild('HHNumber').equalTo(HHNumber);
         query.on('value', snapshot => {
             if (snapshot.val()) {
                 this.setState({ scores: snapshot.val() });
@@ -75,6 +79,7 @@ class PregnancyEdit extends Component {
                 var PregnantName = scores[k].HHName;
                 pickerArr.push(<Picker.Item label={PregnantName} value={k} />);
                 count++;
+                console.log("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH", PregnantName);
             }
         }
         if (count == 0)
@@ -89,118 +94,116 @@ class PregnancyEdit extends Component {
     render() {
         return (
             <ScrollView>
-                
-            <View style={styles.container}>
-                <View style={styles.mainview}>
-                    <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputs}
-                            placeholder="Enter The HouseHold Number"
-                            underlineColorAndroid='transparent'
-                            autoCorrect={false}
-                            placeholderTextColor='#355870'
-                            value={this.props.HHNumber}
-                            onChangeText={this.calFun.bind(this)}
-                        />
-                    </View>
+                <View style={styles.container}>
+                    <View style={styles.mainview}>
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                style={styles.inputs}
+                                placeholder="Enter The HouseHold Number"
+                                underlineColorAndroid='transparent'
+                                autoCorrect={false}
+                                placeholderTextColor='#355870'
+                                value={this.props.HHNumber}
+                                onChangeText={this.calFun.bind(this)}
+                            />
+                        </View>
 
-                    <View style={styles.inputContainer}>
-                        <Picker
-                            style={styles.picker} itemStyle={styles.pickerItem}
-                            selectedValue={this.props.PregnantName}
-                            onValueChange={(value) => this.props.pregnancyUpdate({ prop: 'PregnantName', value })}
-                        >
-                            <Picker.Item label='Select Pregnant Name' value='default' />
-                            {this.getPickerElements()}
-                        </Picker>
-                    </View>
+                        <View style={styles.inputContainer}>
+                            <Picker
+                                style={styles.picker} itemStyle={styles.pickerItem}
+                                selectedValue={this.props.PregnantName}
+                                onValueChange={(value) => this.props.pregnancyUpdate({ prop: 'PregnantName', value })}
+                            >
+                                <Picker.Item label='Select Pregnant Name' value='default' />
+                                {this.getPickerElements()}
+                            </Picker>
+                            
+                                                </View>
 
-                    <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputs}
-                            placeholder="Enter Number of Pregnancies"
-                            autoCorrect={false}
-                            value={this.props.NPregnant}
-                            onChangeText={value => this.props.pregnancyUpdate({ prop: 'NPregnant', value })}
-                        />
-                    </View>
+                        <View style={styles.inputContainer}>
+                            <TextInput 
+                                style={styles.inputs}
+                                placeholder="Enter Number of Pregnancies"
+                                autoCorrect={false}
+                                value={this.props.NPregnant}
+                                onChangeText={value => this.props.pregnancyUpdate({ prop: 'NPregnant', value })}
+                            />
+                        </View>
 
-                    <View style={styles.inputContainer}>
+                        <View style={styles.inputContainer}>
 
+                            <Datepicker style={styles.dateblock}
+                                customStyles={{ dateInput: { borderWidth: 0 } }}
+                                mode="date"
+                                placeholder="Last Peroid Date"
+                                format="YYYY-MM-DD"
+
+                                date={this.props.LPerioddate}
+                                onDateChange={value => this.props.pregnancyUpdate({ prop: 'LPerioddate', value })}
+                            />
+                        </View>
+                        {/* 
+                    <View style={styles.inputContainer}>
                         <Datepicker style={styles.dateblock}
-                            placeholder="select date"
+                            customStyles={{ dateInput: { borderWidth: 0 } }}
                             mode="date"
-                            placeholder="select date"
+                            placeholder="Expected Delivery Date"
                             format="YYYY-MM-DD"
-                            date={this.props.LPerioddate}
-                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'LPerioddate', value })}
+                            date={this.props.EDeliveryDate}
+                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'EDeliveryDate', value })}
                         />
-                    </View>
+                    </View> */}
+                        <View style={styles.inputContainer}>
+                            <Datepicker style={styles.dateblock}
+                                customStyles={{ dateInput: { borderWidth: 0 } }}
+                                mode="date"
+                                placeholder="Enter 1st Dose"
+                                format="YYYY-MM-DD"
+                                date={this.props.FirstDose}
+                                onDateChange={value => this.props.pregnancyUpdate({ prop: 'FirstDose', value })}
+                            />
+                        </View>
 
-                    <View style={styles.inputContainer}>
-                        <Datepicker style={styles.dateblock}
-                            placeholder="select date"
-                            mode="date"
-                            placeholder="select date"
-                            format="YYYY-MM-DD"
-                            date={this.props.EDeliveryplace}
-                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'EDeliveryplace', value })}
-                        />
-                    </View>
-                    <View style={styles.inputContainer}>
-                        <Datepicker style={styles.dateblock}
-                            placeholder="select first dose"
-                            mode="date"
-                            placeholder="select date"
-                            format="YYYY-MM-DD"
-                            date={this.props.FirstDose}
-                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'FirstDose', value })}
-                        />
-                    </View>
+                        <View style={styles.inputContainer}>
+                            <Datepicker style={styles.dateblock}
+                                customStyles={{ dateInput: { borderWidth: 0 } }}
 
-                    <View style={styles.inputContainer}>
-                        <Datepicker style={styles.dateblock}
-                            label=" 2nd Dose"
-                            mode="date"
-                            placeholder="select date"
-                            format="YYYY-MM-DD"
-                            date={this.props.SecondDose}
-                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'SecondDose', value })}
-                        />
-                    </View>
+                                mode="date"
+                                placeholder="Enter Second Dose"
+                                format="YYYY-MM-DD"
+                                date={this.props.SecondDose}
+                                onDateChange={value => this.props.pregnancyUpdate({ prop: 'SecondDose', value })}
+                            />
+                        </View>
 
-                    <View style={styles.inputContainer}>
-                        <Datepicker style={styles.dateblock}
-                            label=" Delivery Date"
-                            mode="date"
-                            placeholder="select date"
-                            format="YYYY-MM-DD"
-                            date={this.props.DeliveryDate}
-                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'DeliveryDate', value })}
-                        />
-                    </View>
+                        <View style={styles.inputContainer}>
+                            <Datepicker style={styles.dateblock}
+                                customStyles={{ dateInput: { borderWidth: 0 } }}
+                                mode="date"
+                                placeholder="Delivery Date"
+                                format="YYYY-MM-DD"
+                                date={this.props.DeliveryDate}
+                                onDateChange={value => this.props.pregnancyUpdate({ prop: 'DeliveryDate', value })}
+                            />
+                        </View>
 
-                    <View style={styles.inputContainer}>
+                        {/* <View style={styles.inputContainer}>
                         <Datepicker style={styles.dateblock}
-                            label=" First weight Taken Date"
+                            customStyles={{ dateInput: { borderWidth: 0 } }}
+                            placeholder="Date of Birth"
+                            //style={{ marginLeft: 63, padding: 5 }}
                             mode="date"
-                            placeholder="select date"
+                            placeholder="First Weight Date"
                             format="YYYY-MM-DD"
                             date={this.props.FirstWeightDate}
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'FirstWeightDate', value })}
                         />
-                    </View>
-                    <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputs}
-                            placeholder={"\t\t\t\t\t Enter Delivery Place"}
-                            autoCorrect={false}
-                            label={" Enter DeliveryPlace"}
-                            value={this.props.Dplace}
-                            onChangeText={value => this.props.pregnancyUpdate({ prop: 'Dplace', value })}
-                        />
+                    </View> */}
+
+
                     </View>
 
-                </View>
-        
-                
+
                     {/* Update Buttons */}
                     <CardSection>
                         < Button onPress={this.onButtonPress.bind(this)}>
@@ -210,14 +213,14 @@ class PregnancyEdit extends Component {
                     <CardSection>
                         <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Delete</Button>
                     </CardSection>
-                    <Confirm 
-                    visible={this.state.showModal}
+                    <Confirm
+                        visible={this.state.showModal}
                         onAccept={this.onAccept.bind(this)}
                         onDecline={this.onDecline.bind(this)}
                     >
                         Are you sure you want to delete this?
                 </Confirm>
-                </View>              
+                </View>
             </ScrollView>
         );
     }
@@ -369,7 +372,7 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = (state) => {
     const { HHNumber, PregnantName, PhoneNumber, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, option, Dplace, FirstWeightDate, uid } = state.PregnancyForm;
-    //console.log('inside edit',PregnantName);
+
     return { HHNumber, PregnantName, PhoneNumber, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, option, Dplace, FirstWeightDate, uid };
 };
 export default connect(mapStateToProps, { PregnancySave, pregnancyUpdate, PregnancyDelete })(PregnancyEdit);

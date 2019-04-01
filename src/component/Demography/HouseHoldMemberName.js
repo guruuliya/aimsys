@@ -62,37 +62,42 @@ class HouseHoldMemberName extends Component {
     const dataSource = ds.cloneWithRows(jsonsearch);
     return (
       <View>
-        <SearchBar
-          placeholder="Type Here..."
-          lightTheme
-          round
-          onChangeText={this.onSearchValueChange}
-          value={this.state.searchName}
-        />
-        <ScrollView>
-          <Card>
-            <CardSection>
-              <ListView
-                enableEmptySections
-                dataSource={dataSource}
-                renderRow={this.renderRow}
-              />
-            </CardSection>
-          </Card>
-        </ScrollView>
-
-      </View>
+      <SearchBar
+        placeholder="Type Here..."
+        lightTheme
+        round
+        onChangeText={this.onSearchValueChange}
+        value={this.state.searchName}
+      />
+      {
+        this.props.Loading ?
+          <View>
+            <Spinner />
+          </View> :
+          <ScrollView>
+            <Card>
+              <CardSection>
+                <ListView
+                  enableEmptySections
+                  dataSource={dataSource}
+                  renderRow={this.renderRow}
+                />
+              </CardSection>
+            </Card>
+          </ScrollView>
+      }
+    </View>
     );
   }
 }
 
 
 const mapStateToProps = state => {
-  // const { Loading } = state.child;
+   const { Loading } = state.HouseHoldForm;
   const HouseHoldName = _.map(state.HouseHoldName, (val, uid) => {
     return { ...val, uid };
   });
-  return { HouseHoldName };
+  return { Loading,HouseHoldName };
 };
 
 export default connect(mapStateToProps, { HouseholdNameFetch })(HouseHoldMemberName);

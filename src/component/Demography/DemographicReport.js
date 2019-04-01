@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {ListView,View,ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { SearchBar } from 'react-native-elements';
+import { Spinner } from 'native-base';
 import { Card, CardSection } from '../Common';
 import { FetchAll } from '../../actions/HouseholdActions';
 import DemographicReportList from './DemographicReportList';
@@ -58,32 +59,38 @@ class DemographicReport extends Component {
     const dataSource = ds.cloneWithRows(jsonsearch);
     return (
       <View>
-        <SearchBar
-          placeholder="Type Here..."
-          lightTheme
-          round
-          onChangeText={this.onSearchValueChange}
-          value={this.state.searchName}
-        />
-        <ScrollView>
-          <Card>
-            <CardSection>
-              <ListView
-                enableEmptySections
-                dataSource={dataSource}
-                renderRow={this.renderRow}
-              />
-            </CardSection>
-          </Card>
-        </ScrollView>
-
-      </View>
+      <SearchBar
+        placeholder="Type Here..."
+        lightTheme
+        round
+        onChangeText={this.onSearchValueChange}
+        value={this.state.searchName}
+      />
+      {
+        this.props.Loading ?
+          <View>
+            <Spinner />
+          </View> :
+          <ScrollView>
+            <Card>
+              <CardSection>
+                <ListView
+                  enableEmptySections
+                  dataSource={dataSource}
+                  renderRow={this.renderRow}
+                />
+              </CardSection>
+            </Card>
+          </ScrollView>
+      }
+    </View>
     );
   }
 }
 
 const mapStateToProps = state => {
+    const {Loading}=state.HouseHoldForm;
   const Fetchall = _.map(state.Fetchall, (val, uid) => ({ ...val, uid }));
-  return { Fetchall };
+  return {Loading, Fetchall };
 };
 export default connect(mapStateToProps, { FetchAll })(DemographicReport);

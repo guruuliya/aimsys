@@ -1,10 +1,10 @@
 import firebase from 'firebase';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Picker, StyleSheet, TextInput } from 'react-native';
+import Moment from 'moment';
+import { View, Picker, StyleSheet, TextInput } from 'react-native';
 import Datepicker from 'react-native-datepicker';
-import { CardItem } from 'native-base';
-import { CardSection, Input } from '../Common';
+
 import { pregnancyUpdate } from '../../actions';
 
 class PregnancyForm extends Component {
@@ -50,6 +50,7 @@ class PregnancyForm extends Component {
         this.search(text);
     }
     render() {
+       
         return (
             <View style={styles.container}>
                 <View style={styles.mainview}>
@@ -87,30 +88,32 @@ class PregnancyForm extends Component {
                     <View style={styles.inputContainer}>
 
                         <Datepicker style={styles.dateblock}
-                            placeholder="select date"
+                            customStyles={{ dateInput: { borderWidth: 0 } }}
                             mode="date"
-                            placeholder="select date"
+                            placeholder="Last Peroid Date"
                             format="YYYY-MM-DD"
+                            
                             date={this.props.LPerioddate}
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'LPerioddate', value })}
                         />
                     </View>
-
+{/* 
                     <View style={styles.inputContainer}>
                         <Datepicker style={styles.dateblock}
-                            placeholder="select date"
+                            customStyles={{ dateInput: { borderWidth: 0 } }}
                             mode="date"
-                            placeholder="select date"
+                            placeholder="Expected Delivery Date"
                             format="YYYY-MM-DD"
-                            date={this.props.EDeliveryplace}
-                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'EDeliveryplace', value })}
+                            date={this.props.EDeliveryDate}
+                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'EDeliveryDate', value })}
                         />
-                    </View>
+                    </View> */}
                     <View style={styles.inputContainer}>
                         <Datepicker style={styles.dateblock}
-                            placeholder="select first dose"
+                            customStyles={{ dateInput: { borderWidth: 0 } }}
                             mode="date"
-                            placeholder="select date"
+                            minDate={new Date()}
+                            placeholder="Enter 1st Dose"
                             format="YYYY-MM-DD"
                             date={this.props.FirstDose}
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'FirstDose', value })}
@@ -119,9 +122,10 @@ class PregnancyForm extends Component {
 
                     <View style={styles.inputContainer}>
                         <Datepicker style={styles.dateblock}
-                            label=" 2nd Dose"
+                            customStyles={{ dateInput: { borderWidth: 0 } }}
                             mode="date"
-                            placeholder="select date"
+                            maxDate={new Date()}
+                            placeholder="Enter Second Dose"
                             format="YYYY-MM-DD"
                             date={this.props.SecondDose}
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'SecondDose', value })}
@@ -130,34 +134,29 @@ class PregnancyForm extends Component {
 
                     <View style={styles.inputContainer}>
                         <Datepicker style={styles.dateblock}
-                            label=" Delivery Date"
+                            customStyles={{ dateInput: { borderWidth: 0 } }}
                             mode="date"
-                            placeholder="select date"
+                            minDate={new Date()}
+                            placeholder="Expected Delivery Date"
                             format="YYYY-MM-DD"
                             date={this.props.DeliveryDate}
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'DeliveryDate', value })}
                         />
                     </View>
 
-                    <View style={styles.inputContainer}>
+                    {/* <View style={styles.inputContainer}>
                         <Datepicker style={styles.dateblock}
-                            label=" First weight Taken Date"
+                            customStyles={{ dateInput: { borderWidth: 0 } }}
+                            placeholder="Date of Birth"
+                            //style={{ marginLeft: 63, padding: 5 }}
                             mode="date"
-                            placeholder="select date"
+                            placeholder="First Weight Date"
                             format="YYYY-MM-DD"
                             date={this.props.FirstWeightDate}
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'FirstWeightDate', value })}
                         />
-                    </View>
-                    <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputs}
-                            placeholder={"\t\t\t\t\t Enter Delivery Place"}
-                            autoCorrect={false}
-                            label={" Enter DeliveryPlace"}
-                            value={this.props.Dplace}
-                            onChangeText={value => this.props.pregnancyUpdate({ prop: 'Dplace', value })}
-                        />
-                    </View>
+                    </View> */}
+
 
                 </View>
             </View>
@@ -311,8 +310,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate } = state.PregnancyForm;
-    return { HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate };
+    const { HHNumber, PregnantName, NPregnant, LPerioddate ,DeliveryDate, FirstDose, SecondDose } = state.PregnancyForm;
+    return { HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose ,DeliveryDate, SecondDose };
 };
 
 export default connect(mapStateToProps, { pregnancyUpdate })(PregnancyForm);

@@ -26,6 +26,7 @@ class HouseHoldNumber extends Component {
 
                     <View style={styles.inputContainer}>
                         <TextInput style={styles.inputs}
+                        
                             underlineColorAndroid='transparent'
                             autoCorrect={false}
                             placeholderTextColor='#355870'
@@ -34,10 +35,8 @@ class HouseHoldNumber extends Component {
                             onChangeText={value => this.props.HouseholdUpdate({ name: 'Address', value })}
                         />
                     </View>
-
-                    
-                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
-                            <Text style={styles.loginText}>Login</Text>
+<TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
+                            <Text style={styles.loginText}>Add</Text>
                         </TouchableOpacity>
                     
                 </View>

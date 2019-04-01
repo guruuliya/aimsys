@@ -29,8 +29,8 @@ class HouseHoldEdit extends Component {
     }
 
     onButtonPress() {
-        const { HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option } = this.props;
-        this.props.HouseholdSave({ HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option }, this.props.navigation.state.params.Houseno.uid, HHNumber);
+        const { HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option,Income,Disease1,Disease2 ,Disease3 } = this.props;
+        this.props.HouseholdSave({ HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option,Income,Disease1,Disease2 ,Disease3 }, this.props.navigation.state.params.Houseno.uid, HHNumber);
         Alert.alert(
             'Yes !',
             'Updated Successfully',
@@ -85,7 +85,7 @@ class HouseHoldEdit extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    const { HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option, uid } = state.HouseHoldForm;
-    return { HHNumber, HHName, DOB, Caste, sex, Relationship, Designation, Status, Phonenumber, Address, option, uid };
+    const { HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option,Income,Disease1,Disease2 ,Disease3, uid } = state.HouseHoldForm;
+    return { HHNumber, HHName, DOB, Caste, sex, Relationship, Designation, Status, Phonenumber, Address, option,Income,Disease1,Disease2 ,Disease3, uid };
 }
 export default connect(mapStateToProps, { HouseholdSave, HouseholdUpdate, HouseholdDelete })(HouseHoldEdit);

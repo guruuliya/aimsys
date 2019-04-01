@@ -14,16 +14,17 @@ export const pregnancyUpdate = ({ prop, value }) => {
     };
 };
 
-export const PregnancyCreate = ({ HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild }) => {
+export const PregnancyCreate = ({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate }) => {
     var Delivery = 'No';
-    const { currentUser } = firebase.auth();
-    return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy`)
-            .push({ HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild, Delivery })
-            .then(() => {
-                dispatch({ type: PREGNANCY_CREATE });
-            });
-    };
+   
+        const { currentUser } = firebase.auth();
+        return (dispatch) => {
+            firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy`)
+                .push({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Delivery })
+                .then(() => {
+                    dispatch({ type: PREGNANCY_CREATE });
+                });
+        };
 };
 
 export const pregnancyFetch = () => {
@@ -40,13 +41,13 @@ export const pregnancyFetch = () => {
     };
 };
 
-export const PregnancySave = ({ HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild, uid }) => {
-    console.log('here i Print HHNumber', HHNumber);
+export const PregnancySave = ({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild, uid }) => {
+    console.log('here i Print HHNumber', HHNumber);  
     var Delivery = 'NO';
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy/${uid}`)
-            .update({ HHNumber, PregnantName, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate })
+            .update({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, Delivery, DeliveryDate, Dplace, FirstWeightDate })
             .then(() => {
                 dispatch({ type: PREGNENT_SAVE });
             });

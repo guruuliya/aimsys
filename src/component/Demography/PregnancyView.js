@@ -58,17 +58,14 @@ class PregnancyView extends Component {
             </Card>
             <Card>
               <Text>{"\n"}</Text>
-              <Text style={styles.contentview}>PregnantName Name :{"\t"}{this.state.a} </Text>
+              <Text style={styles.contentview}>Expectant  Name :{"\t"}{this.state.a} </Text>
               <Text style={styles.contentview} >PhoneNumber :{"\t"}{this.state.PhoneNumber} </Text>
-              <Text style={styles.contentview} >No of Pregnant :{"\t"}{NPregnant} </Text>
+              <Text style={styles.contentview} >Number of Pregnant :{"\t"}{NPregnant} </Text>
               <Text style={styles.contentview}>Last Period:{"\t"}{LPerioddate} </Text>
-              <Text style={styles.contentview}>DeliveryPlace:{"\t"}{EDeliveryplace} </Text>
-                           <Text style={styles.contentview}>FirstDose:{"\t"}{FirstDose} </Text>
+             <Text style={styles.contentview}>FirstDose:{"\t"}{FirstDose} </Text>
               <Text style={styles.contentview}>SecondDose :{"\t"}{SecondDose} </Text>
-              <Text style={styles.contentview}>DeliveryDate:{"\t"}{DeliveryDate} </Text>
-              <Text style={styles.contentview} >Dplace:{"\t"}{Dplace} </Text>
-              <Text style={styles.contentview}>FirstWeight:{"\t"}{FirstWeightDate} </Text>
-                           <Text>{"\n"}</Text>
+              <Text style={styles.contentview}>Expected DeliveryDate:{"\t"}{DeliveryDate} </Text>
+              <Text>{"\n"}</Text>
             </Card>
             {(this.state.show) ? <Card style={styles.develop}><Text> Currently under development!!</Text></Card> : null
             }
