@@ -54,7 +54,7 @@ class PregnancyList extends Component {
       jsonsearch = json;
     }
     if (Object.keys(jsonsearch).length === 0) {
-      jsonsearch = { 0: { HHName: 'No Record Found', HHNumber: '', PregnantName: '' } };
+      jsonsearch = { 0: { PregnantName: 'No Record Found', HHNumber: 0 } };
     }
     const dataSource = ds.cloneWithRows(jsonsearch);
     return (

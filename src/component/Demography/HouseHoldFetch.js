@@ -1,12 +1,12 @@
 import _ from 'lodash';
 
 import React, { Component } from 'react';
-import { View, Text, ListView } from 'react-native';
+import {ListView,ScrollView,View} from 'react-native';
 import { connect } from 'react-redux';
+import { Spinner } from 'native-base';
 import { HouseholdFetch } from '../../actions/HouseholdActions';
-import { Container, Header, Item, Input, Button, ListItem } from 'native-base';
+import { Card, CardSection } from '../Common';
 import HouseHoldListItem from './HouseHoldListItem';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { SearchBar } from 'react-native-elements';
 
 
@@ -56,38 +56,49 @@ class HouseHoldFetch extends Component {
       jsonsearch = json;
     }
     if (Object.keys(jsonsearch).length === 0) {
-      jsonsearch = { 0: { HHName: 'No Record Found', HHNumber: '', PregnantName: '' } };
+      jsonsearch = { 0: { HHNumber: 'No Record Found' } };
     }
     const dataSource = ds.cloneWithRows(jsonsearch);
    
     return (
-      <Container>
+      <View>
       <SearchBar
-          placeholder="Type Here..."
-          lightTheme
-          round
-          onChangeText={this.onSearchValueChange}
-          //value={this.state.searchName}
-        />
-      
-        <ListView
-        enableEmptySections
-        dataSource={dataSource}
-        renderRow={this.renderRow}
+        placeholder="Type Here..."
+        lightTheme
+        round
+        onChangeText={this.onSearchValueChange}
+        value={this.state.searchName}
       />
-
-      </Container>
-      
+      {
+        this.props.Loading ?
+          <View>
+            <Spinner />
+          </View> :
+          <ScrollView>
+            <Card>
+              <CardSection>
+                <ListView
+                  enableEmptySections
+                  dataSource={dataSource}
+                  renderRow={this.renderRow}
+                />
+              </CardSection>
+            </Card>
+          </ScrollView>
+      }
+    </View>
     );
   }
 }
 
 const mapStateToProps = state => {
+
+  const {Loading}=state.HouseHoldForm;
   const HouseHold = _.map(state.HouseHold, (val, uid) => {
   
     return { ...val, uid };
 
   });
-  return { HouseHold };
+  return {Loading, HouseHold };
 };
 export default connect(mapStateToProps, { HouseholdFetch })(HouseHoldFetch);

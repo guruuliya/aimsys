@@ -18,18 +18,11 @@ class HouseHold extends Component {
         },
     };
 
-    componentWillMount() {
-        console.log('value is form ', this.props.navigation.state.params.HouseHold);
-        const { HHNumber } = this.props.navigation.state.params.HouseHold;
-        console.log('here', HHNumber);
-    }
-
 
     onButtonPress() {
         const { HHNumber, uid } = this.props.navigation.state.params.HouseHold;
-        console.log('printed uid here', uid);
-        const { HHName, DOB, Caste, sex, Status, Designation, Phonenumber, Address } = this.props;
-        this.props.HouseHoldFormCreate({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Phonenumber, Address, uid });
+        const { HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Address, Disease1,Disease2,Disease3 } = this.props;
+        this.props.HouseHoldFormCreate({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Address, uid,Disease1,Disease2,Disease3 });
     }
     render() {
         return (
@@ -154,8 +147,8 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-    const { HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option } = state.HouseHoldForm;
+    const { HHName, DOB, Caste, sex, Relationship, Status, Designation, Income, Phonenumber, Address, option,Disease1,Disease2,Disease3 } = state.HouseHoldForm;
     console.log(Phonenumber);
-    return { HHName, DOB, Caste, sex, Relationship, Designation, Status, Phonenumber, Address, option }
+    return { HHName, DOB, Caste, sex, Relationship, Designation, Status, Income, Phonenumber, Address, option,Disease1,Disease2,Disease3 }
 }
 export default connect(mapStateToProps, { HouseholdUpdate, HouseHoldFormCreate })(HouseHold);

@@ -1,6 +1,7 @@
 import {
-    HOUSEHOLD_UPDATE, HOUSEHOLD_CREATE, HOUSEHOLD_SAVE, HOUSEHOLD_FETCH_LOAD_START,
-    HOUSEHOLD_FETCH_LOAD_END,
+    HOUSEHOLD_UPDATE, HOUSEHOLD_CREATE, HOUSEHOLD_SAVE, HOUSEHOLD_FETCH_LOAD_END,
+    HOUSEHOLD_FETCH_LOAD_START,HOUSEHOLD_NAME_FETCH_START,HOUSEHOLD_NAME_FETCH_END,
+    FETCH_SUCESS,FETCH_END
 } from '../actions/types';
 const INITIAL_STATE = {
 
@@ -13,7 +14,11 @@ const INITIAL_STATE = {
     Status: '',
     Designation: '',
     PhoneNumber: '',
-    Address: ''
+    Address: '',
+    Income: '',
+    Disease1:'',
+    Disease2:'',
+    Disease3:'',
 };
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -29,6 +34,16 @@ export default (state = INITIAL_STATE, action) => {
             return { Loading: action.payload };
         case HOUSEHOLD_FETCH_LOAD_END:
             return { Loading: action.payload };
+         case HOUSEHOLD_NAME_FETCH_START:
+        return { Loading: action.payload };
+        case HOUSEHOLD_NAME_FETCH_END:
+        return { Loading: action.payload };
+        case FETCH_SUCESS:
+        return { Loading: action.payload };
+        case FETCH_END:
+        return { Loading: action.payload };
+
+
 
 
         default:

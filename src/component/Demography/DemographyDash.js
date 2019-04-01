@@ -46,7 +46,7 @@ class DemographyDash extends Component {
                     <View style={styles.bottomitem}>
                         <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('LocationHouse')} >
                             <View>
-                                <Image style={styles.icon} source={require('../../images/demo_searchpeople.png')} />
+                            <Text>Location</Text>
                             </View>
                         </TouchableOpacity>
                     </View>

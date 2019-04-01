@@ -5,6 +5,10 @@ import {
     HOUSEHOLD_SAVE, FETCH_ALL, HOUSEHOLD_Name_FETCH_SUCCESS,
     HOUSEHOLD_FETCH_LOAD_START,
     HOUSEHOLD_FETCH_LOAD_END,
+    HOUSEHOLD_NAME_FETCH_END,
+    HOUSEHOLD_NAME_FETCH_START,
+    FETCH_SUCESS,FETCH_END,
+
 } from './types';
 
 export const HouseholdUpdate = ({ name, value }) => ({
@@ -17,7 +21,7 @@ export const HouseholdCreate = ({ HHNumber, Address }) => {
     const { currentUser } = firebase.auth();
     const find = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseHold`);
     return (dispatch) => {
-        if (HHNumber === '' || Address === '') {
+        if ((HHNumber === undefined || HHNumber === '') || (Address === undefined || Address === '')) {
             count--;
             Alert.alert(
                 'Please enter the details',
@@ -25,9 +29,7 @@ export const HouseholdCreate = ({ HHNumber, Address }) => {
         }
         else {
             find.on('value', snapshot => {
-
                 snapshot.forEach(child => {
-
                     if (HHNumber === child.val().HHNumber) {
                         count++;
                     }
@@ -35,7 +37,7 @@ export const HouseholdCreate = ({ HHNumber, Address }) => {
             });
         }
 
-        if (count == 0) {
+        if (count === 0) {
             find.child(HHNumber).set({ HHNumber, Address })
                 .then(() => {
                     dispatch({ type: HOUSEHOLD_CREATE });
@@ -43,13 +45,11 @@ export const HouseholdCreate = ({ HHNumber, Address }) => {
             Alert.alert(
                 'yes',
                 'Record Inserted Sucessfully');
-        }
-        else if (count < 0) {
+        } else if (count < 0) {
             Alert.alert(
                 'Sorry',
                 ' Please enter all the details');
-        }
-        else {
+        } else {
             Alert.alert(
                 'Sorry',
                 'Record alerday exist');
@@ -57,27 +57,27 @@ export const HouseholdCreate = ({ HHNumber, Address }) => {
     };
 };
 
-export const HouseHoldFormCreate = ({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Phonenumber, uid }) => {
+export const HouseHoldFormCreate = ({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, uid, Disease1, Disease2, Disease3 }) => {
+    console.log('asas', HHNumber);
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        if (HHNumber === '' || HHName === '' || DOB === '' || sex === '' || Status === '' || Designation === '' || Phonenumber === '') {
+        if (HHNumber === undefined || HHName === undefined || DOB === undefined || sex === undefined|| Status === undefined || Income === undefined || Designation === undefined||Disease1===undefined||Disease2===undefined||Disease3===undefined) {
             Alert.alert('Please enter the all the  details',
                 'Record Not Inserted');
         }
-        else {
-            if (Phonenumber.length != 10) {
-                Alert.alert(
-                    'Please Phone number is too large',
-                    'Record Not Inserted');
+        else if (uid===undefined)
+        {
+            Alert.alert('NO Household Number ',
+            'Record Not Inserted');
+        }
+        else 
+        {
+            firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${uid}`)
+                .push({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Disease1, Disease2, Disease3 })
+                .then(() => {
+                    dispatch({ type: HOUSEHOLD_CREATE });
+                });
 
-            }
-            else {
-                firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${uid}`)
-                    .push({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Phonenumber })
-                    .then(() => {
-                        dispatch({ type: HOUSEHOLD_CREATE });
-                    });
-            }
         }
     };
 };
@@ -99,6 +99,7 @@ export const FetchAll = () => {
     let i = 0;
     const { currentUser } = firebase.auth();
     return (dispatch) => {
+         FetchAllList(dispatch);
         const query = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember`);
         query.on('value', snapshot => {
             snapshot.forEach(_child => {
@@ -108,6 +109,7 @@ export const FetchAll = () => {
                 });
             });
             dispatch({ type: FETCH_ALL, payload: a });
+             dispatch({ type: FETCH_END, payload: false });
         });
     };
 };
@@ -115,22 +117,43 @@ export const FetchAll = () => {
 export const HouseholdNameFetch = ({ uid }) => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
+        NameFetchLoad(dispatch);
         const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${uid}`);
         db.on('value', snapshot => {
             dispatch({ type: HOUSEHOLD_Name_FETCH_SUCCESS, payload: snapshot.val() });
+            dispatch({ type: HOUSEHOLD_NAME_FETCH_END, payload: false });
         });
     };
 };
 
-export const HouseholdSave = ({ HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address }, uid, HNo) => {
+export const HouseholdSave = ({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Disease1, Disease2, Disease3 }, uid, HNo) => {
+    if (HHNumber === undefined || HHName === undefined || DOB === undefined || sex === undefined|| Status === undefined || Income === undefined || Designation === undefined||Disease1===undefined||Disease2===undefined||Disease3===undefined)
+    {
+        Alert.alert(
+            'No  Record Present',
+            'Update Failed'
+        );
+    }
+        else if(uid===undefined)
+        {
+            Alert.alert(
+                'No  Record Present',
+                'Update Failed'
+            );
+        }
+        else
+        {
+
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${HNo}/${uid}`)
-            .update({ HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address })
+            .update({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Income, Disease1, Disease2, Disease3 })
             .then(() => {
                 dispatch({ type: HOUSEHOLD_SAVE });
             });
+        
     };
+}
 };
 
 
@@ -168,4 +191,10 @@ const fetchLoad = (dispatch) => {
     console.log('inside action');
     dispatch({ type: HOUSEHOLD_FETCH_LOAD_START, payload: true });
 };
+const NameFetchLoad = (dispatch) => {
+    dispatch({ type: HOUSEHOLD_NAME_FETCH_START, payload: true });
+}
+const FetchAllList=(dispatch)=>{
+    dispatch({type:FETCH_SUCESS,payload:true});
+}
 

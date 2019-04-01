@@ -6,6 +6,7 @@ export default (state = INITIAL_STATE, action) => {
         case FETCH_ALL:
             console.log('inside reducer', action.payload);
             return action.payload;
+           
         default:
             return state;
     }
