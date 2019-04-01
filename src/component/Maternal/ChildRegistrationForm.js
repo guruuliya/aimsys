@@ -13,7 +13,7 @@ class ChildRegistrationForm extends Component {
     state = {
         snapshotList: {},
         scores: {},
-        pn:{},
+        pn: {},
 
     };
 
@@ -33,10 +33,10 @@ class ChildRegistrationForm extends Component {
 
     getPickerElements() {
         var a = {};
-        var pp=0;
+        var pp = 0;
         let p = 0;
-        let hno=0;
-        let Name='';
+        let hno = 0;
+        let Name = '';
         const { currentUser } = firebase.auth();
         var pickerArr = [];
         var scores = this.state.scores;
@@ -44,35 +44,29 @@ class ChildRegistrationForm extends Component {
         var keys = Object.keys(scores);
         for (let i = 0; i < keys.length; i++) {
             let k = keys[i];
-             hno = scores[k].HHNumber;
-             Name = scores[k].PregnantName;
-           const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${hno}/${Name}`);
-              db.on('value', snap => {
-                    if(snap.val())
-                    {
-                        
-                        pickerArr.push(<Picker.Item label={snap.val().HHName} value={k} />);
-                    }
-                    else
-                    {
-                           
-                    } });  
+            hno = scores[k].HHNumber;
+            Name = scores[k].PregnantName;
+            const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${hno}/${Name}`);
+            db.on('value', snap => {
+                if (snap.val()) {
+
+                    pickerArr.push(<Picker.Item label={snap.val().HHName} value={k} />);
                 }
+                else {
+
+                }
+            });
+        }
 
         return pickerArr;
     }
 
-// calhealth(text)
-// {
-    
-   
-//         this.props.childUpdate({ name: 'health', value: text });
-//         this.search(text);
-  
-// }
-
     calFun(text) {
         this.props.childUpdate({ name: 'HNumber', value: text });
+        this.search(text);
+    }
+    calhealth(text) {
+        this.props.childUpdate({ name: 'health', value: text });
         this.search(text);
     }
 
@@ -81,7 +75,8 @@ class ChildRegistrationForm extends Component {
             <View style={styles.container}>
                 <View style={styles.mainview}>
                     <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputs}
+                        <TextInput
+                            style={styles.inputs}
                             placeholder="HouseHold Number"
                             underlineColorAndroid='transparent'
                             autoCorrect={false}
@@ -169,21 +164,20 @@ class ChildRegistrationForm extends Component {
                                     />
                                 </View>
 
-
-{/* 
-                                <View style={styles.inputContainer}><Text> Health</Text>
+                                <View style={styles.inputContainer}>
+                                <Text> Health</Text>
                                     <Picker
                                         style={styles.picker} itemStyle={styles.pickerItem}
-                                        placeholder="Status"
                                         selectedValue={this.props.health}
-                                        onValueChange={this.calhealth.bind(this)}>
-                                            
-                                   
+                                        onValueChange={(value) =>
+                                            this.props.childUpdate({ name: 'health', value })
+                                        }
+                                    >
                                         <Picker.Item label="Child Health" value="" />
                                         <Picker.Item label="Healthy" value="healthy" />
                                         <Picker.Item label="Unhealthy" value="unhealthy" />
                                     </Picker>
-                                </View> */}
+                                </View>
 
                                 {/* <View style={styles.inputContainer}>
                                     <Picker
@@ -204,7 +198,8 @@ class ChildRegistrationForm extends Component {
 
 
                                 <View style={styles.inputContainer}>
-                                    <DatePicker style={styles.dateblock}
+                                    <DatePicker
+                                        style={styles.dateblock}
                                         customStyles={{ dateInput: { borderWidth: 0 } }}
                                         placeholder="Date of Birth"
                                         //style={{ marginLeft: 63, padding: 5 }}
@@ -218,7 +213,8 @@ class ChildRegistrationForm extends Component {
 
 
                                 <View style={styles.inputContainer}>
-                                    <DatePicker style={styles.dateblock}
+                                    <DatePicker
+                                        style={styles.dateblock}
                                         customStyles={{ dateInput: { borderWidth: 0 } }}
                                         placeholder="Registered Date"
                                         mode="date"
@@ -233,9 +229,28 @@ class ChildRegistrationForm extends Component {
                             </View>
                             : null
                     }
+
+                    {
+                        this.props.status === 'Died' ?
+                            <View>
+                                <View style={styles.inputContainer}>
+                                    <Label style={{ marginLeft: 22 }}>Died Place</Label>
+                                    <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}> Home {'\t'}</Text>
+                                    <Radio
+                                        onPress={() => this.props.childUpdate({ name: 'placedied', value: 'Home' })}
+                                        selected={this.props.placedied === 'Home'}
+                                    />
+                                    <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>Hospital {'\t'}</Text>
+                                    <Radio
+                                        onPress={() => this.props.childUpdate({ name: 'placedied', value: 'Hospital' })}
+                                        selected={this.props.placedied === 'Hospital'}
+                                    />
+                                </View>
+                            </View>
+                            : null
+                    }
                 </View>
             </View>
-
         );
     }
 }

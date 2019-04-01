@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
-import { Text, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
+import { Text, TouchableWithoutFeedback, View, StyleSheet, CheckBox } from 'react-native';
 import { CardSection } from '../Common';
 import { withNavigation } from 'react-navigation';
 import Moment from 'moment';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+
 class ListAttendance extends Component {
+    state = {
+        checked: false,
+
+    }
+    callattd()
+    {
+        console.log('datta',!this.state.checked);
+        this.setState({ checked: !this.state.checked });
+      
+    }
     render() {
 
         const { ChildName } = this.props.attendance;
@@ -46,16 +57,11 @@ class ListAttendance extends Component {
                     </View>
 
                     <View style={styles.projectTextchild2}>
-                        <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('AttendanceEditForm', { attendance: this.props.attendance }) }}>
-                            <View>
-                                <Icon
-                                    name="edit"
-                                    size={30}
-                                    style={styles.moreIcon}
-                                />
-                                <Text style={styles.moreIcon} >Edit</Text>
-                            </View>
-                        </TouchableWithoutFeedback>
+                        <CheckBox
+                            value={this.state.checked}
+                            onValueChange={this.callattd.bind(this)}
+                        />
+
                     </View>
                 </View>
         );

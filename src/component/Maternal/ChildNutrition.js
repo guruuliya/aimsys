@@ -15,11 +15,7 @@ class ChildNutrition extends Component {
         this.props.NutritionCreate({ HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli });
         Alert.alert(
             'Inserted Successfully',
-            [
-                { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            ],
-            { cancelable: false }
-        )
+        );
     }
 
 
@@ -37,7 +33,7 @@ class ChildNutrition extends Component {
                     <ChildNutritionForm {...this.props} />
                     <CardSection>
                         <Button onPress={this.onButtonPress.bind(this)}>
-                            Register
+                            ADD
                          </Button>
 
                     </CardSection>
@@ -61,6 +57,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     console.log(state);
     const { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = state.nutrition;
+   console.log('Age here',Age);
     return { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli };
 };
 

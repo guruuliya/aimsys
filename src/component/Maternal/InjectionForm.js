@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
-import { Radio, CardItem, Label, Form, Item, Input } from 'native-base';
+import { Input } from 'native-base';
 import firebase from 'firebase';
 import DatePicker from 'react-native-datepicker';
 import { connect } from 'react-redux';
-import { Text, View, Picker, StyleSheet } from 'react-native';
-import { CardSection, Card } from '../Common';
+import { View, Picker, StyleSheet } from 'react-native';
+//import { CardSection, Card } from '../Common';
 import { InjectionUpdate } from '../../actions/InjectionAction';
 
 
@@ -107,7 +107,8 @@ class InjectionForm extends Component {
                     {
                         this.props.update === 'polio' ?
                             <View style={styles.inputContainer}>
-                                <DatePicker style={styles.dateblock}
+                                <DatePicker 
+                                    style={styles.dateblock}
                                     customStyles={{ dateInput: { borderWidth: 0 } }}
                                     mode="date"
                                     round
