@@ -4,13 +4,17 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    well: '',
+    well: false,
+    Punchayath: false,
+    Borewell: false,
     Water: '',
     Medicine: '',
     Mother: '',
     Infant: '',
     Play: '',
     Toilet: '',
+    Power: '',
+    Btype: '',
     status: '',
     uid: '',
     Loadding: false

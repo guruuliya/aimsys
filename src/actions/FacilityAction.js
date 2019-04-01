@@ -12,7 +12,7 @@ export const facilityForm = ({ name, value }) => {
     };
 };
 
-export const facilityCreate = ({ Water, Medicine, Mother, Infant, Play, Toilet }) => {
+export const facilityCreate = ({ Water, well, Panchayath, Borewell, Power, Btype, Medicine, Mother, Infant, Play, Toilet }) => {
     const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
@@ -29,7 +29,7 @@ export const facilityCreate = ({ Water, Medicine, Mother, Infant, Play, Toilet }
                     );
                 } else {
                     database.ref(`/users/${currentUser.uid}/Infrastructure/facilities`)
-                        .push({ Water, Medicine, Mother, Infant, Play, Toilet })
+                        .push({ Water, well, Panchayath, Borewell, Power, Btype, Medicine, Mother, Infant, Play, Toilet })
                         .then(() => {
                             Alert.alert(
                                 'Successfull...!',
@@ -101,12 +101,12 @@ export const facilityDelete = (key) => {
     };
 };
 
-export const facilityUpdate = ({ Water, Medicine, Mother, Infant, Play, Toilet }, key, navigate) => {
+export const facilityUpdate = ({ Water, well, Panchayath, Borewell, Btype, Power, Medicine, Mother, Infant, Play, Toilet }, key, navigate) => {
     console.log(key);
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/facilities/${key}`)
-            .set({ Water, Medicine, Mother, Infant, Play, Toilet })
+            .set({ Water, well, Panchayath, Borewell, Btype, Power, Medicine, Mother, Infant, Play, Toilet })
             .then(() => {
                 Alert.alert(
                     'Successfull...!',

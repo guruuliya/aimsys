@@ -1,11 +1,12 @@
+import firebase from 'firebase';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   createSwitchNavigator, createDrawerNavigator, createStackNavigator, createAppContainer,
   DrawerItems
 } from 'react-navigation';
-import { Container, Header, Body } from 'native-base';
-import { Image } from 'react-native';
+import { Container, Header, Body, Text, List, ListItem } from 'native-base';
+import { Image, TouchableOpacity } from 'react-native';
 import Login from './Login';
 import Workerdashboard from './Workerdashboard';
 import AuthLoading from './AuthLoading';
@@ -79,8 +80,7 @@ import AttendanceRegistrationForm from './TimeLine/AttendanceRegistrationForm';
 import ListAttendance from './TimeLine/ListAttendance';
 import AttendanceEditForm from './TimeLine/AttendanceEditForm';
 import AttendanceView from './TimeLine/AttendanceView';
-
-
+import ChangePassword from './ChangePassword';
 
 const CustomDrawerContentComponent = (props) => (
   <Container>
@@ -93,11 +93,27 @@ const CustomDrawerContentComponent = (props) => (
       </Body>
     </Header>
     <DrawerItems {...props} />
-  </Container>
+    <List>
+      <ListItem>
+        <TouchableOpacity
+          onPress={() => {
+            firebase.auth().signOut().then(() =>
+              props.navigation.navigate('Login'));
+          }
+          }
+        >
+          <Icon
+            style={{ paddingLeft: 90 }}
+            name="md-log-out"
+            size={35}
+            color="red"
+          />
+          <Text style={{ paddingLeft: 80 }}>Logout</Text>
+        </TouchableOpacity>
+      </ListItem>
+    </List>
+  </Container >
 );
-
-
-
 
 const RootStack = createStackNavigator({
   Home: {
@@ -108,7 +124,7 @@ const RootStack = createStackNavigator({
           style={{ paddingLeft: 10 }}
           name="md-menu"
           onPress={() => navigation.openDrawer()}
-          size={35}
+          size={32}
           color="white"
         />
     })
@@ -276,7 +292,6 @@ const RootStack = createStackNavigator({
   HouseHold: {
     screen: HouseHold
   },
-
   HouseHoldMemberName: {
     screen: HouseHoldMemberName
   },
@@ -345,6 +360,23 @@ const DrawerNavigation = createDrawerNavigator({
         <Icon name='md-home' size={32} style={{ color: 'green' }} />
       ),
     }
+  },
+  ChangePassword: {
+    screen: ChangePassword,
+    navigationOptions: ({ navigation }) => ({
+      drawerLabel: 'Change Password',
+      headerLeft:
+        <Icon
+          style={{ paddingLeft: 10 }}
+          name="md-menu"
+          onPress={() => navigation.openDrawer()}
+          size={32}
+          color="white"
+        />,
+      drawerIcon: (
+        <Icon name='md-key' size={32} style={{ color: 'green' }} />
+      )
+    })
   }
 }, {
     initialRouteName: 'Home',

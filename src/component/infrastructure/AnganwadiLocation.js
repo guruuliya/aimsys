@@ -74,12 +74,13 @@ class AnganwadiLocation extends React.Component {
                 return (
                     <Content>
                         <Card key={index + 1}>
-                            <CardItem>
-                                <Text>Your Current Location is:{
-                                    `\nLatitude: ${value.latitude}\nLongitude: ${value.longitude}`
-                                }</Text>
-
-                            </CardItem>
+                            <Card>
+                                <CardItem>
+                                    <Text>Your Current Location is:{
+                                        `\nLatitude: ${value.latitude}\nLongitude: ${value.longitude}`
+                                    }</Text>
+                                </CardItem>
+                            </Card>
                             <ListItem>
                                 <Button
                                     block info
@@ -119,16 +120,17 @@ class AnganwadiLocation extends React.Component {
                 <ScrollView>
                     <Content>
                         <Card>
-                            <CardItem>
-                                {this.state.error && (
-                                    <Text style={styles.big}>{this.state.error}</Text>
-                                )}
+                            <Card>
+                                <CardItem>
+                                    {this.state.error && (
+                                        <Text style={styles.big}>{this.state.error}</Text>
+                                    )}
+                                    <Text>Your Current Location is:{
+                                        `\nLatitude: ${this.props.latitude}\nLongitude: ${this.props.longitude}`
+                                    }</Text>
+                                </CardItem>
+                            </Card>
 
-                                <Text>Your Current Location is:{
-                                    `\nLatitude: ${this.props.latitude}\nLongitude: ${this.props.longitude}`
-                                }</Text>
-
-                            </CardItem>
                             <CardItem>
                                 <Button
                                     block info
