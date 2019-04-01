@@ -8,24 +8,24 @@ import ChildRegistrationForm from './ChildRegistrationForm';
 import { childUpdate, childCreate, deliveryUpdate } from '../../actions/ChildAction';
 
 class ChildRegistration extends Component {
-      onButtonPress() {
-        const { HNumber, CName, CMotherId, status, option,health, babytype, DPickdob, DPickregdate } = this.props;
+    onButtonPress() {
+        const { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied } = this.props;
 
         if (status === 'Born') {
-            console.log('data here',CMotherId);
-            this.props.childCreate({ HNumber, CName,CMotherId, status,health, option, babytype, DPickdob, DPickregdate });
-            console.log('data here',CMotherId);
+            console.log('data here', CMotherId);
+            this.props.childCreate({ HNumber, CName, CMotherId, status, health, option, babytype, DPickdob, DPickregdate });
+            console.log('data here', CMotherId);
             Alert.alert(
 
                 'Inserted Successfully',
-              
+
             );
         } else {
-            this.props.deliveryUpdate({ status }, CMotherId);
+            this.props.deliveryUpdate({ status, placedied }, CMotherId);
             Alert.alert(
 
                 'Inserted Successfully',
-               
+
             );
         }
     }
@@ -39,7 +39,7 @@ class ChildRegistration extends Component {
 
                         <CardSection>
                             <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
-                                <Text style={styles.loginText}>Register</Text>
+                                <Text style={styles.loginText}>ADD</Text>
                             </TouchableOpacity>
                         </CardSection>
                     </Card>
@@ -153,9 +153,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
 
-    const { HNumber, CName, CMotherId, status, option,health, babytype, DPickdob, DPickregdate } = state.child;
+    const { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied } = state.child;
     console.log('registration inside tyyy mother id form ', CMotherId);
-    return { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate };
+    return { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied };
 };
 
 export default connect(mapStateToProps, {

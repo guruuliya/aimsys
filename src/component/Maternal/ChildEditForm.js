@@ -52,7 +52,7 @@ class ChildEditForm extends Component {
         this.setState({ showModal: false });
     }
 
-    
+
 
     getPickerElements() {
         var a = {};
@@ -95,8 +95,8 @@ class ChildEditForm extends Component {
             } else {
                 // this.setState({ scores: { noData: { HHName: 'No Data', HHNumber: 0, PregnantName: 0 } } });
             }
-        });  
-        this.getPickerElements();     
+        });
+        this.getPickerElements();
     }
 
     calFun(text) {
@@ -110,7 +110,8 @@ class ChildEditForm extends Component {
                 <View style={styles.container}>
                     <View style={styles.mainview}>
                         <View style={styles.inputContainer}>
-                            <TextInput style={styles.inputs}
+                            <TextInput
+                                style={styles.inputs}
                                 placeholder="HouseHold Number"
                                 underlineColorAndroid='transparent'
                                 autoCorrect={false}
@@ -171,7 +172,6 @@ class ChildEditForm extends Component {
                                 selected={this.props.option === 'Female'}
                             />
 
-
                         </View>
                         <View style={styles.inputContainer}>
                             <Label style={{ marginLeft: 22 }}>BabyType</Label>
@@ -182,8 +182,6 @@ class ChildEditForm extends Component {
                                 selected={this.props.babytype === 'single'}
 
                             />
-
-
                             <Text style={{ marginLeft: 10, color: '#3c3c3c', fontSize: 16 }}>Twin {'\t'}</Text>
 
                             <Radio
@@ -207,11 +205,9 @@ class ChildEditForm extends Component {
                             </Picker>
                         </View> */}
 
-
-
-
                         <View style={styles.inputContainer}>
-                            <DatePicker style={styles.dateblock}
+                            <DatePicker
+                                style={styles.dateblock}
                                 customStyles={{ dateInput: { borderWidth: 0 } }}
                                 placeholder="Date of Birth"
                                 //style={{ marginLeft: 63, padding: 5 }}
@@ -223,9 +219,9 @@ class ChildEditForm extends Component {
                             />
                         </View>
 
-
                         <View style={styles.inputContainer}>
-                            <DatePicker style={styles.dateblock}
+                            <DatePicker
+                                style={styles.dateblock}
                                 customStyles={{ dateInput: { borderWidth: 0 } }}
                                 placeholder="Registered Date"
                                 mode="date"
@@ -237,7 +233,6 @@ class ChildEditForm extends Component {
                             />
                         </View>
 
-
                         {/* <ChildRegistrationForm edit='yes' /> */}
                         <CardSection>
                             <Button onPress={this.onButtonPress.bind(this)}>Save Changes</Button>
@@ -245,7 +240,8 @@ class ChildEditForm extends Component {
                         <CardSection>
                             <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Delete</Button>
                         </CardSection>
-                        <Confirm visible={this.state.showModal}
+                        <Confirm
+                            visible={this.state.showModal}
                             onAccept={this.onAccept.bind(this)}
                             onDecline={this.onDecline.bind(this)}
                         >
@@ -254,7 +250,6 @@ class ChildEditForm extends Component {
                     </View>
                 </View>
             </ScrollView>
-
         );
     }
 }
@@ -404,7 +399,6 @@ const styles = StyleSheet.create({
     }
 });
 const mapStateToProps = (state) => {
-
     const { HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate } = state.child;
     return { HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate };
 };

@@ -51,11 +51,9 @@ export const NutritionSave = ({ HNumber, CName, Age, height, weight, under, wast
                 dispatch({
                     type: NUTRITION_SAVE
                 });
-
-
             });
     };
-}
+};
 
 export const NutritionDelete = ({ uid }, navigate) => {
     const { currentUser } = firebase.auth();
