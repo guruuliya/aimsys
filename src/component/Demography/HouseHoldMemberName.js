@@ -57,7 +57,7 @@ class HouseHoldMemberName extends Component {
       jsonsearch = json;
     }
     if (Object.keys(jsonsearch).length === 0) {
-      jsonsearch = { 0: { HHName: 'No Record Found' } };
+      jsonsearch = { 0: { HHNumber: 'No Record Found' } };
     }
     const dataSource = ds.cloneWithRows(jsonsearch);
     return (

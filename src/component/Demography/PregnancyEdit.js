@@ -79,7 +79,7 @@ class PregnancyEdit extends Component {
                 var PregnantName = scores[k].HHName;
                 pickerArr.push(<Picker.Item label={PregnantName} value={k} />);
                 count++;
-                console.log("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH", PregnantName);
+               
             }
         }
         if (count == 0)

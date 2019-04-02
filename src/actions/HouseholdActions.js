@@ -7,7 +7,7 @@ import {
     HOUSEHOLD_FETCH_LOAD_END,
     HOUSEHOLD_NAME_FETCH_END,
     HOUSEHOLD_NAME_FETCH_START,
-    FETCH_SUCESS,FETCH_END,
+    FETCH_SUCESS, FETCH_END,
 
 } from './types';
 
@@ -61,17 +61,15 @@ export const HouseHoldFormCreate = ({ HHNumber, HHName, DOB, Caste, sex, Status,
     console.log('asas', HHNumber);
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        if (HHNumber === undefined || HHName === undefined || DOB === undefined || sex === undefined|| Status === undefined || Income === undefined || Designation === undefined||Disease1===undefined||Disease2===undefined||Disease3===undefined) {
+        if (HHNumber === undefined || HHName === undefined || DOB === undefined || sex === undefined || Status === undefined || Income === undefined || Designation === undefined || Disease1 === undefined || Disease2 === undefined || Disease3 === undefined) {
             Alert.alert('Please enter the all the  details',
                 'Record Not Inserted');
         }
-        else if (uid===undefined)
-        {
+        else if (uid === undefined) {
             Alert.alert('NO Household Number ',
-            'Record Not Inserted');
+                'Record Not Inserted');
         }
-        else 
-        {
+        else {
             firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${uid}`)
                 .push({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Disease1, Disease2, Disease3 })
                 .then(() => {
@@ -99,7 +97,7 @@ export const FetchAll = () => {
     let i = 0;
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-         FetchAllList(dispatch);
+        FetchAllList(dispatch);
         const query = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember`);
         query.on('value', snapshot => {
             snapshot.forEach(_child => {
@@ -109,7 +107,7 @@ export const FetchAll = () => {
                 });
             });
             dispatch({ type: FETCH_ALL, payload: a });
-             dispatch({ type: FETCH_END, payload: false });
+            dispatch({ type: FETCH_END, payload: false });
         });
     };
 };
@@ -127,33 +125,30 @@ export const HouseholdNameFetch = ({ uid }) => {
 };
 
 export const HouseholdSave = ({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Disease1, Disease2, Disease3 }, uid, HNo) => {
-    if (HHNumber === undefined || HHName === undefined || DOB === undefined || sex === undefined|| Status === undefined || Income === undefined || Designation === undefined||Disease1===undefined||Disease2===undefined||Disease3===undefined)
-    {
+    if (HHNumber === undefined || HHName === undefined || DOB === undefined || sex === undefined || Status === undefined || Income === undefined || Designation === undefined || Disease1 === undefined || Disease2 === undefined || Disease3 === undefined) {
         Alert.alert(
             'No  Record Present',
             'Update Failed'
         );
     }
-        else if(uid===undefined)
-        {
-            Alert.alert(
-                'No  Record Present',
-                'Update Failed'
-            );
-        }
-        else
-        {
+    else if (uid === undefined) {
+        Alert.alert(
+            'No  Record Present',
+            'Update Failed'
+        );
+    }
+    else {
 
-    const { currentUser } = firebase.auth();
-    return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${HNo}/${uid}`)
-            .update({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Income, Disease1, Disease2, Disease3 })
-            .then(() => {
-                dispatch({ type: HOUSEHOLD_SAVE });
-            });
-        
-    };
-}
+        const { currentUser } = firebase.auth();
+        return (dispatch) => {
+            firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${HNo}/${uid}`)
+                .update({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Income, Disease1, Disease2, Disease3 })
+                .then(() => {
+                    dispatch({ type: HOUSEHOLD_SAVE });
+                });
+
+        };
+    }
 };
 
 
@@ -194,7 +189,7 @@ const fetchLoad = (dispatch) => {
 const NameFetchLoad = (dispatch) => {
     dispatch({ type: HOUSEHOLD_NAME_FETCH_START, payload: true });
 }
-const FetchAllList=(dispatch)=>{
-    dispatch({type:FETCH_SUCESS,payload:true});
+const FetchAllList = (dispatch) => {
+    dispatch({ type: FETCH_SUCESS, payload: true });
 }
 
