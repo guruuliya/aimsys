@@ -5,6 +5,7 @@ import { Radio, CardItem, Text, Label } from 'native-base';
 import { connect } from 'react-redux';
 import { NutritionUpdate } from '../../actions/NutritionAction';
 import firebase from 'firebase';
+import { ScrollView } from 'react-native-gesture-handler';
 let age = '';
 
 class ChildNutritionForm extends Component {
@@ -44,8 +45,6 @@ class ChildNutritionForm extends Component {
     calFun(text) {
         this.props.NutritionUpdate({ name: 'HNumber', value: text });
         this.search(text);
-
-
     }
 
     calbrday(text) {
@@ -75,13 +74,12 @@ class ChildNutritionForm extends Component {
                 }
             });
         });
-
     }
-
-
-    render() {
+    
+  render() {
         this.props.NutritionUpdate({ name: 'Age', value: this.state.Age });
         return (
+            <ScrollView>
             <View style={styles.container}>
                 <View style={styles.mainview}>
                     <View style={styles.inputContainer}>
@@ -362,7 +360,7 @@ class ChildNutritionForm extends Component {
                     </Card>
                 </View >
             </View>
-
+            </ScrollView>
         );
     }
 }

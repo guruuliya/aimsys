@@ -120,3 +120,5 @@ export const ATTENDANCEDELETESUCCESS = 'delete';
 
 export const ATTENDANCE_FETCH_LOAD_START = 'attendance_fetch_load_start';
 export const ATTENDANCE_FETCH_LOAD_END = 'attendance_fetch_load_end';
+export const ATTUPDATE = 'attendanceupdate';
+export const ATTENDANCE_CREATE = 'attendancecreate';

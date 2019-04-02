@@ -66,12 +66,12 @@ export const childFetch = () => {
 //     };
 // };
 
-export const childSave = ({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, placedied, uid }) => {
+export const childSave = ({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, uid }) => {
     console.log('uid inside godfreys slow motion', uid);
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration/${uid}`)
-            .set({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, placedied })
+            .set({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate })
             .then(() => {
                 dispatch({
                     type: CHILD_SAVE

@@ -204,6 +204,7 @@ class ChildRegistrationForm extends Component {
                                         placeholder="Date of Birth"
                                         //style={{ marginLeft: 63, padding: 5 }}
                                         mode="date"
+                                        maxDate={new Date()}
                                         placeholder="Enter Birth Date"
                                         format="YYYY-MM-DD"
                                         onDateChange={value => this.props.childUpdate({ name: 'DPickdob', value })}
@@ -219,6 +220,7 @@ class ChildRegistrationForm extends Component {
                                         placeholder="Registered Date"
                                         mode="date"
                                         round
+                                        maxDate={new Date()}
                                         placeholder="Enter Registered date"
                                         format="YYYY-MM-DD"
                                         onDateChange={value => this.props.childUpdate({ name: 'DPickregdate', value })}

@@ -81,6 +81,7 @@ import ListAttendance from './TimeLine/ListAttendance';
 import AttendanceEditForm from './TimeLine/AttendanceEditForm';
 import AttendanceView from './TimeLine/AttendanceView';
 import ChangePassword from './ChangePassword';
+import Attendance from './TimeLine/Attendance';
 
 const CustomDrawerContentComponent = (props) => (
   <Container>
@@ -328,6 +329,9 @@ const RootStack = createStackNavigator({
   },
   NotificationView: {
     screen: NotificationView
+  },
+  Attendance: {
+    screen: Attendance
   },
   AnganwadiLocation: {
     screen: AnganwadiLocation
