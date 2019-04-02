@@ -112,8 +112,6 @@ export const LOCATION_REMOVE = 'location_remove';
 export const PREGNANCY_FETCH_LOAD_START = 'PregnacyFetchStart';
 export const PREGNANCY_FETCH_LOAD_END = 'PregnacyFetchEnd';
 
-export const HOUSEHOLD_FETCH_LOAD_START = 'HouseholdFetchStart';
-export const HOUSEHOLD_FETCH_LOAD_END = 'HouseholdFetchEnd';
 export const ATTENDANCEUPDATE = 'attendanceupdate';
 export const ATTENDANCECREATE = 'attendancecreate';
 export const ATTENDANCEFETCH = 'attendancefetch';
