@@ -147,7 +147,7 @@ class HouseHoldForm extends Component {
                             style={styles.picker} itemStyle={styles.pickerItem}
                             selectedValue={this.props.Disease2}
                             style={{ height: 50, width: 350 }}
-                            onValueChange={(value )=> this.props.HouseholdUpdate({ name: 'Disease2', value })}
+                            onValueChange={( value )=> this.props.HouseholdUpdate({ name: 'Disease2', value })}
                         >
                         <Picker.Item label="Select Disease" value="" />
                             <Picker.Item label="Diabites" value="Diabites" />
