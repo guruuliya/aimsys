@@ -10,7 +10,11 @@ import { childUpdate, childCreate, deliveryUpdate } from '../../actions/ChildAct
 class ChildRegistration extends Component {
     onButtonPress() {
         const { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied } = this.props;
-
+        if (HNumber === undefined || CName === undefined || CMotherId === undefined || status === undefined || option === undefined || health === undefined || babytype === undefined || DPickdob === undefined || DPickregdate === undefined || placedied === undefined) {
+            Alert.alert(
+                'Enter all the details',
+                'record not inserted');
+        } 
         if (status === 'Born') {
             console.log('data here', CMotherId);
             this.props.childCreate({ HNumber, CName, CMotherId, status, health, option, babytype, DPickdob, DPickregdate });

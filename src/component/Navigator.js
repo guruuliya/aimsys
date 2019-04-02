@@ -43,6 +43,7 @@ import AttendanceRegistrationForm from './TimeLine/AttendanceRegistrationForm';
 import ListAttendance from './TimeLine/ListAttendance';
 import AttendanceEditForm from './TimeLine/AttendanceEditForm';
 import AttendanceView from './TimeLine/AttendanceView';
+import Attendance from './TimeLine/Attendance';
 
 import {
   Children, DemographyDash,
@@ -183,6 +184,9 @@ const RootStack = createStackNavigator({
   },
   NotificationView: {
     screen: NotificationView
+  },
+  Attendance: {
+    screen: Attendance
   }
 },
   {

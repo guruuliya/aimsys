@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Alert } from 'react-native';
 import { CardSection, Card, Button } from '../Common';
 import { connect } from 'react-redux';
 import InjectionForm from './InjectionForm';
@@ -19,7 +19,11 @@ class InjectionRecords extends Component {
 
     onButtonPress() {
         const { HNumber, CName, update, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2 } = this.props;
-        if (update === 'polio') {
+        if (HNumber === undefined || CName === undefined ) {
+            Alert.alert(
+                'Enter all the details',
+                'record not inserted');
+        } else if (update === 'polio') {
             this.props.InjectionCreate({ HNumber, CName }, update, poliodate);
         } else if (update === 'hepatitis') {
             this.props.InjectionCreate({ HNumber, CName }, update, hepa);
@@ -62,7 +66,7 @@ class InjectionRecords extends Component {
                     <InjectionForm {...this.props} />
                     <CardSection>
                         <Button onPress={this.onButtonPress.bind(this)}>
-                            Register
+                            ADD
                          </Button>
 
                     </CardSection>

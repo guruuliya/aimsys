@@ -8,59 +8,61 @@ import ChildNutritionForm from './ChildNutritionForm';
 
 class ChildNutrition extends Component {
 
-
-
-    onButtonPress() {
-        const { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = this.props;
-        this.props.NutritionCreate({ HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli });
-        Alert.alert(
-            'Inserted Successfully',
-        );
-    }
-
-
     constructor() {
         super();
         this.state = {
         };
     }
 
-    render() {
-        return (
+    onButtonPress() {
+        const { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = this.props;
+        if (HNumber === undefined || CName === undefined || Age === undefined || height === undefined || weight === undefined || under === undefined || wast === undefined || stunt === undefined || lowbirth === undefined || breastfeed === undefined || exfeed === undefined || cfeed === undefined || ideli === undefined) {
+            Alert.alert(
+                'Enter all the details',
+                'record not inserted');
+        } else {
+            this.props.NutritionCreate({ HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli });
+            // Alert.alert(
+            //     'Inserted Successfully',
+            // );
+        }
+    }
 
-            <ScrollView>
-                <Card>
-                    <ChildNutritionForm {...this.props} />
-                    <CardSection>
-                        <Button onPress={this.onButtonPress.bind(this)}>
-                            ADD
+        render() {
+            return (
+                <ScrollView>
+                    <Card>
+                        <ChildNutritionForm {...this.props} />
+                        <CardSection>
+                            <Button onPress={this.onButtonPress.bind(this)}>
+                                ADD
                          </Button>
 
-                    </CardSection>
-                </Card>
-            </ScrollView>
+                        </CardSection>
+                    </Card>
+                </ScrollView>
 
-        );
-    }
+            );
+        }
 }
 
-const styles = StyleSheet.create({
-    textStyle: {
-        padding: 5,
-        color: 'blue',
-    },
-    LabelStyle: {
-        color: 'blue'
-    }
-});
+    const styles = StyleSheet.create({
+        textStyle: {
+            padding: 5,
+            color: 'blue',
+        },
+        LabelStyle: {
+            color: 'blue'
+        }
+    });
 
-const mapStateToProps = (state) => {
-    console.log(state);
-    const { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = state.nutrition;
-   console.log('Age here',Age);
-    return { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli };
-};
+    const mapStateToProps = (state) => {
+        console.log(state);
+        const { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = state.nutrition;
+        console.log('Age here', Age);
+        return { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli };
+    };
 
-export default connect(mapStateToProps, {
-    NutritionUpdate, NutritionCreate,
-})(ChildNutrition);
+    export default connect(mapStateToProps, {
+        NutritionUpdate, NutritionCreate,
+    })(ChildNutrition);
