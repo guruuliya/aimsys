@@ -23,7 +23,7 @@ class ListChild extends Component {
                     <View style={styles.projectText} >
                     <ScrollView>
                         <Text style={styles.itemName}>
-                            Report of {"\t"} {HNumber} {"\t"} {CName}
+                           {CName}
                         </Text>
                         </ScrollView>
                         <Text style={styles.itemDetails}>Last edited {"\t"}

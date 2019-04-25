@@ -24,7 +24,7 @@ class ListInjection extends Component {
 
 
 
-                    <Text style={styles.itemName}>Report of {"\t"} {HNumber} {"\t"} {CName}
+                    <Text style={styles.itemName}>{CName}
                     </Text>
 
                     <Text style={styles.itemDetails}>Last edited {"\t"}

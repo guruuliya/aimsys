@@ -3,35 +3,37 @@ import React, { Component } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Card, CardSection, Button } from '../Common';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import ChildRegistrationForm from './ChildRegistrationForm';
 import { childUpdate, childCreate, deliveryUpdate } from '../../actions/ChildAction';
 
 class ChildRegistration extends Component {
     onButtonPress() {
         const { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied } = this.props;
-        if (HNumber === undefined || CName === undefined || CMotherId === undefined || status === undefined || option === undefined || health === undefined || babytype === undefined || DPickdob === undefined || DPickregdate === undefined || placedied === undefined) {
-            Alert.alert(
-                'Enter all the details',
-                'record not inserted');
-        } 
-        if (status === 'Born') {
-            console.log('data here', CMotherId);
-            this.props.childCreate({ HNumber, CName, CMotherId, status, health, option, babytype, DPickdob, DPickregdate });
-            console.log('data here', CMotherId);
-            Alert.alert(
+       
+        // if (HNumber === '' || CName === '' || CMotherId === '' || status === '' || option === '' || health === '' || babytype === '' || DPickdob === '' || DPickregdate === '' || placedied === '') {
+        //     Alert.alert(
+        //         'Enter all the details',
+        //         'record not inserted');
+        // } else {
+            if (status === 'Born') {
+                console.log('data here', CMotherId);
+                this.props.childCreate({ HNumber, CName, CMotherId, status, health, option, babytype, DPickdob, DPickregdate });
+                console.log('data here', CMotherId);
+                Alert.alert(
 
-                'Inserted Successfully',
+                    'Inserted Successfully',
 
-            );
-        } else {
-            this.props.deliveryUpdate({ status, placedied }, CMotherId);
-            Alert.alert(
+                );
+            } else {
+                this.props.deliveryUpdate({ status, placedied }, CMotherId);
+                Alert.alert(
 
-                'Inserted Successfully',
+                    'Inserted Successfully',
 
-            );
-        }
+                );
+            }
+        //}
     }
 
     render() {
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
-        width: 395,
+        width: 350,
         borderRadius: 30,
         backgroundColor: 'transparent'
     },
@@ -156,9 +158,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-
     const { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied } = state.child;
-    console.log('registration inside tyyy mother id form ', CMotherId);
     return { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied };
 };
 

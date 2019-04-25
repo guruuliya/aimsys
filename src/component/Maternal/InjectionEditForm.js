@@ -1,18 +1,21 @@
+import firebase from 'firebase';
 import _ from 'lodash';
 import React, { Component } from 'react';
-import firebase from 'firebase';
-import { Alert, StyleSheet, Picker, View, TextInput } from 'react-native';
+import { Alert, StyleSheet, Picker, View, TextInput, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
-import InjectionForm from './InjectionForm';
 import { InjectionUpdate, InjectionSave, InjectionDelete } from '../../actions/InjectionAction';
-import { Card, CardSection, Button, Confirm } from '../Common';
+import { CardSection, Button, Confirm } from '../Common';
 import { ScrollView } from 'react-native-gesture-handler';
 
 class InjectionEditForm extends Component {
+    state = {
+        snapshotList: {},
+        scores: {},
+        showModal: false,
+    };
     static navigationOptions = {
-        title: 'Child Update',
-
+        title: 'Injection Update',
         headerStyle: {
             backgroundColor: '#203546',
         },
@@ -21,88 +24,49 @@ class InjectionEditForm extends Component {
             fontWeight: 'bold',
         },
     };
-    state = {
-        snapshotList: {},
-        scores: {},
-        showModal: false,
-    };
 
-    componentDidMount() {
+    componentWillMount() {
         _.each(this.props.navigation.state.params.injection, (value, name) => {
             this.props.InjectionUpdate({ name, value });
-            console.log('iside compo',this.props.navigation.state.params.injection);
-            // 
             this.search(this.props.navigation.state.params.injection.HNumber);
         });
-      
+
     }
 
     onButtonPress() {
-        // const { HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete } = this.props;
-
-        // this.props.InjectionSave({ HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete, uid: this.props.navigation.state.params.injection.uid });
         const { HNumber, CName, update, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2 } = this.props;
-        console.log('update', update);
         if (update === 'bcg') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, BCG);
-
         } else if (update === 'polio') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, poliodate);
-
-        }
-        else if (update === 'hepatitis') {
+        } else if (update === 'hepatitis') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, hepa);
-
-        }
-        else if (update === 'dpt1') {
+        } else if (update === 'dpt1') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, DPT1);
-
-        }
-        else if (update === 'hepatitis1') {
+        } else if (update === 'hepatitis1') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, hepa1);
-
-        }
-        else if (update === 'opv1') {
+        } else if (update === 'opv1') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, OPV1);
-
-        }
-        else if (update === 'dpt2') {
+        } else if (update === 'dpt2') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, DPT2);
-
-        }
-        else if (update === 'hepatitis2') {
+        } else if (update === 'hepatitis2') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, hepa2);
-
-        }
-        else if (update === 'opv2') {
+        } else if (update === 'opv2') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, OPV2);
-
-        }
-        else if (update === 'dpt3') {
+        } else if (update === 'dpt3') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, DPT3);
-
-        }
-        else if (update === 'hepatitis3') {
+        } else if (update === 'hepatitis3') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, hepa3);
-
-        }
-        else if (update === 'opv3') {
+        } else if (update === 'opv3') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, OPV3);
-
-        }
-        else if (update === 'dadara1') {
+        } else if (update === 'dadara1') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, dadara1);
-
-        }
-        else if (update === 'nutrition1') {
+        } else if (update === 'nutrition1') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, nutri1);
-        }
-        else if (update === 'dptbooster') {
+        } else if (update === 'dptbooster') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, dptbooster);
-        }
-        else if (update === 'dadara2') {
+        } else if (update === 'dadara2') {
             this.props.InjectionSave({ HNumber, uid: this.props.navigation.state.params.injection.uid }, update, dadara2);
-
         }
         Alert.alert(
             'Updated Successfully',
@@ -119,32 +83,52 @@ class InjectionEditForm extends Component {
         this.setState({ showModal: false });
     }
 
-
     // eslint-disable-next-line react/sort-comp
     search(HNumber) {
-        console.log('HNU',HNumber);
+        let awcid = 0;
+        const database = firebase.database();
         const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`);
-        const query = db.orderByChild('HNumber').equalTo(HNumber);
-        query.on('value', snapshot => {
-            if (snapshot.val()) {
-                this.setState({ scores: snapshot.val() });
-            } else {
-                this.setState({ scores: { noData: { CName: 'No Data' } } });
-            }
-        });
+        console.log('Hnumber', HNumber);
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    database.ref(`/users/${awcid}/Maternal/ChildRegistration`)
+                        .orderByChild('HNumber').equalTo(HNumber)
+                        .once('value', snapshot1 => {
+                            if (snapshot1.val()) {
+                                this.setState({ scores: snapshot1.val() });
+                            } else {
+                                this.setState({ scores: { noData: { CName: 'No Data' } } });
+                            }
+                        });
+                } else {
+                    console.log('no user data');
+                }
+            });
     }
 
     getPickerElements() {
-        const pickerArr = [];
-        const scores = this.state.scores;
+        let count = 0;
+        var pickerArr = [];
+        var  scores = this.state.scores;
         console.log('year', scores);
-        const keys = Object.keys(scores);
+        var  keys = Object.keys(scores);
         for (let i = 0; i < keys.length; i++) {
-            const k = keys[i];
-            const Name = scores[k].CName;
-            pickerArr.push(<Picker.Item label={Name} value={Name} />);
+            var  k = keys[i];
+            var  Name = scores[k].CName;
+            pickerArr.push(<Picker.Item label={Name} value={k} />);
+            count++;
         }
+        if (count == 0)
+            {pickerArr.push(<Picker.Item label={'No Data'} value={'No Data'} />);}
+
         return pickerArr;
     }
 
@@ -155,19 +139,21 @@ class InjectionEditForm extends Component {
                 <View style={styles.container}>
                     <View style={styles.mainview}>
                         <View style={styles.inputContainer}>
-                            <TextInput style={styles.inputs}
+                            <TextInput
+                                style={styles.inputs}
                                 placeholder="HouseHold Number"
                                 underlineColorAndroid='transparent'
                                 autoCorrect={false}
                                 placeholderTextColor='#355870'
-                                value={this.props.HNumber}
                                 onChangeText={(value) => this.props.InjectionUpdate({ name: 'HNumber', value })}
+                                value={this.props.HNumber}
                             />
                         </View>
 
                         <View style={styles.inputContainer}>
                             <Picker
-                                style={styles.picker} itemStyle={styles.pickerItem}
+                                style={styles.picker}
+                                itemStyle={styles.pickerItem}
                                 selectedValue={this.props.CName}
                                 onValueChange={(value) => this.props.InjectionUpdate({ name: 'CName', value })}
                             >
@@ -461,9 +447,9 @@ class InjectionEditForm extends Component {
                                 </View>
                                 : null
                         }
-                        <CardSection>
-                            <Button onPress={this.onButtonPress.bind(this)}>Save Changes</Button>
-                        </CardSection>
+                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
+                            <Text style={styles.loginText}>ADD</Text>
+                        </TouchableOpacity>
                         <CardSection>
                             <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Delete</Button>
                         </CardSection>

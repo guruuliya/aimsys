@@ -1,9 +1,9 @@
+import firebase from 'firebase';
 import _ from 'lodash';
 import React, { Component } from 'react';
-import firebase from 'firebase';
-import { View, Picker, TextInput, StyleSheet, Alert } from 'react-native';
+import { View, Picker, TextInput, StyleSheet, Alert, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { Radio, CardItem, Text, Label } from 'native-base';
+import { Radio, CardItem, Label } from 'native-base';
 import { NutritionUpdate, NutritionSave, NutritionDelete } from '../../actions/NutritionAction';
 import { Card, CardSection, Button, Confirm } from '../Common';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -13,7 +13,6 @@ class NutritionEditForm extends Component {
         snapshotList: {},
         scores: {},
         showModal: false,
-        Age: '',
     };
 
     static navigationOptions = {
@@ -53,26 +52,43 @@ class NutritionEditForm extends Component {
     }
 
     search(HNumber) {
+        let awcid = 0;
+        const database = firebase.database();
         const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`);
-        const query = db.orderByChild('HNumber').equalTo(HNumber);
-        query.on('value', snapshot => {
-            if (snapshot.val()) {
-                this.setState({ scores: snapshot.val() });
-            } else {
-                this.setState({ scores: { noData: { CName: 'No Data' } } });
-            }
-        });
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    database.ref(`/users/${awcid}/Maternal/ChildRegistration`)
+                        .orderByChild('HNumber').equalTo(HNumber)
+                        .once('value', snapshot1 => {
+                            if (snapshot1.val()) {
+                                this.setState({ scores: snapshot1.val() });
+                            } else {
+                                this.setState({ scores: { noData: { CName: 'No Data' } } });
+                            }
+                        });
+                } else {
+                    console.log('no user data');
+                }
+            });
     }
 
     getPickerElements() {
         var pickerArr = [];
         var scores = this.state.scores;
+        console.log('year', scores);
         var keys = Object.keys(scores);
         for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             var Name = scores[k].CName;
-            pickerArr.push(<Picker.Item label={Name} value={Name} />);
+            pickerArr.push(<Picker.Item label={Name} value={k} />);
         }
         return pickerArr;
     }
@@ -80,34 +96,34 @@ class NutritionEditForm extends Component {
     calFun(text) {
         this.props.NutritionUpdate({ name: 'HNumber', value: text });
     }
-    calbrday(text) {
-        console.log('iprit here', this.props.HNumber, 'on value', text);
-        this.props.NutritionUpdate({ name: 'CName', value: text });
-        const HNumber = this.props.HNumber;
-        const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`);
-        const query = db.orderByChild('HNumber').equalTo(HNumber);
+    // calbrday(text) {
+    //     console.log('iprit here', this.props.HNumber, 'on value', text);
+    //     this.props.NutritionUpdate({ name: 'CName', value: text });
+    //     const HNumber = this.props.HNumber;
+    //     const { currentUser } = firebase.auth();
+    //     const db = firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`);
+    //     const query = db.orderByChild('HNumber').equalTo(HNumber);
 
-        query.on('value', snap => {
-            snap.forEach(child => {
+    //     query.on('value', snap => {
+    //         snap.forEach(child => {
 
-                if (child.val().CName === text) {
+    //             if (child.val().CName === text) {
 
-                    var birthday = new Date(child.val().DPickdob);
-                    var today = new Date();
-                    var thisYear = 0;
-                    if (today.getMonth() < birthday.getMonth()) {
-                        thisYear = 1;
-                    } else if ((today.getMonth() == birthday.getMonth()) && today.getDate() < birthday.getDate()) {
-                        thisYear = 1;
-                    }
-                    var age = today.getFullYear() - birthday.getFullYear() - thisYear;
-                    console.log('age here', age.toString());
-                    this.setState({ Age: age.toString() });
-                }
-            });
-        });
-    }
+    //                 var birthday = new Date(child.val().DPickdob);
+    //                 var today = new Date();
+    //                 var thisYear = 0;
+    //                 if (today.getMonth() < birthday.getMonth()) {
+    //                     thisYear = 1;
+    //                 } else if ((today.getMonth() == birthday.getMonth()) && today.getDate() < birthday.getDate()) {
+    //                     thisYear = 1;
+    //                 }
+    //                 var age = today.getFullYear() - birthday.getFullYear() - thisYear;
+    //                 console.log('age here', age.toString());
+    //                 this.setState({ Age: age.toString() });
+    //             }
+    //         });
+    //     });
+    // }
 
     render() {
         //this.props.NutritionUpdate({ name: 'Age', value: this.state.Age });
@@ -116,30 +132,30 @@ class NutritionEditForm extends Component {
                 <View style={styles.container}>
                     <View style={styles.mainview}>
                         <View style={styles.inputContainer}>
-                            <TextInput
+                        <TextInput
                                 style={styles.inputs}
                                 placeholder="Enter HouseHold Number"
                                 underlineColorAndroid='transparent'
                                 autoCorrect={false}
                                 placeholderTextColor='#355870'
-                                value={this.props.HNumber}
                                 onChangeText={this.calFun.bind(this)}
-                            />
+                                value={this.props.HNumber}
+                        />
                         </View>
 
                         <View style={styles.inputContainer}>
                             <Picker
-                                style={styles.picker} itemStyle={styles.pickerItem}
                                 selectedValue={this.props.CName}
+                                style={styles.picker} itemStyle={styles.pickerItem}
                                 onValueChange={(value) => this.props.NutritionUpdate({ name: 'CName', value })}
-                                onValueChange={this.calbrday.bind(this)}
+
                             >
-                                <Picker.Item label='Select Child Name' value='default' />
+                                <Picker.Item label='Select Child Name' value='' />
                                 {this.getPickerElements()}
                             </Picker>
                         </View>
 
-                        <View style={styles.inputContainer}>
+                        {/* <View style={styles.inputContainer}>
                             <TextInput
                                 style={styles.inputs}
                                 value={this.props.Age}
@@ -150,7 +166,7 @@ class NutritionEditForm extends Component {
                                 editable={false}
 
                             />
-                        </View>
+                        </View> */}
                         <View style={styles.inputContainer}>
                             <TextInput
                                 style={styles.inputs}
@@ -392,9 +408,10 @@ class NutritionEditForm extends Component {
                                 />
                             </CardItem>
                         </Card>
-                        <CardSection>
-                            <Button onPress={this.onButtonPress.bind(this)}>Save Changes</Button>
-                        </CardSection>
+                        <Text>\n</Text>
+                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
+                                <Text style={styles.loginText}>ADD</Text>
+                            </TouchableOpacity>
                         <CardSection>
                             <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Delete</Button>
                         </CardSection>

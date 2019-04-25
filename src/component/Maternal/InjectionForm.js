@@ -15,18 +15,35 @@ class InjectionForm extends Component {
         scores: {},
     };
     // eslint-disable-next-line react/sort-comp
+
     search(HNumber) {
-        console.log('Hnumber', HNumber);
+        let awcid = 0;
+        const database = firebase.database();
         const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`);
-        const query = db.orderByChild('HNumber').equalTo(HNumber);
-        query.on('value', snapshot => {
-            if (snapshot.val()) {
-                this.setState({ scores: snapshot.val() });
-            } else {
-                this.setState({ scores: { noData: { CName: 'No Data' } } });
-            }
-        });
+        console.log('Hnumber', HNumber);
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    database.ref(`/users/${awcid}/Maternal/ChildRegistration`)
+                        .orderByChild('HNumber').equalTo(HNumber)
+                        .once('value', snapshot1 => {
+                            if (snapshot1.val()) {
+                                this.setState({ scores: snapshot1.val() });
+                            } else {
+                                this.setState({ scores: { noData: { CName: 'No Data' } } });
+                            }
+                        });
+                } else {
+                    console.log('no user data');
+                }
+            });
     }
 
     getPickerElements() {
@@ -43,7 +60,7 @@ class InjectionForm extends Component {
     }
 
     calFun(text) {
-        console.log('inside function',text);
+        console.log('inside function', text);
         this.props.InjectionUpdate({ name: 'HNumber', value: text });
         this.search(text);
     }
@@ -107,7 +124,7 @@ class InjectionForm extends Component {
                     {
                         this.props.update === 'polio' ?
                             <View style={styles.inputContainer}>
-                                <DatePicker 
+                                <DatePicker
                                     style={styles.dateblock}
                                     customStyles={{ dateInput: { borderWidth: 0 } }}
                                     mode="date"
@@ -356,7 +373,8 @@ class InjectionForm extends Component {
                     {
                         this.props.update === 'dadara2' ?
                             <View style={styles.inputContainer}>
-                                <DatePicker style={styles.dateblock}
+                                <DatePicker
+                                    style={styles.dateblock}
                                     customStyles={{ dateInput: { borderWidth: 0 } }}
                                     mode="date"
                                     round

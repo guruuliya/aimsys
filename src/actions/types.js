@@ -91,8 +91,6 @@ export const HOUSEHOLD_NAME_FETCH_END = 'HouseholdNameFetchEnd';
 export const FETCH_END = 'FetchEnd';
 export const FETCH_SUCESS = 'FetchSuccess';
 
-
-
 export const PREGNANCY_UPDATE = 'PregnancyUpdate';
 export const PREGNANCY_CREATE = 'PregnancyCreate';
 export const PREGNANCYS_FETCH_SUCCESS = 'Pregnancy_Fetch_Success';
@@ -124,3 +122,6 @@ export const ATTENDANCE_FETCH_LOAD_START = 'attendance_fetch_load_start';
 export const ATTENDANCE_FETCH_LOAD_END = 'attendance_fetch_load_end';
 export const ATTUPDATE = 'attendanceupdate';
 export const ATTENDANCE_CREATE = 'attendancecreate';
+
+export const VALID_NAME = 'validname';
+export const INAVALID_NAME = 'invalidname';

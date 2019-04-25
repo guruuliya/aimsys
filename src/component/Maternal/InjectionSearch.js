@@ -69,15 +69,15 @@ class InjectionSearch extends Component {
       <ScrollView>
 
         <SearchBar
-         placeholder='Type Here...'
-         lightTheme
-         round
-         containerStyle={{ backgroundColor: '#FFFFFF' }}
-         placeholderTextColor={'#FFFFFF'}
-         icon={{ color: '#FFFFFF' }}
-         onChangeText={this.onSearchValueChange}
-         value={this.state.searchName}
-         inputContainerStyle={{backgroundColor: '#275DAD' }}
+          placeholder='Type Here...'
+          lightTheme
+          round
+          containerStyle={{ backgroundColor: '#FFFFFF' }}
+          placeholderTextColor={'#FFFFFF'}
+          icon={{ color: '#FFFFFF' }}
+          onChangeText={this.onSearchValueChange}
+          value={this.state.searchName}
+          inputContainerStyle={{ backgroundColor: '#275DAD' }}
         />
 
         {
@@ -105,6 +105,7 @@ class InjectionSearch extends Component {
 
 const mapStateToProps = state => {
   const { Loading } = state.injection;
+  console.log('i nedd i t here see', state.injectionF);
   const injectionF = _.map(state.injectionF, (val, uid) => {
     return { ...val, uid };
   });

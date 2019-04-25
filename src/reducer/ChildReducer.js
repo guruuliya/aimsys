@@ -7,12 +7,15 @@ const INITIAL_STATE = {
     CMotherName: '',
     status: '',
     option: '',
-    DPickdob:'1995-03-05',
+    DPickdob: '1995-03-05',
     DPickregdate: '1995-03-05',
+    health: '',
+    babytype: '',
     Loading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
+    console.log('Inside action here', action.payload);
     switch (action.type) {
         case CHILDUPDATE:
             return { ...state, [action.payload.name]: action.payload.value };
