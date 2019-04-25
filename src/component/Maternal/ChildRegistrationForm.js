@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React, { Component } from 'react';
 import { View, Picker, TextInput, StyleSheet, Icon } from 'react-native';
 import Card from 'native-base';
@@ -5,8 +6,6 @@ import { Radio, CardItem, Text, Label } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 import { connect } from 'react-redux';
 import { childUpdate } from '../../actions/ChildAction';
-import firebase from 'firebase';
-
 
 class ChildRegistrationForm extends Component {
     // eslint-disable-next-line react/sort-comp
@@ -17,47 +16,73 @@ class ChildRegistrationForm extends Component {
 
     };
 
+    //     let awcid = 0;
+    //     const database = firebase.database();
+    //     const { currentUser } = firebase.auth();
+    //     return (dispatch) => {
+    //         database.ref('/assignedworkerstocenters')
+    //             .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+    //             .once('value', snapshot => {
+    //                 if (snapshot.val()) {
+    //                     const value = snapshot.val();
+    //                     const keys = Object.keys(value);
+    //                     for (let i = 0; i < keys.length; i++) {
+    //                         const k = keys[i];
+    //                         awcid = value[k].anganwadicenter_code;
+    //                     }
+
+    //                     //Put your existing code here database insertion part check another file for reference
+
+    //                 } else {
+    //                     console.log('no user data');
+    //                 }
+    //             });
+    //     };
+
     search(HNumber) {
-        this.setState({ searchStatus: 'no' });
+        let awcid = 0;
+        const database = firebase.database();
         const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy`);
-        const query = db.orderByChild('HHNumber').equalTo(HNumber);
-        query.on('value', snapshot => {
-            if (snapshot.val()) {
-                this.setState({ scores: snapshot.val() });
-            } else {
-                this.setState({ scores: { noData: { HHName: 'No Data', HHNumber: 0, PregnantName: 0 } } });
-            }
-        });
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    database.ref(`/users/${awcid}/Demographic/Pregnancy`)
+                        .orderByChild('HHNumber').equalTo(HNumber)
+                        .once('value', snapshot1 => {
+                            if (snapshot1.val()) {
+                                this.setState({ scores: snapshot1.val() });
+                            } else {
+                                this.setState({ scores: { noData: { Pregnant: 'No Data' } } });
+                            }
+                        });
+                } else {
+                    console.log('no user data');
+                }
+            });
     }
 
     getPickerElements() {
-        var a = {};
-        var pp = 0;
-        let p = 0;
-        let hno = 0;
-        let Name = '';
-        const { currentUser } = firebase.auth();
+        let count = 0;
         var pickerArr = [];
         var scores = this.state.scores;
-        console.log('scores here', scores);
+        console.log('year', scores);
         var keys = Object.keys(scores);
-        for (let i = 0; i < keys.length; i++) {
-            let k = keys[i];
-            hno = scores[k].HHNumber;
-            Name = scores[k].PregnantName;
-            const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${hno}/${Name}`);
-            db.on('value', snap => {
-                if (snap.val()) {
-
-                    pickerArr.push(<Picker.Item label={snap.val().HHName} value={k} />);
-                }
-                else {
-
-                }
-            });
+        for (var i = 0; i < keys.length; i++) {
+            var k = keys[i];
+            var Name = scores[k].Pregnant;
+            pickerArr.push(<Picker.Item label={Name} value={k} />);
+            count++;
         }
-
+        if (count == 0) {
+            pickerArr.push(<Picker.Item label={'No Data'} value={'No Data'} />);
+        }
         return pickerArr;
     }
 
@@ -65,10 +90,7 @@ class ChildRegistrationForm extends Component {
         this.props.childUpdate({ name: 'HNumber', value: text });
         this.search(text);
     }
-    calhealth(text) {
-        this.props.childUpdate({ name: 'health', value: text });
-        this.search(text);
-    }
+
 
     render() {
         return (
@@ -165,7 +187,7 @@ class ChildRegistrationForm extends Component {
                                 </View>
 
                                 <View style={styles.inputContainer}>
-                                <Text> Health</Text>
+                                    <Text> Health</Text>
                                     <Picker
                                         style={styles.picker} itemStyle={styles.pickerItem}
                                         selectedValue={this.props.health}
@@ -417,9 +439,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     console.log(state);
 
-    const { HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate } = state.child;
+    const { HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, placedied } = state.child;
     console.log('registration  mother id form ', CMotherId);
-    return { HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate };
+    return { HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, placedied };
 };
 
 export default connect(mapStateToProps, { childUpdate })(ChildRegistrationForm);

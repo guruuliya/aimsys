@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
@@ -8,28 +9,30 @@ import DatePicker from 'react-native-datepicker';
 import { childUpdate, childSave, childDelete } from '../../actions/ChildAction';
 import { Card, CardSection, Button, Confirm } from '../Common';
 import { ScrollView } from 'react-native-gesture-handler';
-import firebase from 'firebase';
 
 class ChildEditForm extends Component {
-
     state = {
         scores: {},
         showModal: false,
     };
 
+    static navigationOptions = {
+        title: 'Child Registration Update',
+        headerStyle: {
+            backgroundColor: '#203546',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
+
 
     componentDidMount() {
         _.each(this.props.navigation.state.params.child, (value, name) => {
-          
-            console.log(value);
             this.props.childUpdate({ name, value });
-
-           
         });
-      
-            this.search('H12346');
-     
-      
+        this.search(this.props.navigation.state.params.child.HNumber);
     }
 
     onButtonPress() {
@@ -37,12 +40,10 @@ class ChildEditForm extends Component {
         this.props.childSave({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, uid: this.props.navigation.state.params.child.uid });
         Alert.alert(
             'Updated Successfully',
-
         );
     }
 
     onAccept() {
-
         const navigate = this.props.navigation;
         this.props.childDelete({ uid: this.props.navigation.state.params.child.uid }, navigate);
         this.setState({ showModal: false });
@@ -52,72 +53,55 @@ class ChildEditForm extends Component {
         this.setState({ showModal: false });
     }
 
-   
-    getPickerElements(t) {
-        var a = {};
-        var t = 0;
-        var pp = 0;
-        let p = 0;
-        let hno = 0;
-        let HName = '';
-
+    search(HNumber) {
+        let awcid = 0;
+        const database = firebase.database();
         const { currentUser } = firebase.auth();
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    database.ref(`/users/${awcid}/Demographic/Pregnancy`)
+                        .orderByChild('HHNumber').equalTo(HNumber)
+                        .once('value', snapshot1 => {
+                            if (snapshot1.val()) {
+                                this.setState({ scores: snapshot1.val() });
+                            } else {
+                                this.setState({ scores: '' });
+                            }
+                        });
+                } else {
+                    console.log('no user data');
+                }
+            });
+    }
+
+    getPickerElements() {
+        let count = 0;
         var pickerArr = [];
         var scores = this.state.scores;
-        let  Name ='';
-        let Hname='';
-        // console.log('scores here', scores);
+        console.log('year', scores);
         var keys = Object.keys(scores);
-        for (let i = 0; i < keys.length; i++) {
-            let k = keys[i];
-            hno = scores[k].HHNumber;
-            console.log('Houseno', hno);
-            
-            Name = scores[k].PregnantName;
-            console.log('Pregnant Name', Name);
-            const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${hno}`);
-            const query = db.orderByKey().equalTo(Name);
-            query.on('value', snapshot => {
-                snapshot.forEach(child => {
-
-                    // a[t] = child.val().HHName;
-                    // t++;
-                    Hname = child.val().HHName;
-                   
-                });
-              
-            });
-            pickerArr.push(<Picker.Item label={Hname} value={Hname} />);
-            console.log('array', Hname);
-             
+        for (var i = 0; i < keys.length; i++) {
+            var k = keys[i];
+            var Name = scores[k].Pregnant;
+            pickerArr.push(<Picker.Item label={Name} value={k} />);
+            count++;
         }
-        
-
+        if (count == 0) {
+            pickerArr.push(<Picker.Item label={'No Data'} value={'No Data'} />);
+        }
         return pickerArr;
     }
 
-
-    search(HNumber) {
-        console.log('Search Called Here', HNumber);
-        const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy`);
-        const query = db.orderByChild('HHNumber').equalTo(HNumber);
-        query.on('value', snapshot => {
-            if (snapshot.val()) {
-                this.setState({ scores: snapshot.val() });
-            } else {
-                this.setState({ scores: { noData: { HHName: 'No Data' } } });
-            }
-           
-        });
-
-
-    }
-    
-    render() {
-
+        render() {
         return (
-            
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.mainview}>
@@ -129,7 +113,7 @@ class ChildEditForm extends Component {
                                 autoCorrect={false}
                                 placeholderTextColor='#355870'
                                 value={this.props.HNumber}
-                                onChangeText={ (value) => this.props.childUpdate({ name: 'HNumber', value })}
+                                onChangeText={(value) => this.props.childUpdate({ name: 'HNumber', value })}
 
                             />
                         </View>
@@ -141,7 +125,7 @@ class ChildEditForm extends Component {
                                 onValueChange={(value) => this.props.childUpdate({ name: 'CMotherId', value })}
                             >
                                 <Picker.Item label='Select Mother Name' value='default' />
-                                
+
                                 {this.getPickerElements(this)}
                             </Picker>
                         </View>

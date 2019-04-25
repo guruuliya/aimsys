@@ -23,28 +23,42 @@ class ChildView extends Component {
     super(props);
     this.state = {
       show: '',
-    }
+    };
   }
   componentWillMount() {
     console.log('cmotherid', this.props.navigation.state.params.child.CMotherId);
     this.search(this.props.navigation.state.params.child.CMotherId);
   }
   search(h) {
-    console.log('inside search', h);
+    let awcid = 0;
+    const database = firebase.database();
     const { currentUser } = firebase.auth();
-    const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy/${h}`);
-    db.on('value', snapshot => {
-      const pname = snapshot.val().PregnantName;
-      const hnumber = snapshot.val().HHNumber;
-      const hb = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${hnumber}/${pname}`);
-      hb.on('value', snap => {
-        this.setState({ a: snap.val().HHName });
+    database.ref('/assignedworkerstocenters')
+      .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+      .once('value', snapshot => {
+        if (snapshot.val()) {
+          const value = snapshot.val();
+          const keys = Object.keys(value);
+          for (let i = 0; i < keys.length; i++) {
+            const k = keys[i];
+            awcid = value[k].anganwadicenter_code;
+          }
+          const db = database.ref(`/users/${awcid}/Demographic/Pregnancy/${h}`);
+          db.on('value', snapshot1 => {
+            const pname = snapshot1.val().PregnantName;
+            const hnumber = snapshot1.val().HHNumber;
+            const hb = database.ref(`/users/${awcid}/Demographic/HouseholdMember/${hnumber}/${pname}`);
+            hb.on('value', snap => {
+              this.setState({ a: snap.val().HHName });
+            });
+          });
+        } else {
+          console.log('no user data');
+        }
       });
-    });
   }
 
   render() {
-
     console.log('inside render', this.state.a);
     console.log(this.props.navigation.state.params);
     const { HNumber, CName, CMotherId, option, DPickdob, DPickregdate } = this.props.navigation.state.params.child;

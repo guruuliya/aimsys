@@ -49,3 +49,6 @@ export const ATTENDANCE_FETCH_LOAD_END = 'attendance_fetch_load_end';
 
 export const ATTUPDATE = 'attendanceupdate';
 export const ATTENDANCE_CREATE = 'attendancecreate';
+
+export const VALID_NAME = 'validname';
+export const INAVALID_NAME = 'invalidname';

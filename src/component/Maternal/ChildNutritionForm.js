@@ -15,18 +15,34 @@ class ChildNutritionForm extends Component {
         Age: '',
     }; //const subquery=query.orderByChild('CName').equalTo('virat');
 
+
     search(HNumber) {
-        console.log('Hnumber', HNumber);
+        let awcid = 0;
+        const database = firebase.database();
         const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`)
-        const query = db.orderByChild('HNumber').equalTo(HNumber);
-        query.on('value', snapshot => {
-            if (snapshot.val()) {
-                this.setState({ scores: snapshot.val() });
-            } else {
-                this.setState({ scores: { noData: { CName: 'No Data' } } });
-            }
-        });
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    database.ref(`/users/${awcid}/Maternal/ChildRegistration`)
+                        .orderByChild('HNumber').equalTo(HNumber)
+                        .once('value', snapshot1 => {
+                            if (snapshot1.val()) {
+                                this.setState({ scores: snapshot1.val() });
+                            } else {
+                                this.setState({ scores: { noData: { CName: 'No Data' } } });
+                            }
+                        });
+                } else {
+                    console.log('no user data');
+                }
+            });
     }
 
     getPickerElements() {
@@ -37,7 +53,7 @@ class ChildNutritionForm extends Component {
         for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             var Name = scores[k].CName;
-            pickerArr.push(<Picker.Item label={Name} value={Name} />);
+            pickerArr.push(<Picker.Item label={Name} value={k} />);
         }
         return pickerArr;
     }
@@ -47,114 +63,128 @@ class ChildNutritionForm extends Component {
         this.search(text);
     }
 
-    calbrday(text) {
-        console.log('iprit here', this.props.HNumber, 'on value', text);
-        this.props.NutritionUpdate({ name: 'CName', value: text });
-        const HNumber = this.props.HNumber;
-        const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`);
-        const query = db.orderByChild('HNumber').equalTo(HNumber);
+    // calbrday(text) {
+    //     let awcid = 0;
+    //     const database = firebase.database();
+    //     const { currentUser } = firebase.auth();
+    //     this.props.NutritionUpdate({ name: 'CName', value: text });
+    //     const HNumber = this.props.HNumber;
+    //     database.ref('/assignedworkerstocenters')
+    //         .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+    //         .once('value', snapshot => {
+    //             if (snapshot.val()) {
+    //                 const value = snapshot.val();
+    //                 const keys = Object.keys(value);
+    //                 for (let i = 0; i < keys.length; i++) {
+    //                     const k = keys[i];
+    //                     awcid = value[k].anganwadicenter_code;
+    //                 }
+    //                 const db = database.ref(`/users/${awcid}/Maternal/ChildRegistration`);
+    //                 const query = db.orderByChild('HNumber').equalTo(HNumber);
+    //                 query.on('value', snap => {
+    //                     snap.forEach(child => {
+    //                         if (child.val().CName === text) {
+    //                             var birthday = new Date(child.val().DPickdob);
+    //                             var today = new Date();
+    //                             var thisYear = 0;
+    //                             if (today.getMonth() < birthday.getMonth()) {
+    //                                 thisYear = 1;
+    //                             } else if ((today.getMonth() == birthday.getMonth()) && today.getDate() < birthday.getDate()) {
+    //                                 thisYear = 1;
+    //                             }
+    //                             var age = today.getFullYear() - birthday.getFullYear() - thisYear;
+    //                             console.log('age here', age.toString());
+    //                             this.setState({ Age: age.toString() });
+    //                         }
+    //                     });
+    //                 });
+    //             } else {
+    //                 console.log('no user data');
+    //             }
+    //         });
+    // }
 
-        query.on('value', snap => {
-            snap.forEach(child => {
-
-                if (child.val().CName === text) {
-
-                    var birthday = new Date(child.val().DPickdob);
-                    var today = new Date();
-                    var thisYear = 0;
-                    if (today.getMonth() < birthday.getMonth()) {
-                        thisYear = 1;
-                    } else if ((today.getMonth() ==birthday.getMonth()) && today.getDate() < birthday.getDate()) {
-                        thisYear = 1;
-                    }
-                    var age = today.getFullYear() - birthday.getFullYear() - thisYear;
-                    console.log('age here', age.toString());
-                    this.setState({ Age: age.toString() });
-                }
-            });
-        });
-    }
-    
-  render() {
+    render() {
         this.props.NutritionUpdate({ name: 'Age', value: this.state.Age });
         return (
             <ScrollView>
-            <View style={styles.container}>
-                <View style={styles.mainview}>
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.inputs}
-                            placeholder="Enter HouseHold Number"
-                            underlineColorAndroid='transparent'
-                            autoCorrect={false}
-                            placeholderTextColor='#355870'
-                            onChangeText={this.calFun.bind(this)}
-                            value={this.props.HNumber}
-                        />
-                    </View>
+                <View style={styles.container}>
+                    <View style={styles.mainview}>
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                style={styles.inputs}
+                                placeholder="Enter HouseHold Number"
+                                underlineColorAndroid='transparent'
+                                autoCorrect={false}
+                                placeholderTextColor='#355870'
+                                onChangeText={this.calFun.bind(this)}
+                                value={this.props.HNumber}
+                            />
+                        </View>
 
-                    <View style={styles.inputContainer}>
-                        <Picker
-                            selectedValue={this.props.CName}
-                            style={styles.picker} itemStyle={styles.pickerItem}
-                            onValueChange={this.calbrday.bind(this)}
-                        >
-                            <Picker.Item label='Select Child Name' value='' />
-                            {this.getPickerElements()}
-                        </Picker>
-                    </View>
+                        <View style={styles.inputContainer}>
+                            <Picker
+                                selectedValue={this.props.CName}
+                                style={styles.picker} itemStyle={styles.pickerItem}
+                                onValueChange={(value) => this.props.NutritionUpdate({ name: 'CName', value })}
 
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.inputs}
-                            value={this.props.Age}
-                            underlineColorAndroid='transparent'
-                            autoCorrect={false}
-                            placeholderTextColor='#355870'
-                            autoFocus={true}
-                            editable={false}
+                            >
+                                <Picker.Item label='Select Child Name' value='' />
+                                {this.getPickerElements()}
+                            </Picker>
+                        </View>
 
-                        />
-                    </View>
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.inputs}
-                            placeholder="Enter Height"
-                            underlineColorAndroid='transparent'
-                            autoCorrect={false}
-                            placeholderTextColor='#355870'
-                            onChangeText={value => this.props.NutritionUpdate({ name: 'height', value })}
-                            value={this.props.height}
-                        />
-                    </View>
+                        {/* <View style={styles.inputContainer}>
+                            <TextInput
+                                style={styles.inputs}
+                                placeholder='Age'
+                                value={this.props.Age}
+                                underlineColorAndroid='transparent'
+                                autoCorrect={false}
+                                placeholderTextColor='#355870'
+                                autoFocus={true}
+                                editable={false}
 
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.inputs}
-                            placeholder="Enter weight"
-                            underlineColorAndroid='transparent'
-                            autoCorrect={false}
-                            placeholderTextColor='#355870'
-                            onChangeText={value => this.props.NutritionUpdate({ name: 'weight', value })}
-                            value={this.props.weight}
-                        />
-                    </View>
+                            />
+                        </View> */}
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                style={styles.inputs}
+                                placeholder="Enter Height"
+                                underlineColorAndroid='transparent'
+                                autoCorrect={false}
+                                placeholderTextColor='#355870'
+                                onChangeText={value => this.props.NutritionUpdate({ name: 'height', value })}
+                                value={this.props.height}
+                            />
+                        </View>
 
-                    <View style={styles.inputContainer}>
-                        <Label style={{ marginLeft: 22 }}>Underweight?</Label>
-                        <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
-                        <Radio
-                            onPress={() => this.props.NutritionUpdate({ name: 'under', value: 'Yes' })}
-                            selected={this.props.under === 'Yes'}
-                        />
-                        <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>No{'\t'}</Text>
-                        <Radio
-                            onPress={() => this.props.NutritionUpdate({ name: 'under', value: 'No' })}
-                            selected={this.props.under === 'No'}
-                        />
-                    </View>
-                    {/* 
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                style={styles.inputs}
+                                placeholder="Enter weight"
+                                underlineColorAndroid='transparent'
+                                autoCorrect={false}
+                                placeholderTextColor='#355870'
+                                onChangeText={value => this.props.NutritionUpdate({ name: 'weight', value })}
+                                value={this.props.weight}
+                            />
+                        </View>
+
+                        <View style={styles.inputContainer}>
+                            <Label style={{ marginLeft: 22 }}>Underweight?</Label>
+                            <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
+                            <Radio
+                                onPress={() => this.props.NutritionUpdate({ name: 'under', value: 'Yes' })}
+                                selected={this.props.under === 'Yes'}
+                            />
+                            <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>No{'\t'}</Text>
+                            <Radio
+                                onPress={() => this.props.NutritionUpdate({ name: 'under', value: 'No' })}
+                                selected={this.props.under === 'No'}
+                            />
+                        </View>
+                        {/* 
                     {
                         this.state.isHidden ?
                             <Card>
@@ -175,23 +205,23 @@ class ChildNutritionForm extends Component {
                             : null
                     } */}
 
-                    <View style={styles.inputContainer}>
-                        <Label style={{ marginLeft: 22 }}>Wasting?</Label>
-                        <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
-                        <Radio
-                            onPress={() => this.props.NutritionUpdate({ name: 'wast', value: 'Yes' })}
-                            selected={this.props.wast === 'Yes'}
+                        <View style={styles.inputContainer}>
+                            <Label style={{ marginLeft: 22 }}>Wasting?</Label>
+                            <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
+                            <Radio
+                                onPress={() => this.props.NutritionUpdate({ name: 'wast', value: 'Yes' })}
+                                selected={this.props.wast === 'Yes'}
 
-                        />
+                            />
 
-                        <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>No{'\t'}</Text>
-                        <Radio
-                            onPress={() => this.props.NutritionUpdate({ name: 'wast', value: 'No' })}
-                            selected={this.props.wast === 'No'}
+                            <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>No{'\t'}</Text>
+                            <Radio
+                                onPress={() => this.props.NutritionUpdate({ name: 'wast', value: 'No' })}
+                                selected={this.props.wast === 'No'}
 
-                        />
-                    </View>
-                    {/* {
+                            />
+                        </View>
+                        {/* {
                         this.state.isHidden1 ?
                             <Card>
                                 <ListItem>
@@ -217,24 +247,24 @@ class ChildNutritionForm extends Component {
                             : null
                     } */}
 
-                    <View style={styles.inputContainer}>
-                        <Label style={styles.textStyle1}>Stunting?</Label>
+                        <View style={styles.inputContainer}>
+                            <Label style={styles.textStyle1}>Stunting?</Label>
 
-                        <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
-                        <Radio
-                            onPress={() => this.props.NutritionUpdate({ name: 'stunt', value: 'Yes' })}
-                            selected={this.props.stunt === 'Yes'}
+                            <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
+                            <Radio
+                                onPress={() => this.props.NutritionUpdate({ name: 'stunt', value: 'Yes' })}
+                                selected={this.props.stunt === 'Yes'}
 
-                        />
+                            />
 
-                        <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>No{'\t'}</Text>
-                        <Radio
-                            onPress={() => this.props.NutritionUpdate({ name: 'stunt', value: 'No' })}
-                            selected={this.props.stunt === 'No'}
+                            <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>No{'\t'}</Text>
+                            <Radio
+                                onPress={() => this.props.NutritionUpdate({ name: 'stunt', value: 'No' })}
+                                selected={this.props.stunt === 'No'}
 
-                        />
-                    </View>
-                    {/* {
+                            />
+                        </View>
+                        {/* {
                         this.state.isHidden2 ?
                             <Card>
                                 <ListItem>
@@ -254,112 +284,112 @@ class ChildNutritionForm extends Component {
                             : null
                     } */}
 
-                    <Card>
-                        <CardItem>
-                            <Text style={styles.textStyle1}>New born with low birth weight less then 2500 grams?</Text>
-                        </CardItem>
-                        <CardItem>
-                            <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'lowbirth', value: 'Yes' })}
-                                selected={this.props.lowbirth === 'Yes'}
+                        <Card>
+                            <CardItem>
+                                <Text style={styles.textStyle1}>New born with low birth weight less then 2500 grams?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'lowbirth', value: 'Yes' })}
+                                    selected={this.props.lowbirth === 'Yes'}
 
-                            />
+                                />
 
-                            <Text style={{ marginLeft: 10, color: 'grey', fontSize: 16 }}>No:</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'lowbirth', value: 'No' })}
-                                selected={this.props.lowbirth === 'No'}
+                                <Text style={{ marginLeft: 10, color: 'grey', fontSize: 16 }}>No:</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'lowbirth', value: 'No' })}
+                                    selected={this.props.lowbirth === 'No'}
 
-                            />
-                        </CardItem>
-                    </Card>
+                                />
+                            </CardItem>
+                        </Card>
 
-                    <Card>
-                        <CardItem>
-                            <Text style={styles.textStyle1}>Early iniation of Breastfeeding?</Text>
-                        </CardItem>
-                        <CardItem>
-                            <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'breastfeed', value: 'Yes' })}
-                                selected={this.props.breastfeed === 'Yes'}
+                        <Card>
+                            <CardItem>
+                                <Text style={styles.textStyle1}>Early iniation of Breastfeeding?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'breastfeed', value: 'Yes' })}
+                                    selected={this.props.breastfeed === 'Yes'}
 
-                            />
+                                />
 
-                            <Text style={{ marginLeft: 10, color: 'grey', fontSize: 16 }}>No:</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'breastfeed', value: 'No' })}
-                                selected={this.props.breastfeed === 'No'}
+                                <Text style={{ marginLeft: 10, color: 'grey', fontSize: 16 }}>No:</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'breastfeed', value: 'No' })}
+                                    selected={this.props.breastfeed === 'No'}
 
-                            />
-                        </CardItem>
-                    </Card>
+                                />
+                            </CardItem>
+                        </Card>
 
-                    <Card>
-                        <CardItem>
-                            <Text style={styles.textStyle1}>Exclusive Breastfeeding?</Text>
-                        </CardItem>
-                        <CardItem>
-                            <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'exfeed', value: 'Yes' })}
-                                selected={this.props.exfeed === 'Yes'}
+                        <Card>
+                            <CardItem>
+                                <Text style={styles.textStyle1}>Exclusive Breastfeeding?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'exfeed', value: 'Yes' })}
+                                    selected={this.props.exfeed === 'Yes'}
 
-                            />
+                                />
 
-                            <Text style={{ marginLeft: 10, color: 'grey', fontSize: 16 }}>No:</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'exfeed', value: 'No' })}
-                                selected={this.props.exfeed === 'No'}
+                                <Text style={{ marginLeft: 10, color: 'grey', fontSize: 16 }}>No:</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'exfeed', value: 'No' })}
+                                    selected={this.props.exfeed === 'No'}
 
-                            />
-                        </CardItem>
-                    </Card>
+                                />
+                            </CardItem>
+                        </Card>
 
-                    <Card>
-                        <CardItem>
-                            <Text style={styles.textStyle1}>Children inititaed appropriate complementary feeding?</Text>
-                        </CardItem>
-                        <CardItem>
-                            <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'cfeed', value: 'Yes' })}
-                                selected={this.props.cfeed === 'Yes'}
+                        <Card>
+                            <CardItem>
+                                <Text style={styles.textStyle1}>Children inititaed appropriate complementary feeding?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'cfeed', value: 'Yes' })}
+                                    selected={this.props.cfeed === 'Yes'}
 
-                            />
+                                />
 
-                            <Text style={{ marginLeft: 10, color: 'grey', fontSize: 16 }}>No:</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'cfeed', value: 'No' })}
-                                selected={this.props.cfeed === 'No'}
+                                <Text style={{ marginLeft: 10, color: 'grey', fontSize: 16 }}>No:</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'cfeed', value: 'No' })}
+                                    selected={this.props.cfeed === 'No'}
 
-                            />
-                        </CardItem>
-                    </Card>
+                                />
+                            </CardItem>
+                        </Card>
 
-                    <Card>
-                        <CardItem>
-                            <Text style={styles.textStyle1}>Institutional deliveries?</Text>
-                        </CardItem>
-                        <CardItem>
-                            <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'ideli', value: 'Yes' })}
-                                selected={this.props.ideli === 'Yes'}
+                        <Card>
+                            <CardItem>
+                                <Text style={styles.textStyle1}>Institutional deliveries?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'ideli', value: 'Yes' })}
+                                    selected={this.props.ideli === 'Yes'}
 
-                            />
+                                />
 
-                            <Text style={{ marginLeft: 10, color: 'grey', fontSize: 16 }}>No:</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'ideli', value: 'No' })}
-                                selected={this.props.ideli === 'No'}
+                                <Text style={{ marginLeft: 10, color: 'grey', fontSize: 16 }}>No:</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'ideli', value: 'No' })}
+                                    selected={this.props.ideli === 'No'}
 
-                            />
-                        </CardItem>
-                    </Card>
-                </View >
-            </View>
+                                />
+                            </CardItem>
+                        </Card>
+                    </View >
+                </View>
             </ScrollView>
         );
     }
