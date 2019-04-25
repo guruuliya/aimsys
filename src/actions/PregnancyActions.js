@@ -14,71 +14,170 @@ export const pregnancyUpdate = ({ prop, value }) => {
     };
 };
 
-export const PregnancyCreate = ({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate }) => {
-    var Delivery = 'No';
-   
-        const { currentUser } = firebase.auth();
-        return (dispatch) => {
-            firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy`)
-                .push({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Delivery })
-                .then(() => {
-                    dispatch({ type: PREGNANCY_CREATE });
-                });
-        };
-};
 
-export const pregnancyFetch = () => {
+// let awcid = 0;
+//     const database = firebase.database();
+//     const { currentUser } = firebase.auth();
 
+
+
+//         database.ref('/assignedworkerstocenters')
+//             .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+//             .once('value', snapshot => {
+//                 if (snapshot.val()) {
+//                     const value = snapshot.val();
+//                     const keys = Object.keys(value);
+//                     for (let i = 0; i < keys.length; i++) {
+//                         const k = keys[i];
+//                         awcid = value[k].anganwadicenter_code;
+//                     }
+
+//                     //Put your existing code here database insertion part check another file for reference
+
+//                 } else {
+//                     console.log('no user data');
+//                 }
+//             });
+
+
+
+export const PregnancyCreate = ({ HHNumber, PregnantName, NPregnant, LPerioddate, DeliveryDate }) => {
+    let awcid = 0;
+    var Pregnant = '';
+    const database = firebase.database();
     const { currentUser } = firebase.auth();
-
+    var Delivery = 'No';
     return (dispatch) => {
-        fetchLoad(dispatch);
-        firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy`)
-            .on('value', snapshot => {
-                dispatch({ type: PREGNANCYS_FETCH_SUCCESS, payload: snapshot.val() });
-                dispatch({ type: PREGNANCY_FETCH_LOAD_END, payload: false });
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    database.ref(`/users/${awcid}/Demographic/HouseholdMember/${HHNumber}/${PregnantName}`)
+                        .once('value', snap1 => {
+                            if (snap1) {
+                                Pregnant = snap1.val().HHName;
+                                database.ref(`/users/${awcid}/Demographic/Pregnancy`)
+                                    .push({ HHNumber, PregnantName, Pregnant, NPregnant, LPerioddate, DeliveryDate, Delivery })
+                                    .then(() => {
+                                        dispatch({ type: PREGNANCY_CREATE });
+                                    });
+                            }
+                        });
+
+
+                } else {
+                    console.log('no user data');
+                }
             });
     };
 };
 
-export const PregnancySave = ({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild, uid }) => {
-    console.log('here i Print HHNumber', HHNumber);  
-    var Delivery = 'NO';
+export const pregnancyFetch = () => {
+    let awcid = 0;
+    const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy/${uid}`)
-            .update({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, Delivery, DeliveryDate, Dplace, FirstWeightDate })
-            .then(() => {
-                dispatch({ type: PREGNENT_SAVE });
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    fetchLoad(dispatch);
+                    database.ref(`/users/${awcid}/Demographic/Pregnancy`).orderByChild('Delivery').equalTo('No')
+                        .on('value', snapshot1 => {
+                            dispatch({ type: PREGNANCYS_FETCH_SUCCESS, payload: snapshot1.val() });
+                            dispatch({ type: PREGNANCY_FETCH_LOAD_END, payload: false });
+                        });
+                } else {
+                    console.log('no user data');
+                }
+            });
+    };
+};
+
+export const PregnancySave = ({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, uid }) => {
+    let awcid = 0;
+    const database = firebase.database();
+    const { currentUser } = firebase.auth();
+    var Delivery = 'No';
+    return (dispatch) => {
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
+                        .update({ HHNumber, PregnantName, NPregnant, LPerioddate, Delivery })
+                        .then(() => {
+                            dispatch({ type: PREGNENT_SAVE });
+                        });
+                } else {
+                    console.log('no user data');
+                }
             });
     };
 };
 
 export const PregnancyDelete = ({ uid }, navigate) => {
+
+    let awcid = 0;
+    const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        Alert.alert(
-            'Need Attention',
-            'Do you Want to Delete..',
-            [
-                {
-                    text: 'Cancel', onPress: () =>
-                        dispatch({
-                            type: ListChild
-                        }),
-                    style: 'cancel',
-                },
-                {
-                    text: 'OK', onPress: () =>
-                        firebase.database().ref(`/users/${currentUser.uid}/Demographic/Pregnancy/${uid}`)
-                            .remove()
-                            .then(() => {
-                                navigate.navigate('PregnancyTab');
-                            })
-                },
-            ],
-            { cancelable: false },
-        );
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    Alert.alert(
+                        'Need Attention',
+                        'Do you Want to Delete..',
+                        [
+                            {
+                                text: 'Cancel',
+                                onPress: () =>
+                                    dispatch({
+                                        type: ListChild
+                                    }),
+                                style: 'cancel',
+                            },
+                            {
+                                text: 'OK',
+                                onPress: () =>
+                                    database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
+                                        .remove()
+                                        .then(() => {
+                                            navigate.navigate('PregnancyTab');
+                                        })
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                } else {
+                    console.log('no user data');
+                }
+            });
     };
 };
 

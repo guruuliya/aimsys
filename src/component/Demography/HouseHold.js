@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Card, CardSection, Button } from '../Common';
+import { Card, CardSection } from '../Common';
 import { connect } from 'react-redux';
 import { HouseholdUpdate, HouseHoldFormCreate } from '../../actions';
 import HouseHoldForm from './HouseHoldForm';
@@ -21,8 +21,8 @@ class HouseHold extends Component {
 
     onButtonPress() {
         const { HHNumber, uid } = this.props.navigation.state.params.HouseHold;
-        const { HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Address, Disease1,Disease2,Disease3 } = this.props;
-        this.props.HouseHoldFormCreate({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Address, uid,Disease1,Disease2,Disease3 });
+        const { HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Income, Phonenumber, Address, Disease1, Disease2, Disease3 } = this.props;
+        this.props.HouseHoldFormCreate({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Income, Phonenumber, Address, uid, Disease1, Disease2, Disease3 });
     }
     render() {
         return (
@@ -144,11 +144,8 @@ const styles = StyleSheet.create({
         textShadowRadius: 10
     }
 });
-
-
 const mapStateToProps = (state) => {
-    const { HHName, DOB, Caste, sex, Relationship, Status, Designation, Income, Phonenumber, Address, option,Disease1,Disease2,Disease3 } = state.HouseHoldForm;
-    console.log(Phonenumber);
-    return { HHName, DOB, Caste, sex, Relationship, Designation, Status, Income, Phonenumber, Address, option,Disease1,Disease2,Disease3 }
+    const { HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Income, Phonenumber, Address, option, Disease1, Disease2, Disease3 } = state.HouseHoldForm;
+    return { HHName, DOB, Caste, sex, Relationship, LiteracyRate, Designation, Status, Income, Phonenumber, Address, option, Disease1, Disease2, Disease3 }
 }
 export default connect(mapStateToProps, { HouseholdUpdate, HouseHoldFormCreate })(HouseHold);

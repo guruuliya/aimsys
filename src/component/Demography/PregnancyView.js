@@ -14,7 +14,7 @@ class PregnancyView extends Component {
   }
 
   static navigationOptions = {
-    title: 'Pregnancy Report',
+    title: 'Expectant Women  Report',
     headerStyle: {
       backgroundColor: '#355870',
     },
@@ -35,26 +35,41 @@ class PregnancyView extends Component {
     this.search(HHNumber, PregnantName);
   }
   search(h, k) {
-    console.log('inside search', h, k);
+let awcid = 0;
+    const database = firebase.database();
     const { currentUser } = firebase.auth();
-    const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${h}`);
-    const query = db.orderByKey().equalTo(k);
-    query.on('value', snapshot => {
-      snapshot.forEach(_child => {
-        this.setState({ a: _child.val().HHName });
-        this.setState({ PhoneNumber: _child.val().Phonenumber });
-      });
-    });
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    console.log('inside search', h, k);
+                        const db = database.ref(`/users/${awcid}/Demographic/HouseholdMember/${h}`);
+                    const query = db.orderByKey().equalTo(k);
+                    query.on('value', snapshot1 => {
+                      snapshot1.forEach(_child => {
+                        this.setState({ a: _child.val().HHName });
+                        this.setState({ PhoneNumber: _child.val().Phonenumber });
+                      });
+                    });
+                } else {
+                    console.log('no user data');
+                }
+            });
   }
   render() {
-    console.log('inside render', this.state.PhoneNumber);
-    const { PhoneNumber, NPregnant, LPerioddate, EDeliveryplace, option, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild } = this.props.navigation.state.params.Pregnancy;
+    const { NPregnant, LPerioddate, DeliveryDate } = this.props.navigation.state.params.Pregnancy;
     return (
       <Container style={styles.back} >
         <Content padder>
           <Form>
             <Card>
-              <Text style={{ marginLeft: 95, fontSize: 24 }}>Pregnancy Report </Text>
+              <Text style={{ marginLeft: 95, fontSize: 24 }}>Expectant Women Report </Text>
             </Card>
             <Card>
               <Text>{"\n"}</Text>
@@ -62,8 +77,8 @@ class PregnancyView extends Component {
               <Text style={styles.contentview} >PhoneNumber :{"\t"}{this.state.PhoneNumber} </Text>
               <Text style={styles.contentview} >Number of Pregnant :{"\t"}{NPregnant} </Text>
               <Text style={styles.contentview}>Last Period:{"\t"}{LPerioddate} </Text>
-             <Text style={styles.contentview}>FirstDose:{"\t"}{FirstDose} </Text>
-              <Text style={styles.contentview}>SecondDose :{"\t"}{SecondDose} </Text>
+             {/* <Text style={styles.contentview}>FirstDose:{"\t"}{FirstDose} </Text>
+              <Text style={styles.contentview}>SecondDose :{"\t"}{SecondDose} </Text> */}
               <Text style={styles.contentview}>Expected DeliveryDate:{"\t"}{DeliveryDate} </Text>
               <Text>{"\n"}</Text>
             </Card>

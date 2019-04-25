@@ -22,65 +22,63 @@ class HouseholdView extends Component {
   }
 
   render() {
-    const { HHNumber, HHName,DOB,sex, Status, Relationship,Designation, Phonenumber, Caste } = this.props.navigation.state.params.HouseHold;
+    const { HHNumber, LiteracyRate, HHName, DOB, sex, Status,Income, Relationship, Designation, Phonenumber, Caste } = this.props.navigation.state.params.HouseHold;
     var today = new Date();
-  var Brday = new Date(DOB);
-  var totalMonths = (today.getFullYear() - Brday.getFullYear()) * 12 + today.getMonth() - Brday.getMonth();
-  totalMonths += today.getDay() < Brday.getDay() ? -1 : 0;
-  var years = today.getFullYear() - Brday.getFullYear();
-  if (Brday.getMonth() > today.getMonth())
+    var Brday = new Date(DOB);
+    var totalMonths = (today.getFullYear() - Brday.getFullYear()) * 12 + today.getMonth() - Brday.getMonth();
+    totalMonths += today.getDay() < Brday.getDay() ? -1 : 0;
+    var years = today.getFullYear() - Brday.getFullYear();
+    if (Brday.getMonth() > today.getMonth())
       years = years - 1;
-  else if (Brday.getMonth() === today.getMonth())
+    else if (Brday.getMonth() === today.getMonth())
       if (Brday.getDate() > today.getDate())
-          years = years - 1;
+        years = years - 1;
 
-  var days;
-  var months;
+    var days;
+    var months;
 
-  if (Brday.getDate() > today.getDate()) {
+    if (Brday.getDate() > today.getDate()) {
       months = (totalMonths % 12);
       if (months == 0)
-          months = 11;
+        months = 11;
       var x = today.getMonth();
       switch (x) {
-          case 1:
-          case 3:
-          case 5:
-          case 7:
-          case 8:
-          case 10:
-          case 12: {
-              var a = Brday.getDate() - today.getDate();
-              days = 31 - a;
-              break;
-          }
-          default: {
-              var a = Brday.getDate() - today.getDate();
-              days = 30 - a;
-              break;
-          }
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12: {
+          var a = Brday.getDate() - today.getDate();
+          days = 31 - a;
+          break;
+        }
+        default: {
+          var a = Brday.getDate() - today.getDate();
+          days = 30 - a;
+          break;
+        }
       }
 
-  }
-  else {
+    }
+    else {
       days = today.getDate() - Brday.getDate();
       if (Brday.getMonth() === today.getMonth())
-          months = (totalMonths % 12);
+        months = (totalMonths % 12);
       else
-          months = (totalMonths % 12) + 1;
-  }
-  var age='';
-  var cage = years + ' years ' + months + ' months ' + days + ' days';
-  console.log('caaaa',cage);
-  if(years<=0)
-  {
-age=months + 'Months';
-console.log('age',age);
-  }
-  else
-  {
-    age=years;
-  }
+        months = (totalMonths % 12) + 1;
+    }
+    var age = '';
+    var cage = years + ' years ' + months + ' months ' + days + ' days';
+    console.log('caaaa', cage);
+    if (years <= 0) {
+      age = months + 'Months';
+      console.log('age', age);
+    }
+    else {
+      age = years;
+    }
 
     handleOnPress = () => this.setState({ "show": 1 })
     return (
@@ -97,6 +95,8 @@ console.log('age',age);
               <Text style={styles.contentview} >Gender :{"\t"}{sex} </Text>
               <Text style={styles.contentview} >DOB :{"\t"}{DOB} </Text>
               <Text style={styles.contentview} >Age :{"\t"}{age} </Text>
+              <Text style={styles.contentview} >Education :{"\t"}{LiteracyRate} </Text>
+              <Text style={styles.contentview} >Income:{"\t"}{Income} </Text>
               <Text style={styles.contentview}>Status:{"\t"}{Status} </Text>
               <Text style={styles.contentview}>Ocupation :{"\t"}{Designation} </Text>
               <Text style={styles.contentview} >Phonenumber:{"\t"}{Phonenumber} </Text>

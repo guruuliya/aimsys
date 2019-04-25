@@ -10,6 +10,7 @@ import HouseHoldListItem from './HouseHoldListItem';
 import { SearchBar } from 'react-native-elements';
 
 
+
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
 });
@@ -35,7 +36,9 @@ class HouseHoldFetch extends Component {
 
   }
   onSearchValueChange = (value, index) => {
+    console.log('value here',value);
     this.setState({
+      
       "searchName": value
     });
   }

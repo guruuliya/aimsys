@@ -14,19 +14,21 @@ class HouseHoldNumber extends Component {
             <View style={styles.container}>
                 <View style={styles.mainview}>
                     <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputs}
+                        <TextInput
+                            style={styles.inputs}
                             underlineColorAndroid='transparent'
                             autoCorrect={false}
+                            keyboardType='numeric'
                             placeholderTextColor='#355870'
                             placeholder="Enter The HouseHold Number"
                             value={this.props.HHNumber}
+                            maxLength={10}
                             onChangeText={value => this.props.HouseholdUpdate({ name: 'HHNumber', value })}
                         />
                     </View>
-
                     <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputs}
-                        
+                        <TextInput
+                            style={styles.inputs}
                             underlineColorAndroid='transparent'
                             autoCorrect={false}
                             placeholderTextColor='#355870'
@@ -35,10 +37,11 @@ class HouseHoldNumber extends Component {
                             onChangeText={value => this.props.HouseholdUpdate({ name: 'Address', value })}
                         />
                     </View>
-<TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
-                            <Text style={styles.loginText}>Add</Text>
-                        </TouchableOpacity>
-                    
+                    <TouchableOpacity
+                        style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
+                        <Text style={styles.loginText}>Add</Text>
+                    </TouchableOpacity>
+
                 </View>
             </View>
         );

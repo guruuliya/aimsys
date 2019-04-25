@@ -12,17 +12,36 @@ class PregnancyForm extends Component {
         snapshotList: {},
         scores: {}
     };
-    search(HHNumber) {
-        const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${HHNumber}`);
-        const query = db.orderByChild('HHNumber').equalTo(HHNumber);
-        query.on('value', snapshot => {
-            if (snapshot.val()) {
-                this.setState({ scores: snapshot.val() });
-            } else {
-                this.setState({ scores: { noData: { HHName: 'No Data' } } });
-            }
-        });
+
+    search (HHNumber) {
+        let awcid = 0;
+    const database = firebase.database();
+    const { currentUser } = firebase.auth();
+
+    database.ref('/assignedworkerstocenters')
+                .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+                .once('value', snapshot => {
+                    if (snapshot.val()) {
+                        const value = snapshot.val();
+                        const keys = Object.keys(value);
+                        for (let i = 0; i < keys.length; i++) {
+                            const k = keys[i];
+                            awcid = value[k].anganwadicenter_code;
+                        }
+                         database.ref(`/users/${awcid}/Demographic/HouseholdMember/${HHNumber}`)
+                        // const query = db.orderByChild('HHNumber').equalTo(HHNumber);
+                        .on('value', snapshot1 => {
+                            if (snapshot1.val()) {
+                                
+                                this.setState({ scores: snapshot1.val() });
+                            } else {
+                                this.setState({ scores: { noData: { HHName: 'No Data' } } });
+                            }
+                        });    
+                    } else {
+                        console.log('no user data');
+                    }
+                });
     }
     getPickerElements() {
         let count = 0;
@@ -55,7 +74,8 @@ class PregnancyForm extends Component {
             <View style={styles.container}>
                 <View style={styles.mainview}>
                     <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputs}
+                        <TextInput
+                         style={styles.inputs}
                             placeholder="Enter The HouseHold Number"
                             underlineColorAndroid='transparent'
                             autoCorrect={false}
@@ -77,7 +97,8 @@ class PregnancyForm extends Component {
                     </View>
 
                     <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputs}
+                        <TextInput 
+                        style={styles.inputs}
                             placeholder="Enter Number of Pregnancies"
                             autoCorrect={false}
                             value={this.props.NPregnant}
@@ -87,7 +108,8 @@ class PregnancyForm extends Component {
 
                     <View style={styles.inputContainer}>
 
-                        <Datepicker style={styles.dateblock}
+                        <Datepicker
+                         style={styles.dateblock}
                             customStyles={{ dateInput: { borderWidth: 0 } }}
                             mode="date"
                             placeholder="Last Peroid Date"
@@ -97,18 +119,8 @@ class PregnancyForm extends Component {
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'LPerioddate', value })}
                         />
                     </View>
-{/* 
-                    <View style={styles.inputContainer}>
-                        <Datepicker style={styles.dateblock}
-                            customStyles={{ dateInput: { borderWidth: 0 } }}
-                            mode="date"
-                            placeholder="Expected Delivery Date"
-                            format="YYYY-MM-DD"
-                            date={this.props.EDeliveryDate}
-                            onDateChange={value => this.props.pregnancyUpdate({ prop: 'EDeliveryDate', value })}
-                        />
-                    </View> */}
-                    <View style={styles.inputContainer}>
+
+                    {/* <View style={styles.inputContainer}>
                         <Datepicker style={styles.dateblock}
                             customStyles={{ dateInput: { borderWidth: 0 } }}
                             mode="date"
@@ -130,13 +142,14 @@ class PregnancyForm extends Component {
                             date={this.props.SecondDose}
                             onDateChange={value => this.props.pregnancyUpdate({ prop: 'SecondDose', value })}
                         />
-                    </View>
+                    </View> */}
 
                     <View style={styles.inputContainer}>
-                        <Datepicker style={styles.dateblock}
+                        <Datepicker
+                         style={styles.dateblock}
                             customStyles={{ dateInput: { borderWidth: 0 } }}
                             mode="date"
-                            minDate={new Date()}
+                            // minDate={new Date()}
                             placeholder="Expected Delivery Date"
                             format="YYYY-MM-DD"
                             date={this.props.DeliveryDate}

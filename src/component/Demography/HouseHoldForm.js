@@ -19,36 +19,49 @@ class HouseHoldForm extends Component {
         },
     };
     state = {
-        Designation: ''
+        Designation: '',
+        myNumber:'',
     }
-    numeric(e)
-    {
+    numeric(e) {
         const val = e;
-        console.log('value ',val);
-        
-            this.props.HouseholdUpdate({ name: 'Phonenumber', value: val });
-        
-        
-      }
+        console.log('value ', val);
+
+         this.props.HouseholdUpdate({ name: 'Phonenumber', value: val });
+
+
+    }
 
     calFun(text) {
         this.props.HouseholdUpdate({ name: 'Designation', value: text });
     }
+    onTextChanged(text) {
+        if (/^\d+$/.test(text)) {
+            console.log('calllde inside if');
+            this.setState({myNumber: text})
+            
+            }     
+      else
+      {
+          
+        console.log('calllde inside else');
+       
+      }
+    }
     render() {
+       
         return (
             <View style={styles.container}>
                 <View style={styles.mainview}>
                     <View style={styles.inputContainer}>
-                        <TextInput 
+                        <TextInput
                             style={styles.inputs}
-                            placeholder="Enter The HouseHold Name"
+                            placeholder="Enter The HouseHold MemberName"
                             autoCorrect={false}
+                            keyboardType='default'
                             onChangeText={value => this.props.HouseholdUpdate({ name: 'HHName', value })}
                             value={this.props.HHName}
                         />
                     </View>
-
-
                     <View style={styles.inputContainer}>
                         <DatePicker
                             style={styles.dateblock}
@@ -63,7 +76,6 @@ class HouseHoldForm extends Component {
                             onDateChange={value => this.props.HouseholdUpdate({ name: 'DOB', value })}
                         />
                     </View>
-
                     <View style={styles.inputContainer}>
                         <Label style={{ marginLeft: 22 }}>Gender</Label>
                         <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Male{'\t'}</Text>
@@ -77,9 +89,24 @@ class HouseHoldForm extends Component {
                             selected={this.props.sex === 'Female'}
                         />
                     </View>
+                    <View style={styles.inputContainer}>
+                        <Picker
+                            style={styles.picker} itemStyle={styles.pickerItem}
+                            selectedValue={this.props.LiteracyRate}
+                            style={{ height: 50, width: 350 }}
+                            onValueChange={(value) => this.props.HouseholdUpdate({ name: 'LiteracyRate', value })}
+                        >
+                            <Picker.Item label="Select Qualification " value="" />
+                            <Picker.Item label="No Education" value="illiterate" />
+                            <Picker.Item label="Primary " value="Primary" />
+                            <Picker.Item label="SSLC" value='SSLC' />
+                            <Picker.Item label="PUC" value='PUC' />
+                            <Picker.Item label="Graduvate" value='Graduvated' />
+                        </Picker>
+                    </View>
 
                     <View style={styles.inputContainer}>
-                        <TextInput 
+                        <TextInput
                             style={styles.inputs}
                             placeholder="Enter The Caste"
                             autoCorrect={false}
@@ -88,11 +115,6 @@ class HouseHoldForm extends Component {
                             value={this.props.Caste}
                         />
                     </View>
-
-
-
-
-
                     <View style={styles.inputContainer}>
                         <Label style={{ marginLeft: 22 }}>Status</Label>
                         <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Married</Text>
@@ -106,7 +128,6 @@ class HouseHoldForm extends Component {
                             selected={this.props.Status === 'UnMarried'}
                         />
                     </View>
-
                     <View style={styles.inputContainer}>
                         <Picker
                             style={styles.picker} itemStyle={styles.pickerItem}
@@ -114,30 +135,27 @@ class HouseHoldForm extends Component {
                             style={{ height: 50, width: 350 }}
                             onValueChange={this.calFun.bind(this)}
                         >
-                        <Picker.Item label="Select Occupation" value="" />
+                            <Picker.Item label="Select Occupation" value="" />
                             <Picker.Item label="Agriculture" value="Agriculture" />
                             <Picker.Item label="HouseWife" value="HouseWife" />
-                            <Picker.Item label="Teacher" value="Serculture" />
-                            <Picker.Item label="Paultry" value="Paultry" />
+                            <Picker.Item label="Teacher" value="Teacher" />
+                            <Picker.Item label="Poultry" value="Poultry" />
                             <Picker.Item label="Other" value="Other" />
-
                         </Picker>
                     </View>
-
-
                     <View style={styles.inputContainer}>
                         <Picker
                             style={styles.picker} itemStyle={styles.pickerItem}
                             selectedValue={this.props.Disease1}
                             style={{ height: 50, width: 350 }}
-                            onValueChange={(value )=> this.props.HouseholdUpdate({ name: 'Disease1', value })}
+                            onValueChange={(value) => this.props.HouseholdUpdate({ name: 'Disease1', value })}
                         >
-                        <Picker.Item label="Select Disease" value="" />
-                            <Picker.Item label="Diabites" value="Diabites" />
+                            <Picker.Item label="Select Disease" value="" />
+                            <Picker.Item label="Diabetes" value="Diabetes" />
                             <Picker.Item label="HIV" value="HIV" />
                             <Picker.Item label="Asthama" value='Asthama' />
-                           <Picker.Item label="No disease" value=' No disease' /> 
-                           
+                            <Picker.Item label="No disease" value=' No disease' />
+
                         </Picker>
                     </View>
 
@@ -147,13 +165,13 @@ class HouseHoldForm extends Component {
                             style={styles.picker} itemStyle={styles.pickerItem}
                             selectedValue={this.props.Disease2}
                             style={{ height: 50, width: 350 }}
-                            onValueChange={( value )=> this.props.HouseholdUpdate({ name: 'Disease2', value })}
+                            onValueChange={(value) => this.props.HouseholdUpdate({ name: 'Disease2', value })}
                         >
-                        <Picker.Item label="Select Disease" value="" />
+                            <Picker.Item label="Select Disease" value="" />
                             <Picker.Item label="Diabites" value="Diabites" />
                             <Picker.Item label="HIV" value="HIV" />
                             <Picker.Item label="Asthama" value='Asthama' />
-                            <Picker.Item label="No disease" value=' No disease' /> 
+                            <Picker.Item label="No disease" value=' No disease' />
                         </Picker>
                     </View>
                     <View style={styles.inputContainer}>
@@ -161,40 +179,36 @@ class HouseHoldForm extends Component {
                             style={styles.picker} itemStyle={styles.pickerItem}
                             selectedValue={this.props.Disease3}
                             style={{ height: 50, width: 350 }}
-                            onValueChange={(value )=> this.props.HouseholdUpdate({ name: 'Disease3', value })}
+                            onValueChange={(value) => this.props.HouseholdUpdate({ name: 'Disease3', value })}
                         >
-                        <Picker.Item label="Select Disease" value="" />
+                            <Picker.Item label="Select Disease" value="" />
                             <Picker.Item label="Diabites" value="Diabites" />
                             <Picker.Item label="HIV" value="HIV" />
                             <Picker.Item label="Asthama" value='Asthama' />
-                            <Picker.Item label="No disease" value=' No disease' /> 
+                            <Picker.Item label="No disease" value=' No disease' />
                         </Picker>
                     </View>
-
-
-
-
                     <View style={styles.inputContainer}>
-                        <TextInput  
+                        <TextInput
                             style={styles.inputs}
                             placeholder="Enter The Household Income"
+                            keyboardType="numeric"
                             autoCorrect={false}
                             label="Income"
                             onChangeText={value => this.props.HouseholdUpdate({ name: 'Income', value })}
                             value={this.props.Income}
                         />
                     </View>
-
-
                     <View style={styles.inputContainer}>
-                        <TextInput 
+                        <TextInput
                             style={styles.inputs}
-                            keyboardType="numeric"
+                            keyboardType="phone-pad"
                             placeholder="Enter Phone Number"
                             autoCorrect={false}
                             label=" Phone Number"
-                            onChangeText={this.numeric.bind(this)}
+                            onChangeText={ this.numeric.bind(this)}
                             value={this.props.Phonenumber}
+                            maxLength={10}
                         />
                     </View>
                 </View>
@@ -349,9 +363,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { HHName, DOB, Caste, sex, Status, Designation, Phonenumber, Address, Income,Disease1,Disease2 ,Disease3 } = state.HouseHoldForm;
-    console.log('i print here Diesease1 3 4',Disease1,Disease2,Disease3);
-    return { HHName, DOB, Caste, sex, Designation, Status, Phonenumber, Address, Income, Disease1,Disease2 ,Disease3 };
+    const { HHName, DOB, Caste, sex, Status, Designation, Phonenumber, LiteracyRate, Address, Income, Disease1, Disease2, Disease3 } = state.HouseHoldForm;
+    console.log('i print here Diesease1 3 4', LiteracyRate);
+    return { HHName, DOB, Caste, sex, Designation, Status, Phonenumber, LiteracyRate, Address, Income, Disease1, Disease2, Disease3 };
 
 }
 export default connect(mapStateToProps, { HouseholdUpdate, HouseholdCreate })(HouseHoldForm);

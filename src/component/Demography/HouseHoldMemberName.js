@@ -14,6 +14,16 @@ const ds = new ListView.DataSource({
 });
 
 class HouseHoldMemberName extends Component {
+  static navigationOptions = {
+    title: 'Member Infomation',
+    headerStyle: {
+        backgroundColor: '#203546',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+        fontWeight: 'bold',
+    },
+};
   state = {};
 
   componentWillMount() {

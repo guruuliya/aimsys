@@ -3,10 +3,9 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import { Alert, TextInput, Picker, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { Radio, CardItem } from 'native-base';
 import Datepicker from 'react-native-datepicker';
 import { pregnancyUpdate, PregnancySave, PregnancyDelete } from '../../actions/PregnancyActions';
-import { Card, CardSection, Button, Confirm, Input } from '../Common';
+import {CardSection, Button, Confirm } from '../Common';
 import { ScrollView } from 'react-native-gesture-handler';
 class PregnancyEdit extends Component {
     state = {
@@ -52,17 +51,34 @@ class PregnancyEdit extends Component {
         this.setState({ showModal: false });
     }
 
-    search(HHNumber) {
-        const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${HHNumber}`)
-        const query = db.orderByChild('HHNumber').equalTo(HHNumber);
-        query.on('value', snapshot => {
-            if (snapshot.val()) {
-                this.setState({ scores: snapshot.val() });
-            } else {
-                this.setState({ scores: { noData: { HHName: 'No Data' } } });
-            }
-        });
+    search (HHNumber) {
+let awcid = 0;
+    const database = firebase.database();
+    const { currentUser } = firebase.auth();
+
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    const db = database.ref(`/users/${awcid}/Demographic/HouseholdMember/${HHNumber}`)
+                    const query = db.orderByChild('HHNumber').equalTo(HHNumber);
+                    query.on('value', snapshot1 => {
+                        if (snapshot1.val()) {
+                            this.setState({ scores: snapshot1.val() });
+                        } else {
+                            this.setState({ scores: { noData: { HHName: 'No Data' } } });
+                        }
+                       });
+             } else {
+                    console.log('no user data');
+                }
+            });
     }
 
     getPickerElements() {

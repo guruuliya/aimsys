@@ -18,28 +18,26 @@ class HouseHoldEdit extends Component {
             fontWeight: 'bold',
         },
     };
-
     state = { showModal: false };
     componentWillMount() {
-       //const { uid } = this.props.navigation.state.params.Houseno;
         _.each(this.props.navigation.state.params.Houseno, (value, name) => {
-         this.props.HouseholdUpdate({ name, value });
-            console.log('data here', name, value);
+            this.props.HouseholdUpdate({ name, value });
         });
     }
 
     onButtonPress() {
-        const { HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option,Income,Disease1,Disease2 ,Disease3 } = this.props;
-        this.props.HouseholdSave({ HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option,Income,Disease1,Disease2 ,Disease3 }, this.props.navigation.state.params.Houseno.uid, HHNumber);
+        const { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Phonenumber, Address, option, Income, Disease1, Disease2, Disease3 } = this.props;
+        this.props.HouseholdSave({ HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Phonenumber, Address, option, Income, Disease1, Disease2, Disease3 }, this.props.navigation.state.params.Houseno.uid, HHNumber);
         Alert.alert(
             'Yes !',
             'Updated Successfully',
             [
                 { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
             ],
-            { cancelable: false 
+            {
+                cancelable: false
             })
-}
+    }
     onAccept() {
         const { HHNumber } = this.props;
         const navigate = this.props.navigation;
@@ -52,28 +50,21 @@ class HouseHoldEdit extends Component {
     }
 
     render() {
-
-
-        return (
-
+  return (
             <ScrollView>
                 <Text>{"\n"}</Text>
                 <Card>
-
                     <HouseHoldForm />
                     <CardSection>
                         <Button onPress={this.onButtonPress.bind(this)}>
                             Save
                     </Button>
                     </CardSection>
-
                     <CardSection>
                         <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Delete</Button>
-
                     </CardSection>
-
-
-                    <Confirm visible={this.state.showModal}
+                    <Confirm 
+                    visible={this.state.showModal}
                         onAccept={this.onAccept.bind(this)}
                         onDecline={this.onDecline.bind(this)}
                     >
@@ -85,7 +76,7 @@ class HouseHoldEdit extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    const { HHNumber, HHName, DOB, Caste, sex, Relationship, Status, Designation, Phonenumber, Address, option,Income,Disease1,Disease2 ,Disease3, uid } = state.HouseHoldForm;
-    return { HHNumber, HHName, DOB, Caste, sex, Relationship, Designation, Status, Phonenumber, Address, option,Income,Disease1,Disease2 ,Disease3, uid };
+    const { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Phonenumber, Address, option, Income, Disease1, Disease2, Disease3, uid } = state.HouseHoldForm;
+    return { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Designation, Status, Phonenumber, Address, option, Income, Disease1, Disease2, Disease3, uid };
 }
 export default connect(mapStateToProps, { HouseholdSave, HouseholdUpdate, HouseholdDelete })(HouseHoldEdit);

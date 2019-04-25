@@ -1,58 +1,86 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Alert,Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View, StyleSheet,ScrollView,Text,TextInput,Alert } from 'react-native';
+import { Input, Card, CardSection, Button,Confirm } from '../Common';
 import { connect } from 'react-redux';
-import { pregnancyUpdate, PregnancyCreate } from '../../actions';
-import { Card, CardSection, Button } from '../Common';
-import PregnancyForm from './PregnancyForm';
-
-class Pregnancy extends Component {
+import HouseHoldNumber from './HouseHoldForm';
+import { HouseholdUpdate, HouseholdNumberSave } from '../../actions';
+import { withNavigation } from 'react-navigation';
+class HouseHoldNumberEdit extends Component {
     static navigationOptions = {
-        title: 'Demography',
+        title: 'Household Information',
         headerStyle: {
-            backgroundColor: '#203546',
+            backgroundColor: '#355870',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
             fontWeight: 'bold',
         },
     };
-    onButtonPress() {
-        console.log('clicked');
-
-        const { HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild } = this.props;
-        if (HHNumber === undefined || PregnantName === undefined || NPregnant === undefined || LPerioddate === undefined || DeliveryDate === undefined) {
-            Alert.alert(
-                'Enter All The Details',
-                'Record Not Inserted');
-            }
-            else
-            {
-        
-        this.props.PregnancyCreate({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild });
-            }
+    state = { showModal: false };
+    componentWillMount() {
+        _.each(this.props.navigation.state.params.HouseHold, (value, name) => {
+            this.props.HouseholdUpdate({ name, value });
+               console.log('data here', name, value);
+           });
     }
+  
+    onButtonPress() {
+        const { HHNumber, Address } = this.props;
+        this.props.HouseholdNumberSave({ HHNumber, Address });
+        Alert.alert(
+            'Yes !',
+            'Updated Successfully',
+            [
+                { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            ],
+            { cancelable: false 
+            });
+}
+   
     render() {
-
         return (
             <ScrollView>
-                <View>
-                    <Card>
-                        <PregnancyForm {...this.props} />
-                        <CardSection>
-                            <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
-                                <Text style={styles.loginText}>Add</Text>
-                            </TouchableOpacity>
+            <Text>{"\n"}</Text>
+            <Card>
 
-                        </CardSection>
+            <View style={styles.container}>
+                <View style={styles.mainview}>
+                    <View style={styles.inputContainer}>
+                        <TextInput style={styles.inputs}
+                            underlineColorAndroid='transparent'
+                            autoCorrect={false}
+                            placeholderTextColor='#355870'
+                            placeholder="Enter The HouseHold Number"
+                            value={this.props.HHNumber}
+                            onChangeText={value => this.props.HouseholdUpdate({ name: 'HHNumber', value })}
+                        />
+                    </View>
 
-                    </Card>
-                </View>
-            </ScrollView>
+                    <View style={styles.inputContainer}>
+                        <TextInput style={styles.inputs}
+                        
+                            underlineColorAndroid='transparent'
+                            autoCorrect={false}
+                            placeholderTextColor='#355870'
+                            placeholder="Enter The Address"
+                            value={this.props.Address}
+                            onChangeText={value => this.props.HouseholdUpdate({ name: 'Address', value })}
+                        />
+                    </View>
+                    </View>
+                    </View>
+                <CardSection>
+                    <Button onPress={this.onButtonPress.bind(this)}>
+                        Save
+                </Button>
+                </CardSection>
+                
+            </Card>
+        </ScrollView>
         );
     }
 }
-
 const resizeMode = 'center';
 
 const styles = StyleSheet.create({
@@ -144,7 +172,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
-        width: 395,
+        width: 350,
         borderRadius: 30,
         backgroundColor: 'transparent'
     },
@@ -201,7 +229,10 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-    const { HHNumber, PregnantName, PhoneNumber, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild } = state.PregnancyForm;
-    return { HHNumber, PregnantName, PhoneNumber, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild };
+    const { HHNumber, Address } = state.HouseHoldForm;
+    console.log(HHNumber, Address);
+    return { HHNumber, Address };
 };
-export default connect(mapStateToProps, { pregnancyUpdate, PregnancyCreate })(Pregnancy); 
+
+export default connect(mapStateToProps, { HouseholdUpdate, HouseholdNumberSave })(withNavigation(HouseHoldNumberEdit));
+

@@ -82,6 +82,8 @@ import AttendanceEditForm from './TimeLine/AttendanceEditForm';
 import AttendanceView from './TimeLine/AttendanceView';
 import ChangePassword from './ChangePassword';
 import Attendance from './TimeLine/Attendance';
+import HouseHoldNumberEdit from './Demography/HouseHoldNumberEdit';
+import HouseView from './Demography/HouseView';
 
 const CustomDrawerContentComponent = (props) => (
   <Container>
@@ -115,6 +117,7 @@ const CustomDrawerContentComponent = (props) => (
     </List>
   </Container >
 );
+
 
 const RootStack = createStackNavigator({
   Home: {
@@ -292,6 +295,13 @@ const RootStack = createStackNavigator({
   },
   HouseHold: {
     screen: HouseHold
+  },
+  HouseHoldNumberEdit:
+  {
+    screen: HouseHoldNumberEdit
+  },
+  HouseView: {
+    screen: HouseView
   },
   HouseHoldMemberName: {
     screen: HouseHoldMemberName
