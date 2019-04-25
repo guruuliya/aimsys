@@ -11,132 +11,174 @@ export const bStatusUpdate = ({ name, value }) => ({
 });
 
 export const bStatusCreate = ({ option }) => {
+    let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        database.ref(`/users/${currentUser.uid}/Infrastructure/`)
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
             .once('value', snapshot => {
-                if (snapshot.hasChild('buildingstatus')) {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    database.ref(`/users/${awcid}/Infrastructure/`)
+                        .once('value', snapshot1 => {
+                            if (snapshot1.hasChild('buildingstatus')) {
+                                Alert.alert(
+                                    'Oops...!',
+                                    'Data Already Exists...',
+                                    [
+                                        { text: 'OK', onPress: () => console.log('OK Pressed') },
+                                    ],
+                                    { cancelable: true }
+                                );
+                            } else {
+                                database.ref(`/users/${awcid}/Infrastructure/buildingstatus`)
+                                    .push({ option })
+                                    .then(() => {
+                                        Alert.alert(
+                                            'Successfull...!',
+                                            'Record Inserted Successfully...',
+                                            [
+                                                { text: 'OK', onPress: () => console.log('OK Pressed') },
+                                            ],
+                                            { cancelable: true }
+                                        );
+                                        dispatch({
+                                            type: BSTATUS_CREATE
+                                        });
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                    });
+                            }
+                        });
+                } else {
+                    console.log('no user data');
+                }
+            });
+    };
+};
+
+export const bStatusFetch = () => {
+    let awcid = 0;
+    const database = firebase.database();
+    const { currentUser } = firebase.auth();
+    return (dispatch) => {
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    fetchLoad(dispatch);
+                    firebase.database().ref(`/users/${awcid}/Infrastructure/buildingstatus`)
+                        .on('value', snapshot1 => {
+                            dispatch({
+                                type: BSTATUS_FETCH,
+                                payload: snapshot1.val() || ''
+                            });
+                            dispatch({
+                                type: BSFETCH_LOADING_END,
+                                payload: false
+                            });
+                        });
+                } else {
+                    console.log('no user data');
+                }
+            });
+    };
+};
+
+export const bStatusDelete = (key) => {
+    let awcid = 0;
+    const database = firebase.database();
+    const { currentUser } = firebase.auth();
+    return (dispatch) => {
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
                     Alert.alert(
-                        'Oops...!',
-                        'Data Already Exists...',
+                        'Need Attention...!',
+                        'Do you want delete this record?',
                         [
-                            { text: 'OK', onPress: () => console.log('OK Pressed') },
+                            {
+                                text: 'Cancel',
+                                onPress: () => console.log('Cancel Pressed'),
+                                style: 'cancel',
+                            },
+                            {
+                                text: 'OK',
+                                onPress: () =>
+                                    database.ref(`/users/${awcid}/Infrastructure/buildingstatus/${key}`)
+                                        .remove()
+                                        .then(() => {
+                                            dispatch({
+                                                type: BSTATUS_REMOVE,
+                                                payload: ''
+                                            });
+                                        })
+                            },
                         ],
-                        { cancelable: true }
+                        { cancelable: false },
                     );
                 } else {
-                    database.ref(`/users/${currentUser.uid}/Infrastructure/buildingstatus`)
-                        .push({ option })
+                    console.log('no user data');
+                }
+            });
+    };
+};
+
+export const bStatusSave = ({ option }, key, navigate) => {
+    let awcid = 0;
+    const database = firebase.database();
+    const { currentUser } = firebase.auth();
+    return (dispatch) => {
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    database.ref(`/users/${awcid}/Infrastructure/buildingstatus/${key}`)
+                        .set({ option })
                         .then(() => {
                             Alert.alert(
                                 'Successfull...!',
-                                'Record Inserted Successfully...',
+                                'Record Updated Successfully...',
                                 [
                                     { text: 'OK', onPress: () => console.log('OK Pressed') },
                                 ],
                                 { cancelable: true }
                             );
                             dispatch({
-                                type: BSTATUS_CREATE
+                                type: BSTATUS_CREATE,
+                                payload: ''
                             });
-                        })
-                        .catch((error) => {
-                            console.log(error);
+                            navigate.navigate('buildingStatus');
                         });
-                }
-            });
-    };
-};
-
-
-export function checkBStatus() {
-    const { currentUser } = firebase.auth();
-    return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/`)
-            .once('value', snapshot => {
-                if (snapshot.hasChild('buildingstatus')) {
-                    dispatch({
-                        type: BSTATUS_CHECK,
-                        payload: true
-                    });
                 } else {
-                    dispatch({
-                        type: BSTATUS_CHECK,
-                        payload: false
-                    });
+                    console.log('no user data');
                 }
-            });
-    };
-}
-
-export const bStatusFetch = () => {
-    const { currentUser } = firebase.auth();
-    return (dispatch) => {
-        fetchLoad(dispatch);
-        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/buildingstatus`)
-            .on('value', snapshot => {
-                dispatch({
-                    type: BSTATUS_FETCH,
-                    payload: snapshot.val() || ''
-                });
-                dispatch({
-                    type: BSFETCH_LOADING_END,
-                    payload: false
-                });
-            });
-    };
-};
-
-export const bStatusDelete = (key) => {
-    const { currentUser } = firebase.auth();
-    return (dispatch) => {
-        Alert.alert(
-            'Need Attention...!',
-            'Do you want delete this record?',
-            [
-                {
-                    text: 'Cancel',
-                    onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel',
-                },
-                {
-                    text: 'OK',
-                    onPress: () =>
-                        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/buildingstatus/${key}`)
-                            .remove()
-                            .then(() => {
-                                dispatch({
-                                    type: BSTATUS_REMOVE,
-                                    payload: ''
-                                });
-                            })
-                },
-            ],
-            { cancelable: false },
-        );
-    };
-};
-
-export const bStatusSave = ({ option }, key, navigate) => {
-    const { currentUser } = firebase.auth();
-    return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/buildingstatus/${key}`)
-            .set({ option })
-            .then(() => {
-                Alert.alert(
-                    'Successfull...!',
-                    'Record Updated Successfully...',
-                    [
-                        { text: 'OK', onPress: () => console.log('OK Pressed') },
-                    ],
-                    { cancelable: true }
-                );
-                dispatch({
-                    type: BSTATUS_CREATE,
-                    payload: ''
-                });
-                navigate.navigate('buildingStatus');
             });
     };
 };

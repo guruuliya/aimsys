@@ -12,40 +12,65 @@ export const facilityForm = ({ name, value }) => {
     };
 };
 
-export const facilityCreate = ({ Water, well, Panchayath, Borewell, Power, Btype, Medicine, Mother, Infant, Play, Toilet }) => {
+export const facilityCreate = ({ Water, well, Panchayath, Borewell, Btype, Power, Medicine, Mother, Infant, Play, Toilet }) => {
+    let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        database.ref(`/users/${currentUser.uid}/Infrastructure/`)
+        if (well === undefined) {
+            // eslint-disable-next-line no-param-reassign
+            well = false;
+        } else if (Panchayath === undefined) {
+            // eslint-disable-next-line no-param-reassign
+            Panchayath = false;
+        } else if (Borewell === undefined) {
+            // eslint-disable-next-line no-param-reassign
+            Borewell = false;
+        }
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
             .once('value', snapshot => {
-                if (snapshot.hasChild('facilities')) {
-                    Alert.alert(
-                        'Oops...!',
-                        'Data Already Exists...',
-                        [
-                            { text: 'OK', onPress: () => console.log('OK Pressed') },
-                        ],
-                        { cancelable: true }
-                    );
-                } else {
-                    database.ref(`/users/${currentUser.uid}/Infrastructure/facilities`)
-                        .push({ Water, well, Panchayath, Borewell, Power, Btype, Medicine, Mother, Infant, Play, Toilet })
-                        .then(() => {
-                            Alert.alert(
-                                'Successfull...!',
-                                'Record Inserted Successfully...',
-                                [
-                                    { text: 'OK', onPress: () => console.log('OK Pressed') },
-                                ],
-                                { cancelable: false },
-                            );
-                            dispatch({
-                                type: FACILITY_CREATE
-                            });
-                        })
-                        .catch((error) => {
-                            console.log(error);
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    database.ref(`/users/${awcid}/Infrastructure/`)
+                        .once('value', snapshot1 => {
+                            if (snapshot1.hasChild('facilities')) {
+                                Alert.alert(
+                                    'Oops...!',
+                                    'Data Already Exists...',
+                                    [
+                                        { text: 'OK', onPress: () => console.log('OK Pressed') },
+                                    ],
+                                    { cancelable: true }
+                                );
+                            } else {
+                                database.ref(`/users/${awcid}/Infrastructure/facilities`)
+                                    .push({ Water, well, Panchayath, Borewell, Btype, Power, Medicine, Mother, Infant, Play, Toilet })
+                                    .then(() => {
+                                        Alert.alert(
+                                            'Successfull...!',
+                                            'Record Inserted Successfully...',
+                                            [
+                                                { text: 'OK', onPress: () => console.log('OK Pressed') },
+                                            ],
+                                            { cancelable: false },
+                                        );
+                                        dispatch({
+                                            type: FACILITY_CREATE
+                                        });
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                    });
+                            }
                         });
+                } else {
+                    console.log('no user data');
                 }
             });
     };
@@ -53,75 +78,122 @@ export const facilityCreate = ({ Water, well, Panchayath, Borewell, Power, Btype
 
 
 export const facilityFetch = () => {
+    let awcid = 0;
+    const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        fetchLoad(dispatch);
-        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/facilities`)
-            .on('value', snapshot => {
-                dispatch({
-                    type: FACILITY_FETCH,
-                    payload: snapshot.val() || ''
-                });
-                dispatch({
-                    type: FACILITY_LOADING_END,
-                    payload: false
-                });
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    fetchLoad(dispatch);
+                    firebase.database().ref(`/users/${awcid}/Infrastructure/facilities`)
+                        .on('value', snapshot1 => {
+                            dispatch({
+                                type: FACILITY_FETCH,
+                                payload: snapshot1.val() || ''
+                            });
+                            dispatch({
+                                type: FACILITY_LOADING_END,
+                                payload: false
+                            });
+                        });
+                } else {
+                    console.log('no user data');
+                }
             });
     };
 };
 
 export const facilityDelete = (key) => {
-    console.log(key);
+    let awcid = 0;
+    const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        Alert.alert(
-            'Need Attention...!',
-            'Do you want delete this record?',
-            [
-                {
-                    text: 'Cancel',
-                    onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel',
-                },
-                {
-                    text: 'OK',
-                    onPress: () =>
-                        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/facilities/${key}`)
-                            .remove()
-                            .then(() => {
-                                dispatch({
-                                    type: FACILITY_REMOVE,
-                                    payload: ''
-                                });
-                            })
-                },
-            ],
-            { cancelable: false },
-        );
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    Alert.alert(
+                        'Need Attention...!',
+                        'Do you want delete this record?',
+                        [
+                            {
+                                text: 'Cancel',
+                                onPress: () => console.log('Cancel Pressed'),
+                                style: 'cancel',
+                            },
+                            {
+                                text: 'OK',
+                                onPress: () =>
+                                    firebase.database().ref(`/users/${awcid}/Infrastructure/facilities/${key}`)
+                                        .remove()
+                                        .then(() => {
+                                            dispatch({
+                                                type: FACILITY_REMOVE,
+                                                payload: ''
+                                            });
+                                        })
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                } else {
+                    console.log('no user data');
+                }
+            });
     };
 };
 
 export const facilityUpdate = ({ Water, well, Panchayath, Borewell, Btype, Power, Medicine, Mother, Infant, Play, Toilet }, key, navigate) => {
-    console.log(key);
+    let awcid = 0;
+    const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
-        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/facilities/${key}`)
-            .set({ Water, well, Panchayath, Borewell, Btype, Power, Medicine, Mother, Infant, Play, Toilet })
-            .then(() => {
-                Alert.alert(
-                    'Successfull...!',
-                    'Record Updated Successfully...',
-                    [
-                        { text: 'OK', onPress: () => console.log('OK Pressed') },
-                    ],
-                    { cancelable: true }
-                );
-                dispatch({
-                    type: FACILITY_CREATE,
-                    payload: ''
-                });
-                navigate.navigate('Facility');
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    database.ref(`/users/${awcid}/Infrastructure/facilities/${key}`)
+                        .set({ Water, well, Panchayath, Borewell, Btype, Power, Medicine, Mother, Infant, Play, Toilet })
+                        .then(() => {
+                            Alert.alert(
+                                'Successfull...!',
+                                'Record Updated Successfully...',
+                                [
+                                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                                ],
+                                { cancelable: true }
+                            );
+                            dispatch({
+                                type: FACILITY_CREATE,
+                                payload: ''
+                            });
+                            navigate.navigate('Facility');
+                        });
+                } else {
+                    console.log('no user data');
+                }
             });
+
     };
 };
 

@@ -19,39 +19,187 @@ export const bPictureForm = ({ name, value }) => {
     };
 };
 
-
 export const bPictureCreate = ({ BPicture }) => {
+    let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         const imageFile = RNFetchBlob.wrap(BPicture);
-        const imageRef = firebase.storage().ref('.../');
+        const imageRef = firebase.storage().ref(`${awcid}`);
         let uploadBlob = null;
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    Blob.build(imageFile, { type: 'image/jpg' })
+                        .then((imageBlob) => {
+                            uploadBlob = imageBlob;
+                            return imageRef.put(imageBlob, { contentType: 'image/jpg' });
+                        })
+                        .then(() => {
+                            uploadBlob.close();
+                            return imageRef.getDownloadURL();
+                        })
+                        .then((url) => {
+                            database.ref(`/users/${awcid}/Infrastructure/`)
+                                .once('value', snapshot1 => {
+                                    if (snapshot1.hasChild('buildingImage')) {
+                                        Alert.alert(
+                                            'Oops...!',
+                                            'Data Already Exists...',
+                                            [
+                                                { text: 'OK', onPress: () => console.log('OK Pressed') },
+                                            ],
+                                            { cancelable: true }
+                                        );
+                                    } else {
+                                        database.ref(`/users/${awcid}/Infrastructure/buildingImage`)
+                                            .push({ BPicture: url })
+                                            .then(() => {
+                                                dispatch({
+                                                    type: BPICTURE_CREATE,
+                                                    payload: ''
+                                                });
+                                                Alert.alert(
+                                                    'Successfull....!',
+                                                    'Image Uploaded Successfully..',
+                                                    [
+                                                        { text: 'OK', onPress: () => console.log('OK Pressed') },
+                                                    ],
+                                                    { cancelable: false },
+                                                );
+                                            })
+                                            .catch((error) => {
+                                                console.log(error);
+                                            });
+                                    }
+                                });
+                        })
+                        .catch((error) => { console.log(error); });
+                } else {
+                    console.log('no user data');
+                }
+            });
+    };
+};
 
-        Blob.build(imageFile, { type: 'image/jpg' })
-            .then((imageBlob) => {
-                uploadBlob = imageBlob;
-                return imageRef.put(imageBlob, { contentType: 'image/jpg' });
-            })
-            .then(() => {
-                uploadBlob.close();
-                return imageRef.getDownloadURL();
-            })
-            .then((url) => {
-                database.ref(`/users/${currentUser.uid}/Infrastructure/`)
-                    .once('value', snapshot => {
-                        if (snapshot.hasChild('buildingImage')) {
-                            Alert.alert(
-                                'Oops...!',
-                                'Data Already Exists...',
-                                [
-                                    { text: 'OK', onPress: () => console.log('OK Pressed') },
-                                ],
-                                { cancelable: true }
-                            );
-                        } else {
-                            database.ref(`/users/${currentUser.uid}/Infrastructure/buildingImage`)
-                                .push({ BPicture: url })
+export const bPictureFetch = () => {
+    let awcid = 0;
+    const database = firebase.database();
+    const { currentUser } = firebase.auth();
+    return (dispatch) => {
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    fetchLoad(dispatch);
+                    firebase.database().ref(`/users/${awcid}/Infrastructure/buildingImage`)
+                        .on('value', snapshot1 => {
+                            dispatch({
+                                type: BPICTURE_FETCH,
+                                payload: snapshot1.val() || ''
+                            });
+                            dispatch({
+                                type: BPFETCH_LOADING_END,
+                                payload: false
+                            });
+                        });
+                } else {
+                    console.log('no user data');
+                }
+            });
+    };
+};
+
+export const bPictureRemove = (key) => {
+    let awcid = 0;
+    const database = firebase.database();
+    const { currentUser } = firebase.auth();
+    return (dispatch) => {
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    Alert.alert(
+                        'Need Attention...!',
+                        'Do you want delete this record?',
+                        [
+                            {
+                                text: 'Cancel',
+                                onPress: () => console.log('Cancel Pressed'),
+                                style: 'cancel',
+                            },
+                            {
+                                text: 'OK',
+                                onPress: () =>
+                                    firebase.database().ref(`/users/${awcid}/Infrastructure/buildingImage/${key}`)
+                                        .remove()
+                                        .then(() => {
+                                            dispatch({
+                                                type: BPICTURE_REMOVE,
+                                                payload: ''
+                                            });
+                                        })
+                            },
+                        ],
+                        { cancelable: false },
+                    );
+                } else {
+                    console.log('no user data');
+                }
+            });
+    };
+};
+
+export const bPictureUpdate = ({ BPicture }, key, navigate) => {
+    let awcid = 0;
+    const database = firebase.database();
+    const { currentUser } = firebase.auth();
+    return (dispatch) => {
+        const imageFile = RNFetchBlob.wrap(BPicture);
+        const imageRef = firebase.storage().ref(`${awcid}`);
+        let uploadBlob = null;
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    Blob.build(imageFile, { type: 'image/jpg' })
+                        .then((imageBlob) => {
+                            uploadBlob = imageBlob;
+                            return imageRef.put(imageBlob, { contentType: 'image/jpg' });
+                        })
+                        .then(() => {
+                            uploadBlob.close();
+                            return imageRef.getDownloadURL();
+                        })
+                        .then((url) => {
+                            console.log(url);
+                            firebase.database().ref(`/users/${awcid}/Infrastructure/buildingImage/${key}`)
+                                .set({ BPicture: url })
                                 .then(() => {
                                     dispatch({
                                         type: BPICTURE_CREATE,
@@ -69,101 +217,15 @@ export const bPictureCreate = ({ BPicture }) => {
                                 .catch((error) => {
                                     console.log(error);
                                 });
-                        }
-                    });
-            })
-            .catch((error) => { console.log(error); });
-    };
-};
-
-export const bPictureFetch = () => {
-    const { currentUser } = firebase.auth();
-    return (dispatch) => {
-        fetchLoad(dispatch);
-        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/buildingImage`)
-            .on('value', snapshot => {
-                dispatch({
-                    type: BPICTURE_FETCH,
-                    payload: snapshot.val() || ''
-                });
-                dispatch({
-                    type: BPFETCH_LOADING_END,
-                    payload: false
-                });
+                        })
+                        .catch((error) => { console.log(error); });
+                    navigate.navigate('buildingPicture');
+                } else {
+                    console.log('no user data');
+                }
             });
-    };
-};
 
-export const bPictureRemove = (key) => {
-    const { currentUser } = firebase.auth();
-    return (dispatch) => {
-        Alert.alert(
-            'Need Attention...!',
-            'Do you want delete this record?',
-            [
-                {
-                    text: 'Cancel',
-                    onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel',
-                },
-                {
-                    text: 'OK',
-                    onPress: () =>
-                        firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/buildingImage/${key}`)
-                            .remove()
-                            .then(() => {
-                                dispatch({
-                                    type: BPICTURE_REMOVE,
-                                    payload: ''
-                                });
-                            })
-                },
-            ],
-            { cancelable: false },
-        );
-    };
-};
 
-export const bPictureUpdate = ({ BPicture }, key, navigate) => {
-    const { currentUser } = firebase.auth();
-    return (dispatch) => {
-        const imageFile = RNFetchBlob.wrap(BPicture);
-        const imageRef = firebase.storage().ref('.../');
-        let uploadBlob = null;
-
-        Blob.build(imageFile, { type: 'image/jpg' })
-            .then((imageBlob) => {
-                uploadBlob = imageBlob;
-                return imageRef.put(imageBlob, { contentType: 'image/jpg' });
-            })
-            .then(() => {
-                uploadBlob.close();
-                return imageRef.getDownloadURL();
-            })
-            .then((url) => {
-                console.log(url);
-                firebase.database().ref(`/users/${currentUser.uid}/Infrastructure/buildingImage/${key}`)
-                    .set({ BPicture: url })
-                    .then(() => {
-                        dispatch({
-                            type: BPICTURE_CREATE,
-                            payload: ''
-                        });
-                        Alert.alert(
-                            'Successfull....!',
-                            'Image Uploaded Successfully..',
-                            [
-                                { text: 'OK', onPress: () => console.log('OK Pressed') },
-                            ],
-                            { cancelable: false },
-                        );
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            })
-            .catch((error) => { console.log(error); });
-        navigate.navigate('buildingPicture');
     };
 };
 

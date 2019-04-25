@@ -1,6 +1,6 @@
 import {
     EMAIL_CHANGED, PASSWORD_CHANGED,
-    LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER, FETCH_USER
+    LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER, FETCH_USER, AWCDetails
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -27,6 +27,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, error: 'Authentication Error', loading: false, password: '' };
         case FETCH_USER:
             return { ...state, loggedIn: action.payload };
+        case AWCDetails:
+            return { ...state };
         default:
             return state;
     }

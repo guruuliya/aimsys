@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { statusCheck } from '../../actions';
 
@@ -56,22 +56,10 @@ class InfrastructureDash extends Component {
                     <View style={styles.bottomitem}>
                         <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('AnganwadiLocation')} >
                             <View>
-                                <Image style={styles.icon} source={require('../../images/infra_facilities.png')} />
+                                <Text>AnganwadiLocation</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
-
-                    <View style={styles.bottomitem}>
-                        <TouchableOpacity style={styles.bottomitemInner}
-                            onPress={this.navi.bind(this)}
-                        >
-                            <View>
-                                <Image style={styles.icon} source={require('../../images/infra_facilities.png')} />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-
-
                 </View>
             </View>
         );

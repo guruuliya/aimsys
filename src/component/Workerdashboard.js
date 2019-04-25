@@ -9,11 +9,17 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
+import { connect } from 'react-redux';
+import { anganwadiDetails } from '../actions';
 
-export default class Workerdashboard extends Component {
+class Workerdashboard extends Component {
     static navigationOptions = {
         title: 'Home',       
     };
+
+    componentWillMount() {
+        this.props.anganwadiDetails();
+    }
 
     render() {
         return (
@@ -167,3 +173,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     }
 });
+
+
+export default connect(null, { anganwadiDetails })(Workerdashboard);
