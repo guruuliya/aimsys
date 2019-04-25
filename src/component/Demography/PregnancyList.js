@@ -14,6 +14,16 @@ const ds = new ListView.DataSource({
 });
 
 class PregnancyList extends Component {
+  static navigationOptions = {
+    title: 'Expectant Women',
+    headerStyle: {
+        backgroundColor: '#203546',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+        fontWeight: 'bold',
+    },
+};
   state = {};
   componentWillMount() {
     this.props.pregnancyFetch();

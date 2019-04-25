@@ -6,7 +6,7 @@ import PregnancyList from './PregnancyList';
 
 class PregnancyTab extends Component {
   static navigationOptions = {
-    title: 'PregnancyWomen',
+    title: 'Expectant Women',
     headerStyle: {
       backgroundColor: '#203546',
     },

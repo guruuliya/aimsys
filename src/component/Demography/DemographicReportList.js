@@ -4,34 +4,61 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { withNavigation } from 'react-navigation';
 
+
 class DemographicReportList extends Component {
+    static navigationOptions = {
+        title: 'Member Infomation',
+        headerStyle: {
+            backgroundColor: '#203546',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
+    state = {
+        a: [],
+        aa: '',
+        PhoneNumber: '',
+        Nodata: '',
+    }
+
 
     render() {
         const { HHName } = this.props.HouseHold;
-        console.log('Demographic', this.props.HouseHold);
-
-        
         return (
-            <View style={styles.projectRow} >
-                <View style={styles.projectText} >
-                    <Text style={styles.itemName}>HouseHold MemberName Name {'\t'} {HHName}
-                    </Text>
+            HHName === 'No Record Found' ?
+            
+                <View style={styles.projectRow} >
+                    <View style={styles.projectText} >
+                        <Text style={styles.itemName}>
+                            {/* {this.state.Nodata} */}
+                            No Record Found
+                        </Text>
+                    </View>
                 </View>
+                :
+                <View style={styles.projectRow} >
 
-                <View style={styles.projectTextchild1}>
-                    <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('HouseholdView', { HouseHold: this.props.HouseHold }); }}>
-                        <View>
-                            <Icon
-                                name="eye"
-                                size={30}
-                                style={styles.moreIcon}
-                            />
-                            <Text style={styles.moreIcon} >View</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
+                    <View style={styles.projectText} >
+                        <Text style={styles.itemName}>  {HHName}
+                        </Text>
+                    </View>
+
+                    <View style={styles.projectTextchild1}>
+                        <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('HouseholdView', { HouseHold: this.props.HouseHold }); }}>
+                            <View>
+                                <Icon
+                                    name="eye"
+                                    size={30}
+                                    style={styles.moreIcon}
+                                />
+                                <Text style={styles.moreIcon} >View</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
+
                 </View>
-
-            </View>
         );
     }
 }
@@ -46,7 +73,7 @@ const
             flex: 0.2,
             flexDirection: 'column'
         },
-        
+
         projectRow: {
             flexDirection: 'row',
             justifyContent: 'flex-start',
@@ -66,7 +93,7 @@ const
         },
         moreIcon: {
             color: '#f7c744'
-            
+
         }
     });
 

@@ -13,6 +13,7 @@ const INITIAL_STATE = {
     Relationship: '',
     Status: '',
     Designation: '',
+    LiteracyRate: '',
     PhoneNumber: '',
     Address: '',
     Income: '',

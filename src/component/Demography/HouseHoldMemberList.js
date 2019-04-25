@@ -10,47 +10,31 @@ class HouseHoldMemberList extends Component {
         a:[],
         Nodata: '',
     }
-    componentWillMount()
-    {
-        const { HHName, uid } = this.props.HouseHoldName;
-        if (HHName !== '') {
-            console.log('value of a here 1', HHName);
-            this.setState({ a: HHName });
-           
-        } else {
-            console.log('value of a here 2', HHName);
-            
-            this.setState({Nodata:'No Record Found'});
-        }
-    }
 
     render() {
-      console.log('State',this.state.Nodata);
+        const { HHName, HHNumber, uid } = this.props.HouseHoldName;
+       
          return (
-            this.state.Nodata !== '' ?
+            HHNumber === 'No Record Found' ?
             <View style={styles.projectRow} >
                 <View style={styles.projectText} >
-                    <Text style={styles.itemName}>
-                        {this.state.Nodata}
-                    </Text>
+                <Text style={styles.itemName}>
+                            {/* {this.state.Nodata} */}
+                            No Record Found
+                        </Text>
                 </View>
             </View>
             :
             <View style={styles.projectRow} >
                 <View style={styles.projectText} >
-                    <Text style={styles.itemName}> {"\t"} {this.state.a}</Text>
-
-                    <Text style={styles.itemDetails}>Last edited {"\t"}
-                        {`${Moment(this.props.HouseHold).fromNow()}`}
-                    </Text>
-                    
+                    <Text style={styles.itemName}>{"\t"} {HHName}</Text>  
                 </View>
 
                 <View style={styles.projectTextchild1}>
                     <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('HouseHoldEdit', { Houseno: this.props.HouseHoldName }) }}>
                         <View>
                             <Icon
-                                name="eye"
+                                name="edit"
                                 size={30}
                                 style={styles.moreIcon}
                             />
@@ -63,7 +47,7 @@ class HouseHoldMemberList extends Component {
                     <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('HouseholdView', { HouseHold: this.props.HouseHoldName }) }}>
                         <View>
                             <Icon
-                                name="edit"
+                                name="eye"
                                 size={30}
                                 style={styles.moreIcon}
                             />

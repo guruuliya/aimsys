@@ -1,5 +1,5 @@
 import React, { Component } from 'React';
-import { Text, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
+import { Text, TouchableWithoutFeedback, View, StyleSheet, ScrollView } from 'react-native';
 import Moment from 'moment';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -7,45 +7,37 @@ import { withNavigation } from 'react-navigation';
 
 
 class HouseHoldListItem extends Component {
-    state = {
-        a: [],
-        Nodata: '',
-    }
-    componentWillMount() {
-        const { HHNumber, HHName } = this.props.HouseHold;
-        if (HHNumber !== 0) {
-            console.log('value of a here 1', HHNumber);
-            this.setState({ a: HHNumber });
-           
-        } else {
-            console.log('value of a here 2', HHNumber);
-            this.setState({ Nodata: 'No Record Found' });
-        }
-
-    }
+    // state = {
+    //     a: [],
+    //     Nodata: '',
+    // }
+    
     render() {
-console.log('value here',this.state.a);
-        
+        const { HHNumber, HHName } = this.props.HouseHold;
+
         return (
 
-            this.state.Nodata !== '' ?
+            HHNumber === 'No Record Found' ?
                 <View style={styles.projectRow} >
                     <View style={styles.projectText} >
-                        <Text style={styles.itemName}>
-                            {this.state.Nodata}
+                    <Text style={styles.itemName}>
+                            {/* {this.state.Nodata} */}
+                            No Record Found
                         </Text>
                     </View>
                 </View>
                 :
+                
                 <View style={styles.projectRow} >
                     <View style={styles.projectText} >
-
-                        <Text style={styles.itemName}>HouseHold Number {"\t"} {this.state.a}
-                        </Text>
-
-                        <Text style={styles.itemDetails}>Last edited {"\t"}
-                            {`${Moment(this.props.HouseHold).fromNow()}`}
-                        </Text>
+                        <View style={styles.projectTextchild1}>
+                            <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('HouseView', { HouseHold: this.props.HouseHold }) }}>
+                                <View>
+                                    <Text style={styles.itemName}>{"\t"} {HHNumber}
+                                    </Text>
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </View>
                     </View>
 
                     <View style={styles.projectTextchild1}>
@@ -76,6 +68,7 @@ console.log('value here',this.state.a);
                     </View>
 
                 </View>
+               
         );
     }
 }

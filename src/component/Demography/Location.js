@@ -12,10 +12,33 @@ export default class AnganwadiLocation extends React.Component {
             ready: false,
             where: { lat: null, lng: null },
             error: null,
-            AWCode: null,
-            AWArea: null
+            HwArea: null,
+            HHNumber: null
         };
     }
+    // let awcid = 0;
+    //     const database = firebase.database();
+    //     const { currentUser } = firebase.auth();
+
+
+
+    //         database.ref('/assignedworkerstocenters')
+    //             .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+    //             .once('value', snapshot => {
+    //                 if (snapshot.val()) {
+    //                     const value = snapshot.val();
+    //                     const keys = Object.keys(value);
+    //                     for (let i = 0; i < keys.length; i++) {
+    //                         const k = keys[i];
+    //                         awcid = value[k].anganwadicenter_code;
+    //                     }
+
+    //                     //Put your existing code here database insertion part check another file for reference
+
+    //                 } else {
+    //                     console.log('no user data');
+    //                 }
+    //             });
 
     checkPer() {
         let geoOptions = {
@@ -41,25 +64,41 @@ export default class AnganwadiLocation extends React.Component {
     }
 
     insert() {
-        const { AWArea, AWCode } = this.state;
+        let awcid = 0;
         const database = firebase.database();
-        const latitude=this.state.where.lat;
-        const longitude=this.state.where.lng;
-        const Location = { latitude, longitude };
-        database.ref('/users')
-            .push({ AWArea, AWCode, Location })
-            .then(() => {
-                Alert.alert(
-                    'Successfull...!',
-                    'Record Inserted Successfully...',
-                    [
-                        { text: 'OK', onPress: () => console.log('OK Pressed') },
-                    ],
-                    { cancelable: true }
-                );
-            })
-            .catch((error) => {
-                console.log(error);
+        const { currentUser } = firebase.auth();
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    const { HwArea, HHNumber } = this.state;
+                    const latitude = this.state.where.lat;
+                    const longitude = this.state.where.lng;
+                    const Location = { latitude, longitude };
+                    database.ref(`/users/${awcid}/Demographic/HouseholdLocation`)
+                        .push({ HwArea, HHNumber, Location })
+                        .then(() => {
+                            Alert.alert(
+                                'Successfull...!',
+                                'Record Inserted Successfully...',
+                                [
+                                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                                ],
+                                { cancelable: true }
+                            );
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                } else {
+                    console.log('no user data');
+                }
             });
     }
 
@@ -87,17 +126,17 @@ export default class AnganwadiLocation extends React.Component {
                             <CardItem>
                                 <Input
                                     style={{ width: 100, borderBottomColor: 'skyblue' }}
-                                    placeholder='Enter Anganwadi Area'
-                                    value={this.state.AWArea}
-                                    onChangeText={AWArea => this.setState({ AWArea })}
+                                    placeholder='Enter The Area'
+                                    value={this.state.HwArea}
+                                    onChangeText={HwArea => this.setState({ HwArea })}
                                 />
                             </CardItem>
                             <CardItem>
                                 <Input
                                     style={{ width: 100 }}
-                                    placeholder='Enter Anganwadi Code'
-                                    value={this.state.AWCode}
-                                    onChangeText={AWCode => this.setState({ AWCode })}
+                                    placeholder='Enter HouseholdNumber'
+                                    value={this.state.HHNumber}
+                                    onChangeText={HHNumber => this.setState({ HHNumber })}
                                 />
                             </CardItem>
                             <CardItem>

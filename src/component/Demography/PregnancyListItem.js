@@ -6,42 +6,21 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { withNavigation } from 'react-navigation';
 
 class PregnancyListItem extends Component {
+
     state = {
         a: [],
         aa: '',
         Nodata: ''
     }
-
-    componentWillMount() {
-        const { HHNumber, PregnantName } = this.props.PregnancyFetchName;
-        if (HHNumber !== 0) {
-            console.log('value of a here 1', HHNumber);
-            this.search(HHNumber, PregnantName);
-        } else {
-            console.log('value of a here 2', HHNumber);
-            this.setState({ Nodata: 'No Records Found' });
-        }
-    }
-    search(k, h) {
-        console.log('inside search', h, k);
-        const { currentUser } = firebase.auth();
-        const db = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseholdMember/${k}/${h}`);
-        db.once('value', snapshot => {
-            if (snapshot.val()) {
-                console.log('i prnnn', snapshot.val().HHName);
-                this.setState({ a: snapshot.val().HHName });
-            }
-        });
-    }
-
-
     render() {
+        const { PregnantName, Pregnant } = this.props.PregnancyFetchName;
+
         return (
-            this.state.Nodata !== '' ?
+            PregnantName === 'No Record Found' ?
                 <View style={styles.projectRow} >
                     <View style={styles.projectText} >
                         <Text style={styles.itemName}>
-                            {this.state.Nodata}
+                            No Record found
                         </Text>
                     </View>
                 </View>
@@ -49,11 +28,12 @@ class PregnancyListItem extends Component {
                 <View style={styles.projectRow} >
                     <View style={styles.projectText} >
                         <Text style={styles.itemName}>
-                            {this.state.a}
+                            {console.log('here i ', this.state.a)}
+                            {Pregnant}
                         </Text>
-                        <Text style={styles.itemDetails}>Last edited {"\t"}
+                        {/* <Text style={styles.itemDetails}>Last edited {"\t"}
                             {`${Moment(this.props.HouseHold).fromNow()}`}
-                        </Text>
+                        </Text> */}
                     </View>
                     <View style={styles.projectTextchild1}>
                         <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('PregnancyView', { Pregnancy: this.props.PregnancyFetchName }) }}>

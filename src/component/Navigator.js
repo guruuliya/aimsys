@@ -34,6 +34,8 @@ import HouseHold from './Demography/HouseHold';
 import HouseHoldMemberName from './Demography/HouseHoldMemberName';
 import DemographicReport from './Demography/DemographicReport';
 import LocationHouse from './Demography/Location';
+import HouseHoldNumberEdit from './Demography/HouseHoldNumberEdit';
+import HouseView from './Demography/HouseView';
 const RootStack = createStackNavigator({
   AuthLoading: {
     screen: AuthLoading
@@ -98,6 +100,13 @@ const RootStack = createStackNavigator({
   },
   HouseHold: {
     screen: HouseHold
+  },
+  HouseHoldNumberEdit:
+  {
+    screen: HouseHoldNumberEdit
+  },
+  HouseView:{
+    screen:HouseView
   },
 
   HouseHoldMemberName: {
