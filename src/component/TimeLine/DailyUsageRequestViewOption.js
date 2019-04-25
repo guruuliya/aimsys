@@ -24,7 +24,7 @@ import {
 } from '../../actions';
 import DatePicker from 'react-native-datepicker';
 
-class DailyUsageStockViewOption extends Component {
+class DailyUsageRequestViewOption extends Component {
   static navigationOptions = {
     title: 'Timeline',
     headerStyle: {
@@ -46,10 +46,8 @@ class DailyUsageStockViewOption extends Component {
     //console.log('six_months_to_one_year')
     console.log(this.props.navigation.state.params);
     //console.log(this.props.navigation.state.params)
+
     const {
-      food_received,
-      food_provided,
-      food_remaining,
       nutritious_food,
       protien_food,
       oil,
@@ -59,11 +57,20 @@ class DailyUsageStockViewOption extends Component {
       salt,
       grams,
       mustard_seeds,
-      rice,
       amalice_rich,
       green_gram,
       food_provided_today,
-      Extra,
+      Oralrehydrationsalts,
+      Chloroquine,
+      Iron_and_folic_acid,
+      Co_trimoxazole_tablet,
+      Co_trimoxazole_syrup,
+      Mebendazole,
+      Benzyl_benzoate,
+      Vitamin_A_solution,
+      Aspirin,
+      Sulphadimidine,
+      Paracetamol,
       DPickdobStock
     } = this.props.navigation.state.params.child;
     handleOnPress = () => this.setState({ show: 1 });
@@ -77,21 +84,6 @@ class DailyUsageStockViewOption extends Component {
               <Text style={styles.contentview}>
                 Date :{'\t'}
                 {DPickdobStock}{' '}
-              </Text>
-
-              <Text style={styles.contentview}>
-                Food Received :{'\t'}
-                {food_received}{' '}
-              </Text>
-
-              <Text style={styles.contentview}>
-                Food Provided :{'\t'}
-                {food_provided}{' '}
-              </Text>
-
-              <Text style={styles.contentview}>
-                Food Remaining :{'\t'}
-                {food_remaining}{' '}
               </Text>
 
               <Text style={styles.contentview}>
@@ -139,10 +131,6 @@ class DailyUsageStockViewOption extends Component {
                 {mustard_seeds}{' '}
               </Text>
               <Text style={styles.contentview}>
-                Rice :{'\t'}
-                {rice}{' '}
-              </Text>
-              <Text style={styles.contentview}>
                 Amalice Rich :{'\t'}
                 {amalice_rich}{' '}
               </Text>
@@ -154,12 +142,52 @@ class DailyUsageStockViewOption extends Component {
                 Food provided today :{'\t'}
                 {food_provided_today}{' '}
               </Text>
-              <Text style={styles.contentview}>
-                Extra :{'\t'}
-                {Extra}{' '}
-              </Text>
-              <Text style={styles.contentview}>Signature :{'\t'}</Text>
 
+              <Text>{'\n'}</Text>
+              <Text style={styles.contentview}>
+                Oralrehydrationsalts :{'\t'}
+                {Oralrehydrationsalts}{' '}
+              </Text>
+              <Text style={styles.contentview}>
+                Chloroquine :{'\t'}
+                {Chloroquine}{' '}
+              </Text>
+              <Text style={styles.contentview}>
+                Iron and folic acid :{'\t'}
+                {Iron_and_folic_acid}{' '}
+              </Text>
+              <Text style={styles.contentview}>
+                Co-trimoxazole tablet :{'\t'}
+                {Co_trimoxazole_tablet}{' '}
+              </Text>
+              <Text style={styles.contentview}>
+                Co-trimoxazole syrup:{'\t'}
+                {Co_trimoxazole_syrup}{' '}
+              </Text>
+              <Text style={styles.contentview}>
+                Mebendazole:{'\t'}
+                {Mebendazole}{' '}
+              </Text>
+              <Text style={styles.contentview}>
+                Benzyl benzoate:{'\t'}
+                {Benzyl_benzoate}{' '}
+              </Text>
+              <Text style={styles.contentview}>
+                Vitamin A solution:{'\t'}
+                {Vitamin_A_solution}{' '}
+              </Text>
+              <Text style={styles.contentview}>
+                Aspirin:{'\t'}
+                {Aspirin}{' '}
+              </Text>
+              <Text style={styles.contentview}>
+                Sulphadimidine:{'\t'}
+                {Sulphadimidine}{' '}
+              </Text>
+              <Text style={styles.contentview}>
+                Paracetamol:{'\t'}
+                {Paracetamol}{' '}
+              </Text>
               <Text>{'\n'}</Text>
             </Card>
 
@@ -170,8 +198,8 @@ class DailyUsageStockViewOption extends Component {
             ) : null}
 
             <Text>{'\n'}</Text>
-            {/* <Button block danger onPress={this.handleOnPress} >
-            <Icon name='md-save' />
+            {/* <Button block danger onPress={this.handleOnPress}>
+              <Icon name='md-save' />
               <Text>EXPORT TO PDF</Text>
             </Button> */}
             <Text>{'\n'}</Text>
@@ -200,4 +228,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DailyUsageStockViewOption;
+export default DailyUsageRequestViewOption;

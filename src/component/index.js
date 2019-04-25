@@ -16,12 +16,12 @@ class MainApp extends Component {
   componentWillMount() {
     const config = {
       //Timeline
-      apiKey: "AIzaSyAhydrxQOI4d67ZLMxHUU2GSlP1wAr4RDU",
-      authDomain: "fdemo-ec6e1.firebaseapp.com",
-      databaseURL: "https://fdemo-ec6e1.firebaseio.com",
-      projectId: "fdemo-ec6e1",
-      storageBucket: "fdemo-ec6e1.appspot.com",
-      messagingSenderId: "27194992388"
+      apiKey: "AIzaSyAM41SBy8oD2QwG3QsD61DIIguAVwSlYik",
+      authDomain: "timelinedemo-d0193.firebaseapp.com",
+      databaseURL: "https://timelinedemo-d0193.firebaseio.com",
+      projectId: "timelinedemo-d0193",
+      storageBucket: "timelinedemo-d0193.appspot.com",
+      messagingSenderId: "962657185492"
     };
     if (!firebase.apps.length) {
       firebase.initializeApp(config);

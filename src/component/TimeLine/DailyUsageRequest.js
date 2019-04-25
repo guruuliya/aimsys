@@ -20,10 +20,10 @@ import {
 import {
   dailyUsageStockUpdate,
   dailyUsageStockCreate
-} from '../../actions/DailyUsageStockAction';
+} from '../../actions/DailyUsageRequestAction';
 import DatePicker from 'react-native-datepicker';
 
-class DailyUsageStock extends Component {
+class DailyUsageRequest extends Component {
   static navigationOptions = {
     title: 'Timeline',
     headerStyle: {
@@ -45,9 +45,6 @@ class DailyUsageStock extends Component {
 
   onButtonPress() {
     const {
-      food_received,
-      food_provided,
-      food_remaining,
       nutritious_food,
       protien_food,
       oil,
@@ -57,11 +54,20 @@ class DailyUsageStock extends Component {
       salt,
       grams,
       mustard_seeds,
-      rice,
       amalice_rich,
       green_gram,
       food_provided_today,
-      Extra,
+    Oralrehydrationsalts,
+    Chloroquine,
+    Iron_and_folic_acid,
+    Co_trimoxazole_tablet,
+    Co_trimoxazole_syrup,
+    Mebendazole,
+    Benzyl_benzoate,
+    Vitamin_A_solution,
+    Aspirin,
+    Sulphadimidine,
+    Paracetamol,
       DPickdobStock
     } = this.props;
     // console.log(this.props.navigation);
@@ -70,9 +76,6 @@ class DailyUsageStock extends Component {
     const navigate = this.props.navigation;
 
     this.props.dailyUsageStockCreate({
-      food_received,
-      food_provided,
-      food_remaining,
       nutritious_food,
       protien_food,
       oil,
@@ -82,11 +85,20 @@ class DailyUsageStock extends Component {
       salt,
       grams,
       mustard_seeds,
-      rice,
       amalice_rich,
       green_gram,
       food_provided_today,
-      Extra,
+    Oralrehydrationsalts,
+    Chloroquine,
+    Iron_and_folic_acid,
+    Co_trimoxazole_tablet,
+    Co_trimoxazole_syrup,
+    Mebendazole,
+    Benzyl_benzoate,
+    Vitamin_A_solution,
+    Aspirin,
+    Sulphadimidine,
+    Paracetamol,
       DPickdobStock,
       navigate
     });
@@ -98,82 +110,12 @@ class DailyUsageStock extends Component {
         <Content padder>
           <Text>{'\n'}</Text>
           <Text>{'\n'}</Text>
-          <Label>
-            Fill the form for number of people who used the resources
-          </Label>
+          <Label>Fill the form for requesting resources</Label>
           <Text>{'\n'}</Text>
           <Form>
             {/* Card one */}
             <Card>
-              <Label style={styles.cardtitle}>Daily Stock Usage</Label>
-            </Card>
-
-            {/* Card two */}
-            <Card>
-              <View style={styles.block}>
-                {/**********************Food Received****************************/}
-                <ListItem style={styles.block_row}>
-                  <InputGroup>
-                    <Label style={styles.block_row_left_element}>
-                      Food Received{' '}
-                    </Label>
-                    <Input
-                      style={styles.block_row_right_element}
-                      placeholder='Food Received'
-                      placeholderTextColor='#FFFFFF'
-                      value={parseInt(this.props.food_received)}
-                      onChangeText={value =>
-                        this.props.dailyUsageStockUpdate({
-                          name: 'food_received',
-                          value
-                        })
-                      }
-                    />
-                  </InputGroup>
-                </ListItem>
-
-                {/**********************Food Provided****************************/}
-                <ListItem style={styles.block_row}>
-                  <InputGroup>
-                    <Label style={styles.block_row_left_element}>
-                      Food Provided{' '}
-                    </Label>
-                    <Input
-                      style={styles.block_row_right_element}
-                      placeholder='Food Provided'
-                      value={parseInt(this.props.food_provided)}
-                      placeholderTextColor='#FFFFFF'
-                      onChangeText={value =>
-                        this.props.dailyUsageStockUpdate({
-                          name: 'food_provided',
-                          value
-                        })
-                      }
-                    />
-                  </InputGroup>
-                </ListItem>
-
-                {/**********************Food Remaining****************************/}
-                <ListItem style={styles.block_row}>
-                  <InputGroup>
-                    <Label style={styles.block_row_left_element}>
-                      Food Remaining{' '}
-                    </Label>
-                    <Input
-                      style={styles.block_row_right_element}
-                      placeholder='Food Remaining'
-                      value={parseInt(this.props.food_remaining)}
-                      placeholderTextColor='#FFFFFF'
-                      onChangeText={value =>
-                        this.props.dailyUsageStockUpdate({
-                          name: 'food_remaining',
-                          value
-                        })
-                      }
-                    />
-                  </InputGroup>
-                </ListItem>
-              </View>
+              <Label style={styles.cardtitle}>REQUEST FORM</Label>
             </Card>
 
             {/* Card Three */}
@@ -343,28 +285,6 @@ class DailyUsageStock extends Component {
                 </InputGroup>
               </ListItem>
 
-
-
-              {/**********************Rice****************************/}
-              <ListItem style={styles.block_row}>
-                <InputGroup>
-                  <Label style={styles.block_row_left_element}>
-                    Rice
-                  </Label>
-                  <Input
-                    style={styles.block_row_right_element}
-                    placeholder='Rice'
-                    value={parseInt(this.props.rice)}
-                    placeholderTextColor='#FFFFFF'
-                    onChangeText={value =>
-                      this.props.dailyUsageStockUpdate({
-                        name: 'rice',
-                        value
-                      })
-                    }
-                  />
-                </InputGroup>
-              </ListItem>
               {/**********************Amalice Rich****************************/}
               <ListItem style={styles.block_row}>
                 <InputGroup>
@@ -427,40 +347,235 @@ class DailyUsageStock extends Component {
                   />
                 </InputGroup>
               </ListItem>
-
-              {/**********************Extra****************************/}
+              {/* Oralrehydrationsalts */}
               <ListItem style={styles.block_row}>
                 <InputGroup>
-                  <Label style={styles.block_row_left_element}>Extra</Label>
+                  <Label style={styles.block_row_left_element}>
+                  Oralrehydrationsalts
+                  </Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Extra'
+                    placeholder='Enter in units'
                     placeholderTextColor='#FFFFFF'
                     value={parseInt(this.props.food_remaining)}
                     onChangeText={value =>
-                      this.props.dailyUsageStockUpdate({ name: 'Extra', value })
+                      this.props.dailyUsageStockUpdate({
+                        name: 'Oralrehydrationsalts',
+                        value
+                      })
                     }
                   />
                 </InputGroup>
               </ListItem>
 
-              {/**********************Signature****************************/}
-              <ListItem style={styles.block_row}>
+      {/* Chloroquine */}
+      <ListItem style={styles.block_row}>
                 <InputGroup>
-                  {/* <Label style={styles.block_row_left_element}>Signature</Label> */}
-                  {/* <Input style={styles.block_row_right_element} placeholder='Signature' 
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_remaining', value })}
-                  /> */}
+                  <Label style={styles.block_row_left_element}>
+                  Chloroquine
+                  </Label>
+                  <Input
+                    style={styles.block_row_right_element}
+                    placeholder='Enter in units'
+                    placeholderTextColor='#FFFFFF'
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value =>
+                      this.props.dailyUsageStockUpdate({
+                        name: 'Chloroquine',
+                        value
+                      })
+                    }
+                  />
                 </InputGroup>
               </ListItem>
+      {/* Iron and folic acid */}
+      <ListItem style={styles.block_row}>
+                <InputGroup>
+                  <Label style={styles.block_row_left_element}>
+                  Iron and folic acid
+                  </Label>
+                  <Input
+                    style={styles.block_row_right_element}
+                    placeholder='Enter in units'
+                    placeholderTextColor='#FFFFFF'
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value =>
+                      this.props.dailyUsageStockUpdate({
+                        name: 'Iron_and_folic_acid',
+                        value
+                      })
+                    }
+                  />
+                </InputGroup>
+              </ListItem>
+      {/* Co-trimoxazole tablet */}
+      <ListItem style={styles.block_row}>
+                <InputGroup>
+                  <Label style={styles.block_row_left_element}>
+                  Co-trimoxazole tablet
+                  </Label>
+                  <Input
+                    style={styles.block_row_right_element}
+                    placeholder='Enter in units'
+                    placeholderTextColor='#FFFFFF'
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value =>
+                      this.props.dailyUsageStockUpdate({
+                        name: 'Co_trimoxazole_tablet',
+                        value
+                      })
+                    }
+                  />
+                </InputGroup>
+              </ListItem>
+      {/* Co-trimoxazole syrup */}
+      <ListItem style={styles.block_row}>
+                <InputGroup>
+                  <Label style={styles.block_row_left_element}>
+                  Co-trimoxazole syrup
+                  </Label>
+                  <Input
+                    style={styles.block_row_right_element}
+                    placeholder='Enter in units'
+                    placeholderTextColor='#FFFFFF'
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value =>
+                      this.props.dailyUsageStockUpdate({
+                        name: 'Co_trimoxazole_syrup',
+                        value
+                      })
+                    }
+                  />
+                </InputGroup>
+              </ListItem>
+      {/* Mebendazole */}
+      <ListItem style={styles.block_row}>
+                <InputGroup>
+                  <Label style={styles.block_row_left_element}>
+                  Mebendazole
+                  </Label>
+                  <Input
+                    style={styles.block_row_right_element}
+                    placeholder='Enter in units'
+                    placeholderTextColor='#FFFFFF'
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value =>
+                      this.props.dailyUsageStockUpdate({
+                        name: 'Mebendazole',
+                        value
+                      })
+                    }
+                  />
+                </InputGroup>
+              </ListItem>
+      {/* Benzyl benzoate */}
+      <ListItem style={styles.block_row}>
+                <InputGroup>
+                  <Label style={styles.block_row_left_element}>
+                  Benzyl benzoate
+                  </Label>
+                  <Input
+                    style={styles.block_row_right_element}
+                    placeholder='Enter in units'
+                    placeholderTextColor='#FFFFFF'
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value =>
+                      this.props.dailyUsageStockUpdate({
+                        name: 'Benzyl_benzoate',
+                        value
+                      })
+                    }
+                  />
+                </InputGroup>
+              </ListItem>
+      {/* Vitamin A solution */}
+      <ListItem style={styles.block_row}>
+                <InputGroup>
+                  <Label style={styles.block_row_left_element}>
+                  Vitamin A solution
+                  </Label>
+                  <Input
+                    style={styles.block_row_right_element}
+                    placeholder='Enter in units'
+                    placeholderTextColor='#FFFFFF'
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value =>
+                      this.props.dailyUsageStockUpdate({
+                        name: 'Vitamin_A_solution',
+                        value
+                      })
+                    }
+                  />
+                </InputGroup>
+              </ListItem>
+      {/* Aspirin */}
+      <ListItem style={styles.block_row}>
+                <InputGroup>
+                  <Label style={styles.block_row_left_element}>
+                  Aspirin
+                  </Label>
+                  <Input
+                    style={styles.block_row_right_element}
+                    placeholder='Enter in units'
+                    placeholderTextColor='#FFFFFF'
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value =>
+                      this.props.dailyUsageStockUpdate({
+                        name: 'Aspirin',
+                        value
+                      })
+                    }
+                  />
+                </InputGroup>
+              </ListItem>
+      {/* Sulphadimidine */}
+      <ListItem style={styles.block_row}>
+                <InputGroup>
+                  <Label style={styles.block_row_left_element}>
+                  Sulphadimidine
+                  </Label>
+                  <Input
+                    style={styles.block_row_right_element}
+                    placeholder='Enter in units'
+                    placeholderTextColor='#FFFFFF'
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value =>
+                      this.props.dailyUsageStockUpdate({
+                        name: 'Sulphadimidine',
+                        value
+                      })
+                    }
+                  />
+                </InputGroup>
+              </ListItem>
+      {/* Paracetamol */}
+      <ListItem style={styles.block_row}>
+                <InputGroup>
+                  <Label style={styles.block_row_left_element}>
+                  Paracetamol
+                  </Label>
+                  <Input
+                    style={styles.block_row_right_element}
+                    placeholder='Enter in units'
+                    placeholderTextColor='#FFFFFF'
+                    value={parseInt(this.props.food_remaining)}
+                    onChangeText={value =>
+                      this.props.dailyUsageStockUpdate({
+                        name: 'Paracetamol',
+                        value
+                      })
+                    }
+                  />
+                </InputGroup>
+              </ListItem>
+   
             </Card>
 
             {/* Card Four */}
             <Card>
               <Text>{'\n'}</Text>
               <Label style={styles.dateblockalign}>
-                Select the date for the above data
+                By what time you need the resources
               </Label>
               <ListItem style={styles.dateblockalign}>
                 <DatePicker
@@ -537,9 +652,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   console.log(state);
   const {
-    food_received,
-    food_provided,
-    food_remaining,
     nutritious_food,
     protien_food,
     oil,
@@ -549,17 +661,23 @@ const mapStateToProps = state => {
     salt,
     grams,
     mustard_seeds,
-    rice,
     amalice_rich,
     green_gram,
     food_provided_today,
-    Extra,
+    Oralrehydrationsalts,
+      Chloroquine,
+      Iron_and_folic_acid,
+      Co_trimoxazole_tablet,
+      Co_trimoxazole_syrup,
+      Mebendazole,
+      Benzyl_benzoate,
+      Vitamin_A_solution,
+      Aspirin,
+      Sulphadimidine,
+      Paracetamol,
     DPickdobStock
   } = state.DailyUsageStockKey;
   return {
-    food_received,
-    food_provided,
-    food_remaining,
     nutritious_food,
     protien_food,
     oil,
@@ -569,11 +687,20 @@ const mapStateToProps = state => {
     salt,
     grams,
     mustard_seeds,
-    rice,
     amalice_rich,
     green_gram,
     food_provided_today,
-    Extra,
+    Oralrehydrationsalts,
+      Chloroquine,
+      Iron_and_folic_acid,
+      Co_trimoxazole_tablet,
+      Co_trimoxazole_syrup,
+      Mebendazole,
+      Benzyl_benzoate,
+      Vitamin_A_solution,
+      Aspirin,
+      Sulphadimidine,
+      Paracetamol,
     DPickdobStock
   };
 };
@@ -581,4 +708,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { dailyUsageStockUpdate, dailyUsageStockCreate }
-)(DailyUsageStock);
+)(DailyUsageRequest);
