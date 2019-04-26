@@ -49,6 +49,17 @@ export default class Timeline extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
+
+                    <View style={styles.bottomitem}>
+                        <TouchableOpacity 
+                        style={styles.bottomitemInner} 
+                        onPress={() => this.props.navigation.navigate('DailyUsageRequestTab')} 
+                        >
+                            <View>
+                                <Image style={styles.icon} source={require('../../images/tim_request.png')} />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                     {/* <View style={styles.bottomitem}>
                         <TouchableOpacity 
                         style={styles.bottomitemInner}  

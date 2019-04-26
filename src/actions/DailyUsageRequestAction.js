@@ -6,7 +6,8 @@ import {
   DAILY_USAGE_STOCK_CREATE_SUCCESS,
   DAILY_USAGE_STOCK_FETCH_SUCCESS
 } from './types';
-import DailyUsagePeopleListItem from '../component/TimeLine/DailyUsagePeopleListItem';
+
+import DailyUsageRequestListItem from '../component/TimeLine/DailyUsageRequestListItem';
 
 export const dailyUsageStockUpdate = ({ name, value }) => {
   return {
@@ -16,9 +17,6 @@ export const dailyUsageStockUpdate = ({ name, value }) => {
 };
 
 export const dailyUsageStockCreate = ({
-  food_received,
-  food_provided,
-  food_remaining,
   nutritious_food,
   protien_food,
   oil,
@@ -31,7 +29,17 @@ export const dailyUsageStockCreate = ({
   amalice_rich,
   green_gram,
   food_provided_today,
-  Extra,
+  Oralrehydrationsalts,
+  Chloroquine,
+  Iron_and_folic_acid,
+  Co_trimoxazole_tablet,
+  Co_trimoxazole_syrup,
+  Mebendazole,
+  Benzyl_benzoate,
+  Vitamin_A_solution,
+  Aspirin,
+  Sulphadimidine,
+  Paracetamol,
   DPickdobStock,
   navigate
 }) => {
@@ -51,12 +59,10 @@ export const dailyUsageStockCreate = ({
             const k = keys[i];
             awcid = value[k].anganwadicenter_code;
           }
+          const Request_Status = 0;
           database
-            .ref(`/users/${awcid}/Timeline/DailyUsageStock`)
+            .ref(`/users/${awcid}/Timeline/DailyUsageRequest`)
             .push({
-              food_received,
-              food_provided,
-              food_remaining,
               nutritious_food,
               protien_food,
               oil,
@@ -69,8 +75,19 @@ export const dailyUsageStockCreate = ({
               amalice_rich,
               green_gram,
               food_provided_today,
-              Extra,
-              DPickdobStock
+              Oralrehydrationsalts,
+              Chloroquine,
+              Iron_and_folic_acid,
+              Co_trimoxazole_tablet,
+              Co_trimoxazole_syrup,
+              Mebendazole,
+              Benzyl_benzoate,
+              Vitamin_A_solution,
+              Aspirin,
+              Sulphadimidine,
+              Paracetamol,
+              DPickdobStock,
+              Request_Status
             })
             .then(() => {
               dispatch({
@@ -80,7 +97,6 @@ export const dailyUsageStockCreate = ({
             })
             .catch(error => {
               console.log(error);
-              // dailyUsageCreateFail(dispatch,navigate);
             });
         } else {
           console.log('no user data');
@@ -115,7 +131,7 @@ export const dailyUsageStockFetch = () => {
             awcid = value[k].anganwadicenter_code;
           }
           database
-            .ref(`/users/${awcid}/Timeline/DailyUsageStock`)
+            .ref(`/users/${awcid}/Timeline/DailyUsageRequest`)
             .on('value', snapshot1 => {
               dispatch({
                 type: DAILY_USAGE_STOCK_FETCH_SUCCESS,
@@ -130,9 +146,6 @@ export const dailyUsageStockFetch = () => {
 };
 
 export const dailyUsageStockSaveChanges = ({
-  food_received,
-  food_provided,
-  food_remaining,
   nutritious_food,
   protien_food,
   oil,
@@ -145,7 +158,6 @@ export const dailyUsageStockSaveChanges = ({
   amalice_rich,
   green_gram,
   food_provided_today,
-  Extra,
   DPickdobStock,
   uid,
   navigate
@@ -167,11 +179,8 @@ export const dailyUsageStockSaveChanges = ({
             awcid = value[k].anganwadicenter_code;
           }
           database
-            .ref(`/users/${awcid}/Timeline/DailyUsageStock/${uid}`)
+            .ref(`/users/${awcid}/Timeline/DailyUsageRequest/${uid}`)
             .set({
-              food_received,
-              food_provided,
-              food_remaining,
               nutritious_food,
               protien_food,
               oil,
@@ -184,14 +193,10 @@ export const dailyUsageStockSaveChanges = ({
               amalice_rich,
               green_gram,
               food_provided_today,
-              Extra,
               DPickdobStock
             })
             .then(() => {
               dailyUsageStockCreateSuccess(dispatch, navigate);
-            })
-            .catch(error => {
-              console.log(error);
             });
         } else {
           console.log('no user data');
@@ -225,7 +230,7 @@ export const dailyUsageStockDelete = ({ uid }, navigate) => {
                 text: 'Cancel',
                 onPress: () =>
                   dispatch({
-                    type: DailyUsagePeopleListItem
+                    type: DailyUsageRequestListItem
                   }),
                 style: 'cancel'
               },
@@ -233,13 +238,13 @@ export const dailyUsageStockDelete = ({ uid }, navigate) => {
                 text: 'OK',
                 onPress: () =>
                   database
-                    .ref(`/users/${awcid}/Timeline/DailyUsageStock/${uid}`)
+                    .ref(`/users/${awcid}/Timeline/DailyUsageRequest/${uid}`)
                     .remove()
                     .then(() => {
                       dispatch({
-                        type: DailyUsagePeopleListItem
+                        type: DailyUsageRequestListItem
                       });
-                      navigate.navigate('DailyUsageStockTab');
+                      navigate.navigate('DailyUsageRequestTab');
                     })
               }
             ],

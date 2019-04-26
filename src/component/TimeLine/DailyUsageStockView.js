@@ -19,7 +19,7 @@ class DailyUsageStockView extends Component {
   }
 
   onButtonPress() {
-    const{food_received,food_provided,food_remaining,nutritious_food,protien_food,oil,jaggery,chilli,egg,salt,grams,mustard_seeds,amalice_rich,green_gram,food_provided_today,Extra,DPickdobStock} = this.props;
+    const{food_received,food_provided,food_remaining,nutritious_food,protien_food,oil,jaggery,chilli,egg,salt,grams,mustard_seeds,rice,amalice_rich,green_gram,food_provided_today,Extra,DPickdobStock} = this.props;
     // console.log(this.props.navigation);
     console.log('inside onButtonPress Viewpage');
 
@@ -27,7 +27,7 @@ class DailyUsageStockView extends Component {
       const navigate = this.props.navigation;
     // const navigate = this.props.navigation;
 
-    this.props.dailyUsageStockSaveChanges({food_received, food_provided, food_remaining, nutritious_food, protien_food, oil, jaggery, chilli, egg, salt, grams, mustard_seeds, amalice_rich, green_gram, food_provided_today,  Extra,  DPickdobStock, uid:this.props.navigation.state.params.child.uid,  navigate
+    this.props.dailyUsageStockSaveChanges({food_received, food_provided, food_remaining, nutritious_food, protien_food, oil, jaggery, chilli, egg, salt, grams, mustard_seeds,rice, amalice_rich, green_gram, food_provided_today,  Extra,  DPickdobStock, uid:this.props.navigation.state.params.child.uid,  navigate
     });
 
   }
@@ -63,7 +63,7 @@ onDecline() {
    console.log("six_months_to_one_year")
  console.log(this.props.navigation.state.params.child)
   
-   const {food_received,food_provided,food_remaining,nutritious_food,protien_food,oil,jaggery,chilli,egg,salt,grams,mustard_seeds,amalice_rich,green_gram,food_provided_today,Extra,DPickdobStock}= this.props.navigation.state.params.child;
+   const {food_received,food_provided,food_remaining,nutritious_food,protien_food,oil,jaggery,chilli,egg,salt,grams,mustard_seeds,rice,amalice_rich,green_gram,food_provided_today,Extra,DPickdobStock}= this.props.navigation.state.params.child;
 
    console.log(this.props.navigation.state.params.child.food_received)
 
@@ -238,7 +238,20 @@ onDecline() {
                   />
                 </InputGroup>
               </ListItem>
+              
 
+
+                 {/********************** Rice****************************/}
+                 <ListItem style={styles.block_row}>
+                <InputGroup >
+                  <Label style={styles.block_row_left_element}>Rice</Label>
+                  <Input style={styles.block_row_right_element} placeholder="Rice" 
+                   value={this.props.rice}
+                   placeholderTextColor="#FFFFFF" 
+                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'rice', value })}
+                  />
+                </InputGroup>
+              </ListItem>
               {/**********************Amalice Rich****************************/}
               <ListItem style={styles.block_row}>
                 <InputGroup >
@@ -387,8 +400,8 @@ const styles = StyleSheet.create({
   } 
 });
 const mapStateToProps = (state) => {
-  const{food_received,food_provided,food_remaining,nutritious_food,protien_food,oil,jaggery,chilli,egg,salt,grams,mustard_seeds,amalice_rich,green_gram,food_provided_today,Extra,DPickdobStock} = state.DailyUsageStockKey;
-  return {food_received,food_provided,food_remaining,nutritious_food,protien_food,oil,jaggery,chilli,egg,salt,grams,mustard_seeds,amalice_rich,green_gram,food_provided_today,Extra,DPickdobStock};
+  const{food_received,food_provided,food_remaining,nutritious_food,protien_food,oil,jaggery,chilli,egg,salt,grams,mustard_seeds,rice,amalice_rich,green_gram,food_provided_today,Extra,DPickdobStock} = state.DailyUsageStockKey;
+  return {food_received,food_provided,food_remaining,nutritious_food,protien_food,oil,jaggery,chilli,egg,salt,grams,mustard_seeds,rice,amalice_rich,green_gram,food_provided_today,Extra,DPickdobStock};
 };
 export default connect(mapStateToProps, { dailyUsageStockUpdate,dailyUsageStockSaveChanges,dailyUsageStockDelete })(DailyUsageStockView);
 

@@ -125,3 +125,4 @@ export const ATTENDANCE_CREATE = 'attendancecreate';
 
 export const VALID_NAME = 'validname';
 export const INAVALID_NAME = 'invalidname';
+

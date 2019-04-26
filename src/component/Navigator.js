@@ -74,6 +74,7 @@ import AnganwadiLocation from './infrastructure/AnganwadiLocation';
 import loc from './infrastructure/loc';
 import AnganwadiLocationUpdate from './infrastructure/AnganwadiLocationUpdate';
 import LocationHouse from './Demography/Location';
+
 import AttendanceTab from './TimeLine/AttendanceTab';
 import AttendanceRegistration from './TimeLine/AttendanceRegistration';
 import AttendanceRegistrationForm from './TimeLine/AttendanceRegistrationForm';
@@ -82,6 +83,14 @@ import AttendanceEditForm from './TimeLine/AttendanceEditForm';
 import AttendanceView from './TimeLine/AttendanceView';
 import ChangePassword from './ChangePassword';
 import Attendance from './TimeLine/Attendance';
+
+import DailyUsageRequest from './TimeLine/DailyUsageRequest';
+import DailyUsageRequestTab from './TimeLine/DailyUsageRequestTab';
+import DailyUsageRequestSearch from './TimeLine/DailyUsageRequestSearch';
+import DailyUsageRequestListItem from './TimeLine/DailyUsageRequestListItem';
+import DailyUsageRequestView from './TimeLine/DailyUsageRequestView';
+import DailyUsageRequestViewOption from './TimeLine/DailyUsageRequestViewOption';
+
 import HouseHoldNumberEdit from './Demography/HouseHoldNumberEdit';
 import HouseView from './Demography/HouseView';
 
@@ -351,6 +360,24 @@ const RootStack = createStackNavigator({
   },
   AnganwadiLocationUpdate: {
     screen: AnganwadiLocationUpdate
+  },
+  DailyUsageRequest: {
+    screen: DailyUsageRequest
+  },
+  DailyUsageRequestSearch: {
+    screen: DailyUsageRequestSearch
+  },
+  DailyUsageRequestTab: {
+    screen: DailyUsageRequestTab
+  },
+  DailyUsageRequestListItem: {
+    screen: DailyUsageRequestListItem
+  },
+  DailyUsageRequestView: {
+    screen: DailyUsageRequestView
+  },
+  DailyUsageRequestViewOption: {
+    screen: DailyUsageRequestViewOption
   },
 }, {
     defaultNavigationOptions: {
