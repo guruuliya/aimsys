@@ -41,11 +41,11 @@ export default class Timeline extends Component {
 
                     <View style={styles.bottomitem}>
                         <TouchableOpacity 
-                        style={styles.bottomitemInner} 
-                        //onPress={() => this.props.navigation.navigate('MedicineLog')} 
+                        style={styles.bottomitemInner}                        
+                        onPress={() => this.props.navigation.navigate('Attendance')} 
                         >
                             <View>
-                               <Text>Attendance</Text>
+                            <Image style={styles.icon} source={require('../../images/tim_Attendance.png')} />
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -73,7 +73,7 @@ export default class Timeline extends Component {
 
                 </View>
                     
-                    <View style={styles.bottomitem}>
+                    {/* <View style={styles.bottomitem}>
                         <TouchableOpacity style={styles.bottomitemInner} 
                         onPress={() => this.props.navigation.navigate('Attendance')}
                         >
@@ -81,7 +81,7 @@ export default class Timeline extends Component {
                                 <Text style={styles.bottomitemInnerContent}>Attendance</Text>
                             </View>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
 
 
                 </View>

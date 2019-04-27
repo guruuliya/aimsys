@@ -25,8 +25,7 @@ export const bPictureCreate = ({ BPicture }) => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         const imageFile = RNFetchBlob.wrap(BPicture);
-        const imageRef = firebase.storage().ref(`${awcid}`);
-        let uploadBlob = null;
+       let uploadBlob = null;
         database.ref('/assignedworkerstocenters')
             .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
             .once('value', snapshot => {
@@ -37,8 +36,9 @@ export const bPictureCreate = ({ BPicture }) => {
                         const k = keys[i];
                         awcid = value[k].anganwadicenter_code;
                     }
+                    const imageRef = firebase.storage().ref(`${awcid}`);
                     Blob.build(imageFile, { type: 'image/jpg' })
-                        .then((imageBlob) => {
+                        .then((imageBlob) => {                            
                             uploadBlob = imageBlob;
                             return imageRef.put(imageBlob, { contentType: 'image/jpg' });
                         })
@@ -175,8 +175,7 @@ export const bPictureUpdate = ({ BPicture }, key, navigate) => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         const imageFile = RNFetchBlob.wrap(BPicture);
-        const imageRef = firebase.storage().ref(`${awcid}`);
-        let uploadBlob = null;
+       let uploadBlob = null;
         database.ref('/assignedworkerstocenters')
             .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
             .once('value', snapshot => {
@@ -187,6 +186,7 @@ export const bPictureUpdate = ({ BPicture }, key, navigate) => {
                         const k = keys[i];
                         awcid = value[k].anganwadicenter_code;
                     }
+                    const imageRef = firebase.storage().ref(`${awcid}`);
                     Blob.build(imageFile, { type: 'image/jpg' })
                         .then((imageBlob) => {
                             uploadBlob = imageBlob;

@@ -20,10 +20,12 @@ export const facilityCreate = ({ Water, well, Panchayath, Borewell, Btype, Power
         if (well === undefined) {
             // eslint-disable-next-line no-param-reassign
             well = false;
-        } else if (Panchayath === undefined) {
+        } 
+         if (Panchayath === undefined) {
             // eslint-disable-next-line no-param-reassign
             Panchayath = false;
-        } else if (Borewell === undefined) {
+        } 
+        if (Borewell === undefined) {
             // eslint-disable-next-line no-param-reassign
             Borewell = false;
         }
@@ -161,6 +163,18 @@ export const facilityUpdate = ({ Water, well, Panchayath, Borewell, Btype, Power
     let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
+    if (well === undefined) {
+        // eslint-disable-next-line no-param-reassign
+        well = false;
+    } 
+     if (Panchayath === undefined) {
+        // eslint-disable-next-line no-param-reassign
+        Panchayath = false;
+    } 
+    if (Borewell === undefined) {
+        // eslint-disable-next-line no-param-reassign
+        Borewell = false;
+    }
     return (dispatch) => {
         database.ref('/assignedworkerstocenters')
             .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
@@ -193,7 +207,6 @@ export const facilityUpdate = ({ Water, well, Panchayath, Borewell, Btype, Power
                     console.log('no user data');
                 }
             });
-
     };
 };
 

@@ -56,7 +56,7 @@ class InfrastructureDash extends Component {
                     <View style={styles.bottomitem}>
                         <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('AnganwadiLocation')} >
                             <View>
-                                <Text>AnganwadiLocation</Text>
+                            <Image style={styles.icon} source={require('../../images/infra_Location.png')} />
                             </View>
                         </TouchableOpacity>
                     </View>
