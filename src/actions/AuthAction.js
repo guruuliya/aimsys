@@ -58,7 +58,7 @@ const loginUserSuccess = (dispatch, user, navigate) => {
     });
     const resetAction = StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'Dashboard' })],
+        actions: [NavigationActions.navigate({ routeName: 'Home' })],
     });
     navigate.dispatch(resetAction);
 };

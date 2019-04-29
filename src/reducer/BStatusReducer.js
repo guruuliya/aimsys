@@ -1,15 +1,11 @@
-import { BSTATUS_UPDATE, BSTATUS_CREATE } from '../actions/types';
+import { BSTATUS_FETCH } from '../actions/types';
 
-const INITIAL_STATE = {
-    option: '',
-};
+const INITIAL_STATE = {};
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case BSTATUS_UPDATE:
-            return { ...state, [action.payload.name]: action.payload.value };
-        case BSTATUS_CREATE:
-            return INITIAL_STATE;
+        case BSTATUS_FETCH:
+            return action.payload;            
         default:
             return state;
     }
