@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Tab, Tabs,Icon,TabHeading,Text } from 'native-base';
+import { Container, Header, Content, Tab, Tabs, Icon, TabHeading, Text } from 'native-base';
 import { StyleSheet,  View, TouchableOpacity } from 'react-native';
 import InjectionSearch from './InjectionSearch';
 import InjectionRecords from './InjectionRecords';
@@ -7,7 +7,7 @@ import InjectionRecords from './InjectionRecords';
 
 class InjectionTab extends Component {
   static navigationOptions = {
-    title: 'Injection Records',
+    title: 'Immunization Records',
     headerStyle: {
         backgroundColor: '#203546',
     },
@@ -18,8 +18,8 @@ class InjectionTab extends Component {
 };
 
 constructor(props) {
-  super(props)
-  this.state = { currentTab: 0 }
+  super(props);
+  this.state = { currentTab: 0 };
 }
 
   render() {
