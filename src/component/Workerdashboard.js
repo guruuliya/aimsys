@@ -7,10 +7,12 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
+import { Button } from 'native-base';
+import firebase from 'firebase';
 
 export default class Workerdashboard extends Component {
+
     static navigationOptions = {
         title: 'Home',
         headerLeft: null,
@@ -23,13 +25,29 @@ export default class Workerdashboard extends Component {
         },
     };
 
+    logOutUser() {        
+        firebase.auth().signOut();       
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.top}>
                     <View style={styles.profilepic} />
                 </View>
-                <View style={styles.center} />
+                <View style={styles.center}>
+                    <Button
+                        block success
+                        style={{
+                            width: Dimensions.get('window').width - 40,
+                            marginLeft: 0,
+                            marginRight: 0
+                        }}
+                        onPress={this.logOutUser}
+                    >
+                        <Text>Add</Text>
+                    </Button>
+                </View>
                 <View style={styles.bottom}>
 
                     <View style={styles.bottomitem}>
@@ -97,6 +115,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     center: {
+        alignItems: 'center',
+        justifyContent: 'center',
         height: '10%',
         backgroundColor: '#203546',
     },
@@ -125,8 +145,6 @@ const styles = StyleSheet.create({
     bottomitemInnerContent: {
         fontSize: 18,
         color: '#fff',
-        // fontFamily:'verdana',
-        //   fontWeight: 'bold',
         textAlign: 'center',
         padding: 5,
     }
