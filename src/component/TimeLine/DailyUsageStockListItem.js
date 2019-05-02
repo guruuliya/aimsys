@@ -26,6 +26,8 @@ class DailyUsageStockListItem extends Component {
       salt,
       grams,
       mustard_seeds,
+      rice,
+      wheat,
       amalice_rich,
       green_gram,
       food_provided_today,

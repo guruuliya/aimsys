@@ -240,7 +240,8 @@ onDecline() {
               </ListItem>
               
 
-
+              rice,
+      ,
                  {/********************** Rice****************************/}
                  <ListItem style={styles.block_row}>
                 <InputGroup >
@@ -249,6 +250,17 @@ onDecline() {
                    value={this.props.rice}
                    placeholderTextColor="#FFFFFF" 
                    onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'rice', value })}
+                  />
+                </InputGroup>
+              </ListItem>
+                {/********************** Wheat ****************************/}
+                <ListItem style={styles.block_row}>
+                <InputGroup >
+                  <Label style={styles.block_row_left_element}>Wheat</Label>
+                  <Input style={styles.block_row_right_element} placeholder="Wheat" 
+                   value={this.props.wheat}
+                   placeholderTextColor="#FFFFFF" 
+                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'wheat', value })}
                   />
                 </InputGroup>
               </ListItem>
@@ -400,8 +412,8 @@ const styles = StyleSheet.create({
   } 
 });
 const mapStateToProps = (state) => {
-  const{food_received,food_provided,food_remaining,nutritious_food,protien_food,oil,jaggery,chilli,egg,salt,grams,mustard_seeds,rice,amalice_rich,green_gram,food_provided_today,Extra,DPickdobStock} = state.DailyUsageStockKey;
-  return {food_received,food_provided,food_remaining,nutritious_food,protien_food,oil,jaggery,chilli,egg,salt,grams,mustard_seeds,rice,amalice_rich,green_gram,food_provided_today,Extra,DPickdobStock};
+  const{food_received,food_provided,food_remaining,nutritious_food,protien_food,oil,jaggery,chilli,egg,salt,grams,mustard_seeds,  rice,wheat,amalice_rich,green_gram,food_provided_today,Extra,DPickdobStock} = state.DailyUsageStockKey;
+  return {food_received,food_provided,food_remaining,nutritious_food,protien_food,oil,jaggery,chilli,egg,salt,grams,mustard_seeds,  rice,wheat,amalice_rich,green_gram,food_provided_today,Extra,DPickdobStock};
 };
 export default connect(mapStateToProps, { dailyUsageStockUpdate,dailyUsageStockSaveChanges,dailyUsageStockDelete })(DailyUsageStockView);
 
