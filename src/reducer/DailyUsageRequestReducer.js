@@ -19,7 +19,7 @@ const INITIAL_STATE = {
   amalice_rich: 0,
   green_gram: 0,
   food_provided_today: 0,
-  DPickdobStock: new Date(),
+  DPickdobStock: '',
   Oralrehydrationsalts: 0,
   Chloroquine: 0,
   Iron_and_folic_acid: 0,

@@ -7,7 +7,6 @@ import {
   DAILY_USAGE_SAVECHANGES_SUCCESS
 } from './types';
 
-
 export const dailyUsageUpdate = ({ name, value }) => ({
   type: DAILY_USAGE_UPDATE,
   payload: { name, value }
@@ -44,31 +43,49 @@ export const dailyUsageCreate = ({
             const k = keys[i];
             awcid = value[k].anganwadicenter_code;
           }
-
-          database
-            .ref(`/users/${awcid}/Timeline/DailyUsagePeople`)
-            .push({
-              six_months_to_one_year,
-              one_year_to_three_year,
-              three_year_to_six_year,
-              pw_prenatal,
-              pw_postnatal,
-              pw_3rdgrade,
-              pw_4thgrade,
-              DPickdob,
-              total1,
-              total2,
-              totalfinal
-            })
-            .then(() => {
-              dispatch({
-                type: DAILY_USAGE_CREATE_SUCCESS
+          if (
+            six_months_to_one_year === ' ' ||
+            six_months_to_one_year === undefined ||
+            (one_year_to_three_year === ' ' ||
+              one_year_to_three_year === undefined) ||
+            (three_year_to_six_year === ' ' ||
+              three_year_to_six_year === undefined) ||
+            (pw_prenatal === ' ' || pw_prenatal === undefined) ||
+            (pw_postnatal === ' ' || pw_postnatal === undefined) ||
+            (pw_3rdgrade === ' ' || pw_3rdgrade === undefined) ||
+            (pw_4thgrade === ' ' || pw_4thgrade === undefined) ||
+            (DPickdob === ' ' || DPickdob === undefined) ||
+            (total1 === ' ' || total1 === undefined) ||
+            (total2 === ' ' || total2 === undefined) ||
+            (totalfinal === 0 || totalfinal === undefined)
+          ) {
+            Alert.alert('Please enter all the details');
+          } else {
+            database
+              .ref(`/users/${awcid}/Timeline/DailyUsagePeople`)
+              .push({
+                six_months_to_one_year,
+                one_year_to_three_year,
+                three_year_to_six_year,
+                pw_prenatal,
+                pw_postnatal,
+                pw_3rdgrade,
+                pw_4thgrade,
+                DPickdob,
+                total1,
+                total2,
+                totalfinal
+              })
+              .then(() => {
+                dispatch({
+                  type: DAILY_USAGE_CREATE_SUCCESS
+                });
+                dailyUsageCreateSuccess(dispatch, navigate);
+              })
+              .catch(error => {
+                console.log(error);
               });
-              dailyUsageCreateSuccess(dispatch, navigate);
-            })
-            .catch(error => {
-              console.log(error);
-            });
+          }
         } else {
           console.log('no user data');
         }

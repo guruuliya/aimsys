@@ -58,6 +58,7 @@ class DailyUsageStock extends Component {
       grams,
       mustard_seeds,
       rice,
+      wheat,
       amalice_rich,
       green_gram,
       food_provided_today,
@@ -83,6 +84,7 @@ class DailyUsageStock extends Component {
       grams,
       mustard_seeds,
       rice,
+      wheat,
       amalice_rich,
       green_gram,
       food_provided_today,
@@ -365,6 +367,26 @@ class DailyUsageStock extends Component {
                   />
                 </InputGroup>
               </ListItem>
+                 {/**********************wheat****************************/}
+                 <ListItem style={styles.block_row}>
+                <InputGroup>
+                  <Label style={styles.block_row_left_element}>
+                  wheat
+                  </Label>
+                  <Input
+                    style={styles.block_row_right_element}
+                    placeholder='Wheat'
+                    value={parseInt(this.props.wheat)}
+                    placeholderTextColor='#FFFFFF'
+                    onChangeText={value =>
+                      this.props.dailyUsageStockUpdate({
+                        name: 'wheat',
+                        value
+                      })
+                    }
+                  />
+                </InputGroup>
+              </ListItem>
               {/**********************Amalice Rich****************************/}
               <ListItem style={styles.block_row}>
                 <InputGroup>
@@ -550,6 +572,7 @@ const mapStateToProps = state => {
     grams,
     mustard_seeds,
     rice,
+    wheat,
     amalice_rich,
     green_gram,
     food_provided_today,
@@ -570,6 +593,7 @@ const mapStateToProps = state => {
     grams,
     mustard_seeds,
     rice,
+    wheat,
     amalice_rich,
     green_gram,
     food_provided_today,
