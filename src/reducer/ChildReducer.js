@@ -9,6 +9,7 @@ const INITIAL_STATE = {
     option: '',
     DPickdob: '1995-03-05',
     DPickregdate: '1995-03-05',
+    ebenifits: '1995-03-05',
     health: '',
     babytype: '',
     Loading: false

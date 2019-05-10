@@ -36,8 +36,8 @@ class ChildEditForm extends Component {
     }
 
     onButtonPress() {
-        const { HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate } = this.props;
-        this.props.childSave({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, uid: this.props.navigation.state.params.child.uid });
+        const { HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifits } = this.props;
+        this.props.childSave({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifits, uid: this.props.navigation.state.params.child.uid });
         Alert.alert(
             'Updated Successfully',
         );
@@ -230,6 +230,21 @@ class ChildEditForm extends Component {
                             />
                         </View>
 
+                        <View style={styles.inputContainer}>
+                                    <DatePicker
+                                        style={styles.dateblock}
+                                        customStyles={{ dateInput: { borderWidth: 0 } }}
+                                        placeholder="Benifits Date"
+                                        mode="date"
+                                        round
+                                       // maxDate={new Date()}
+                                        placeholder="expiry of benifits"
+                                        format="YYYY-MM-DD"
+                                        onDateChange={value => this.props.childUpdate({ name: 'ebenifits', value })}
+                                        date={this.props.ebenifits}
+                                    />
+                                </View>
+
                         {/* <ChildRegistrationForm edit='yes' /> */}
                         <CardSection>
                             <Button onPress={this.onButtonPress.bind(this)}>Save Changes</Button>
@@ -396,9 +411,9 @@ const styles = StyleSheet.create({
     }
 });
 const mapStateToProps = (state) => {
-    const { HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate } = state.child;
+    const { HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifits } = state.child;
 
-    return { HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate };
+    return { HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifits };
 };
 
 export default connect(mapStateToProps, { childUpdate, childSave, childDelete })(ChildEditForm);  

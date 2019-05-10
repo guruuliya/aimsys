@@ -4,20 +4,20 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Spinner } from 'native-base';
 import { SearchBar } from 'react-native-elements';
-import ListChild from './ListChild';
 import { Card, CardSection } from '../Common';
-import { childFetch } from '../../actions/ChildAction';
+import { imageFetch } from '../../actions';
+import ListImage from './ListImage';
 
 
 const ds = new ListView.DataSource({
   rowHasChanged: (r1, r2) => r1 !== r2
 });
 
-class ChildSearch extends Component {
+class ImageSearch extends Component {
   state = {};
 
   componentWillMount() {
-    this.props.childFetch();
+    this.props.imageFetch();
     this.createDataSource(this.props);
   }
 
@@ -25,16 +25,16 @@ class ChildSearch extends Component {
     this.createDataSource(nextProps);
   }
 
-  createDataSource({ childF }) {
-    var values = Object.values(childF);
+  createDataSource({ iFetch }) {
+    var values = Object.values(iFetch);
     this.state = {
       "resultset": values,
       searchName: ''
-    }
+    };
   }
 
-  renderRow(child) {
-    return <ListChild child={child} />;
+  renderRow(img) {
+   return <ListImage img={img} />;
   }
 
   onSearchValueChange = (value, index) => {
@@ -49,7 +49,7 @@ class ChildSearch extends Component {
     var name = this.state.searchName;
     if (name !== '') {
       var jsonsearch = json.filter(function (item) {
-        const itemData = `${item.CName} `;
+        const itemData = `${item.date} `;
         const textData = name;
         return itemData.indexOf(textData) > -1;
       })
@@ -61,9 +61,9 @@ class ChildSearch extends Component {
       jsonsearch = json;
     }
     if (Object.keys(jsonsearch).length === 0) {
-      jsonsearch = { 0: { CName: 'No Record Found' } };
+      jsonsearch = { 0: { date: 'No Record Found' } };
     }
-    const dataSource = ds.cloneWithRows(jsonsearch);
+   const dataSource = ds.cloneWithRows(jsonsearch);
 
     return (
       <View style={{ color: '#FFFFFF' }}>
@@ -105,11 +105,11 @@ class ChildSearch extends Component {
 
 
 const mapStateToProps = state => {
-  const { Loading } = state.child;
-  const childF = _.map(state.childF, (val, uid) => {
+  const { Loading } = state.imageUpload;
+  const iFetch = _.map(state.imageFetch, (val, uid) => {
     return { ...val, uid };
   });
-  return { Loading, childF };
+  return { Loading, iFetch };
 };
 
-export default connect(mapStateToProps, { childFetch })(ChildSearch);
+export default connect(mapStateToProps, { imageFetch })(ImageSearch);

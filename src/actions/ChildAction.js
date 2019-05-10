@@ -14,23 +14,10 @@ export const childUpdate = ({ name, value }) => ({
 
 //
 // eslint-disable-next-line max-len
-export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate }) => {
+export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, ebenifits }) => {
     let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
-
-
-    // if (HNumber === '' || CName === '') {
-    //     Alert.alert(
-    //         'Please enter the details',
-    //         [
-    //             { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-    //         ],
-    //         { cancelable: false }
-
-    //     );
-    // } else {
-
     return (dispatch) => {
         database.ref('/assignedworkerstocenters')
             .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
@@ -42,18 +29,27 @@ export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytyp
                         const k = keys[i];
                         awcid = value[k].anganwadicenter_code;
                     }
-                    console.log(firebase.auth());
-                    database.ref(`/users/${awcid}/Maternal/ChildRegistration`)
-                        .push({ HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate })
-                        .then(() => {
-                            dispatch({
-                                type: CHILD_CREATE
+                    // if ((HNumber === 0 || HNumber === 'undefined') ||
+                    //     (CMotherId === ' ' || CMotherId === 'undefined') ||
+                    //     (CName === ' ' || CName === 'undefined') || (status === ' ' || status === 'undefined') ||
+                    //     (option === ' ' || option === 'undefined') || (babytype === ' ' || babytype === 'undefined') ||
+                    //     (health === ' ' || health === 'undefined') || (DPickdob === ' ') || (DPickregdate === ' ') || (ebenifits === ' ')) {
+                    //     Alert.alert('please enter all the details');
+                    // } else {
+                    //     Alert.alert('Inserted Successfully');
+                        console.log(firebase.auth());
+                        database.ref(`/users/${awcid}/Maternal/ChildRegistration`)
+                            .push({ HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, ebenifits })
+                            .then(() => {
+                                dispatch({
+                                    type: CHILD_CREATE
+                                });
+                                // ActionSheet.childList({ type: reset });
+                            })
+                            .catch((error) => {
+                                console.log(error);
                             });
-                            // ActionSheet.childList({ type: reset });
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        });
+                 //   }
                 } else {
                     console.log('no user data');
                 }
@@ -105,7 +101,7 @@ export const childFetch = () => {
 // };
 
 // eslint-disable-next-line max-len
-export const childSave = ({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, uid }) => {
+export const childSave = ({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifits, uid }) => {
     let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
@@ -122,7 +118,7 @@ export const childSave = ({ HNumber, CName, CMotherId, status, option, babytype,
                         awcid = value[k].anganwadicenter_code;
                     }
                     database.ref(`/users/${awcid}/Maternal/ChildRegistration/${uid}`)
-                        .set({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate })
+                        .set({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifits })
                         .then(() => {
                             dispatch({
                                 type: CHILD_SAVE

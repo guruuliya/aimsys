@@ -13,78 +13,80 @@ export default class Timeline extends Component {
         },
     };
 
+    calnav(navpar) {
+        if (navpar === 'DailyUsagePeopleTab') {
+            this.props.navigation.navigate('DailyUsagePeopleTab');
+        } else if (navpar === 'DailyUsageStockTab') {
+            this.props.navigation.navigate('DailyUsageStockTab');
+        } else if (navpar === 'DailyUsageRequestTab') {
+            this.props.navigation.navigate('DailyUsageRequestTab');
+        } else if (navpar === 'Attendance') {
+            this.props.navigation.navigate('Attendance');
+        } else if (navpar === 'DailyUsageRequestTab1') {
+            this.props.navigation.navigate('DailyUsageRequestTab1');
+        }
+
+        console.log(navpar);
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.bottom}>
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity 
-                        style={styles.bottomitemInner}  
-                        onPress={() => this.props.navigation.navigate('DailyUsagePeopleTab')}>
+                        <TouchableOpacity
+                            style={styles.bottomitemInner}
+                            onPress={this.calnav.bind('DailyUsagePeopleTab')}
+                        >
                             <View>
                                 <Image style={styles.icon} source={require('../../images/tim_upeople.png')} />
                             </View>
                         </TouchableOpacity>
                     </View>
-
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity 
-                        style={styles.bottomitemInner} 
-                        onPress={() => this.props.navigation.navigate('DailyUsageStockTab')}  >
+                        <TouchableOpacity
+                            style={styles.bottomitemInner}
+                            onPress={this.calnav.bind('DailyUsageStockTab')}
+                        >
                             <View>
                                 <Image style={styles.icon} source={require('../../images/tim_foodstock.png')} />
                             </View>
                         </TouchableOpacity>
                     </View>
-
-
-
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity 
-                        style={styles.bottomitemInner}                        
-                        onPress={() => this.props.navigation.navigate('Attendance')} 
+                        <TouchableOpacity
+                            style={styles.bottomitemInner}
+                            onPress={this.calnav.bind('Attendance')}
                         >
                             <View>
-                            <Image style={styles.icon} source={require('../../images/tim_Attendance.png')} />
+                                <Image style={styles.icon} source={require('../../images/tim_Attendance.png')} />
                             </View>
                         </TouchableOpacity>
                     </View>
-
                     <View style={styles.bottomitem}>
-                        <TouchableOpacity 
-                        style={styles.bottomitemInner} 
-                        onPress={() => this.props.navigation.navigate('DailyUsageRequestTab')} 
+                        <TouchableOpacity
+                            style={styles.bottomitemInner}
+                            onPress={this.calnav.bind('DailyUsageRequestTab')}
                         >
                             <View>
                                 <Image style={styles.icon} source={require('../../images/tim_request.png')} />
                             </View>
                         </TouchableOpacity>
                     </View>
-                    {/* <View style={styles.bottomitem}>
-                        <TouchableOpacity 
-                        style={styles.bottomitemInner}  
-                        onPress={() => this.props.navigation.navigate('MedicineLog')} >
-                            <View>
-                                <Image style={styles.icon} source={require('../../images/demo_searchpeople.png')} />
-                            </View>
-                        </TouchableOpacity>
-                    </View> */}
 
-
-                </View>
-                    
-                    {/* <View style={styles.bottomitem}>
-                        <TouchableOpacity style={styles.bottomitemInner} 
-                        onPress={() => this.props.navigation.navigate('Attendance')}
+                    <View style={styles.bottomitem}>
+                        <TouchableOpacity
+                            style={styles.bottomitemInner}
+                            onPress={this.calnav.bind('DailyUsageRequestTab1')}
                         >
-                            <View style={styles.bottomitemInner}>
-                                <Text style={styles.bottomitemInnerContent}>Attendance</Text>
+                            <View>
+                                <Image style={styles.icon} source={require('../../images/tim_request.png')} />
                             </View>
                         </TouchableOpacity>
-                    </View> */}
-
+                    </View>
 
                 </View>
+            </View>
 
         );
     }
@@ -137,5 +139,5 @@ const styles = StyleSheet.create({
         fontSize: 22,
         color: '#696969',
     },
-    
+
 });
