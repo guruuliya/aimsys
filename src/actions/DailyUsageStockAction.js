@@ -14,11 +14,17 @@ export const dailyUsageStockUpdate = ({ name, value }) => {
     payload: { name, value }
   };
 };
-
+export const firebaseLooper = snapshot => {
+  let data = [];
+  snapshot.forEach(childSnapshot => {
+    data.push({
+      ...childSnapshot.val(),
+      date: childSnapshot.key
+    });
+  });
+  return data;
+};
 export const dailyUsageStockCreate = ({
-  food_received,
-  food_provided,
-  food_remaining,
   nutritious_food,
   protien_food,
   oil,
@@ -32,8 +38,6 @@ export const dailyUsageStockCreate = ({
   wheat,
   amalice_rich,
   green_gram,
-  food_provided_today,
-  Extra,
   DPickdobStock,
   navigate
 }) => {
@@ -54,10 +58,6 @@ export const dailyUsageStockCreate = ({
             awcid = value[k].anganwadicenter_code;
           }
           if (
-            food_received === " " ||
-            food_received === undefined ||
-            (food_provided === " " || food_provided === undefined) ||
-            (food_remaining === " " || food_remaining === undefined) ||
             (nutritious_food === " " || nutritious_food === undefined) ||
             (protien_food === " " || protien_food === undefined) ||
             (oil === " " || oil === undefined) ||
@@ -70,50 +70,132 @@ export const dailyUsageStockCreate = ({
             (rice === " " || rice === undefined) ||
             (wheat === " " || wheat === undefined) ||
             (amalice_rich === " " || amalice_rich === undefined) ||
-            (green_gram === " " || green_gram === undefined) ||
-            (food_provided_today === " " ||
-              food_provided_today === undefined) ||
-            (Extra === " " || Extra === undefined) ||
+            (green_gram === " " || green_gram === undefined) || 
             (DPickdobStock === " " || DPickdobStock === undefined)
           ) {
             Alert.alert("Please enter all the details");
           } else {
-            database
-              .ref(`/users/${awcid}/Timeline/DailyUsageStock`)
 
-              .push({
-                food_received,
-                food_provided,
-                food_remaining,
-                nutritious_food,
-                protien_food,
-                oil,
-                jaggery,
-                chilli,
-                egg,
-                salt,
-                grams,
-                mustard_seeds,
-                rice,
-                wheat,
-                amalice_rich,
-                green_gram,
-                food_provided_today,
-                Extra,
-                DPickdobStock
-              })
+            database.ref(`/users/${awcid}/Timeline/DailyUsageStock/`)
+             .orderByChild('DPickdobStock')
+             .limitToLast(1)
+             .once('value', snapshot4 => {
+               const data4 = firebaseLooper(snapshot4);
+               let previous_DPickdobStock='';
+               let previous_amalice_rich='';
+               let previous_chilli='';
+               let previous_date='';
+               let previous_egg='';
+               let previous_grams='';
+               let previous_green_gram='';
+               let previous_jaggery='';
+               let previous_mustard_seeds='';
+               let previous_nutritious_food='';
+               let previous_oil='';
+               let previous_protien_food='';
+               let previous_rice='';
+               let previous_salt='';
+               let previous_wheat='';
+              if(snapshot4.val()){
+               for (let j = 0; j < data4.length; j++)
+               {
+                console.log("this is last record", data4[j]);
+               previous_DPickdobStock=data4[j].DPickdobStock;
+               previous_amalice_rich= data4[j].amalice_rich;
+               previous_chilli= data4[j].chilli;
+               previous_date= data4[j].date;
+               previous_egg= data4[j].egg;
+               previous_grams=data4[j].grams;
+               previous_green_gram= data4[j].green_gram;
+               previous_jaggery= data4[j].jaggery;
+               previous_mustard_seeds= data4[j].mustard_seeds;
+               previous_nutritious_food= data4[j].nutritious_food;
+               previous_oil= data4[j].oil;
+               previous_protien_food= data4[j].protien_food;
+               previous_rice= data4[j].rice;
+               previous_salt=data4[j].salt;
+               previous_wheat=data4[j].wheat;
+               }
+               const newstock_nutritious_food = parseFloat(nutritious_food) + parseFloat(previous_nutritious_food);
+               //const previous_DPickdobStock;
+               const newstock_amalice_rich=parseFloat(amalice_rich) + parseFloat(previous_amalice_rich);
+               const newstock_chilli=parseFloat(chilli) + parseFloat(previous_chilli);
+              // previous_date;
+              const newstock_egg=parseInt(egg) + parseInt(previous_egg);
+              const newstock_grams=parseFloat(grams) + parseFloat(previous_grams);
+              const newstock_green_gram=parseFloat(green_gram) + parseFloat(previous_green_gram);
+              const newstock_jaggery=parseFloat(jaggery) + parseFloat(previous_jaggery);
+              const newstock_mustard_seeds=parseFloat(mustard_seeds) + parseFloat(previous_mustard_seeds);
+              const newstock_oil=parseFloat(oil) + parseFloat(previous_oil);
+              const newstock_protien_food=parseFloat(protien_food) + parseFloat(previous_protien_food);
+              const newstock_rice=parseFloat(rice) + parseFloat(previous_rice);
+              const newstock_salt=parseFloat(salt) + parseFloat(previous_salt);
+              const newstock_wheat=parseFloat(wheat) + parseFloat(previous_wheat);
 
-              .then(() => {
-                dispatch({
-                  type: DAILY_USAGE_STOCK_CREATE
+               var obj2 = {
+                nutritious_food: newstock_nutritious_food,
+                protien_food: newstock_protien_food,
+                oil: newstock_oil,
+                jaggery: newstock_jaggery,
+                chilli: newstock_chilli,
+                egg: newstock_egg,
+                salt: newstock_salt,
+                grams: newstock_grams,
+                mustard_seeds: newstock_mustard_seeds,
+                rice: newstock_rice,
+                wheat: newstock_wheat,
+                amalice_rich: newstock_amalice_rich,
+                green_gram: newstock_green_gram,
+                DPickdobStock: DPickdobStock
+              };
+              database.ref(`/users/${awcid}/Timeline/DailyUsageStock/${DPickdobStock}`)
+              .set(obj2)
+               .then(() => {
+                 dispatch({
+                   type: DAILY_USAGE_STOCK_CREATE
+                 });
+                 dailyUsageStockCreateSuccess(dispatch, navigate);
+               })
+  
+                .catch(error => {
+                  console.log(error);
+                  // dailyUsageCreateFail(dispatch,navigate);
                 });
-                dailyUsageStockCreateSuccess(dispatch, navigate);
-              })
+              } else {
+                var obj2 = {
+                  nutritious_food: nutritious_food,
+                  protien_food: protien_food,
+                  oil: oil,
+                  jaggery: jaggery,
+                  chilli: chilli,
+                  egg: egg,
+                  salt: salt,
+                  grams: grams,
+                  mustard_seeds: mustard_seeds,
+                  rice: rice,
+                  wheat: wheat,
+                  amalice_rich: amalice_rich,
+                  green_gram: green_gram,
+                  DPickdobStock: DPickdobStock
+                };
+                database.ref(`/users/${awcid}/Timeline/DailyUsageStock/${DPickdobStock}`)
+                .set(obj2)
+                 .then(() => {
+                   dispatch({
+                     type: DAILY_USAGE_STOCK_CREATE
+                   });
+                   dailyUsageStockCreateSuccess(dispatch, navigate);
+                 })
+    
+                  .catch(error => {
+                    console.log(error);
+                    // dailyUsageCreateFail(dispatch,navigate);
+                  });
 
-              .catch(error => {
-                console.log(error);
-                // dailyUsageCreateFail(dispatch,navigate);
-              });
+
+
+              }
+             });    
           }
         } else {
           console.log("no user data");
@@ -163,9 +245,6 @@ export const dailyUsageStockFetch = () => {
 };
 
 export const dailyUsageStockSaveChanges = ({
-  food_received,
-  food_provided,
-  food_remaining,
   nutritious_food,
   protien_food,
   oil,
@@ -179,8 +258,6 @@ export const dailyUsageStockSaveChanges = ({
   wheat,
   amalice_rich,
   green_gram,
-  food_provided_today,
-  Extra,
   DPickdobStock,
   uid,
   navigate
@@ -204,9 +281,6 @@ export const dailyUsageStockSaveChanges = ({
           database
             .ref(`/users/${awcid}/Timeline/DailyUsageStock/${uid}`)
             .set({
-              food_received,
-              food_provided,
-              food_remaining,
               nutritious_food,
               protien_food,
               oil,
@@ -220,8 +294,6 @@ export const dailyUsageStockSaveChanges = ({
               wheat,
               amalice_rich,
               green_gram,
-              food_provided_today,
-              Extra,
               DPickdobStock
             })
             .then(() => {
