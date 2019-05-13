@@ -21,8 +21,8 @@ class HouseHold extends Component {
 
     onButtonPress() {
         const { HHNumber, uid } = this.props.navigation.state.params.HouseHold;
-        const { HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Income, Phonenumber, Address, Disease1, Disease2, Disease3 } = this.props;
-        this.props.HouseHoldFormCreate({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Income, Phonenumber, Address, uid, Disease1, Disease2, Disease3 });
+        const { HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, Disease1, Disease2, Disease3 } = this.props;
+        this.props.HouseHoldFormCreate({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, uid, Disease1, Disease2, Disease3 });
     }
     render() {
         return (
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     }
 });
 const mapStateToProps = (state) => {
-    const { HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Income, Phonenumber, Address, option, Disease1, Disease2, Disease3 } = state.HouseHoldForm;
-    return { HHName, DOB, Caste, sex, Relationship, LiteracyRate, Designation, Status, Income, Phonenumber, Address, option, Disease1, Disease2, Disease3 }
+    const { HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation,Disability , Phonenumber, Address, option, Disease1, Disease2, Disease3 } = state.HouseHoldForm;
+    return { HHName, DOB, Caste, sex, Relationship, LiteracyRate, Designation, Status, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3 }
 }
 export default connect(mapStateToProps, { HouseholdUpdate, HouseHoldFormCreate })(HouseHold);

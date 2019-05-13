@@ -34,8 +34,8 @@ class PregnancyEdit extends Component {
             {
         this.props.PregnancySave({ PregnantName, PhoneNumber, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, option, Dplace, FirstWeightDate, Nchild, uid: this.props.navigation.state.params.Pregnancy.uid, HHNumber });
         Alert.alert(
-            'Yes',
-            'Updated Successfully',
+            'Successfully',
+            ' Record Updated ',
            
         );
         }

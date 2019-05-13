@@ -67,6 +67,7 @@ export const PregnancyCreate = ({ HHNumber, PregnantName, NPregnant, LPerioddate
                                     .then(() => {
                                         dispatch({ type: PREGNANCY_CREATE });
                                     });
+                                    Alert.alert('Record Added Successfully');
                             }
                         });
 
@@ -122,11 +123,27 @@ export const PregnancySave = ({ HHNumber, PregnantName, NPregnant, LPerioddate, 
                         const k = keys[i];
                         awcid = value[k].anganwadicenter_code;
                     }
-                    database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
-                        .update({ HHNumber, PregnantName, NPregnant, LPerioddate, Delivery })
-                        .then(() => {
-                            dispatch({ type: PREGNENT_SAVE });
-                        });
+                    if (FirstDose !== undefined) {
+                        database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
+                            .update({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, Delivery })
+                            .then(() => {
+                                dispatch({ type: PREGNENT_SAVE });
+                            });
+                    }
+                    if (SecondDose !== undefined) {
+                        database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
+                            .update({ HHNumber, PregnantName, NPregnant, LPerioddate, SecondDose, Delivery })
+                            .then(() => {
+                                dispatch({ type: PREGNENT_SAVE });
+                            });
+                    }
+                    else {
+                        database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
+                            .update({ HHNumber, PregnantName, NPregnant, LPerioddate, Delivery })
+                            .then(() => {
+                                dispatch({ type: PREGNENT_SAVE });
+                            });
+                    }
                 } else {
                     console.log('no user data');
                 }

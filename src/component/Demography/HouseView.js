@@ -59,7 +59,7 @@ class HouseView extends Component {
             }
             <View style={styles.projectText} >
               <View style={styles.projectTextchild1}>
-                {/* <Button onPress={() => { this.props.navigation.navigate('HouseHoldNumberEdit', { HouseHold: this.props.navigation.state.params.HouseHold }) }}><Text>Edit</Text></Button> */}
+                <Button onPress={() => { this.props.navigation.navigate('HouseHoldNumberEdit', { HouseHold: this.props.navigation.state.params.HouseHold }) }}><Text>Edit</Text></Button>
               <Button style={styles.Buttons}onPress={() => this.setState({ showModal: !this.state.showModal })}><Text>Delete</Text></Button>
         </View>
               <Confirm 

@@ -6,8 +6,8 @@ import { HouseholdUpdate, HouseholdCreate } from '../../actions';
 import { withNavigation } from 'react-navigation';
 class HouseHoldNumber extends Component {
     onButtonPress() {
-        const { HHNumber, Address } = this.props;
-        this.props.HouseholdCreate({ HHNumber, Address });
+        const { HHNumber, Income, Address } = this.props;
+        this.props.HouseholdCreate({ HHNumber, Income , Address });
     }
     render() {
         return (
@@ -24,6 +24,17 @@ class HouseHoldNumber extends Component {
                             value={this.props.HHNumber}
                             maxLength={10}
                             onChangeText={value => this.props.HouseholdUpdate({ name: 'HHNumber', value })}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.inputs}
+                            placeholder="Enter The Household Income"
+                            keyboardType="numeric"
+                            autoCorrect={false}
+                            label="Income"
+                            onChangeText={value => this.props.HouseholdUpdate({ name: 'Income', value })}
+                            value={this.props.Income}
                         />
                     </View>
                     <View style={styles.inputContainer}>
@@ -195,9 +206,9 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-    const { HHNumber, Address } = state.HouseHoldForm;
+    const { HHNumber,Income,Address } = state.HouseHoldForm;
     console.log(HHNumber, Address);
-    return { HHNumber, Address };
+    return { HHNumber, Income, Address };
 };
 
 export default connect(mapStateToProps, { HouseholdUpdate, HouseholdCreate })(withNavigation(HouseHoldNumber));

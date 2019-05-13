@@ -26,8 +26,8 @@ class HouseHoldNumberEdit extends Component {
     }
   
     onButtonPress() {
-        const { HHNumber, Address } = this.props;
-        this.props.HouseholdNumberSave({ HHNumber, Address });
+        const { HHNumber, Address , Income } = this.props;
+        this.props.HouseholdNumberSave({ HHNumber, Address, Income });
         Alert.alert(
             'Yes !',
             'Updated Successfully',
@@ -53,7 +53,19 @@ class HouseHoldNumberEdit extends Component {
                             placeholderTextColor='#355870'
                             placeholder="Enter The HouseHold Number"
                             value={this.props.HHNumber}
+                            editable={false}
                             onChangeText={value => this.props.HouseholdUpdate({ name: 'HHNumber', value })}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.inputs}
+                            placeholder="Enter The Household Income"
+                            keyboardType="numeric"
+                            autoCorrect={false}
+                            label="Income"
+                            onChangeText={value => this.props.HouseholdUpdate({ name: 'Income', value })}
+                            value={this.props.Income}
                         />
                     </View>
 
@@ -226,12 +238,10 @@ const styles = StyleSheet.create({
     }
 });
 
-
-
 const mapStateToProps = (state) => {
-    const { HHNumber, Address } = state.HouseHoldForm;
+    const { HHNumber, Address, Income } = state.HouseHoldForm;
     console.log(HHNumber, Address);
-    return { HHNumber, Address };
+    return { HHNumber, Address, Income };
 };
 
 export default connect(mapStateToProps, { HouseholdUpdate, HouseholdNumberSave })(withNavigation(HouseHoldNumberEdit));
