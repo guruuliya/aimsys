@@ -27,6 +27,8 @@ import LocationFormReducer from './LocationFormReducer';
 import LocationReduer from './LocationReduer';
 import AttendanceReducer from './AttendanceReducer';
 import AttendanceFetchReducer from './AttendanceFetchReducer';
+import ImageUploadFormReducer from './ImageUploadFormReducer';
+import ImageUploadFetchReducer from './ImageUploadFetchReducer';
 
 export default combineReducers({
     auth: AuthReducer,
@@ -56,5 +58,7 @@ export default combineReducers({
     Location: LocationFormReducer,
     LocationFetch: LocationReduer,
     attendance: AttendanceReducer,
-    attendanceF: AttendanceFetchReducer
+    attendanceF: AttendanceFetchReducer,
+    imageUpload: ImageUploadFormReducer,
+    imageFetch: ImageUploadFetchReducer
 });

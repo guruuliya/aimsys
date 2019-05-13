@@ -14,8 +14,8 @@ class InjectionEditForm extends Component {
         scores: {},
         showModal: false,
     };
-    static navigationOptions = {
-        title: 'Injection Update',
+    static navigationOptions = { 
+        title: 'Immunization Update',
         headerStyle: {
             backgroundColor: '#203546',
         },
