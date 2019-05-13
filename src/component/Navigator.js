@@ -86,6 +86,7 @@ import Attendance from './TimeLine/Attendance';
 
 import DailyUsageRequest from './TimeLine/DailyUsageRequest';
 import DailyUsageRequestTab from './TimeLine/DailyUsageRequestTab';
+import DailyUsageRequestTab1 from './TimeLine/UploadImageTab';
 import DailyUsageRequestSearch from './TimeLine/DailyUsageRequestSearch';
 import DailyUsageRequestListItem from './TimeLine/DailyUsageRequestListItem';
 import DailyUsageRequestView from './TimeLine/DailyUsageRequestView';
@@ -93,6 +94,8 @@ import DailyUsageRequestViewOption from './TimeLine/DailyUsageRequestViewOption'
 
 import HouseHoldNumberEdit from './Demography/HouseHoldNumberEdit';
 import HouseView from './Demography/HouseView';
+import ImageView from './TimeLine/ImageView';
+import ImageSearch from './TimeLine/ImageSearch';
 
 const CustomDrawerContentComponent = (props) => (
   <Container>
@@ -370,6 +373,9 @@ const RootStack = createStackNavigator({
   DailyUsageRequestTab: {
     screen: DailyUsageRequestTab
   },
+  DailyUsageRequestTab1: {
+    screen: DailyUsageRequestTab1
+  },
   DailyUsageRequestListItem: {
     screen: DailyUsageRequestListItem
   },
@@ -378,6 +384,12 @@ const RootStack = createStackNavigator({
   },
   DailyUsageRequestViewOption: {
     screen: DailyUsageRequestViewOption
+  },
+  ImageView: {
+    screen: ImageView
+  },
+  ImageSearch: {
+    screen: ImageSearch
   },
 }, {
     defaultNavigationOptions: {

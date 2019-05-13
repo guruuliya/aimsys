@@ -9,7 +9,7 @@ import { childUpdate, childCreate, deliveryUpdate } from '../../actions/ChildAct
 
 class ChildRegistration extends Component {
     onButtonPress() {
-        const { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied } = this.props;
+        const { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied, ebenifits } = this.props;
        
         // if (HNumber === '' || CName === '' || CMotherId === '' || status === '' || option === '' || health === '' || babytype === '' || DPickdob === '' || DPickregdate === '' || placedied === '') {
         //     Alert.alert(
@@ -18,19 +18,15 @@ class ChildRegistration extends Component {
         // } else {
             if (status === 'Born') {
                 console.log('data here', CMotherId);
-                this.props.childCreate({ HNumber, CName, CMotherId, status, health, option, babytype, DPickdob, DPickregdate });
+                this.props.childCreate({ HNumber, CName, CMotherId, status, health, option, babytype, DPickdob, DPickregdate, ebenifits });
                 console.log('data here', CMotherId);
                 Alert.alert(
-
                     'Inserted Successfully',
-
                 );
             } else {
                 this.props.deliveryUpdate({ status, placedied }, CMotherId);
                 Alert.alert(
-
                     'Inserted Successfully',
-
                 );
             }
         //}
@@ -158,8 +154,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied } = state.child;
-    return { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied };
+    const { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied, ebenifits } = state.child;
+    return { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied, ebenifits };
 };
 
 export default connect(mapStateToProps, {

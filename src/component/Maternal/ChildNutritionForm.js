@@ -18,6 +18,7 @@ class ChildNutritionForm extends Component {
 
     search(HNumber) {
         let awcid = 0;
+        let  dob1=" ";
         const database = firebase.database();
         const { currentUser } = firebase.auth();
         database.ref('/assignedworkerstocenters')
@@ -34,6 +35,7 @@ class ChildNutritionForm extends Component {
                         .orderByChild('HNumber').equalTo(HNumber)
                         .once('value', snapshot1 => {
                             if (snapshot1.val()) {
+                                dob1 = snapshot1.val().DPickdob;
                                 this.setState({ scores: snapshot1.val() });
                             } else {
                                 this.setState({ scores: { noData: { CName: 'No Data' } } });

@@ -249,6 +249,21 @@ class ChildRegistrationForm extends Component {
                                         date={this.props.DPickregdate}
                                     />
                                 </View>
+                               
+                                <View style={styles.inputContainer}>
+                                    <DatePicker
+                                        style={styles.dateblock}
+                                        customStyles={{ dateInput: { borderWidth: 0 } }}
+                                        placeholder="Benifits Date"
+                                        mode="date"
+                                        round
+                                       // maxDate={new Date()}
+                                        placeholder="expiry of benifits"
+                                        format="YYYY-MM-DD"
+                                        onDateChange={value => this.props.childUpdate({ name: 'ebenifits', value })}
+                                        date={this.props.ebenifits}
+                                    />
+                                </View>
 
                             </View>
                             : null
@@ -439,9 +454,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     console.log(state);
 
-    const { HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, placedied } = state.child;
+    const { HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, placedied, ebenifits } = state.child;
     console.log('registration  mother id form ', CMotherId);
-    return { HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, placedied };
+    return { HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, placedied, ebenifits };
 };
 
 export default connect(mapStateToProps, { childUpdate })(ChildRegistrationForm);
