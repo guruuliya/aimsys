@@ -77,6 +77,9 @@ export function anganwadiDetails() {
     let awcid = 0;
     let supervisorid = 0;
     let cdpoAcdpo = 0;
+    let awcplace = '';
+    let talukname = '';
+    let villagename = '';
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         database.ref('/assignedworkerstocenters')
@@ -90,8 +93,11 @@ export function anganwadiDetails() {
                         awcid = value[k].anganwadicenter_code;
                         cdpoAcdpo = value[k].cdpoid;
                         supervisorid = value[k].supervisorid;
+                        awcplace = value[k].awcplace;
+                        villagename = value[k].villagename;
+                        talukname = value[k].talukname;
                         database.ref(`/users/${awcid}/anganwadidetails`)
-                            .update({ supervisorid, cdpoAcdpo })
+                            .update({ supervisorid, cdpoAcdpo, talukname, villagename, awcplace })
                             .then(() => {
                                 dispatch({
                                     type: AWCDetails

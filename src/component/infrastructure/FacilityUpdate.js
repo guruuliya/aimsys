@@ -176,7 +176,7 @@ class FacilityUpdate extends Component {
 
                     <Card>
                         <CardItem>
-                            <Text>Do you have Power Facility?</Text>
+                            <Text>Do you have Electricity Facility?</Text>
                         </CardItem>
                         <CardItem>
                             <Text style={styles.textStyle}>Yes:</Text>
