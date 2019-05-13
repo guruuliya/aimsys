@@ -19,6 +19,19 @@ const INITIAL_STATE = {
     pw_3rdgrade: 0,
     pw_4thgrade: 0,
     DPickdob: '',
+    nutritious_food: '',
+    protien_food: '',
+    oil: '',
+    jaggery: '',
+    chilli: '',
+    egg: '',
+    salt: '',
+    grams: '',
+    mustard_seeds: '',
+    rice: '',
+    wheat: '',
+    amalice_rich: '',
+    green_gram: '',
     uid: ''
 
 };

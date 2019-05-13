@@ -202,6 +202,7 @@ class DailyUsageRequestViewOption extends Component {
               <Icon name='md-save' />
               <Text>EXPORT TO PDF</Text>
             </Button> */}
+            
             <Text>{'\n'}</Text>
             <Text>{'\n'}</Text>
           </Form>

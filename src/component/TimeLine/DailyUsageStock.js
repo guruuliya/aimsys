@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import firebase from 'firebase';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import {
   Container,
@@ -23,6 +24,33 @@ import {
 } from '../../actions/DailyUsageStockAction';
 import DatePicker from 'react-native-datepicker';
 
+export const firebaseLooper = snapshot => {
+  let data = [];
+  snapshot.forEach(childSnapshot => {
+    data.push({
+      ...childSnapshot.val(),
+      anganwadicode: childSnapshot.key
+    });
+  });
+  return data;
+};
+
+export const firebaseLooper1 = snapshot => {
+  let data = [];
+
+  
+  snapshot.forEach(childSnapshot => {
+    console.log(childSnapshot,"childSnapshot")
+  });
+  // snapshot.forEach(childSnapshot => {
+  //   data.push({
+  //     ...childSnapshot,
+  //     //stockdate: childSnapshot.key
+  //   });
+  //});
+  return data;
+};
+
 class DailyUsageStock extends Component {
   static navigationOptions = {
     title: 'Timeline',
@@ -43,11 +71,134 @@ class DailyUsageStock extends Component {
     this.setState({ chosenDate: newDate });
   }
 
+  componentDidMount() {
+    let awcid = 0;
+    console.log("hello this is componentDidMount");
+    const database = firebase.database();
+    const { currentUser } = firebase.auth();
+     database
+      .ref('/assignedworkerstocenters')
+      .orderByChild('anganwadiworkerid')
+      .equalTo(currentUser.uid)
+      .once('value', snapshot => {
+        if (snapshot.val()) {
+          const value = snapshot.val();
+          const keys = Object.keys(value);
+          for (let i = 0; i < keys.length; i++) {
+            const k = keys[i];
+            awcid = value[k].anganwadicenter_code;
+          }
+          console.log(awcid);
+
+          database
+          .ref('/users')
+          .once('value', snapshot2 => {
+            if (snapshot2.val()) {
+              const data = firebaseLooper(snapshot2);
+
+              for (let i = 0; i < data.length; i++) {
+                if ((parseInt(data[i].anganwadicode)) === (parseInt(awcid))) {
+                  if (data[i].Timeline) {
+                    const data2 = data[i].Timeline.DailyUsageStock;
+                    console.log(data2.key);
+                    for (const obj in data[i].Timeline.DailyUsageStock) {
+                      
+                      var d = new Date(),
+                      month = '' + (d.getMonth() + 1),
+                      day = '' + d.getDate(),
+                      year = d.getFullYear();
+                      var d2 = new Date(),
+                      month1 = '' + (d2.getMonth() + 1),
+                      dayminus1 = '' + (d2.getDate() - 1),
+                      year1 = d2.getFullYear();
+                      var d3 = new Date(),
+                      month3 = '' + (d3.getMonth() + 1),
+                      dayminus2 = '' + (d3.getDate() - 2),
+                      year3 = d3.getFullYear();
+
+                  if (month.length < 2) month = '0' + month;
+                  if (month1.length < 2) month1 = '0' + month1;
+                  if (month3.length < 2) month3 = '0' + month3;
+
+                  if (day.length < 2) day = '0' + day;     
+                  if (dayminus1.length < 2) dayminus1 = '0' + dayminus1;         
+                  if (dayminus2.length < 2) dayminus2 = '0' + dayminus2;  
+
+                  const todaysdate = [year, month, day].join('-');
+                  const yesterdaydate = [year1, month1, dayminus1].join('-');  
+                  const daybeforeyesterdaydate = [year3, month3, dayminus2].join('-'); 
+
+                           if (!(data[i].Timeline.DailyUsageStock[obj].DPickdobStock==yesterdaydate)){
+
+                              console.log("Do nothing",daybeforeyesterdaydate);
+                              if(data[i].Timeline.DailyUsageStock[obj].DPickdobStock==daybeforeyesterdaydate)
+                              {
+                                console.log(data[i].Timeline.DailyUsageStock[obj]);
+                                const nutritious_food=data[i].Timeline.DailyUsageStock[obj].nutritious_food;
+                                const protien_food=data[i].Timeline.DailyUsageStock[obj].protien_food;
+                                 const oil=data[i].Timeline.DailyUsageStock[obj].oil;
+                                const jaggery=data[i].Timeline.DailyUsageStock[obj].jaggery;
+                                const chilli=data[i].Timeline.DailyUsageStock[obj].chilli;
+                                const egg=data[i].Timeline.DailyUsageStock[obj].egg;
+                                const salt=data[i].Timeline.DailyUsageStock[obj].salt;
+                                const grams=data[i].Timeline.DailyUsageStock[obj].grams;
+                                const mustard_seeds=data[i].Timeline.DailyUsageStock[obj].mustard_seeds;
+                                const rice=data[i].Timeline.DailyUsageStock[obj].rice;
+                                const wheat=data[i].Timeline.DailyUsageStock[obj].wheat;
+                                const amalice_rich=data[i].Timeline.DailyUsageStock[obj].amalice_rich;
+                                const green_gram=data[i].Timeline.DailyUsageStock[obj].green_gram;
+                                const DPickdobStock=yesterdaydate;
+                               
+                                var obj = {
+                                  nutritious_food : nutritious_food,
+                                  protien_food: protien_food,
+                                  oil: oil,
+                                  jaggery: jaggery,
+                                  chilli: chilli,
+                                  egg: egg,
+                                  salt: salt,
+                                  grams: grams,
+                                  mustard_seeds: mustard_seeds,
+                                  rice: rice,
+                                  wheat:wheat,
+                                  amalice_rich: amalice_rich,
+                                  green_gram: green_gram,
+                                  DPickdobStock: yesterdaydate
+                                };
+                                database.ref(`/users/${awcid}/Timeline/DailyUsageStock/${DPickdobStock}`)
+                                .set(obj);
+                               // console.log(obj);
+                                //can use push but it creates new tokens
+                                //ref.set(obj);
+                              
+                               
+
+                              }
+                           } else {
+
+                            console.log("Do nothing");
+
+                           }
+                
+                
+
+                    };
+                          
+                         
+                  }
+                }
+              }
+
+            }
+          });
+
+
+        }
+      });
+    }
+
   onButtonPress() {
     const {
-      food_received,
-      food_provided,
-      food_remaining,
       nutritious_food,
       protien_food,
       oil,
@@ -61,8 +212,6 @@ class DailyUsageStock extends Component {
       wheat,
       amalice_rich,
       green_gram,
-      food_provided_today,
-      Extra,
       DPickdobStock
     } = this.props;
     // console.log(this.props.navigation);
@@ -71,9 +220,6 @@ class DailyUsageStock extends Component {
     const navigate = this.props.navigation;
 
     this.props.dailyUsageStockCreate({
-      food_received,
-      food_provided,
-      food_remaining,
       nutritious_food,
       protien_food,
       oil,
@@ -87,8 +233,6 @@ class DailyUsageStock extends Component {
       wheat,
       amalice_rich,
       green_gram,
-      food_provided_today,
-      Extra,
       DPickdobStock,
       navigate
     });
@@ -99,96 +243,27 @@ class DailyUsageStock extends Component {
       <Container style={styles.back}>
         <Content padder>
           <Text>{'\n'}</Text>
-          <Text>{'\n'}</Text>
-          <Label>
-            Fill the form for number of people who used the resources
-          </Label>
+          <Label>Fill the food item quantity when stock is being received</Label>
           <Text>{'\n'}</Text>
           <Form>
             {/* Card one */}
-            <Card>
-              <Label style={styles.cardtitle}>Daily Stock Usage</Label>
+            <Card style={styles.cardtop}>
+              <Label style={styles.cardtitle}>Add Stock Details</Label>
+             
             </Card>
-
-            {/* Card two */}
-            <Card>
-              <View style={styles.block}>
-                {/**********************Food Received****************************/}
-                <ListItem style={styles.block_row}>
-                  <InputGroup>
-                    <Label style={styles.block_row_left_element}>
-                      Food Received{' '}
-                    </Label>
-                    <Input
-                      style={styles.block_row_right_element}
-                      placeholder='Food Received'
-                      placeholderTextColor='#FFFFFF'
-                      value={parseInt(this.props.food_received)}
-                      onChangeText={value =>
-                        this.props.dailyUsageStockUpdate({
-                          name: 'food_received',
-                          value
-                        })
-                      }
-                    />
-                  </InputGroup>
-                </ListItem>
-
-                {/**********************Food Provided****************************/}
-                <ListItem style={styles.block_row}>
-                  <InputGroup>
-                    <Label style={styles.block_row_left_element}>
-                      Food Provided{' '}
-                    </Label>
-                    <Input
-                      style={styles.block_row_right_element}
-                      placeholder='Food Provided'
-                      value={parseInt(this.props.food_provided)}
-                      placeholderTextColor='#FFFFFF'
-                      onChangeText={value =>
-                        this.props.dailyUsageStockUpdate({
-                          name: 'food_provided',
-                          value
-                        })
-                      }
-                    />
-                  </InputGroup>
-                </ListItem>
-
-                {/**********************Food Remaining****************************/}
-                <ListItem style={styles.block_row}>
-                  <InputGroup>
-                    <Label style={styles.block_row_left_element}>
-                      Food Remaining{' '}
-                    </Label>
-                    <Input
-                      style={styles.block_row_right_element}
-                      placeholder='Food Remaining'
-                      value={parseInt(this.props.food_remaining)}
-                      placeholderTextColor='#FFFFFF'
-                      onChangeText={value =>
-                        this.props.dailyUsageStockUpdate({
-                          name: 'food_remaining',
-                          value
-                        })
-                      }
-                    />
-                  </InputGroup>
-                </ListItem>
-              </View>
-            </Card>
-
+            <Text>{'\n'}</Text>
             {/* Card Three */}
             <Card>
               {/**********************Nutritious****************************/}
+              <Text>{'\n'}</Text>
               <ListItem style={styles.block_row}>
                 <InputGroup>
                   <Label style={styles.block_row_left_element}>
-                    Nutritious{' '}
+    Nutritious food{'\n'}<Text style={styles.cardtop}> (Enter in kg&quot;s)</Text>
                   </Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Nutritious Food'
+                    placeholder='Enter here'
                     value={parseInt(this.props.food_remaining)}
                     placeholderTextColor='#FFFFFF'
                     onChangeText={value =>
@@ -205,11 +280,11 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup>
                   <Label style={styles.block_row_left_element}>
-                    Protien Food
+                    Protien Food {'\n'} <Text style={styles.cardtop}> (Enter in kg&quot;s)</Text>
                   </Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Protien Food'
+                    placeholder='Enter here'
                     value={parseInt(this.props.food_remaining)}
                     placeholderTextColor='#FFFFFF'
                     onChangeText={value =>
@@ -225,10 +300,10 @@ class DailyUsageStock extends Component {
               {/**********************Oil****************************/}
               <ListItem style={styles.block_row}>
                 <InputGroup>
-                  <Label style={styles.block_row_left_element}>Oil</Label>
+                  <Label style={styles.block_row_left_element}>Oil {'\n'} <Text style={styles.cardtop}> (Enter in litre&quot;s)</Text></Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Oil'
+                    placeholder='Enter here'
                     value={parseInt(this.props.food_remaining)}
                     placeholderTextColor='#FFFFFF'
                     onChangeText={value =>
@@ -241,10 +316,10 @@ class DailyUsageStock extends Component {
               {/**********************Jaggery****************************/}
               <ListItem style={styles.block_row}>
                 <InputGroup>
-                  <Label style={styles.block_row_left_element}>Jaggery</Label>
+                  <Label style={styles.block_row_left_element}>Jaggery {'\n'} <Text style={styles.cardtop}> (Enter in kg&quot;s)</Text></Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Jaggery'
+                    placeholder='Enter here'
                     value={parseInt(this.props.food_remaining)}
                     placeholderTextColor='#FFFFFF'
                     onChangeText={value =>
@@ -260,10 +335,10 @@ class DailyUsageStock extends Component {
               {/**********************Chilli****************************/}
               <ListItem style={styles.block_row}>
                 <InputGroup>
-                  <Label style={styles.block_row_left_element}>Chilli</Label>
+                  <Label style={styles.block_row_left_element}>Chilli {'\n'}<Text style={styles.cardtop}> (Enter in kg&quot;s)</Text></Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Chilli'
+                    placeholder='Enter here'
                     value={parseInt(this.props.food_remaining)}
                     placeholderTextColor='#FFFFFF'
                     onChangeText={value =>
@@ -279,10 +354,10 @@ class DailyUsageStock extends Component {
               {/**********************Egg****************************/}
               <ListItem style={styles.block_row}>
                 <InputGroup>
-                  <Label style={styles.block_row_left_element}>Egg</Label>
+                  <Label style={styles.block_row_left_element}>Egg {'\n'} <Text style={styles.cardtop}> (Enter in unit&quot;s)</Text></Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Egg'
+                    placeholder='Enter here'
                     value={parseInt(this.props.food_remaining)}
                     placeholderTextColor='#FFFFFF'
                     onChangeText={value =>
@@ -295,10 +370,10 @@ class DailyUsageStock extends Component {
               {/**********************Salt****************************/}
               <ListItem style={styles.block_row}>
                 <InputGroup>
-                  <Label style={styles.block_row_left_element}>Salt</Label>
+                  <Label style={styles.block_row_left_element}>Salt {'\n'} <Text style={styles.cardtop}> (Enter in kg&quot;s)</Text></Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Salt'
+                    placeholder='Enter here'
                     value={parseInt(this.props.food_remaining)}
                     placeholderTextColor='#FFFFFF'
                     onChangeText={value =>
@@ -311,10 +386,10 @@ class DailyUsageStock extends Component {
               {/**********************Grams****************************/}
               <ListItem style={styles.block_row}>
                 <InputGroup>
-                  <Label style={styles.block_row_left_element}>Grams</Label>
+                  <Label style={styles.block_row_left_element}>Grams {'\n'} <Text style={styles.cardtop}> (Enter in kg&quot;s)</Text></Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Grams'
+                    placeholder='Enter here'
                     value={parseInt(this.props.food_remaining)}
                     placeholderTextColor='#FFFFFF'
                     onChangeText={value =>
@@ -328,12 +403,12 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup>
                   <Label style={styles.block_row_left_element}>
-                    Mustard Seeds
+                    Mustard Seeds {'\n'} <Text style={styles.cardtop}> (Enter in kg&quot;s)</Text>
                   </Label>
                   <Input
                     style={styles.block_row_right_element}
                     placeholderTextColor='#FFFFFF'
-                    placeholder='Mustard Seeds'
+                    placeholder='Enter here'
                     value={parseInt(this.props.food_remaining)}
                     onChangeText={value =>
                       this.props.dailyUsageStockUpdate({
@@ -345,17 +420,13 @@ class DailyUsageStock extends Component {
                 </InputGroup>
               </ListItem>
 
-
-
               {/**********************Rice****************************/}
               <ListItem style={styles.block_row}>
                 <InputGroup>
-                  <Label style={styles.block_row_left_element}>
-                    Rice
-                  </Label>
+                  <Label style={styles.block_row_left_element}>Rice {'\n'} <Text style={styles.cardtop}> (Enter in kg&quot;s)</Text></Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Rice'
+                    placeholder='Enter here'
                     value={parseInt(this.props.rice)}
                     placeholderTextColor='#FFFFFF'
                     onChangeText={value =>
@@ -367,15 +438,13 @@ class DailyUsageStock extends Component {
                   />
                 </InputGroup>
               </ListItem>
-                 {/**********************wheat****************************/}
-                 <ListItem style={styles.block_row}>
+              {/**********************wheat****************************/}
+              <ListItem style={styles.block_row}>
                 <InputGroup>
-                  <Label style={styles.block_row_left_element}>
-                  wheat
-                  </Label>
+                  <Label style={styles.block_row_left_element}>wheat {'\n'} <Text style={styles.cardtop}> (Enter in kg&quot;s)</Text></Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Wheat'
+                    placeholder='Enter here'
                     value={parseInt(this.props.wheat)}
                     placeholderTextColor='#FFFFFF'
                     onChangeText={value =>
@@ -390,12 +459,14 @@ class DailyUsageStock extends Component {
               {/**********************Amalice Rich****************************/}
               <ListItem style={styles.block_row}>
                 <InputGroup>
-                  <Label style={styles.block_row_left_element}>
-                    Amalice Rich
+                
+                  <Label style={styles.block_row_left_element1}>
+                    Amalice Rich(Milk Powder) {'\n'} 
+                    <Text style={styles.cardtop}> (Enter in kg&quot;s)</Text>
                   </Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Amalice Rich'
+                    placeholder='Enter here'
                     value={parseInt(this.props.food_remaining)}
                     placeholderTextColor='#FFFFFF'
                     onChangeText={value =>
@@ -412,11 +483,11 @@ class DailyUsageStock extends Component {
               <ListItem style={styles.block_row}>
                 <InputGroup>
                   <Label style={styles.block_row_left_element}>
-                    Green gram
+                    Green gram {'\n'} <Text style={styles.cardtop}> (Enter in kg&quot;s)</Text>
                   </Label>
                   <Input
                     style={styles.block_row_right_element}
-                    placeholder='Green gram'
+                    placeholder='Enter here'
                     value={parseInt(this.props.food_remaining)}
                     placeholderTextColor='#FFFFFF'
                     onChangeText={value =>
@@ -428,54 +499,7 @@ class DailyUsageStock extends Component {
                   />
                 </InputGroup>
               </ListItem>
-
-              {/**********************Food provided today****************************/}
-              <ListItem style={styles.block_row}>
-                <InputGroup>
-                  <Label style={styles.block_row_left_element}>
-                    Food provided today
-                  </Label>
-                  <Input
-                    style={styles.block_row_right_element}
-                    placeholder='Food provided today'
-                    placeholderTextColor='#FFFFFF'
-                    value={parseInt(this.props.food_remaining)}
-                    onChangeText={value =>
-                      this.props.dailyUsageStockUpdate({
-                        name: 'food_provided_today',
-                        value
-                      })
-                    }
-                  />
-                </InputGroup>
-              </ListItem>
-
-              {/**********************Extra****************************/}
-              <ListItem style={styles.block_row}>
-                <InputGroup>
-                  <Label style={styles.block_row_left_element}>Extra</Label>
-                  <Input
-                    style={styles.block_row_right_element}
-                    placeholder='Extra'
-                    placeholderTextColor='#FFFFFF'
-                    value={parseInt(this.props.food_remaining)}
-                    onChangeText={value =>
-                      this.props.dailyUsageStockUpdate({ name: 'Extra', value })
-                    }
-                  />
-                </InputGroup>
-              </ListItem>
-
-              {/**********************Signature****************************/}
-              <ListItem style={styles.block_row}>
-                <InputGroup>
-                  {/* <Label style={styles.block_row_left_element}>Signature</Label> */}
-                  {/* <Input style={styles.block_row_right_element} placeholder='Signature' 
-                   value={parseInt(this.props.food_remaining)}
-                   onChangeText={value => this.props.dailyUsageStockUpdate({ name: 'food_remaining', value })}
-                  /> */}
-                </InputGroup>
-              </ListItem>
+              <Text>{'\n'}</Text>
             </Card>
 
             {/* Card Four */}
@@ -520,7 +544,10 @@ class DailyUsageStock extends Component {
 }
 const styles = StyleSheet.create({
   // main block container
-
+  cardtop: {
+    color: '#000000',
+    backgroundColor: '#FFFF00'
+  },
   block: {
     flex: 1,
     flexDirection: 'column',
@@ -533,8 +560,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     flex: 0.5,
+    fontWeight: 'bold',
     textAlignVertical: 'center',
     height: 50
+  },
+  block_row_left_element1: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    flex: 0.5,
+    fontWeight: 'bold',
+    textAlignVertical: 'center',
+    height: 70
   },
   block_row_right_element: {
     textAlign: 'center',
@@ -546,7 +582,7 @@ const styles = StyleSheet.create({
   cardtitle: {
     textAlign: 'center',
     borderWidth: 1,
-    borderColor: '#275DAD',
+    fontWeight: 'bold',
     paddingTop: 10,
     paddingBottom: 10
   },
@@ -559,9 +595,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   console.log(state);
   const {
-    food_received,
-    food_provided,
-    food_remaining,
     nutritious_food,
     protien_food,
     oil,
@@ -575,14 +608,9 @@ const mapStateToProps = state => {
     wheat,
     amalice_rich,
     green_gram,
-    food_provided_today,
-    Extra,
     DPickdobStock
   } = state.DailyUsageStockKey;
   return {
-    food_received,
-    food_provided,
-    food_remaining,
     nutritious_food,
     protien_food,
     oil,
@@ -596,8 +624,6 @@ const mapStateToProps = state => {
     wheat,
     amalice_rich,
     green_gram,
-    food_provided_today,
-    Extra,
     DPickdobStock
   };
 };
