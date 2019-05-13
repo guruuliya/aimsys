@@ -24,6 +24,18 @@ export const dailyUsageCreate = ({
   total1,
   total2,
   totalfinal,
+  nutritious_food,
+  protien_food,
+  oil,
+  jaggery,
+  chilli,
+  egg,
+  salt,
+  grams,
+  mustard_seeds,
+  rice,
+  amalice_rich,
+  green_gram,
   navigate
 }) => {
   let awcid = 0;
@@ -44,8 +56,8 @@ export const dailyUsageCreate = ({
             awcid = value[k].anganwadicenter_code;
           }
           if (
-            six_months_to_one_year === ' ' ||
-            six_months_to_one_year === undefined ||
+           ( six_months_to_one_year === ' ' ||
+            six_months_to_one_year === undefined) ||
             (one_year_to_three_year === ' ' ||
               one_year_to_three_year === undefined) ||
             (three_year_to_six_year === ' ' ||
@@ -57,13 +69,25 @@ export const dailyUsageCreate = ({
             (DPickdob === ' ' || DPickdob === undefined) ||
             (total1 === ' ' || total1 === undefined) ||
             (total2 === ' ' || total2 === undefined) ||
-            (totalfinal === 0 || totalfinal === undefined)
+            (totalfinal === 0 || totalfinal === undefined) ||
+            (nutritious_food=== 0 ||nutritious_food=== undefined) ||
+            (protien_food=== 0 ||protien_food=== undefined) ||
+            (oil=== 0 ||oil=== undefined) ||
+            (jaggery=== 0 ||jaggery=== undefined) ||
+            (chilli=== 0 ||chilli=== undefined) ||
+            (egg=== 0 ||egg=== undefined) ||
+            ( salt=== 0 ||salt=== undefined) ||
+            (grams=== 0 ||grams=== undefined) ||
+            (mustard_seeds=== 0 ||mustard_seeds=== undefined) ||
+            ( rice=== 0 ||rice=== undefined) ||
+            ( amalice_rich=== 0 ||amalice_rich=== undefined) ||
+            ( green_gram=== 0 ||green_gram=== undefined)
           ) {
             Alert.alert('Please enter all the details');
           } else {
             database
-              .ref(`/users/${awcid}/Timeline/DailyUsagePeople`)
-              .push({
+              .ref(`/users/${awcid}/Timeline/DailyUsagePeople/${DPickdob}`)
+              .set({
                 six_months_to_one_year,
                 one_year_to_three_year,
                 three_year_to_six_year,
@@ -74,7 +98,19 @@ export const dailyUsageCreate = ({
                 DPickdob,
                 total1,
                 total2,
-                totalfinal
+                totalfinal,
+                nutritious_food,
+                protien_food,
+                oil,
+                jaggery,
+                chilli,
+                egg,
+                salt,
+                grams,
+                mustard_seeds,
+                rice,
+                amalice_rich,
+                green_gram,
               })
               .then(() => {
                 dispatch({

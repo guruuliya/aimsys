@@ -42,7 +42,7 @@ class DailyUsagePeopleListItem extends Component {
        </TouchableWithoutFeedback>
        </View>
 
-       <View style={styles.projectTextchild2}>
+       {/* <View style={styles.projectTextchild2}>
 
           <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('DailyUsagePeopleView', { child: this.props.child }) }}>
         <View>
@@ -50,9 +50,8 @@ class DailyUsagePeopleListItem extends Component {
               <Text style={styles.moreIcon} >Edit</Text>
        </View>
        </TouchableWithoutFeedback>
-       </View>
-
-      </View>  : <View style={styles.pt}><Text style={styles.moreContainer}>No records found please try again</Text></View>
+       </View> */}
+      </View> : <View style={styles.pt}><Text style={styles.moreContainer}>No records found please try again</Text></View>
       }
       </View>
 

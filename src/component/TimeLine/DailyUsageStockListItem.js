@@ -58,7 +58,7 @@ class DailyUsageStockListItem extends Component {
             </TouchableWithoutFeedback>
           </View>
 
-          <View style={styles.projectTextchild2}>
+          {/* <View style={styles.projectTextchild2}>
 
             <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('DailyUsageStockView', { child: this.props.child }) }}>
               <View>
@@ -66,7 +66,7 @@ class DailyUsageStockListItem extends Component {
                 <Text style={styles.moreIcon} >Edit</Text>
               </View>
             </TouchableWithoutFeedback>
-          </View>
+          </View> */}
         </View>
         : <View style={styles.pt}><Text style={styles.moreContainer}>No records found please try again</Text></View>
       }
@@ -79,22 +79,28 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   projectText: {
-    flex: 0.7,
+    flex: 0.8,
     flexDirection: 'column'
   },
   projectTextchild1: {
     flex: 0.2,
     flexDirection: 'column'
   },
-  projectTextchild2: {
-    flex: 0.1,
-    flexDirection: 'column'
-  },
+  // projectTextchild2: {
+  //   flex: 0.1,
+  //   flexDirection: 'column'
+  // },
 
   projectRow: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     padding: 15,
+    borderRadius: 10,
+    marginTop: 5,
+    marginLeft: 7,
+    marginBottom: 7,
+    borderWidth: 1,
+    borderColor: '#4A90E2'
   },
 
   itemName: {

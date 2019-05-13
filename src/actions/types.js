@@ -126,3 +126,10 @@ export const ATTENDANCE_CREATE = 'attendancecreate';
 export const VALID_NAME = 'validname';
 export const INAVALID_NAME = 'invalidname';
 
+export const IMAGEUPDATE = 'imageupdate';
+export const IMAGECREATE = 'imagecreate';
+export const IMAGEFETCH = 'imagefetch';
+export const IMAGEREMOVE = 'imageremove';
+export const IMAGE_FETCH_LOAD_START = 'imagefetchloadstart';
+export const IMAGE_FETCH_LOAD_END = 'imagefetchloadend';
+

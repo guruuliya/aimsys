@@ -67,8 +67,6 @@ class Attendance extends Component {
                 this.setState({ Countt: count });
             });
         });
-
-
     }
 
     onButtonPress() {
@@ -106,7 +104,7 @@ class Attendance extends Component {
                             value={this.props.daycount}
                         />
                     </View>
-                    <View style={styles.inputContainer}>
+                    {/* <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.inputs}
                             placeholder="Enter day count"
@@ -114,7 +112,7 @@ class Attendance extends Component {
 
                             value={this.state.Countt}
                         />
-                    </View>
+                    </View> */}
                     <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)} >
                         <Text style={styles.loginText}>ADD</Text>
                     </TouchableOpacity>
@@ -217,7 +215,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
-        width: 300,
+        width: 350,
         borderRadius: 30,
         backgroundColor: 'transparent'
     },
@@ -227,7 +225,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 20,
-        width: 300,
+        width: 350,
         backgroundColor: 'transparent'
     },
     loginButton: {

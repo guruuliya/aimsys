@@ -1,36 +1,36 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Tab, Tabs, Icon, TabHeading, Text } from 'native-base';
-import { StyleSheet,  View, TouchableOpacity } from 'react-native';
-import InjectionSearch from './InjectionSearch';
-import InjectionRecords from './InjectionRecords';
+import { Container, Tab, Tabs, Icon, TabHeading, Text } from 'native-base';
+import { StyleSheet } from 'react-native';
+import UploadImage from './UploadImage';
+import ImageSearch from './ImageSearch';
+// import ChildSearch from './ChildSearch';
+// import ChildRegistration from './ChildRegistration';
 
-
-class InjectionTab extends Component {
+class DailyUsageRequestTab1 extends Component {
   static navigationOptions = {
-    title: 'Immunization Records',
+    title: 'Food Records',
     headerStyle: {
-        backgroundColor: '#203546',
+      backgroundColor: '#203546',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
-        fontWeight: 'bold',
+      fontWeight: 'bold',
     },
-};
+  };
 
-constructor(props) {
-  super(props);
-  this.state = { currentTab: 0 };
-}
-
+  constructor(props) {
+    super(props);
+    this.state = { currentTab: 0 };
+  }
   render() {
     return (
       <Container>
         <Tabs initialPage={this.state.currentPage} onChangeTab={({ i }) => this.setState({ currentTab: i })}>
           <Tab heading={<TabHeading style={this.state.currentTab === 0 ? styles.activeTabStyle : styles.tabStyle} ><Icon name="md-list-box" /><Text>Update Records</Text></TabHeading>}>
-            <InjectionSearch />
+            <ImageSearch />
           </Tab>
           <Tab heading={<TabHeading style={this.state.currentTab === 1 ? styles.activeTabStyle : styles.tabStyle} ><Icon name="md-create" /><Text>Create</Text></TabHeading>}>
-            <InjectionRecords />
+            <UploadImage />
           </Tab>
         </Tabs>
       </Container>
@@ -39,9 +39,12 @@ constructor(props) {
 }
 
 const styles = StyleSheet.create({
-  tabstyle: {
-   // backgroundColor: '',
+  activeTabStyle: {
+    backgroundColor: '#275DAD'
+  },
+  tabStyle: {
+    backgroundColor: '#FFFFFF'
   }
 });
 
-export default InjectionTab;
+export default DailyUsageRequestTab1;
