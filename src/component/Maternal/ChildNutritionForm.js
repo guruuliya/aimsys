@@ -65,28 +65,31 @@ class ChildNutritionForm extends Component {
         this.search(text);
     }
 
-    // calbrday(text) {
-    //     let awcid = 0;
-    //     const database = firebase.database();
-    //     const { currentUser } = firebase.auth();
-    //     this.props.NutritionUpdate({ name: 'CName', value: text });
-    //     const HNumber = this.props.HNumber;
-    //     database.ref('/assignedworkerstocenters')
-    //         .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
-    //         .once('value', snapshot => {
-    //             if (snapshot.val()) {
-    //                 const value = snapshot.val();
-    //                 const keys = Object.keys(value);
-    //                 for (let i = 0; i < keys.length; i++) {
-    //                     const k = keys[i];
-    //                     awcid = value[k].anganwadicenter_code;
-    //                 }
-    //                 const db = database.ref(`/users/${awcid}/Maternal/ChildRegistration`);
-    //                 const query = db.orderByChild('HNumber').equalTo(HNumber);
-    //                 query.on('value', snap => {
-    //                     snap.forEach(child => {
-    //                         if (child.val().CName === text) {
-    //                             var birthday = new Date(child.val().DPickdob);
+    calbrday(text) {
+        console.log('called ghere',text);
+        let awcid = 0;
+        const database = firebase.database();
+        const { currentUser } = firebase.auth();
+        this.props.NutritionUpdate({ name: 'CName', value: text });
+        const HNumber = this.props.HNumber;
+        database.ref('/assignedworkerstocenters')
+            .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+            .once('value', snapshot => {
+                if (snapshot.val()) {
+                    const value = snapshot.val();
+                    const keys = Object.keys(value);
+                    for (let i = 0; i < keys.length; i++) {
+                        const k = keys[i];
+                        awcid = value[k].anganwadicenter_code;
+                    }
+                    const db = database.ref(`/users/${awcid}/Maternal/ChildRegistration`);
+                    const query = db.orderByChild('HNumber').equalTo(HNumber);
+                    query.on('value', snap => {
+                        snap.forEach(child => {
+                            console.log('brday');
+                            if (child.val().CName == text) {
+                                var birthday = new Date(child.val().DPickdob);
+                                console.log('brday',birthday);
     //                             var today = new Date();
     //                             var thisYear = 0;
     //                             if (today.getMonth() < birthday.getMonth()) {
@@ -96,18 +99,18 @@ class ChildNutritionForm extends Component {
     //                             }
     //                             var age = today.getFullYear() - birthday.getFullYear() - thisYear;
     //                             console.log('age here', age.toString());
-    //                             this.setState({ Age: age.toString() });
-    //                         }
-    //                     });
-    //                 });
-    //             } else {
-    //                 console.log('no user data');
-    //             }
-    //         });
-    // }
+                                this.setState({ Age: age.toString() });
+                            }
+                        });
+                    });
+                } else {
+                    console.log('no user data');
+                }
+            });
+    }
 
     render() {
-        this.props.NutritionUpdate({ name: 'Age', value: this.state.Age });
+        // this.props.NutritionUpdate({ name: 'Age', value: this.state.Age });
         return (
             <ScrollView>
                 <View style={styles.container}>
@@ -128,8 +131,8 @@ class ChildNutritionForm extends Component {
                             <Picker
                                 selectedValue={this.props.CName}
                                 style={styles.picker} itemStyle={styles.pickerItem}
-                                onValueChange={(value) => this.props.NutritionUpdate({ name: 'CName', value })}
-
+                                // onValueChange={(value) => this.props.NutritionUpdate({ name: 'CName', value })}
+                                onValueChange={this.calbrday.bind(this)}
                             >
                                 <Picker.Item label='Select Child Name' value='' />
                                 {this.getPickerElements()}

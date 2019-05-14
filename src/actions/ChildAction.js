@@ -14,8 +14,9 @@ export const childUpdate = ({ name, value }) => ({
 
 //
 // eslint-disable-next-line max-len
-export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, ebenifits }) => {
+export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, ebenifits }, uid) => {
     let awcid = 0;
+    const Delivery = 'Yes';
     const database = firebase.database();
     const { currentUser } = firebase.auth();
     return (dispatch) => {
@@ -29,6 +30,7 @@ export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytyp
                         const k = keys[i];
                         awcid = value[k].anganwadicenter_code;
                     }
+
                     // if ((HNumber === 0 || HNumber === 'undefined') ||
                     //     (CMotherId === ' ' || CMotherId === 'undefined') ||
                     //     (CName === ' ' || CName === 'undefined') || (status === ' ' || status === 'undefined') ||
@@ -37,19 +39,32 @@ export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytyp
                     //     Alert.alert('please enter all the details');
                     // } else {
                     //     Alert.alert('Inserted Successfully');
-                        console.log(firebase.auth());
-                        database.ref(`/users/${awcid}/Maternal/ChildRegistration`)
-                            .push({ HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, ebenifits })
-                            .then(() => {
-                                dispatch({
-                                    type: CHILD_CREATE
-                                });
-                                // ActionSheet.childList({ type: reset });
-                            })
-                            .catch((error) => {
-                                console.log(error);
+
+                    //code update delivery
+                    database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
+                        .update({ Delivery })
+                        .then(() => {
+                            dispatch({
+                                type: CHILD_SAVE
                             });
-                 //   }
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+
+                    console.log(firebase.auth());
+                    database.ref(`/users/${awcid}/Maternal/ChildRegistration`)
+                        .push({ HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, ebenifits })
+                        .then(() => {
+                            dispatch({
+                                type: CHILD_CREATE
+                            });
+                            // ActionSheet.childList({ type: reset });
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                    //   }
                 } else {
                     console.log('no user data');
                 }

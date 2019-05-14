@@ -18,7 +18,7 @@ class ChildRegistration extends Component {
         // } else {
             if (status === 'Born') {
                 console.log('data here', CMotherId);
-                this.props.childCreate({ HNumber, CName, CMotherId, status, health, option, babytype, DPickdob, DPickregdate, ebenifits });
+                this.props.childCreate({ HNumber, CName, CMotherId, status, health, option, babytype, DPickdob, DPickregdate, ebenifits }, CMotherId);
                 console.log('data here', CMotherId);
                 Alert.alert(
                     'Inserted Successfully',
@@ -29,6 +29,7 @@ class ChildRegistration extends Component {
                     'Inserted Successfully',
                 );
             }
+            
         //}
     }
 
