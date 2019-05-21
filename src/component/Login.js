@@ -123,7 +123,7 @@ class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgb(32, 53, 70)',
+        backgroundColor: '#275DAD',
         flexDirection: 'column',
     },
     logoContainer: {

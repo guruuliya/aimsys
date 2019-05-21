@@ -137,7 +137,7 @@ class DailyUsagePeople extends Component {
                                 const green_gram=data[i].Timeline.DailyUsageStock[obj].green_gram;
                                 const DPickdobStock=yesterdaydate;
                                
-                                var obj = {
+                                var obj1 = {
                                   nutritious_food : nutritious_food,
                                   protien_food: protien_food,
                                   oil: oil,
@@ -154,7 +154,7 @@ class DailyUsagePeople extends Component {
                                   DPickdobStock: yesterdaydate
                                 };
                                 database.ref(`/users/${awcid}/Timeline/DailyUsageStock/${DPickdobStock}`)
-                                .set(obj);
+                                .set(obj1);
                                 console.log("hello-------------- 6 if if end");
                                // console.log(obj);
                                 //can use push but it creates new tokens

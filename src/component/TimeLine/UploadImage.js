@@ -12,7 +12,7 @@ import { imageUpdate, imageCreate } from '../../actions';
 class UploadImage extends Component {
     state = { showModal: false };
     static navigationOptions = {
-        title: 'Child Nutrition Update',
+        title: 'Image Upload',
         headerStyle: {
             backgroundColor: '#203546',
         },

@@ -15,12 +15,40 @@ export const HouseholdUpdate = ({ name, value }) => ({
     type: HOUSEHOLD_UPDATE,
     payload: { name, value }
 });
-export const HouseholdNumberSave = ({ HHNumber, Address }) => {
+export const HouseholdNumberSave = ({ HHNumber, Income, Address }) => {
+    let awcid = 0;
+    const database = firebase.database();
     const { currentUser } = firebase.auth();
-    return () => {
-        const find = firebase.database().ref(`/users/${currentUser.uid}/Demographic/HouseHold`);
-    };
-}
+    if (HHNumber === undefined) {
+        Alert.alert(
+            'No  Record Present',
+            'Update Failed'
+        );
+    }
+    else {
+        return (dispatch) => {
+            database.ref('/assignedworkerstocenters')
+                .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
+                .once('value', snapshot => {
+                    if (snapshot.val()) {
+                        const value = snapshot.val();
+                        const keys = Object.keys(value);
+                        for (let i = 0; i < keys.length; i++) {
+                            const k = keys[i];
+                            awcid = value[k].anganwadicenter_code;
+                        }
+                        database.ref(`/users/${awcid}/Demographic/HouseHold/${HHNumber}`)
+                            .update({ HHNumber, Income, Address }).then(() => {
+                                dispatch({ type: HOUSEHOLD_SAVE });
+                            });
+                    } else {
+                        console.log('no user data');
+                    }
+                });
+        };
+    }
+};
+
 
 // let awcid = 0;
 //     const database = firebase.database();
@@ -47,12 +75,11 @@ export const HouseholdNumberSave = ({ HHNumber, Address }) => {
 //             });
 
 
-export const HouseholdCreate = ({ HHNumber, Address }) => {
+export const HouseholdCreate = ({ HHNumber, Income, Address }) => {
     let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
     let count = 0;
-    let ucount = 0;
     return (dispatch) => {
         database.ref('/assignedworkerstocenters')
             .orderByChild('anganwadiworkerid').equalTo(currentUser.uid)
@@ -64,10 +91,11 @@ export const HouseholdCreate = ({ HHNumber, Address }) => {
                         const k = keys[i];
                         awcid = value[k].anganwadicenter_code;
                     }
-                    if ((HHNumber === undefined || HHNumber === '') || (Address === undefined || Address === '')) {
+                    if ((HHNumber === undefined || HHNumber === '') || (Address === undefined || Address === '') || (Income === '' || undefined)) {
                         count--;
 
                     } else {
+                        
                         database.ref(`/users/${awcid}/Demographic/HouseHold`).on('value', snapshot => {
                             snapshot.forEach(child => {
                                 if (HHNumber === child.val().HHNumber) {
@@ -77,7 +105,7 @@ export const HouseholdCreate = ({ HHNumber, Address }) => {
                         });
                     }
                     if (count === 0) {
-                        database.ref(`/users/${awcid}/Demographic/HouseHold`).child(HHNumber).set({ HHNumber, Address })
+                        database.ref(`/users/${awcid}/Demographic/HouseHold`).child(HHNumber).set({ HHNumber, Income, Address })
                             .then(() => {
                                 dispatch({ type: HOUSEHOLD_CREATE });
                             });
@@ -89,7 +117,7 @@ export const HouseholdCreate = ({ HHNumber, Address }) => {
                             'Sorry',
                             'Record alerday exist');
                     }
-                    else if (count--) {
+                    else if (count < 0) {
                         Alert.alert(
                             'Please enter the details',
                             'Record Not Inserted');
@@ -139,7 +167,8 @@ export const HouseDelete = (uid, navigate, HNo) => {
 };
 
 
-export const HouseHoldFormCreate = ({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Income, Phonenumber, uid, Disease1, Disease2, Disease3 }) => {
+export const HouseHoldFormCreate = ({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, uid, Disease1, Disease2, Disease3 }) => {
+    console.log('here', HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, uid, Disease1, Disease2, Disease3, Disability);
     let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
@@ -154,18 +183,26 @@ export const HouseHoldFormCreate = ({ HHNumber, HHName, DOB, Caste, sex, Literac
                         const k = keys[i];
                         awcid = value[k].anganwadicenter_code;
                     }
-                    if (HHNumber === undefined || HHName === undefined || DOB === undefined || sex === undefined || Status === undefined || Income === undefined || Designation === undefined || Disease1 === undefined || Disease2 === undefined || Disease3 === undefined) {
+                    if (HHNumber === undefined || HHName === undefined || Disability === undefined || DOB === undefined || sex === undefined || Status === undefined || Designation === undefined || Disease1 === undefined || Disease2 === undefined || Disease3 === undefined) {
                         Alert.alert('Please enter the all the  details',
                             'Record Not Inserted');
                     } else if (uid === undefined) {
-                        Alert.alert('NO Household Number ',
+                        Alert.alert('No Household Number ',
                             'Record Not Inserted');
-                    } else {
+                    }
+                    else if (Phonenumber.length !== 10) {
+                        Alert.alert('Not a valid Phone Number ',
+                            'Record Not Inserted');
+                    }
+                    else {
                         database.ref(`/users/${awcid}/Demographic/HouseholdMember/${uid}`)
-                            .push({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Income, Phonenumber, Disease1, Disease2, Disease3 })
+                            .push({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, Disease1, Disease2, Disease3 })
                             .then(() => {
                                 dispatch({ type: HOUSEHOLD_CREATE });
                             });
+                        Alert.alert(
+                            'Sucessfully',
+                            'Record Inserted ');
                     }
                 } else {
                     console.log('no user data');
@@ -266,11 +303,11 @@ export const HouseholdNameFetch = ({ uid }) => {
     };
 };
 
-export const HouseholdSave = ({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Disease1, Disease2, Disease3 }, uid, HNo) => {
+export const HouseholdSave = ({ HHNumber, HHName, DOB, Caste, sex, Status, LiteracyRate, Designation, Phonenumber, Disease1, Disease2, Disease3, Disability }, uid, HNo) => {
     let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
-    if (HHNumber === undefined || HHName === undefined || DOB === undefined || sex === undefined || Status === undefined || Income === undefined || Designation === undefined || Disease1 === undefined || Disease2 === undefined || Disease3 === undefined) {
+    if (HHNumber === undefined || HHName === undefined || DOB === undefined || sex === undefined || Status === undefined || Designation === undefined || Disease1 === undefined || Disease2 === undefined || Disease3 === undefined) {
         Alert.alert(
             'No  Record Present',
             'Update Failed'
@@ -293,7 +330,7 @@ export const HouseholdSave = ({ HHNumber, HHName, DOB, Caste, sex, Status, Desig
                             awcid = value[k].anganwadicenter_code;
                         }
                         database.ref(`/users/${awcid}/Demographic/HouseholdMember/${HNo}/${uid}`)
-                            .update({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Income, Disease1, Disease2, Disease3 })
+                            .update({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, LiteracyRate, Phonenumber, Disease1, Disease2, Disease3, Disability })
                             .then(() => {
                                 dispatch({ type: HOUSEHOLD_SAVE });
                             });

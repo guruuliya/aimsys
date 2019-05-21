@@ -26,17 +26,17 @@ class HouseHoldEdit extends Component {
     }
 
     onButtonPress() {
-        const { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Phonenumber, Address, option, Income, Disease1, Disease2, Disease3 } = this.props;
-        this.props.HouseholdSave({ HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Phonenumber, Address, option, Income, Disease1, Disease2, Disease3 }, this.props.navigation.state.params.Houseno.uid, HHNumber);
+        const { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3 } = this.props;
+        this.props.HouseholdSave({ HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3 }, this.props.navigation.state.params.Houseno.uid, HHNumber);
         Alert.alert(
-            'Yes !',
-            'Updated Successfully',
+            'Successfully ',
+            'Updated',
             [
                 { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
             ],
             {
                 cancelable: false
-            })
+            });
     }
     onAccept() {
         const { HHNumber } = this.props;
@@ -50,7 +50,7 @@ class HouseHoldEdit extends Component {
     }
 
     render() {
-  return (
+        return (
             <ScrollView>
                 <Text>{"\n"}</Text>
                 <Card>
@@ -63,8 +63,8 @@ class HouseHoldEdit extends Component {
                     <CardSection>
                         <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Delete</Button>
                     </CardSection>
-                    <Confirm 
-                    visible={this.state.showModal}
+                    <Confirm
+                        visible={this.state.showModal}
                         onAccept={this.onAccept.bind(this)}
                         onDecline={this.onDecline.bind(this)}
                     >
@@ -76,7 +76,7 @@ class HouseHoldEdit extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    const { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Phonenumber, Address, option, Income, Disease1, Disease2, Disease3, uid } = state.HouseHoldForm;
-    return { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Designation, Status, Phonenumber, Address, option, Income, Disease1, Disease2, Disease3, uid };
+    const { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3, uid } = state.HouseHoldForm;
+    return { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Designation, Disability, Status, Phonenumber, Address, option, Disease1, Disease2, Disease3, uid };
 }
 export default connect(mapStateToProps, { HouseholdSave, HouseholdUpdate, HouseholdDelete })(HouseHoldEdit);
