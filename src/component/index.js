@@ -15,7 +15,6 @@ import { fetchUser } from '../actions';
 class MainApp extends Component {
   componentWillMount() {
     const config = {
-<<<<<<< HEAD
       //Timeline
       apiKey:"AIzaSyAM41SBy8oD2QwG3QsD61DIIguAVwSlYik",
       authDomain:"timelinedemo-d0193.firebaseapp.com",
@@ -23,15 +22,6 @@ class MainApp extends Component {
       projectId:"timelinedemo-d0193",
       storageBucket:"timelinedemo-d0193.appspot.com",
       messagingSenderId:"962657185492"
-=======
-      apiKey: "AIzaSyAPb6cbba3ui5juo7XyRZk742FS9jdT56s",
-    authDomain: "aimsys-67e99.firebaseapp.com",
-    databaseURL: "https://aimsys-67e99.firebaseio.com",
-    projectId: "aimsys-67e99",
-    storageBucket: "aimsys-67e99.appspot.com",
-    messagingSenderId: "524773124768",
-    appId: "1:524773124768:web:2542f27f0f2459a4"
->>>>>>> pr/36
     };
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
