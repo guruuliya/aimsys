@@ -853,17 +853,17 @@ export const InjectionDelete = ({ uid }, navigate) => {
                         awcid = value[k].anganwadicenter_code;
                     }
                     Alert.alert(
-                        'Need Attention',
-                        'Do you Want to Delete..',
+                        'Confirm',
+                        
                         [
-                            {
-                                text: 'Cancel',
-                                onPress: () =>
-                                    dispatch({
-                                        type: ListInjection
-                                    }),
-                                style: 'cancel',
-                            },
+                            // {
+                            //     text: 'Cancel',
+                            //     onPress: () =>
+                            //         dispatch({
+                            //             type: ListInjection
+                            //         }),
+                            //     style: 'cancel',
+                            // },
                             {
                                 text: 'OK',
                                 onPress: () =>

@@ -8,7 +8,7 @@ import ImageSearch from './ImageSearch';
 
 class DailyUsageRequestTab1 extends Component {
   static navigationOptions = {
-    title: 'Food Records',
+    title: 'Image Records',
     headerStyle: {
       backgroundColor: '#203546',
     },

@@ -7,7 +7,7 @@ import { Container, Content, Text, Card, Form } from 'native-base';
 class NotificationView extends Component {
 
     static navigationOptions = {
-        title: 'Child Registration',
+        title: 'Immunization details',
         headerStyle: {
             backgroundColor: '#355870',
         },

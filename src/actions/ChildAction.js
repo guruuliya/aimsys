@@ -51,10 +51,11 @@ export const childCreate = ({ HNumber, CName, CMotherId, status, option, babytyp
                         .catch((error) => {
                             console.log(error);
                         });
+                    const ebenifit = ebenifits;
 
                     console.log(firebase.auth());
                     database.ref(`/users/${awcid}/Maternal/ChildRegistration`)
-                        .push({ HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, ebenifits })
+                        .push({ HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, ebenifit })
                         .then(() => {
                             dispatch({
                                 type: CHILD_CREATE
@@ -116,7 +117,7 @@ export const childFetch = () => {
 // };
 
 // eslint-disable-next-line max-len
-export const childSave = ({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifits, uid }) => {
+export const childSave = ({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifits, uid, navigate }) => {
     let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
@@ -132,12 +133,15 @@ export const childSave = ({ HNumber, CName, CMotherId, status, option, babytype,
                         const k = keys[i];
                         awcid = value[k].anganwadicenter_code;
                     }
+                    const ebenifit = ebenifits;
                     database.ref(`/users/${awcid}/Maternal/ChildRegistration/${uid}`)
-                        .set({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifits })
+                        .set({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifit })
                         .then(() => {
                             dispatch({
                                 type: CHILD_SAVE
                             });
+                            Alert.alert('Successfully updated');
+                            navigate.navigate('ChildTab');
                         })
                         .catch((error) => {
                             console.log(error);
@@ -204,17 +208,17 @@ export const childDelete = ({ uid }, navigate) => {
                         awcid = value[k].anganwadicenter_code;
                     }
                     Alert.alert(
-                        'Need Attention',
-                        'Do you Want to Delete..',
+                        'Confirm',
                         [
-                            {
-                                text: 'Cancel',
-                                onPress: () =>
-                                    dispatch({
-                                        type: ListChild
-                                    }),
-                                style: 'cancel',
-                            },
+                            // {
+                            //     text: 'Cancel',
+                            //     onPress: () =>
+                            //         dispatch({
+                            //             // type: ListChild
+                            //         }),
+                            //     style: 'cancel',
+                            //     navigate.navigate('ChildEditForm');
+                            // },
                             {
                                 text: 'OK',
                                 onPress: () =>

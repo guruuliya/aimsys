@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, ScrollView, Alert, TouchableOpacity, Text } from 'react-native';
-import { CardSection, Card, Input, Button } from '../Common';
+import { StyleSheet, Dimensions, ScrollView, Alert, Text } from 'react-native';
+import { CardSection, Card } from '../Common';
 import { connect } from 'react-redux';
 import { NutritionUpdate, NutritionCreate } from '../../actions/NutritionAction';
 import ChildNutritionForm from './ChildNutritionForm';
+import { CardItem, Button } from 'native-base';
 
 
 class ChildNutrition extends Component {
@@ -15,30 +16,37 @@ class ChildNutrition extends Component {
     }
 
     onButtonPress() {
-        const { HNumber, CName, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = this.props;
-        if (HNumber === undefined || CName === undefined || height === undefined || weight === undefined || under === undefined || wast === undefined || stunt === undefined || lowbirth === undefined || breastfeed === undefined || exfeed === undefined || cfeed === undefined || ideli === undefined) {
+        const { HNumber, CName, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = this.props;
+        if (HNumber === undefined || CName === undefined || weight === undefined || under === undefined || wast === undefined || stunt === undefined || lowbirth === undefined || breastfeed === undefined || exfeed === undefined || cfeed === undefined || ideli === undefined) {
             Alert.alert(
                 'Enter all the details',
                 'record not inserted');
         } else {
-            this.props.NutritionCreate({ HNumber, CName, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli });
-            // Alert.alert(
-            //     'Inserted Successfully',
-            // );
+            this.props.NutritionCreate({ HNumber, CName, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli });
+            Alert.alert(
+                'Inserted Successfully',
+            );
         }
-    }
+     }
 
     render() {
         return (
             <ScrollView>
                 <Card>
                     <ChildNutritionForm {...this.props} />
-                    <CardSection>
-                    <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
+                    <CardItem>
+                    <Button
+                     block success
+                     style={{
+                         width: Dimensions.get('window').width - 40,
+                         marginLeft: 0,
+                         marginRight: 0
+                     }} 
+                   onPress={this.onButtonPress.bind(this)}>
                                 <Text style={styles.loginText}>ADD</Text>
-                            </TouchableOpacity>
+                            </Button>
 
-                    </CardSection>
+                    </CardItem>
                 </Card>
             </ScrollView>
 
@@ -193,9 +201,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     console.log(state);
-    const { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = state.nutrition;
+    const { HNumber, CName, Age, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = state.nutrition;
     console.log('Age here', Age);
-    return { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli };
+    return { HNumber, CName, Age, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli };
 };
 
 export default connect(mapStateToProps, {

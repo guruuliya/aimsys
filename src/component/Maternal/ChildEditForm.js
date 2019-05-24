@@ -37,10 +37,11 @@ class ChildEditForm extends Component {
 
     onButtonPress() {
         const { HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifits } = this.props;
-        this.props.childSave({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifits, uid: this.props.navigation.state.params.child.uid });
-        Alert.alert(
-            'Updated Successfully',
-        );
+       const navigate = this.props.navigation;
+        this.props.childSave({ HNumber, CName, CMotherId, status, option, babytype, DPickdob, DPickregdate, ebenifits, uid: this.props.navigation.state.params.child.uid, navigate });
+        // Alert.alert(
+        //     'Updated Successfully',
+        // );
     }
 
     onAccept() {
@@ -105,9 +106,11 @@ class ChildEditForm extends Component {
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.mainview}>
+                    <Label style={{marginLeft:15}}>HouseHold Number</Label>
                         <View style={styles.inputContainer}>
                             <TextInput
                                 style={styles.inputs}
+                                keyboardType='numeric'
                                 placeholder="HouseHold Number"
                                 underlineColorAndroid='transparent'
                                 autoCorrect={false}
@@ -117,7 +120,7 @@ class ChildEditForm extends Component {
 
                             />
                         </View>
-
+                        <Label style={{marginLeft:15}}>Mother Name</Label>
                         <View style={styles.inputContainer}>
                             <Picker
                                 style={styles.picker} itemStyle={styles.pickerItem}
@@ -144,6 +147,7 @@ class ChildEditForm extends Component {
                             />
                             <Text>{'\n'}</Text>
                         </View>
+                        <Label style={{marginLeft:15}}>Child Name</Label>
                         <View style={styles.inputContainer}>
                             <TextInput
                                 style={styles.inputs}
@@ -201,7 +205,7 @@ class ChildEditForm extends Component {
                                 <Picker.Item label="Unhealthy" value="unhealthy" />
                             </Picker>
                         </View> */}
-
+  <Label style={{marginLeft:15}}> Date of Birth</Label>
                         <View style={styles.inputContainer}>
                             <DatePicker
                                 style={styles.dateblock}
@@ -215,7 +219,7 @@ class ChildEditForm extends Component {
                                 date={this.props.DPickdob}
                             />
                         </View>
-
+                        <Label style={{marginLeft:15}}>Registration Date</Label>
                         <View style={styles.inputContainer}>
                             <DatePicker
                                 style={styles.dateblock}
@@ -229,7 +233,7 @@ class ChildEditForm extends Component {
                                 date={this.props.DPickregdate}
                             />
                         </View>
-
+                        <Label style={{marginLeft:15}}>Expectant Women Benifits Date </Label>
                         <View style={styles.inputContainer}>
                                     <DatePicker
                                         style={styles.dateblock}

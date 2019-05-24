@@ -1,8 +1,9 @@
 
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Alert, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Card, CardSection, Button } from '../Common';
+import { CardItem, Button } from 'native-base';
+import { Card } from '../Common';
 import { connect } from 'react-redux';
 import ChildRegistrationForm from './ChildRegistrationForm';
 import { childUpdate, childCreate, deliveryUpdate } from '../../actions/ChildAction';
@@ -10,27 +11,27 @@ import { childUpdate, childCreate, deliveryUpdate } from '../../actions/ChildAct
 class ChildRegistration extends Component {
     onButtonPress() {
         const { HNumber, CName, CMotherId, status, option, health, babytype, DPickdob, DPickregdate, placedied, ebenifits } = this.props;
-       
-        // if (HNumber === '' || CName === '' || CMotherId === '' || status === '' || option === '' || health === '' || babytype === '' || DPickdob === '' || DPickregdate === '' || placedied === '') {
-        //     Alert.alert(
-        //         'Enter all the details',
-        //         'record not inserted');
-        // } else {
+
+        if (HNumber === '' || CName === '' || CMotherId === '' || status === '' || option === '' || health === '' || babytype === '' || DPickdob === '' || DPickregdate === '' || placedied === '') {
+            Alert.alert(
+                'Enter all the details',
+                'record not inserted');
+        } else { 
             if (status === 'Born') {
-                console.log('data here', CMotherId);
-                this.props.childCreate({ HNumber, CName, CMotherId, status, health, option, babytype, DPickdob, DPickregdate, ebenifits }, CMotherId);
-                console.log('data here', CMotherId);
-                Alert.alert(
-                    'Inserted Successfully',
-                );
-            } else {
-                this.props.deliveryUpdate({ status, placedied }, CMotherId);
-                Alert.alert(
-                    'Inserted Successfully',
-                );
-            }
-            
-        //}
+            console.log('data here', CMotherId);
+            this.props.childCreate({ HNumber, CName, CMotherId, status, health, option, babytype, DPickdob, DPickregdate, ebenifits }, CMotherId);
+            console.log('data here', CMotherId);
+            Alert.alert(
+                'Inserted Successfully',
+            );
+        } else {
+            this.props.deliveryUpdate({ status, placedied }, CMotherId);
+            Alert.alert(
+                'Inserted Successfully',
+            );
+        }
+
+        }
     }
 
     render() {
@@ -40,11 +41,19 @@ class ChildRegistration extends Component {
                     <Card>
                         <ChildRegistrationForm {...this.props} edit='no' />
 
-                        <CardSection>
-                            <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
+                        <CardItem>
+                            <Button
+                                block success
+                                style={{
+                                    width: Dimensions.get('window').width - 40,
+                                    marginLeft: 0,
+                                    marginRight: 0
+                                }}
+                                onPress={this.onButtonPress.bind(this)}
+                            >
                                 <Text style={styles.loginText}>ADD</Text>
-                            </TouchableOpacity>
-                        </CardSection>
+                            </Button>
+                        </CardItem>
                     </Card>
                 </View>
             </ScrollView>
@@ -109,7 +118,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 20,
-        width: 300,
+        width: 350,
         backgroundColor: 'transparent'
     },
     loginButton: {

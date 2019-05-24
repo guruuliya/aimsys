@@ -18,7 +18,7 @@ class ChildNutritionForm extends Component {
 
     search(HNumber) {
         let awcid = 0;
-        let  dob1=" ";
+        let dob1 = " ";
         const database = firebase.database();
         const { currentUser } = firebase.auth();
         database.ref('/assignedworkerstocenters')
@@ -66,7 +66,7 @@ class ChildNutritionForm extends Component {
     }
 
     calbrday(text) {
-        console.log('called ghere',text);
+        console.log('called ghere', text);
         let awcid = 0;
         const database = firebase.database();
         const { currentUser } = firebase.auth();
@@ -89,16 +89,16 @@ class ChildNutritionForm extends Component {
                             console.log('brday');
                             if (child.val().CName == text) {
                                 var birthday = new Date(child.val().DPickdob);
-                                console.log('brday',birthday);
-    //                             var today = new Date();
-    //                             var thisYear = 0;
-    //                             if (today.getMonth() < birthday.getMonth()) {
-    //                                 thisYear = 1;
-    //                             } else if ((today.getMonth() == birthday.getMonth()) && today.getDate() < birthday.getDate()) {
-    //                                 thisYear = 1;
-    //                             }
-    //                             var age = today.getFullYear() - birthday.getFullYear() - thisYear;
-    //                             console.log('age here', age.toString());
+                                console.log('brday', birthday);
+                                //                             var today = new Date();
+                                //                             var thisYear = 0;
+                                //                             if (today.getMonth() < birthday.getMonth()) {
+                                //                                 thisYear = 1;
+                                //                             } else if ((today.getMonth() == birthday.getMonth()) && today.getDate() < birthday.getDate()) {
+                                //                                 thisYear = 1;
+                                //                             }
+                                //                             var age = today.getFullYear() - birthday.getFullYear() - thisYear;
+                                //                             console.log('age here', age.toString());
                                 this.setState({ Age: age.toString() });
                             }
                         });
@@ -115,29 +115,35 @@ class ChildNutritionForm extends Component {
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.mainview}>
-                        <View style={styles.inputContainer}>
+                       <Card>
+                        <CardItem>
                             <TextInput
                                 style={styles.inputs}
                                 placeholder="Enter HouseHold Number"
+                                keyboardType='numeric'
                                 underlineColorAndroid='transparent'
                                 autoCorrect={false}
                                 placeholderTextColor='#355870'
                                 onChangeText={this.calFun.bind(this)}
                                 value={this.props.HNumber}
                             />
-                        </View>
+                            </CardItem>
+                     </Card>
 
-                        <View style={styles.inputContainer}>
+
+                      <Card>
+                          <CardItem>
                             <Picker
                                 selectedValue={this.props.CName}
                                 style={styles.picker} itemStyle={styles.pickerItem}
-                                // onValueChange={(value) => this.props.NutritionUpdate({ name: 'CName', value })}
-                                onValueChange={this.calbrday.bind(this)}
+                                onValueChange={(value) => this.props.NutritionUpdate({ name: 'CName', value })}
+                               // onValueChange={this.calbrday.bind(this)}
                             >
                                 <Picker.Item label='Select Child Name' value='' />
                                 {this.getPickerElements()}
                             </Picker>
-                        </View>
+                            </CardItem>
+                            </Card>
 
                         {/* <View style={styles.inputContainer}>
                             <TextInput
@@ -152,7 +158,7 @@ class ChildNutritionForm extends Component {
 
                             />
                         </View> */}
-                        <View style={styles.inputContainer}>
+                        {/* <View style={styles.inputContainer}>
                             <TextInput
                                 style={styles.inputs}
                                 placeholder="Enter Height"
@@ -162,22 +168,27 @@ class ChildNutritionForm extends Component {
                                 onChangeText={value => this.props.NutritionUpdate({ name: 'height', value })}
                                 value={this.props.height}
                             />
-                        </View>
-
-                        <View style={styles.inputContainer}>
+                        </View> */}
+<Card>
+                       <CardItem>
                             <TextInput
                                 style={styles.inputs}
                                 placeholder="Enter weight"
+                                keyboardType='numeric'
                                 underlineColorAndroid='transparent'
                                 autoCorrect={false}
                                 placeholderTextColor='#355870'
                                 onChangeText={value => this.props.NutritionUpdate({ name: 'weight', value })}
                                 value={this.props.weight}
                             />
-                        </View>
-
-                        <View style={styles.inputContainer}>
-                            <Label style={{ marginLeft: 22 }}>Underweight?</Label>
+                            </CardItem>
+                        </Card>
+<Card>
+<CardItem>
+<Text style={styles.textStyle1}> Underweight??</Text>
+                            {/* <Label style={{ marginLeft: 22 }}>Underweight?</Label> */}
+                            </CardItem>
+                            <CardItem>
                             <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
                             <Radio
                                 onPress={() => this.props.NutritionUpdate({ name: 'under', value: 'Yes' })}
@@ -188,7 +199,8 @@ class ChildNutritionForm extends Component {
                                 onPress={() => this.props.NutritionUpdate({ name: 'under', value: 'No' })}
                                 selected={this.props.under === 'No'}
                             />
-                        </View>
+                            </CardItem>
+                       </Card>
                         {/* 
                     {
                         this.state.isHidden ?
@@ -210,8 +222,12 @@ class ChildNutritionForm extends Component {
                             : null
                     } */}
 
-                        <View style={styles.inputContainer}>
-                            <Label style={{ marginLeft: 22 }}>Wasting?</Label>
+                       <Card>
+                           <CardItem>
+                           <Text style={styles.textStyle1}> Wasting??</Text>
+                        
+                            </CardItem>
+                            <CardItem>
                             <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
                             <Radio
                                 onPress={() => this.props.NutritionUpdate({ name: 'wast', value: 'Yes' })}
@@ -225,7 +241,8 @@ class ChildNutritionForm extends Component {
                                 selected={this.props.wast === 'No'}
 
                             />
-                        </View>
+                            </CardItem>
+                     </Card>
                         {/* {
                         this.state.isHidden1 ?
                             <Card>
@@ -252,9 +269,11 @@ class ChildNutritionForm extends Component {
                             : null
                     } */}
 
-                        <View style={styles.inputContainer}>
-                            <Label style={styles.textStyle1}>Stunting?</Label>
-
+<Card>
+                            <CardItem>
+                            <Text style={styles.textStyle1}>Stunting?</Text>
+                            </CardItem>
+                            <CardItem>
                             <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
                             <Radio
                                 onPress={() => this.props.NutritionUpdate({ name: 'stunt', value: 'Yes' })}
@@ -268,7 +287,8 @@ class ChildNutritionForm extends Component {
                                 selected={this.props.stunt === 'No'}
 
                             />
-                        </View>
+                       </CardItem>
+                        </Card>
                         {/* {
                         this.state.isHidden2 ?
                             <Card>
@@ -294,7 +314,7 @@ class ChildNutritionForm extends Component {
                                 <Text style={styles.textStyle1}>New born with low birth weight less then 2500 grams?</Text>
                             </CardItem>
                             <CardItem>
-                                <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
+                                <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16}}>Yes:</Text>
                                 <Radio
                                     onPress={() => this.props.NutritionUpdate({ name: 'lowbirth', value: 'Yes' })}
                                     selected={this.props.lowbirth === 'Yes'}
@@ -354,9 +374,10 @@ class ChildNutritionForm extends Component {
 
                         <Card>
                             <CardItem>
-                                <Text style={styles.textStyle1}>Children inititaed appropriate complementary feeding?</Text>
-                            </CardItem>
-                            <CardItem>
+                            <Text style={styles.textStyle1}>Children inititaed appropriate complementary feeding?</Text>
+                                {/* <Label style={styles.textStyle1}> Children inititaed appropriate complementary feeding?</Label> */}
+                           </CardItem>
+                           <CardItem>
                                 <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
                                 <Radio
                                     onPress={() => this.props.NutritionUpdate({ name: 'cfeed', value: 'Yes' })}
@@ -370,29 +391,29 @@ class ChildNutritionForm extends Component {
                                     selected={this.props.cfeed === 'No'}
 
                                 />
-                            </CardItem>
-                        </Card>
+                      </CardItem>
+                      </Card>
 
-                        <Card>
-                            <CardItem>
-                                <Text style={styles.textStyle1}>Institutional deliveries?</Text>
-                            </CardItem>
-                            <CardItem>
-                                <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
+                        {/* <Card style={styles.cardstylenb}> */}
+                           <Card>
+                               <CardItem>
+                               <Text style={styles.textStyle1}>Institutional deliveries?</Text>
+                            {/* <Label style={styles.textStyle1}></Label> */}
+                           </CardItem>
+                           <CardItem>
+                            <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
                                 <Radio
                                     onPress={() => this.props.NutritionUpdate({ name: 'ideli', value: 'Yes' })}
                                     selected={this.props.ideli === 'Yes'}
-
                                 />
-
                                 <Text style={{ marginLeft: 10, color: 'grey', fontSize: 16 }}>No:</Text>
                                 <Radio
                                     onPress={() => this.props.NutritionUpdate({ name: 'ideli', value: 'No' })}
                                     selected={this.props.ideli === 'No'}
-
                                 />
-                            </CardItem>
-                        </Card>
+                                </CardItem>
+                           </Card>
+                           
                     </View >
                 </View>
             </ScrollView>
@@ -500,6 +521,10 @@ const styles = StyleSheet.create({
         width: 300,
         backgroundColor: 'transparent'
     },
+    cardstylenb: {
+         borderRadius: 60,
+          borderBottomWidth: 1 
+    },
     loginButton: {
         backgroundColor: '#00b5ec',
 
@@ -541,9 +566,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-
-    const { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = state.nutrition;
-    return { HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli };
+    const { HNumber, CName, Age, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli } = state.nutrition;
+    return { HNumber, CName, Age, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli };
 };
 
 export default connect(mapStateToProps, { NutritionUpdate })(ChildNutritionForm);

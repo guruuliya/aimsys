@@ -9,7 +9,7 @@ import { Container, Content, Text, Card, Form } from 'native-base';
 class NutritionView extends Component {
 
   static navigationOptions = {
-    title: 'Child Registration',
+    title: 'Child Nutrition Details',
     headerStyle: {
       backgroundColor: '#355870',
     },
@@ -76,10 +76,6 @@ componentWillMount() {
             <Text style={styles.contentview}>Household Number :{'\t'}{HNumber} </Text>
 
               <Text style={styles.contentview}>Child Name :{'\t'}{this.state.a} </Text>
-
-              <Text style={styles.contentview} >Age :{'\t'}{Age} </Text>
-
-              <Text style={styles.contentview} >Hieght :{'\t'}{height} </Text>
 
               <Text style={styles.contentview}>Weight:{'\t'}{weight} </Text>
 

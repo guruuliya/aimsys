@@ -10,7 +10,7 @@ class ImageView extends Component {
         a: []
     }
     static navigationOptions = {
-        title: 'Child Registration',
+        title: 'Image Records',
         headerStyle: {
             backgroundColor: '#355870',
         },
@@ -29,7 +29,7 @@ class ImageView extends Component {
     render() {
         console.log('inside render', this.state.a);
         console.log(this.props.navigation.state.params.img);
-        const { UPicture, uid, comment } = this.props.navigation.state.params.img;
+        const { UPicture, uid, comment, imagetype } = this.props.navigation.state.params.img;
         const navigate = this.props.navigation;
         return (
             <Container>
@@ -45,7 +45,11 @@ class ImageView extends Component {
                             <Text>{'\n'}</Text>
                             <Text>{comment}</Text>
                             <Text>{'\n'}</Text>
-
+                            <Text>{'\n'}</Text>
+                            <Text>{'Image Type'}</Text>
+                            <Text>{'\t'}</Text>
+                            <Text>{imagetype}</Text>
+                            <Text>{'\n'}</Text>
                             <Button
                                 block danger
                                 style={{

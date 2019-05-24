@@ -73,6 +73,7 @@ class InjectionForm extends Component {
                     <View style={styles.inputContainer}>
                         <Input style={styles.inputs}
                             placeholder="HouseHold Number"
+                            keyboardType='numeric'
                             underlineColorAndroid='transparent'
                             autoCorrect={false}
                             placeholderTextColor='#355870'

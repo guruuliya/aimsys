@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import {
-    Alert, TextInput, Text, Dimensions, Image
+    Alert, TextInput, Dimensions, Image, View, StyleSheet
 } from 'react-native';
-import {
-    Content, Button, Card, CardItem, ListItem
+import { Radio, Text, Label, Content, Button, Card, CardItem, ListItem
 } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
@@ -12,7 +11,7 @@ import { imageUpdate, imageCreate } from '../../actions';
 class UploadImage extends Component {
     state = { showModal: false };
     static navigationOptions = {
-        title: 'Child Nutrition Update',
+        title: 'Image Upload Records',
         headerStyle: {
             backgroundColor: '#203546',
         },
@@ -64,9 +63,9 @@ class UploadImage extends Component {
     }
 
     onButtonPress() {
-        const { UPicture, comment } = this.props;
+        const { UPicture, comment, imagetype } = this.props;
         if (UPicture !== '') {
-            this.props.imageCreate({ UPicture, comment });
+            this.props.imageCreate({ UPicture, comment, imagetype });
         } else {
             Alert.alert(
                 'oops...!',
@@ -113,6 +112,23 @@ class UploadImage extends Component {
                              </Text>
                         </Button>
                     </CardItem>
+                    <View style={styles.inputContainer}>
+                       
+                        <Text>{'\n'}</Text>
+                        <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}> Attendance {'\t'}</Text>
+                        <Radio
+                            onPress={() => this.props.imageUpdate({ name: 'imagetype', value: 'Attendance' })}
+                            selected={this.props.imagetype === 'Attendance'}
+                        />
+                        <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>Others {'\t'}</Text>
+                        <Radio
+                            onPress={() => this.props.imageUpdate({ name: 'imagetype', value: 'Others' })}
+                            selected={this.props.imagetype === 'Others'}
+                        />
+                        <Text>{'\n'}</Text>
+                    </View>
+                    {this.props.imagetype === 'Others' ?
+                    <View>
                     <CardItem>
                         <TextInput
                             placeholder='Give Comments....'
@@ -120,6 +136,8 @@ class UploadImage extends Component {
                             value={this.props.comment}
                         />
                     </CardItem>
+                    </View>
+                    : null} 
                     <ListItem>
                         <Button
                             block success
@@ -140,9 +158,26 @@ class UploadImage extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { UPicture, comment } = state.imageUpload;
-    return { UPicture, comment };
+    const { UPicture, comment, imagetype } = state.imageUpload;
+    return { UPicture, comment, imagetype };
 };
 
+const styles = StyleSheet.create({
+
+    inputContainer: {
+
+        borderBottomColor: '#F5FCFF',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 30,
+        borderBottomWidth: 1,
+        width: 350,
+        height: 45,
+        marginBottom: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+
+    }
+
+});
 export default connect(mapStateToProps, { imageUpdate, imageCreate })(UploadImage);
 

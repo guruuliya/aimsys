@@ -2,7 +2,8 @@ import { IMAGEUPDATE, IMAGECREATE, IMAGE_FETCH_LOAD_START, IMAGE_FETCH_LOAD_END,
 
 const INITIAL_STATE = {
     UPicture: '',
-    comment: ''
+    comment: 'none',
+    imagetype: ''
 };
 
 export default (state = INITIAL_STATE, action) => {

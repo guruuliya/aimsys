@@ -14,6 +14,17 @@ const ds = new ListView.DataSource({
 });
 
 class InjectionNotification extends Component {
+    static navigationOptions = {
+        title: 'Immuniztion Notification',
+        headerStyle: {
+            backgroundColor: '#203546',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
+
     state = {};
 
     componentWillMount() {
