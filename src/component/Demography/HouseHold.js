@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { CardItem, Button } from 'native-base';
+import { View, StyleSheet, Text, Dimensions, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Card, CardSection } from '../Common';
+import { Card } from '../Common';
 import { connect } from 'react-redux';
 import { HouseholdUpdate, HouseHoldFormCreate } from '../../actions';
 import HouseHoldForm from './HouseHoldForm';
@@ -21,8 +22,14 @@ class HouseHold extends Component {
 
     onButtonPress() {
         const { HHNumber, uid } = this.props.navigation.state.params.HouseHold;
-        const { HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, Disease1, Disease2, Disease3 } = this.props;
-        this.props.HouseHoldFormCreate({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, uid, Disease1, Disease2, Disease3 });
+        const { HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, Disease1, Disease2, Disease3, DOE } = this.props;
+        if (DOE !== undefined) {
+            this.props.HouseHoldFormCreate({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, uid, Disease1, Disease2, Disease3, DOE });
+        }
+        else {
+            Alert.alert('Please enter the all the  details',
+                'Record Not Inserted');
+        }
     }
     render() {
         return (
@@ -30,11 +37,13 @@ class HouseHold extends Component {
                 <View>
                     <Card>
                         <HouseHoldForm {...this.props} />
-                        <CardSection>
-                            <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
+                        <CardItem>
+                            <Button
+                                block success
+                                style={{ width: Dimensions.get('window').width - 40, marginLeft: 0, marginRight: 0 }} onPress={this.onButtonPress.bind(this)}>
                                 <Text style={styles.loginText}>Add</Text>
-                            </TouchableOpacity>
-                        </CardSection>
+                            </Button>
+                        </CardItem>
                     </Card>
                 </View>
             </ScrollView>
@@ -145,7 +154,7 @@ const styles = StyleSheet.create({
     }
 });
 const mapStateToProps = (state) => {
-    const { HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation,Disability , Phonenumber, Address, option, Disease1, Disease2, Disease3 } = state.HouseHoldForm;
-    return { HHName, DOB, Caste, sex, Relationship, LiteracyRate, Designation, Status, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3 }
+    const { HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3, DOE } = state.HouseHoldForm;
+    return { HHName, DOB, Caste, sex, Relationship, LiteracyRate, Designation, Status, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3, DOE }
 }
 export default connect(mapStateToProps, { HouseholdUpdate, HouseHoldFormCreate })(HouseHold);

@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
+import {NavigationActions} from 'react-navigation';
 import { TextInput, View, Picker, StyleSheet } from 'react-native';
 import { Radio, Label, Text } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 import { connect } from 'react-redux';
 import { HouseholdUpdate, HouseholdCreate } from '../../actions';
 
-
 class HouseHoldForm extends Component {
-
-    static navigationOptions = {
+  static navigationOptions = {
         title: 'Member Registration',
         headerStyle: {
             backgroundColor: '#203546',
@@ -19,24 +17,26 @@ class HouseHoldForm extends Component {
             fontWeight: 'bold',
         },
     };
+   
     state = {
         Designation: '',
         myNumber: '',
     }
+    
 
     numeric(e) {
         const val = e;
         console.log('value ', val);
-        
-            this.props.HouseholdUpdate({ name: 'Phonenumber', value: val });
-       
+
+        this.props.HouseholdUpdate({ name: 'Phonenumber', value: val });
+
 
     }
 
     calFun(text) {
         this.props.HouseholdUpdate({ name: 'Designation', value: text });
     }
-    
+
     render() {
 
         return (
@@ -45,6 +45,7 @@ class HouseHoldForm extends Component {
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.inputs}
+                            placeholderTextColor='#355870'
                             placeholder="Enter The HouseHold MemberName"
                             autoCorrect={false}
                             keyboardType='default'
@@ -55,10 +56,10 @@ class HouseHoldForm extends Component {
                     <View style={styles.inputContainer}>
                         <DatePicker
                             style={styles.dateblock}
+                           
                             customStyles={{ dateInput: { borderWidth: 0 } }}
-                            placeholder="Date of Birth"
-                            //style={{ marginLeft: 63, padding: 5 }}
                             mode="date"
+                            placeholderTextColor='#355870'
                             placeholder="Enter Birth Date"
                             format="YYYY-MM-DD"
                             date={this.props.DOB}
@@ -98,6 +99,7 @@ class HouseHoldForm extends Component {
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.inputs}
+                            placeholderTextColor='#355870'
                             placeholder="Enter The Caste"
                             autoCorrect={false}
                             label="Caste"
@@ -119,7 +121,7 @@ class HouseHoldForm extends Component {
                         />
                     </View>
                     <View style={styles.inputContainer}>
-                        <Label style={{ marginLeft: 22 }}>Disabled</Label>
+                        <Label style={{ marginLeft: 22 }}>Disability</Label>
                         <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes</Text>
                         <Radio
                             onPress={() => this.props.HouseholdUpdate({ name: 'Disability', value: 'Yes' })}
@@ -192,21 +194,12 @@ class HouseHoldForm extends Component {
                             <Picker.Item label="No disease" value=' No disease' />
                         </Picker>
                     </View>
-                    {/* <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.inputs}
-                            placeholder="Enter The Household Income"
-                            keyboardType="numeric"
-                            autoCorrect={false}
-                            label="Income"
-                            onChangeText={value => this.props.HouseholdUpdate({ name: 'Income', value })}
-                            value={this.props.Income}
-                        />
-                    </View> */}
+
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.inputs}
                             keyboardType="phone-pad"
+                            placeholderTextColor='#355870'
                             placeholder="Enter Phone Number"
                             autoCorrect={false}
                             label=" Phone Number"
@@ -215,6 +208,21 @@ class HouseHoldForm extends Component {
                             maxLength={10}
                         />
                     </View>
+
+                    <View style={styles.inputContainer}>
+                        <DatePicker
+                            style={styles.dateblock}
+                            customStyles={{ dateInput: { borderWidth: 0 } }}
+                            placeholderTextColor='#355870'
+                            placeholder="Date of Entry"
+                            mode="date"
+                            format="YYYY-MM-DD"
+                            date={this.props.DOE}
+                            maxDate={new Date()}
+                            onDateChange={value => this.props.HouseholdUpdate({ name: 'DOE', value })}
+                        />
+                    </View>
+
                 </View>
             </View>
         );
@@ -228,8 +236,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        //
-        // '#DCDCDC
         backgroundColor: '#275DAD',
     },
 
@@ -281,8 +287,6 @@ const styles = StyleSheet.create({
         height: 45,
         marginLeft: 30,
         borderWidth: 0,
-        // marginLeft: 16,
-        // borderBottomColor: '#FFFFFF',
         flex: 1,
         color: '#355870',
         alignItems: 'center',
@@ -367,9 +371,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { HHName, DOB, Caste, sex, Status, Designation, Phonenumber, Disability, LiteracyRate, Address, Disease1, Disease2, Disease3 } = state.HouseHoldForm;
-    console.log('i print here Diesease1 3 4', LiteracyRate);
-    return { HHName, DOB, Caste, sex, Designation, Status, Phonenumber, Disability, LiteracyRate, Address, Disease1, Disease2, Disease3 };
+    
+
+    const { HHName, DOB, Caste, sex, Status, Designation, Phonenumber, Disability, LiteracyRate, Address, Disease1, Disease2, Disease3, DOE } = state.HouseHoldForm;
+        return { HHName, DOB, Caste, sex, Designation, Status, Phonenumber, Disability, LiteracyRate, Address, Disease1, Disease2, Disease3, DOE };
 
 }
 export default connect(mapStateToProps, { HouseholdUpdate, HouseholdCreate })(HouseHoldForm);

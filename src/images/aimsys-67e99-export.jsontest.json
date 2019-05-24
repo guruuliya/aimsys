@@ -1,0 +1,1096 @@
+{
+  "admin" : {
+    "K0KDA7XlG0eMGAXA2Wuk4vaoC8Q2" : {
+      "emailid" : "admin@gmail.com",
+      "role" : "admin"
+    }
+  },
+  "anganwadicenter" : {
+    "-Lc0YPj9oYr3qiHChXiS" : {
+      "anganwadicenter_code" : "29569020816",
+      "anganwadicenter_supervisorassignstatus" : 1,
+      "anganwadicenter_workerassignstatus" : 0,
+      "awcplace" : "nittemassidi",
+      "awcplaceid" : "-Lc0Vj6deVMZebeUt4Ef",
+      "talukid" : "-Lc0VWGHg8dxy_FXCl77",
+      "talukname" : "karkala",
+      "villageid" : "-Lc0VbRlgkIuGy1x6goj",
+      "villagename" : "nitte"
+    }
+  },
+  "anganwadiworker" : {
+    "syXKYmKguWcuPk1a3Pmk5HrbYwW2" : {
+      "anganwadiworker_age" : 58,
+      "anganwadiworker_assignto_center_status" : 1,
+      "anganwadiworker_dateofbirth" : "1960-11-25",
+      "anganwadiworker_emailid" : "anganwadiworker@gmail.com",
+      "anganwadiworker_gender" : "Female",
+      "anganwadiworker_mobileno" : "9090909090",
+      "anganwadiworker_name" : "anganwadiworker@gmail.com",
+      "anganwadiworker_password" : "anganwadiworker@gmail.com",
+      "role" : "anganwadiworker"
+    }
+  },
+  "assignedawcenters_supervisor" : {
+    "-Lc0YT3bg1d1RZE3c-SZ" : {
+      "anganwadicenter_code" : "29569020816",
+      "anganwadicenterid" : "-Lc0YPj9oYr3qiHChXiS",
+      "assgin_to_worker_status" : 1,
+      "cdpoid" : "srG5VabQbzW1bIYpwLJWfGKivh33",
+      "supervisor_emailid" : "supervisor@gmail.com",
+      "supervisorid" : "7Fd8iLXHNlR7qHhdx9DouciKfbC2"
+    }
+  },
+  "assignedworkerstocenters" : {
+    "-Lc4NKb5uj7h36Y1RHQp" : {
+      "anganwadicenter_code" : "29569020816",
+      "anganwadicenterid" : "-Lc0YPj9oYr3qiHChXiS",
+      "anganwadiworker_emailid" : "anganwadiworker@gmail.com",
+      "anganwadiworkerid" : "syXKYmKguWcuPk1a3Pmk5HrbYwW2",
+      "assignedawcenters_supervisorid" : "-Lc0YT3bg1d1RZE3c-SZ",
+      "cdpoid" : "srG5VabQbzW1bIYpwLJWfGKivh33",
+      "supervisorid" : "7Fd8iLXHNlR7qHhdx9DouciKfbC2"
+    }
+  },
+  "awcplace" : {
+    "-Lc0Vj6deVMZebeUt4Ef" : {
+      "awcplace" : "nittemassidi",
+      "awcplacestatus" : 0,
+      "talukid" : "-Lc0VWGHg8dxy_FXCl77",
+      "talukname" : "karkala",
+      "villageid" : "-Lc0VbRlgkIuGy1x6goj",
+      "villagename" : "nitte"
+    }
+  },
+  "cdpo_acdpo" : {
+    "srG5VabQbzW1bIYpwLJWfGKivh33" : {
+      "cdpo_acdpo_age" : 52,
+      "cdpo_acdpo_dateofbirth" : "1967-02-08",
+      "cdpo_acdpo_emailid" : "cdpo@gmail.com",
+      "cdpo_acdpo_gender" : "Male",
+      "cdpo_acdpo_id" : "srG5VabQbzW1bIYpwLJWfGKivh33",
+      "cdpo_acdpo_mobileno" : "9090909090",
+      "cdpo_acdpo_name" : "cdpo@gmail.com",
+      "cdpo_acdpo_password" : "cdpo@gmail.com",
+      "role" : "cdpo_acdpo",
+      "talukid" : "-Lc0VWGHg8dxy_FXCl77",
+      "talukname" : "karkala"
+    }
+  },
+  "ceo_dd_dc" : {
+    "Q1jfti6So5duImKuoPBxdUbe8TD2" : {
+      "ceo_dd_dc_age" : 35,
+      "ceo_dd_dc_dateofbirth" : "1984-02-08",
+      "ceo_dd_dc_emailid" : "ceo@gmail.com",
+      "ceo_dd_dc_gender" : "Male",
+      "ceo_dd_dc_id" : "Q1jfti6So5duImKuoPBxdUbe8TD2",
+      "ceo_dd_dc_mobileno" : "9090909090",
+      "ceo_dd_dc_name" : "ceo@gmail.com",
+      "ceo_dd_dc_password" : "ceo@gmail.com",
+      "role" : "ceo_dd_dc"
+    }
+  },
+  "supervisor" : {
+    "7Fd8iLXHNlR7qHhdx9DouciKfbC2" : {
+      "cdpoid" : "srG5VabQbzW1bIYpwLJWfGKivh33",
+      "role" : "supervisor",
+      "supervisor_age" : 53,
+      "supervisor_dateofbirth" : "1966-03-04",
+      "supervisor_emailid" : "supervisor@gmail.com",
+      "supervisor_gender" : "Male",
+      "supervisor_mobileno" : "9090909090",
+      "supervisor_name" : "supervisor@gmail.com",
+      "supervisor_password" : "supervisor@gmail.com",
+      "talukid" : "-Lc0VWGHg8dxy_FXCl77",
+      "talukname" : "karkala"
+    }
+  },
+  "taluk" : {
+    "-Lc0VWGHg8dxy_FXCl77" : {
+      "talukname" : "karkala",
+      "tstatus" : 1
+    }
+  },
+  "users" : {
+    "29569020816" : {
+      "Demographic" : {
+        "HouseHold" : {
+          "25" : {
+            "Address" : "kkkk",
+            "HHNumber" : "25",
+            "Income" : "4111"
+          },
+          "35" : {
+            "Address" : "dddd",
+            "HHNumber" : "35",
+            "Income" : "7777"
+          }
+        },
+        "HouseholdMember" : {
+          "25" : {
+            "-Lf_tF0EQPtKCSRJDXFI" : {
+              "Caste" : "aaaaa",
+              "DOB" : "2019-05-23",
+              "DOE" : "2019-05-23",
+              "Designation" : "Poultry",
+              "Disability" : "No",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "aaaa",
+              "HHNumber" : "25",
+              "LiteracyRate" : "SSLC",
+              "Phonenumber" : "1212121212",
+              "Status" : "Married",
+              "sex" : "Female"
+            }
+          },
+          "35" : {
+            "-Lf_sLscX3vU_1Las2hZ" : {
+              "Caste" : "rrr",
+              "DOB" : "2019-05-23",
+              "DOE" : "2019-05-23",
+              "Designation" : "Poultry",
+              "Disability" : "Yes",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "rrr",
+              "HHNumber" : "35",
+              "LiteracyRate" : "SSLC",
+              "Phonenumber" : "9999999999",
+              "Status" : "Married",
+              "sex" : "Female"
+            },
+            "-Lf_sVDCtVuum3-AJnuk" : {
+              "Caste" : "yyuyu",
+              "DOB" : "2019-05-23",
+              "DOE" : "2019-05-19",
+              "Designation" : "Other",
+              "Disability" : "Yes",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "uuuu",
+              "HHNumber" : "35",
+              "LiteracyRate" : "SSLC",
+              "Phonenumber" : "5555555555",
+              "Status" : "Married",
+              "sex" : "Female"
+            }
+          }
+        },
+        "Pregnancy" : {
+          "-Lf_t-6uK0qgWG-rOG9s" : {
+            "Delivery" : "No",
+            "DeliveryDate" : "2019-05-30",
+            "HHNumber" : "35",
+            "LPerioddate" : "2019-05-29",
+            "NPregnant" : "4",
+            "Pregnant" : "rrr",
+            "PregnantName" : "-Lf_sLscX3vU_1Las2hZ"
+          },
+          "-Lf_tL1d9NJVR04sdnaZ" : {
+            "Delivery" : "No",
+            "DeliveryDate" : "2019-05-23",
+            "HHNumber" : "25",
+            "LPerioddate" : "2019-05-23",
+            "NPregnant" : "222",
+            "Pregnant" : "aaaa",
+            "PregnantName" : "-Lf_tF0EQPtKCSRJDXFI"
+          }
+        }
+      },
+      "Timeline" : {
+        "image" : {
+          "-LdxCOrSUPaVNKIab3Vx" : {
+            "UPicture" : "https://firebasestorage.googleapis.com/v0/b/aimsys-67e99.appspot.com/o/29569020816?alt=media&token=b552e9ba-eb6f-45e7-8f67-6b5b4cc4ff85",
+            "comment" : "Beach",
+            "date" : "2019-5-3"
+          }
+        }
+      },
+      "anganwadidetails" : {
+        "cdpoAcdpo" : "srG5VabQbzW1bIYpwLJWfGKivh33",
+        "supervisorid" : "7Fd8iLXHNlR7qHhdx9DouciKfbC2"
+      }
+    },
+    "AVgYUYIzOnYnh7D4a5ImKjM63mp2" : {
+      "Attendance" : {
+        "Count" : {
+          "-LayMXJ6FBw6X7Ys8w9N" : {
+            "date" : "27/3/2019 14:26:53",
+            "daycount" : "30"
+          },
+          "-LayVCmMhLUMx7PhE8tM" : {
+            "date" : "27/3/2019 15:5:0",
+            "daycount" : "80"
+          },
+          "-Lb1V6TlvbhnkrGkF4KG" : {
+            "date" : "28/3/2019 9:43:3",
+            "daycount" : "7"
+          },
+          "-LbN06UKQvg-6wHtYIK_" : {
+            "date" : "1/4/2019 13:59:1",
+            "daycount" : "20"
+          },
+          "-LbNFAYHubjBzAWzclQf" : {
+            "date" : "1/4/2019 15:4:30",
+            "daycount" : "50"
+          }
+        }
+      },
+      "Demographic" : {
+        "HouseHold" : {
+          "1" : {
+            "Address" : "mulki",
+            "HHNumber" : "1",
+            "Income" : 6000
+          },
+          "H12345" : {
+            "Address" : "Mulki",
+            "HHNumber" : "H12345",
+            "Income" : 15000
+          },
+          "H12346" : {
+            "Address" : "Sringeri",
+            "HHNumber" : "H12346",
+            "Income" : 50000
+          },
+          "H12347" : {
+            "Address" : "deralakkate",
+            "HHNumber" : "H12347",
+            "Income" : 100000
+          },
+          "H1256" : {
+            "Address" : "Kasrgod",
+            "HHNumber" : "H1256",
+            "Income" : 30000
+          }
+        },
+        "HouseholdMember" : {
+          "1" : {
+            "-Lb2jwt9VKX9EYlEs-bB" : {
+              "Caste" : "konkani",
+              "DOB" : "2019-03-16",
+              "Designation" : "Other",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "dinesh",
+              "HHNumber" : "1",
+              "Income" : "10000",
+              "Phonenumber" : "9449498667",
+              "Status" : "UnMarried",
+              "sex" : "Male"
+            }
+          },
+          "H12345" : {
+            "-Lb-anLS5vhGfymXv6Lr" : {
+              "Caste" : "Billavas",
+              "DOB" : "2019-03-06",
+              "Designation" : "Serculture",
+              "Disease1" : "HIV",
+              "Disease2" : "HIV",
+              "Disease3" : "Asthama",
+              "HHName" : "geetha",
+              "HHNumber" : "H12345",
+              "Income" : "70000",
+              "Phonenumber" : "123456",
+              "Status" : "UnMarried",
+              "sex" : "Female"
+            },
+            "-Lb2e42m7fPfG3G4Wcr-" : {
+              "Caste" : "Billava",
+              "DOB" : "2017-03-28",
+              "Designation" : "Other",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "Suresh",
+              "HHNumber" : "H12345",
+              "Income" : "50000",
+              "Phonenumber" : "1234567890",
+              "Status" : "Married",
+              "sex" : "Male"
+            }
+          },
+          "H12346" : {
+            "-Lb76ly-sv49QwHb72sh" : {
+              "Caste" : "shetty",
+              "DOB" : "2017-03-16",
+              "Designation" : "Agriculture",
+              "Disease1" : "Asthama",
+              "Disease2" : " No disease",
+              "Disease3" : "Diabites",
+              "HHName" : "anusha",
+              "HHNumber" : "H12346",
+              "Income" : "100000",
+              "Phonenumber" : "9449328667",
+              "Status" : "Married",
+              "sex" : "Female"
+            },
+            "-Lb7gfBUt0YD3UvHSbRH" : {
+              "Caste" : "kutty",
+              "DOB" : "1902-03-29",
+              "Designation" : "Other",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "bhargavi",
+              "HHNumber" : "H12346",
+              "Income" : "5000000",
+              "Phonenumber" : "9876543210",
+              "Status" : "Married",
+              "sex" : "Female"
+            }
+          },
+          "H1256" : {
+            "-LcV8Tdxf5T3JEL59tE3" : {
+              "Caste" : "Muslim",
+              "DOB" : "1995-04-15",
+              "Designation" : "Paultry",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "Kadar",
+              "HHNumber" : "H1256",
+              "Income" : "25000",
+              "LiteracyRate" : "SSLC",
+              "Phonenumber" : "7892739258",
+              "Status" : "Married",
+              "sex" : "Male"
+            }
+          }
+        },
+        "Pregnancy" : {
+          "-Lb1nkuQVyOtABWiaC-H" : {
+            "Delivery" : "Yes",
+            "DeliveryDate" : "2019-03-31",
+            "FirstDose" : "2019-03-01",
+            "HHNumber" : "H12345",
+            "LPerioddate" : "2019-03-28",
+            "NPregnant" : "1",
+            "PregnantName" : "-Lb-anLS5vhGfymXv6Lr",
+            "SecondDose" : "2019-03-28",
+            "placedied" : "Home",
+            "status" : "Died"
+          },
+          "-Lb770FbMZjHAuHLpdgV" : {
+            "Delivery" : "No",
+            "DeliveryDate" : "2019-03-29",
+            "FirstDose" : "2019-03-29",
+            "HHNumber" : "H12346",
+            "LPerioddate" : "2019-03-12",
+            "NPregnant" : "2",
+            "PregnantName" : "-Lb76ly-sv49QwHb72sh",
+            "SecondDose" : "2019-03-13"
+          },
+          "-Lb7gp2BdDfIOZ8LD7Ih" : {
+            "Delivery" : "No",
+            "DeliveryDate" : "2019-03-29",
+            "FirstDose" : "2019-03-29",
+            "HHNumber" : "H12346",
+            "LPerioddate" : "2019-03-29",
+            "NPregnant" : "2",
+            "PregnantName" : "-Lb7gfBUt0YD3UvHSbRH",
+            "SecondDose" : "2019-03-29"
+          }
+        }
+      },
+      "Infrastructure" : {
+        "Location" : {
+          "-Lbg-wwjAofiPxnD-f2O" : {
+            "latitude" : 13.1754063,
+            "longitude" : 74.9071756
+          }
+        },
+        "buildingImage" : {
+          "-Lbg0DBNfkP9XbwzPQQ_" : {
+            "BPicture" : "https://firebasestorage.googleapis.com/v0/b/authentication-ac30e.appspot.com/o/...?alt=media&token=6ff2a092-4976-497e-8910-68ee6c2f98b4"
+          }
+        },
+        "buildingstatus" : {
+          "-Lbg-TNSk7U_Lp_hlcMj" : {
+            "option" : "Owned"
+          }
+        },
+        "facilities" : {
+          "-Lbg-scEL38PN4WUbzdr" : {
+            "Borewell" : false,
+            "Btype" : "Tile",
+            "Infant" : "Yes",
+            "Medicine" : "No",
+            "Mother" : "No",
+            "Panchayath" : true,
+            "Play" : "No",
+            "Power" : "Yes",
+            "Toilet" : "Yes",
+            "Water" : "No",
+            "well" : false
+          }
+        }
+      },
+      "Maternal" : {
+        "ChildRegistration" : {
+          "-Lb1uqq0d8Knw3ZXzefe" : {
+            "BCG" : "2019-04-08",
+            "CMotherId" : "-Lb1nkuQVyOtABWiaC-H",
+            "CName" : "gurudeep",
+            "DPT1" : "2019-03-28",
+            "DPickdob" : "2000-03-28",
+            "DPickregdate" : "2019-03-29",
+            "HNumber" : "H12345",
+            "babytype" : "single",
+            "health" : "unhealthy",
+            "option" : "Male",
+            "status" : "Died"
+          },
+          "-Lb795m4zDhJfXB9cDqc" : {
+            "CMotherId" : "-Lb7gp2BdDfIOZ8LD7Ih",
+            "CName" : "Nishan",
+            "DPickdob" : "2019-03-29",
+            "DPickregdate" : "2019-03-29",
+            "HNumber" : "H12346",
+            "babytype" : "single",
+            "health" : "healthy",
+            "option" : "Male",
+            "status" : "Born"
+          },
+          "-LbH6ZF2IkSog9QdcvwM" : {
+            "CMotherId" : "-Lb7gp2BdDfIOZ8LD7Ih",
+            "CName" : "Akshay",
+            "DPickdob" : "2017-03-31",
+            "DPickregdate" : "2019-03-31",
+            "HNumber" : "H12346",
+            "babytype" : "twin",
+            "health" : "healthy",
+            "option" : "Female",
+            "status" : "Born"
+          }
+        },
+        "Nutrition" : {
+          "-Lb2faNo0A-J06-3Gmhq" : {
+            "Age" : "19",
+            "CName" : "gurudeep",
+            "HNumber" : "H12345",
+            "breastfeed" : "No",
+            "cfeed" : "No",
+            "exfeed" : "No",
+            "height" : "20",
+            "ideli" : "Yes",
+            "lowbirth" : "Yes",
+            "stunt" : "No",
+            "under" : "No",
+            "wast" : "Yes",
+            "weight" : "56"
+          },
+          "-Lb79ZawCCYYOzFnqSvR" : {
+            "Age" : "0",
+            "CName" : "Nishan",
+            "HNumber" : "H12346",
+            "breastfeed" : "Yes",
+            "cfeed" : "Yes",
+            "exfeed" : "Yes",
+            "height" : "5.6",
+            "ideli" : "Yes",
+            "lowbirth" : "No",
+            "stunt" : "Yes",
+            "under" : "Yes",
+            "wast" : "Yes",
+            "weight" : "55"
+          },
+          "-LbH6m-IZIGk95i0qz5i" : {
+            "Age" : "2",
+            "CName" : "Akshay",
+            "HNumber" : "H12346",
+            "breastfeed" : "No",
+            "cfeed" : "Yes",
+            "exfeed" : "Yes",
+            "height" : "56",
+            "ideli" : "Yes",
+            "lowbirth" : "No",
+            "stunt" : "Yes",
+            "under" : "Yes",
+            "wast" : "No",
+            "weight" : "4"
+          },
+          "-Ld3dey4BZ6xUSYn5NA6" : {
+            "Age" : "19",
+            "CName" : "gurudeep",
+            "HNumber" : "H12345",
+            "breastfeed" : "Yes",
+            "cfeed" : "Yes",
+            "exfeed" : "Yes",
+            "height" : "21",
+            "ideli" : "Yes",
+            "lowbirth" : "No",
+            "stunt" : "Yes",
+            "under" : "Yes",
+            "wast" : "No",
+            "weight" : "22"
+          }
+        }
+      },
+      "anganwadidetails" : {
+        "cdpo_acdpo" : "srG5VabQbzW1bIYpwLJWfGKivh33",
+        "supervisorid" : "7Fd8iLXHNlR7qHhdx9DouciKfbC2"
+      }
+    },
+    "bVgYUYIzOnYnh7D4a6ImKjM63mp3" : {
+      "Attendance" : {
+        "Count" : {
+          "-LayMXJ6FBw6X7Ys8w9N" : {
+            "date" : "27/3/2019 14:26:53",
+            "daycount" : "30"
+          },
+          "-LayVCmMhLUMx7PhE8tM" : {
+            "date" : "27/3/2019 15:5:0",
+            "daycount" : "80"
+          },
+          "-Lb1V6TlvbhnkrGkF4KG" : {
+            "date" : "28/3/2019 9:43:3",
+            "daycount" : "7"
+          },
+          "-LbN06UKQvg-6wHtYIK_" : {
+            "date" : "1/4/2019 13:59:1",
+            "daycount" : "20"
+          },
+          "-LbNFAYHubjBzAWzclQf" : {
+            "date" : "1/4/2019 15:4:30",
+            "daycount" : "50"
+          }
+        }
+      },
+      "Demographic" : {
+        "HouseHold" : {
+          "1" : {
+            "Address" : "mulki",
+            "HHNumber" : "1"
+          },
+          "H12345" : {
+            "Address" : "Mulki",
+            "HHNumber" : "H12345"
+          },
+          "H12346" : {
+            "Address" : "Sringeri",
+            "HHNumber" : "H12346"
+          },
+          "H1256" : {
+            "Address" : "Kasrgod",
+            "HHNumber" : "H1256"
+          }
+        },
+        "HouseholdMember" : {
+          "1" : {
+            "-Lb2jwt9VKX9EYlEs-bB" : {
+              "Caste" : "konkani",
+              "DOB" : "2019-03-16",
+              "Designation" : "Other",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "dinesh",
+              "HHNumber" : "1",
+              "Income" : "10000",
+              "Phonenumber" : "9449498667",
+              "Status" : "Married",
+              "sex" : "Male"
+            }
+          },
+          "H12345" : {
+            "-Lb-anLS5vhGfymXv6Lr" : {
+              "Caste" : "Billavas",
+              "DOB" : "2019-03-06",
+              "Designation" : "Serculture",
+              "Disease1" : "HIV",
+              "Disease2" : "HIV",
+              "Disease3" : "Asthama",
+              "HHName" : "geetha",
+              "HHNumber" : "H12345",
+              "Income" : "70000",
+              "Phonenumber" : "123456",
+              "Status" : "UnMarried",
+              "sex" : "Female"
+            },
+            "-Lb2e42m7fPfG3G4Wcr-" : {
+              "Caste" : "Billava",
+              "DOB" : "2017-03-28",
+              "Designation" : "Other",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "Suresh",
+              "HHNumber" : "H12345",
+              "Income" : "50000",
+              "Phonenumber" : "1234567890",
+              "Status" : "Married",
+              "sex" : "Male"
+            }
+          },
+          "H12346" : {
+            "-Lb76ly-sv49QwHb72sh" : {
+              "Caste" : "shetty",
+              "DOB" : "2017-03-16",
+              "Designation" : "Agriculture",
+              "Disease1" : "Asthama",
+              "Disease2" : " No disease",
+              "Disease3" : "Diabites",
+              "HHName" : "anusha",
+              "HHNumber" : "H12346",
+              "Income" : "100000",
+              "Phonenumber" : "9449328667",
+              "Status" : "Married",
+              "sex" : "Female"
+            },
+            "-Lb7gfBUt0YD3UvHSbRH" : {
+              "Caste" : "kutty",
+              "DOB" : "1902-03-29",
+              "Designation" : "Other",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "bhargavi",
+              "HHNumber" : "H12346",
+              "Income" : "5000000",
+              "Phonenumber" : "9876543210",
+              "Status" : "Married",
+              "sex" : "Female"
+            }
+          }
+        },
+        "Pregnancy" : {
+          "-Lb1nkuQVyOtABWiaC-H" : {
+            "Delivery" : "No",
+            "DeliveryDate" : "2019-03-31",
+            "FirstDose" : "2019-03-01",
+            "HHNumber" : "H12345",
+            "LPerioddate" : "2019-03-28",
+            "NPregnant" : "1",
+            "PregnantName" : "-Lb-anLS5vhGfymXv6Lr",
+            "SecondDose" : "2019-03-28"
+          },
+          "-Lb770FbMZjHAuHLpdgV" : {
+            "Delivery" : "No",
+            "DeliveryDate" : "2019-03-29",
+            "FirstDose" : "2019-03-29",
+            "HHNumber" : "H12346",
+            "LPerioddate" : "2019-03-12",
+            "NPregnant" : "2",
+            "PregnantName" : "-Lb76ly-sv49QwHb72sh",
+            "SecondDose" : "2019-03-13"
+          },
+          "-Lb7gp2BdDfIOZ8LD7Ih" : {
+            "Delivery" : "No",
+            "DeliveryDate" : "2019-03-29",
+            "FirstDose" : "2019-03-29",
+            "HHNumber" : "H12346",
+            "LPerioddate" : "2019-03-29",
+            "NPregnant" : "2",
+            "PregnantName" : "-Lb7gfBUt0YD3UvHSbRH",
+            "SecondDose" : "2019-03-29"
+          }
+        }
+      },
+      "Infrastructure" : {
+        "Location" : {
+          "-LbassttqJ2xv-NbBBL1" : {
+            "latitude" : 13.1827177,
+            "longitude" : 74.9473636
+          }
+        },
+        "buildingImage" : {
+          "-Lbat65w5BftF9o82Jc_" : {
+            "BPicture" : "https://firebasestorage.googleapis.com/v0/b/authentication-ac30e.appspot.com/o/...?alt=media&token=4c88dcf6-e37a-47c8-8da1-02e4f6167ad7"
+          }
+        },
+        "buildingstatus" : {
+          "-LbasWGkIOHXmNMEtXLE" : {
+            "option" : "Owned"
+          }
+        },
+        "facilities" : {
+          "-LbasjfQ-jfEPKJePK7N" : {
+            "Borewell" : false,
+            "Btype" : "RCC",
+            "Infant" : "No",
+            "Medicine" : "Yes",
+            "Mother" : "Yes",
+            "Panchayath" : true,
+            "Play" : "No",
+            "Power" : "Yes",
+            "Toilet" : "Yes",
+            "Water" : "Yes",
+            "well" : false
+          }
+        }
+      },
+      "Maternal" : {
+        "ChildRegistration" : {
+          "-Lb1uqq0d8Knw3ZXzefe" : {
+            "BCG" : "2019-04-08",
+            "CMotherId" : "-Lb1nkuQVyOtABWiaC-H",
+            "CName" : "gurudeep",
+            "DPT1" : "2019-03-28",
+            "DPickdob" : "2000-03-28",
+            "DPickregdate" : "2019-03-29",
+            "HNumber" : "H12345",
+            "babytype" : "single",
+            "health" : "unhealthy",
+            "option" : "Male",
+            "status" : "Died"
+          },
+          "-Lb795m4zDhJfXB9cDqc" : {
+            "CMotherId" : "-Lb7gp2BdDfIOZ8LD7Ih",
+            "CName" : "Nishan",
+            "DPickdob" : "2019-03-29",
+            "DPickregdate" : "2019-03-29",
+            "HNumber" : "H12346",
+            "babytype" : "single",
+            "health" : "healthy",
+            "option" : "Male",
+            "status" : "Born"
+          },
+          "-LbH6ZF2IkSog9QdcvwM" : {
+            "CMotherId" : "-Lb7gp2BdDfIOZ8LD7Ih",
+            "CName" : "Akshay",
+            "DPickdob" : "2017-03-31",
+            "DPickregdate" : "2019-03-31",
+            "HNumber" : "H12346",
+            "babytype" : "twin",
+            "health" : "healthy",
+            "option" : "Female",
+            "status" : "Born"
+          }
+        },
+        "Nutrition" : {
+          "-Lb2faNo0A-J06-3Gmhq" : {
+            "Age" : "19",
+            "CName" : "gurudeep",
+            "HNumber" : "H12345",
+            "breastfeed" : "No",
+            "cfeed" : "No",
+            "exfeed" : "No",
+            "height" : "20",
+            "ideli" : "Yes",
+            "lowbirth" : "Yes",
+            "stunt" : "No",
+            "under" : "No",
+            "wast" : "Yes",
+            "weight" : "56"
+          },
+          "-Lb79ZawCCYYOzFnqSvR" : {
+            "Age" : "0",
+            "CName" : "Nishan",
+            "HNumber" : "H12346",
+            "breastfeed" : "Yes",
+            "cfeed" : "Yes",
+            "exfeed" : "Yes",
+            "height" : "5.6",
+            "ideli" : "Yes",
+            "lowbirth" : "Yes",
+            "stunt" : "Yes",
+            "under" : "Yes",
+            "wast" : "Yes",
+            "weight" : "55"
+          },
+          "-LbH6m-IZIGk95i0qz5i" : {
+            "Age" : "2",
+            "CName" : "Akshay",
+            "HNumber" : "H12346",
+            "breastfeed" : "No",
+            "cfeed" : "Yes",
+            "exfeed" : "Yes",
+            "height" : "56",
+            "ideli" : "No",
+            "lowbirth" : "No",
+            "stunt" : "Yes",
+            "under" : "Yes",
+            "wast" : "No",
+            "weight" : "4"
+          }
+        }
+      },
+      "anganwadidetails" : {
+        "cdpo_acdpo" : "srG5VabQbzW1bIYpwLJWfGKivh33",
+        "supervisorid" : "7Fd8iLXHNlR7qHhdx9DouciKfbC2"
+      }
+    },
+    "cVgYUYIzOnYnh7D4a6ImKjM63mp4" : {
+      "Attendance" : {
+        "Count" : {
+          "-LayMXJ6FBw6X7Ys8w9N" : {
+            "date" : "27/3/2019 14:26:53",
+            "daycount" : "30"
+          },
+          "-LayVCmMhLUMx7PhE8tM" : {
+            "date" : "27/3/2019 15:5:0",
+            "daycount" : "80"
+          },
+          "-Lb1V6TlvbhnkrGkF4KG" : {
+            "date" : "28/3/2019 9:43:3",
+            "daycount" : "7"
+          },
+          "-LbN06UKQvg-6wHtYIK_" : {
+            "date" : "1/4/2019 13:59:1",
+            "daycount" : "20"
+          },
+          "-LbNFAYHubjBzAWzclQf" : {
+            "date" : "1/4/2019 15:4:30",
+            "daycount" : "50"
+          }
+        }
+      },
+      "Demographic" : {
+        "HouseHold" : {
+          "1" : {
+            "Address" : "mulki",
+            "HHNumber" : "1"
+          },
+          "H12345" : {
+            "Address" : "Mulki",
+            "HHNumber" : "H12345"
+          },
+          "H12346" : {
+            "Address" : "Sringeri",
+            "HHNumber" : "H12346"
+          },
+          "H1256" : {
+            "Address" : "Kasrgod",
+            "HHNumber" : "H1256"
+          }
+        },
+        "HouseholdMember" : {
+          "1" : {
+            "-Lb2jwt9VKX9EYlEs-bB" : {
+              "Caste" : "konkani",
+              "DOB" : "2019-03-16",
+              "Designation" : "Other",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "dinesh",
+              "HHNumber" : "1",
+              "Income" : "10000",
+              "Phonenumber" : "9449498667",
+              "Status" : "Married",
+              "sex" : "Male"
+            }
+          },
+          "H12345" : {
+            "-Lb-anLS5vhGfymXv6Lr" : {
+              "Caste" : "Billavas",
+              "DOB" : "2019-03-06",
+              "Designation" : "Serculture",
+              "Disease1" : "HIV",
+              "Disease2" : "HIV",
+              "Disease3" : "Asthama",
+              "HHName" : "geetha",
+              "HHNumber" : "H12345",
+              "Income" : "70000",
+              "Phonenumber" : "123456",
+              "Status" : "UnMarried",
+              "sex" : "Female"
+            },
+            "-Lb2e42m7fPfG3G4Wcr-" : {
+              "Caste" : "Billava",
+              "DOB" : "2017-03-28",
+              "Designation" : "Other",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "Suresh",
+              "HHNumber" : "H12345",
+              "Income" : "50000",
+              "Phonenumber" : "1234567890",
+              "Status" : "Married",
+              "sex" : "Male"
+            }
+          },
+          "H12346" : {
+            "-Lb76ly-sv49QwHb72sh" : {
+              "Caste" : "shetty",
+              "DOB" : "2017-03-16",
+              "Designation" : "Agriculture",
+              "Disease1" : "Asthama",
+              "Disease2" : " No disease",
+              "Disease3" : "Diabites",
+              "HHName" : "anusha",
+              "HHNumber" : "H12346",
+              "Income" : "100000",
+              "Phonenumber" : "9449328667",
+              "Status" : "Married",
+              "sex" : "Female"
+            },
+            "-Lb7gfBUt0YD3UvHSbRH" : {
+              "Caste" : "kutty",
+              "DOB" : "1902-03-29",
+              "Designation" : "Other",
+              "Disease1" : " No disease",
+              "Disease2" : " No disease",
+              "Disease3" : " No disease",
+              "HHName" : "bhargavi",
+              "HHNumber" : "H12346",
+              "Income" : "5000000",
+              "Phonenumber" : "9876543210",
+              "Status" : "Married",
+              "sex" : "Female"
+            }
+          }
+        }
+      },
+      "Infrastructure" : {
+        "Location" : {
+          "-Lbg3_PliHj8THA2Y-PY" : {
+            "latitude" : 13.1898403,
+            "longitude" : 74.9491901
+          }
+        },
+        "buildingImage" : {
+          "-Lbg4lhNpKjMOOOv6KVh" : {
+            "BPicture" : "https://firebasestorage.googleapis.com/v0/b/authentication-ac30e.appspot.com/o/...?alt=media&token=4abfc1b5-98d2-427a-9100-e0419154bf0b"
+          }
+        },
+        "buildingstatus" : {
+          "-Lbg3IgZvQnXlJefrSVa" : {
+            "option" : "Owned"
+          }
+        },
+        "facilities" : {
+          "-Lbg3TfHyhsFx-VMsOlU" : {
+            "Borewell" : false,
+            "Btype" : "Tile",
+            "Infant" : "Yes",
+            "Medicine" : "Yes",
+            "Mother" : "Yes",
+            "Panchayath" : true,
+            "Play" : "No",
+            "Power" : "Yes",
+            "Toilet" : "Yes",
+            "Water" : "Yes",
+            "well" : false
+          }
+        }
+      },
+      "Maternal" : {
+        "ChildRegistration" : {
+          "-Lb1uqq0d8Knw3ZXzefe" : {
+            "BCG" : "2019-04-08",
+            "CMotherId" : "-Lb1nkuQVyOtABWiaC-H",
+            "CName" : "gurudeep",
+            "DPT1" : "2019-03-28",
+            "DPickdob" : "2000-03-28",
+            "DPickregdate" : "2019-03-29",
+            "HNumber" : "H12345",
+            "babytype" : "single",
+            "health" : "healthy",
+            "option" : "Male",
+            "status" : "Died"
+          },
+          "-Lb795m4zDhJfXB9cDqc" : {
+            "CMotherId" : "-Lb7gp2BdDfIOZ8LD7Ih",
+            "CName" : "Nishan",
+            "DPickdob" : "2019-03-29",
+            "DPickregdate" : "2019-03-29",
+            "HNumber" : "H12346",
+            "babytype" : "single",
+            "health" : "unhealthy",
+            "option" : "Male",
+            "status" : "Born"
+          },
+          "-LbH6ZF2IkSog9QdcvwM" : {
+            "CMotherId" : "-Lb7gp2BdDfIOZ8LD7Ih",
+            "CName" : "Akshay",
+            "DPickdob" : "2017-03-31",
+            "DPickregdate" : "2019-03-31",
+            "HNumber" : "H12346",
+            "babytype" : "twin",
+            "health" : "healthy",
+            "option" : "Female",
+            "status" : "Born"
+          }
+        },
+        "Nutrition" : {
+          "-Lb2faNo0A-J06-3Gmhq" : {
+            "Age" : "19",
+            "CName" : "gurudeep",
+            "HNumber" : "H12345",
+            "breastfeed" : "No",
+            "cfeed" : "No",
+            "exfeed" : "No",
+            "height" : "20",
+            "ideli" : "Yes",
+            "lowbirth" : "Yes",
+            "stunt" : "No",
+            "under" : "No",
+            "wast" : "Yes",
+            "weight" : "56"
+          },
+          "-Lb79ZawCCYYOzFnqSvR" : {
+            "Age" : "0",
+            "CName" : "Nishan",
+            "HNumber" : "H12346",
+            "breastfeed" : "Yes",
+            "cfeed" : "Yes",
+            "exfeed" : "Yes",
+            "height" : "5.6",
+            "ideli" : "Yes",
+            "lowbirth" : "Yes",
+            "stunt" : "Yes",
+            "under" : "Yes",
+            "wast" : "Yes",
+            "weight" : "55"
+          },
+          "-LbH6m-IZIGk95i0qz5i" : {
+            "Age" : "2",
+            "CName" : "Akshay",
+            "HNumber" : "H12346",
+            "breastfeed" : "No",
+            "cfeed" : "Yes",
+            "exfeed" : "Yes",
+            "height" : "56",
+            "ideli" : "No",
+            "lowbirth" : "No",
+            "stunt" : "Yes",
+            "under" : "Yes",
+            "wast" : "No",
+            "weight" : "4"
+          }
+        }
+      },
+      "anganwadidetails" : {
+        "cdpo_acdpo" : "srG5VabQbzW1bIYpwLJWfGKivh33",
+        "supervisorid" : "8Fd8iLXGNlR7qHhdx9DouciKfdg3"
+      }
+    },
+    "syXKYmKguWcuPk1a3Pmk5HrbYwW2" : {
+      "Infrastructure" : {
+        "facilities" : {
+          "-Lc5fAayIhDtmivs2Sod" : {
+            "Borewell" : "fgf",
+            "Btype" : "RCC",
+            "Infant" : "Yes",
+            "Medicine" : "Yes",
+            "Mother" : "Yes",
+            "Panchayath" : true,
+            "Play" : "Yes",
+            "Power" : "No",
+            "Toilet" : "No",
+            "Water" : "Yes",
+            "well" : false
+          }
+        }
+      },
+      "anganwadidetails" : {
+        "supervisorid" : "7Fd8iLXHNlR7qHhdx9DouciKfbC2"
+      }
+    }
+  },
+  "village" : {
+    "-Lc0VbRlgkIuGy1x6goj" : {
+      "talukid" : "-Lc0VWGHg8dxy_FXCl77",
+      "talukname" : "karkala",
+      "villagename" : "nitte"
+    }
+  }
+}

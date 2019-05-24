@@ -67,7 +67,9 @@ export const PregnancyCreate = ({ HHNumber, PregnantName, NPregnant, LPerioddate
                                     .then(() => {
                                         dispatch({ type: PREGNANCY_CREATE });
                                     });
-                                    Alert.alert('Record Added Successfully');
+                                    Alert.alert(
+                                        'Sucessfully',
+                                        'Record Inserted ');
                             }
                         });
 
@@ -131,12 +133,20 @@ export const PregnancySave = ({ HHNumber, PregnantName, NPregnant, LPerioddate, 
                             });
                     }
                     if (SecondDose !== undefined) {
+                        if (FirstDose === undefined)
+                        {
+                            Alert.alert('FirstDose is Not Given');
+                        }
+                        else
+                        {
                         database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
                             .update({ HHNumber, PregnantName, NPregnant, LPerioddate, SecondDose, Delivery })
                             .then(() => {
                                 dispatch({ type: PREGNENT_SAVE });
                             });
-                    }
+                           
+                        }
+                }
                     else {
                         database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
                             .update({ HHNumber, PregnantName, NPregnant, LPerioddate, Delivery })
@@ -174,9 +184,7 @@ export const PregnancyDelete = ({ uid }, navigate) => {
                             {
                                 text: 'Cancel',
                                 onPress: () =>
-                                    dispatch({
-                                        type: ListChild
-                                    }),
+                                navigate.navigate('PregnancyEdit'),
                                 style: 'cancel',
                             },
                             {
@@ -185,6 +193,9 @@ export const PregnancyDelete = ({ uid }, navigate) => {
                                     database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
                                         .remove()
                                         .then(() => {
+                                            Alert.alert('Record',
+                                            'Deleted Successfull '
+                                            );
                                             navigate.navigate('PregnancyTab');
                                         })
                             },

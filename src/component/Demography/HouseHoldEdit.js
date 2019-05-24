@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Alert, Text } from 'react-native';
-import { Input, Card, CardSection, Button, Confirm } from '../Common';
+import { CardItem, Button } from 'native-base';
+import { Text, Dimensions, Alert, } from 'react-native';
+import { Card, Confirm } from '../Common';
 import { connect } from 'react-redux';
 import { HouseholdUpdate, HouseholdSave, HouseholdDelete } from '../../actions/HouseholdActions';
 import HouseHoldForm from './HouseHoldForm';
@@ -26,17 +27,10 @@ class HouseHoldEdit extends Component {
     }
 
     onButtonPress() {
-        const { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3 } = this.props;
-        this.props.HouseholdSave({ HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3 }, this.props.navigation.state.params.Houseno.uid, HHNumber);
-        Alert.alert(
-            'Successfully ',
-            'Updated',
-            [
-                { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            ],
-            {
-                cancelable: false
-            });
+        const { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3, DOE,  } = this.props;
+        const navigate = this.props.navigation;
+       this.props.HouseholdSave({ HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3, DOE, navigate }, this.props.navigation.state.params.Houseno.uid, HHNumber);
+        
     }
     onAccept() {
         const { HHNumber } = this.props;
@@ -55,14 +49,20 @@ class HouseHoldEdit extends Component {
                 <Text>{"\n"}</Text>
                 <Card>
                     <HouseHoldForm />
-                    <CardSection>
-                        <Button onPress={this.onButtonPress.bind(this)}>
-                            Save
+                    <CardItem>
+                        <Button
+                          block success
+                          style={{ width: Dimensions.get('window').width - 40, marginLeft: 0, marginRight: 0 }}
+                        onPress={this.onButtonPress.bind(this)}>
+                          <Text> Save</Text>   
                     </Button>
-                    </CardSection>
-                    <CardSection>
-                        <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Delete</Button>
-                    </CardSection>
+                    </CardItem>
+                    <CardItem>
+                        <Button 
+                         block success
+                         style={{ width: Dimensions.get('window').width - 40, marginLeft: 0, marginRight: 0 }}
+                        onPress={() => this.setState({ showModal: !this.state.showModal })}><Text> Delete </Text></Button>
+                    </CardItem>
                     <Confirm
                         visible={this.state.showModal}
                         onAccept={this.onAccept.bind(this)}
@@ -76,7 +76,7 @@ class HouseHoldEdit extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    const { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3, uid } = state.HouseHoldForm;
-    return { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Designation, Disability, Status, Phonenumber, Address, option, Disease1, Disease2, Disease3, uid };
+    const { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Status, Designation, Disability, Phonenumber, Address, option, Disease1, Disease2, Disease3, uid, DOE } = state.HouseHoldForm;
+    return { HHNumber, HHName, DOB, Caste, sex, Relationship, LiteracyRate, Designation, Disability, Status, Phonenumber, Address, option, Disease1, Disease2, Disease3, uid, DOE };
 }
 export default connect(mapStateToProps, { HouseholdSave, HouseholdUpdate, HouseholdDelete })(HouseHoldEdit);
