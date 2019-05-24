@@ -20,7 +20,7 @@ export const imageUpdate = ({ name, value }) => {
 };
 
 
-export const imageCreate = ({ UPicture,comment }) => {
+export const imageCreate = ({ UPicture, comment, imagetype }) => {
     let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
@@ -51,7 +51,7 @@ export const imageCreate = ({ UPicture,comment }) => {
                         })
                         .then((url) => {
                             database.ref(`/users/${awcid}/Timeline/image`)
-                                .push({ UPicture: url, date, comment })
+                                .push({ UPicture: url, date, comment, imagetype })
                                 .then(() => {
                                     dispatch({
                                         type: IMAGECREATE,

@@ -10,7 +10,7 @@ import firebase from 'firebase';
 class Attendance extends Component {
     state = { showModal: false };
     static navigationOptions = {
-        title: 'Child Nutrition Update',
+        title: 'Attendance',
         headerStyle: {
             backgroundColor: '#203546',
         },
@@ -39,7 +39,7 @@ class Attendance extends Component {
         var sec = new Date().getSeconds(); //Current Seconds
         that.setState({
             //Setting the value of the date time
-            date: date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec,
+            date:  year + '-' + month + '-' + date 
         });
         //Attandance count start 
 

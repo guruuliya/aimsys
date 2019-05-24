@@ -5,6 +5,17 @@ import Moment from 'moment';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class ListNotification extends Component {
+
+    static navigationOptions = {
+        title: 'Immuniztion Notification',
+        headerStyle: {
+            backgroundColor: '#203546',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    };
     render() {
         const { CName } = this.props.notify;
         return (
@@ -39,7 +50,7 @@ class ListNotification extends Component {
                         </TouchableWithoutFeedback>
                     </View>
 
-                    <View style={styles.projectTextchild2}>
+                    {/* <View style={styles.projectTextchild2}>
                         <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('InjectionEditForm', { injection: this.props.injection }) }}>
                             <View>
                                 <Icon
@@ -50,7 +61,7 @@ class ListNotification extends Component {
                                 <Text style={styles.moreIcon} >Edit</Text>
                             </View>
                         </TouchableWithoutFeedback>
-                    </View>
+                    </View> */}
                 </View>
         );
     }

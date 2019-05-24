@@ -81,6 +81,7 @@ class NutritionEditForm extends Component {
     }
 
     getPickerElements() {
+        let count = 0;
         var pickerArr = [];
         var scores = this.state.scores;
         console.log('year', scores);
@@ -89,41 +90,15 @@ class NutritionEditForm extends Component {
             var k = keys[i];
             var Name = scores[k].CName;
             pickerArr.push(<Picker.Item label={Name} value={k} />);
+            count++;
         }
+        if (count == 0) { pickerArr.push(<Picker.Item label={'No Data'} value={'No Data'} />); }
         return pickerArr;
     }
 
     calFun(text) {
         this.props.NutritionUpdate({ name: 'HNumber', value: text });
     }
-    // calbrday(text) {
-    //     console.log('iprit here', this.props.HNumber, 'on value', text);
-    //     this.props.NutritionUpdate({ name: 'CName', value: text });
-    //     const HNumber = this.props.HNumber;
-    //     const { currentUser } = firebase.auth();
-    //     const db = firebase.database().ref(`/users/${currentUser.uid}/Maternal/ChildRegistration`);
-    //     const query = db.orderByChild('HNumber').equalTo(HNumber);
-
-    //     query.on('value', snap => {
-    //         snap.forEach(child => {
-
-    //             if (child.val().CName === text) {
-
-    //                 var birthday = new Date(child.val().DPickdob);
-    //                 var today = new Date();
-    //                 var thisYear = 0;
-    //                 if (today.getMonth() < birthday.getMonth()) {
-    //                     thisYear = 1;
-    //                 } else if ((today.getMonth() == birthday.getMonth()) && today.getDate() < birthday.getDate()) {
-    //                     thisYear = 1;
-    //                 }
-    //                 var age = today.getFullYear() - birthday.getFullYear() - thisYear;
-    //                 console.log('age here', age.toString());
-    //                 this.setState({ Age: age.toString() });
-    //             }
-    //         });
-    //     });
-    // }
 
     render() {
         //this.props.NutritionUpdate({ name: 'Age', value: this.state.Age });
@@ -131,33 +106,41 @@ class NutritionEditForm extends Component {
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.mainview}>
-                        <View style={styles.inputContainer}>
-                        <TextInput
-                                style={styles.inputs}
-                                placeholder="Enter HouseHold Number"
-                                underlineColorAndroid='transparent'
-                                autoCorrect={false}
-                                placeholderTextColor='#355870'
-                                onChangeText={this.calFun.bind(this)}
-                                value={this.props.HNumber}
-                        />
-                        </View>
+                        <Label style={{ marginLeft: 15 }}>Household Number</Label>
+                        <Card>
+                            <CardItem>
+                                <TextInput
+                                    style={styles.inputs}
+                                    placeholder="Enter HouseHold Number"
+                                    keyboardType='numeric'
+                                    underlineColorAndroid='transparent'
+                                    autoCorrect={false}
+                                    placeholderTextColor='#355870'
+                                    onChangeText={this.calFun.bind(this)}
+                                    value={this.props.HNumber}
+                                />
+                            </CardItem>
+                        </Card>
 
-                        <View style={styles.inputContainer}>
-                            <Picker
-                                selectedValue={this.props.CName}
-                                style={styles.picker} itemStyle={styles.pickerItem}
-                                onValueChange={(value) => this.props.NutritionUpdate({ name: 'CName', value })}
 
-                            >
-                                <Picker.Item label='Select Child Name' value='' />
-                                {this.getPickerElements()}
-                            </Picker>
-                        </View>
+                        <Card>
+                            <CardItem>
+                                <Picker
+                                    selectedValue={this.props.CName}
+                                    style={styles.picker} itemStyle={styles.pickerItem}
+                                    onValueChange={(value) => this.props.NutritionUpdate({ name: 'CName', value })}
+                                // onValueChange={this.calbrday.bind(this)}
+                                >
+                                    <Picker.Item label='Select Child Name' value='' />
+                                    {this.getPickerElements()}
+                                </Picker>
+                            </CardItem>
+                        </Card>
 
                         {/* <View style={styles.inputContainer}>
                             <TextInput
                                 style={styles.inputs}
+                                placeholder='Age'
                                 value={this.props.Age}
                                 underlineColorAndroid='transparent'
                                 autoCorrect={false}
@@ -167,7 +150,7 @@ class NutritionEditForm extends Component {
 
                             />
                         </View> */}
-                        <View style={styles.inputContainer}>
+                        {/* <View style={styles.inputContainer}>
                             <TextInput
                                 style={styles.inputs}
                                 placeholder="Enter Height"
@@ -177,33 +160,40 @@ class NutritionEditForm extends Component {
                                 onChangeText={value => this.props.NutritionUpdate({ name: 'height', value })}
                                 value={this.props.height}
                             />
-                        </View>
-
-                        <View style={styles.inputContainer}>
-                            <TextInput
-                                style={styles.inputs}
-                                placeholder="Enter weight"
-                                underlineColorAndroid='transparent'
-                                autoCorrect={false}
-                                placeholderTextColor='#355870'
-                                onChangeText={value => this.props.NutritionUpdate({ name: 'weight', value })}
-                                value={this.props.weight}
-                            />
-                        </View>
-
-                        <View style={styles.inputContainer}>
-                            <Label style={{ marginLeft: 22 }}>Underweight?</Label>
-                            <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'under', value: 'Yes' })}
-                                selected={this.props.under === 'Yes'}
-                            />
-                            <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>No{'\t'}</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'under', value: 'No' })}
-                                selected={this.props.under === 'No'}
-                            />
-                        </View>
+                        </View> */}
+                        <Label style={{ marginLeft: 15 }}>Weight</Label>
+                        <Card>
+                            <CardItem>
+                                <TextInput
+                                    style={styles.inputs}
+                                    placeholder="Enter weight"
+                                    keyboardType='numeric'
+                                    underlineColorAndroid='transparent'
+                                    autoCorrect={false}
+                                    placeholderTextColor='#355870'
+                                    onChangeText={value => this.props.NutritionUpdate({ name: 'weight', value })}
+                                    value={this.props.weight}
+                                />
+                            </CardItem>
+                        </Card>
+                        <Card>
+                            <CardItem>
+                                <Text style={styles.textStyle1}> Underweight??</Text>
+                                {/* <Label style={{ marginLeft: 22 }}>Underweight?</Label> */}
+                            </CardItem>
+                            <CardItem>
+                                <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'under', value: 'Yes' })}
+                                    selected={this.props.under === 'Yes'}
+                                />
+                                <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>No{'\t'}</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'under', value: 'No' })}
+                                    selected={this.props.under === 'No'}
+                                />
+                            </CardItem>
+                        </Card>
                         {/* 
                     {
                         this.state.isHidden ?
@@ -225,22 +215,27 @@ class NutritionEditForm extends Component {
                             : null
                     } */}
 
-                        <View style={styles.inputContainer}>
-                            <Label style={{ marginLeft: 22 }}>Wasting?</Label>
-                            <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'wast', value: 'Yes' })}
-                                selected={this.props.wast === 'Yes'}
+                        <Card>
+                            <CardItem>
+                                <Text style={styles.textStyle1}> Wasting??</Text>
 
-                            />
+                            </CardItem>
+                            <CardItem>
+                                <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'wast', value: 'Yes' })}
+                                    selected={this.props.wast === 'Yes'}
 
-                            <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>No{'\t'}</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'wast', value: 'No' })}
-                                selected={this.props.wast === 'No'}
+                                />
 
-                            />
-                        </View>
+                                <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>No{'\t'}</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'wast', value: 'No' })}
+                                    selected={this.props.wast === 'No'}
+
+                                />
+                            </CardItem>
+                        </Card>
                         {/* {
                         this.state.isHidden1 ?
                             <Card>
@@ -267,23 +262,26 @@ class NutritionEditForm extends Component {
                             : null
                     } */}
 
-                        <View style={styles.inputContainer}>
-                            <Label style={styles.textStyle1}>Stunting?</Label>
+                        <Card>
+                            <CardItem>
+                                <Text style={styles.textStyle1}>Stunting?</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'stunt', value: 'Yes' })}
+                                    selected={this.props.stunt === 'Yes'}
 
-                            <Text style={{ marginLeft: 40, color: '#355870', fontSize: 16 }}>Yes{'\t'}</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'stunt', value: 'Yes' })}
-                                selected={this.props.stunt === 'Yes'}
+                                />
 
-                            />
+                                <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>No{'\t'}</Text>
+                                <Radio
+                                    onPress={() => this.props.NutritionUpdate({ name: 'stunt', value: 'No' })}
+                                    selected={this.props.stunt === 'No'}
 
-                            <Text style={{ marginLeft: 10, color: '#355870', fontSize: 16 }}>No{'\t'}</Text>
-                            <Radio
-                                onPress={() => this.props.NutritionUpdate({ name: 'stunt', value: 'No' })}
-                                selected={this.props.stunt === 'No'}
-
-                            />
-                        </View>
+                                />
+                            </CardItem>
+                        </Card>
                         {/* {
                         this.state.isHidden2 ?
                             <Card>
@@ -370,6 +368,7 @@ class NutritionEditForm extends Component {
                         <Card>
                             <CardItem>
                                 <Text style={styles.textStyle1}>Children inititaed appropriate complementary feeding?</Text>
+                                {/* <Label style={styles.textStyle1}> Children inititaed appropriate complementary feeding?</Label> */}
                             </CardItem>
                             <CardItem>
                                 <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
@@ -388,42 +387,42 @@ class NutritionEditForm extends Component {
                             </CardItem>
                         </Card>
 
+                        {/* <Card style={styles.cardstylenb}> */}
                         <Card>
                             <CardItem>
                                 <Text style={styles.textStyle1}>Institutional deliveries?</Text>
+                                {/* <Label style={styles.textStyle1}></Label> */}
                             </CardItem>
                             <CardItem>
                                 <Text style={{ marginLeft: 7, color: 'grey', fontSize: 16 }}>Yes:</Text>
                                 <Radio
                                     onPress={() => this.props.NutritionUpdate({ name: 'ideli', value: 'Yes' })}
                                     selected={this.props.ideli === 'Yes'}
-
                                 />
-
                                 <Text style={{ marginLeft: 10, color: 'grey', fontSize: 16 }}>No:</Text>
                                 <Radio
                                     onPress={() => this.props.NutritionUpdate({ name: 'ideli', value: 'No' })}
                                     selected={this.props.ideli === 'No'}
-
                                 />
                             </CardItem>
                         </Card>
-                        <Text>\n</Text>
-                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
-                                <Text style={styles.loginText}>ADD</Text>
-                            </TouchableOpacity>
-                        <CardSection>
-                            <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Delete</Button>
-                        </CardSection>
-                        <Confirm
-                            visible={this.state.showModal}
-                            onAccept={this.onAccept.bind(this)}
-                            onDecline={this.onDecline.bind(this)}
-                        >
-                            Are you sure you want to delete this?
-                </Confirm>
                     </View >
                 </View>
+
+                <CardSection>
+                    <Button onPress={this.onButtonPress.bind(this)}>Save Changes</Button>
+                </CardSection>
+                <CardSection>
+                    <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Delete</Button>
+                </CardSection>
+                <Confirm
+                    visible={this.state.showModal}
+                    onAccept={this.onAccept.bind(this)}
+                    onDecline={this.onDecline.bind(this)}
+                >
+                    Are you sure you want to delete this?
+                </Confirm>
+
             </ScrollView>
 
             // <ScrollView>

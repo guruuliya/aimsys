@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { ScrollView, Alert, TouchableOpacity, StyleSheet, Text } from 'react-native';
-import { CardSection, Card, Button } from '../Common';
+import { ScrollView, Alert, TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-native';
+import { CardSection, Card } from '../Common';
+import { CardItem, Button } from 'native-base';
 import { connect } from 'react-redux';
 import InjectionForm from './InjectionForm';
 import { InjectionUpdate, InjectionCreate } from '../../actions/InjectionAction';
@@ -25,36 +26,68 @@ class InjectionRecords extends Component {
                 'record not inserted');
         } else if (update === 'polio') {
             this.props.InjectionCreate({ HNumber, CName }, update, poliodate);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'hepatitis') {
             this.props.InjectionCreate({ HNumber, CName }, update, hepa);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'bcg') {
             this.props.InjectionCreate({ HNumber, CName }, update, BCG);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'dpt1') {
             this.props.InjectionCreate({ HNumber, CName }, update, DPT1);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'hepatitis1') {
             this.props.InjectionCreate({ HNumber, CName }, update, hepa1);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'opv1') {
             this.props.InjectionCreate({ HNumber, CName }, update, OPV1);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'dpt2') {
             this.props.InjectionCreate({ HNumber, CName }, update, DPT2);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'hepatitis2') {
             this.props.InjectionCreate({ HNumber, CName }, update, hepa2);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'opv2') {
             this.props.InjectionCreate({ HNumber, CName }, update, OPV2);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'dpt3') {
             this.props.InjectionCreate({ HNumber, CName }, update, DPT3);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'hepatitis3') {
             this.props.InjectionCreate({ HNumber, CName }, update, hepa3);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'opv3') {
             this.props.InjectionCreate({ HNumber, CName }, update, OPV3);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'dadara1') {
             this.props.InjectionCreate({ HNumber, CName }, update, dadara1);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'nutrition1') {
             this.props.InjectionCreate({ HNumber, CName }, update, nutri1);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'dptbooster') {
             this.props.InjectionCreate({ HNumber, CName }, update, dptbooster);
+            Alert.alert(
+                'record  inserted');
         } else if (update === 'dadara2') {
             this.props.InjectionCreate({ HNumber, CName }, update, dadara2);
+            Alert.alert(
+                'record  inserted');
         }
     }
 
@@ -64,12 +97,18 @@ class InjectionRecords extends Component {
 
                 <Card>
                     <InjectionForm {...this.props} />
-                    <CardSection>
-                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
+                    <CardItem>
+                        <Button
+                            block success
+                            style={{
+                                width: Dimensions.get('window').width - 40,
+                                marginLeft: 0,
+                                marginRight: 0
+                            }} onPress={this.onButtonPress.bind(this)}>
                             <Text style={styles.loginText}>ADD</Text>
-                        </TouchableOpacity>
+                        </Button>
 
-                    </CardSection>
+                    </CardItem>
                 </Card>
             </ScrollView>
 
