@@ -100,7 +100,7 @@ class DailyUsageStock extends Component {
                 if ((parseInt(data[i].anganwadicode)) === (parseInt(awcid))) {
                   if (data[i].Timeline) {
                     const data2 = data[i].Timeline.DailyUsageStock;
-                    console.log(data2.key);
+                   // console.log(data2.key);
                     for (const obj in data[i].Timeline.DailyUsageStock) {
                       
                       var d = new Date(),
@@ -149,7 +149,7 @@ class DailyUsageStock extends Component {
                                 const green_gram=data[i].Timeline.DailyUsageStock[obj].green_gram;
                                 const DPickdobStock=yesterdaydate;
                                
-                                var obj = {
+                                var obj1 = {
                                   nutritious_food : nutritious_food,
                                   protien_food: protien_food,
                                   oil: oil,
@@ -166,7 +166,7 @@ class DailyUsageStock extends Component {
                                   DPickdobStock: yesterdaydate
                                 };
                                 database.ref(`/users/${awcid}/Timeline/DailyUsageStock/${DPickdobStock}`)
-                                .set(obj);
+                                .set(obj1);
                                // console.log(obj);
                                 //can use push but it creates new tokens
                                 //ref.set(obj);

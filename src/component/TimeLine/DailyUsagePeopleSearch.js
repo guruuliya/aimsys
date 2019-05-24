@@ -199,7 +199,13 @@ class DailyUsagePeopleSearch extends Component {
               dataSource={dataSource}
               renderRow={this.renderRow}
             >
-            </ListView> : <ActivityIndicator size="large" color="#275DAD" style={styles.aistyle} />}
+            </ListView> : <View style={styles.ac}>
+                <Text style={styles.textstyle}>Please select date</Text>
+              <ActivityIndicator
+                size='large'
+                color='#275DAD'
+                style={styles.aistyle}
+              /></View>}
           </View>
         </ScrollView>
       </Container>
@@ -224,6 +230,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignItems: 'center'
   },
+
   pickerstyle2: {
     height: 50, width: 100,
     backgroundColor: '#ffff',
@@ -241,15 +248,20 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     textAlign: 'center'
   },
-  aistyle: {
-
+   textstyle: {
+    fontSize: 20,
+    marginTop: 15,
+  },
+  ac: {
     flex: 1,
+    
     justifyContent: 'center',
     alignItems: 'center',
-    height: 80
-  }
-
-  ,
+  },
+  aistyle: {
+    marginTop: 15,
+    height: 30
+  },
   pickertick: {
     flex: 0.1,
     // backgroundColor: '#ffff',
