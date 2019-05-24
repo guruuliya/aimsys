@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, StyleSheet,ScrollView,Text,TextInput,Alert } from 'react-native';
-import { Input, Card, CardSection, Button,Confirm } from '../Common';
+import { CardItem, Button } from 'native-base';
+import { View,ScrollView,Alert, StyleSheet, TextInput, Text, Dimensions, } from 'react-native';
+import { Card } from '../Common';
 import { connect } from 'react-redux';
 import HouseHoldNumber from './HouseHoldForm';
 import { HouseholdUpdate, HouseholdNumberSave } from '../../actions';
@@ -29,7 +30,7 @@ class HouseHoldNumberEdit extends Component {
         const { HHNumber, Address , Income } = this.props;
         this.props.HouseholdNumberSave({ HHNumber, Address, Income });
         Alert.alert(
-            'Yes !',
+            'Record ',
             'Updated Successfully',
             [
                 { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
@@ -82,11 +83,16 @@ class HouseHoldNumberEdit extends Component {
                     </View>
                     </View>
                     </View>
-                <CardSection>
-                    <Button onPress={this.onButtonPress.bind(this)}>
-                        Save
+                <CardItem>
+                     
+                     <Button
+                     block success
+                     style={{ width: Dimensions.get('window').width - 40, marginLeft: 0, marginRight: 0  }}
+                    
+                    onPress={this.onButtonPress.bind(this)}>
+                        <Text>Save</Text>
                 </Button>
-                </CardSection>
+                </CardItem>
                 
             </Card>
         </ScrollView>

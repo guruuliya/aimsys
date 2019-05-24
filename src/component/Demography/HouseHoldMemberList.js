@@ -3,6 +3,7 @@ import { Text, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
 import Moment from 'moment';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { withNavigation } from 'react-navigation';
+import { ScrollView } from 'react-native-gesture-handler';
 //import console = require('console');
 
 class HouseHoldMemberList extends Component {
@@ -25,6 +26,7 @@ class HouseHoldMemberList extends Component {
                 </View>
             </View>
             :
+            <ScrollView>
             <View style={styles.projectRow} >
                 <View style={styles.projectText} >
                     <Text style={styles.itemName}>{"\t"} {HHName}</Text>  
@@ -58,6 +60,7 @@ class HouseHoldMemberList extends Component {
                 </View>
 
             </View>
+            </ScrollView>
         );
     }
 }

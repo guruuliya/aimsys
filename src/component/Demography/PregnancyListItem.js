@@ -4,6 +4,7 @@ import Moment from 'moment';
 import firebase from 'firebase';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { withNavigation } from 'react-navigation';
+import { ScrollView } from 'react-native-gesture-handler';
 
 class PregnancyListItem extends Component {
 
@@ -25,6 +26,7 @@ class PregnancyListItem extends Component {
                     </View>
                 </View>
                 :
+                <ScrollView>
                 <View style={styles.projectRow} >
                     <View style={styles.projectText} >
                         <Text style={styles.itemName}>
@@ -60,6 +62,7 @@ class PregnancyListItem extends Component {
                         </TouchableWithoutFeedback>
                     </View>
                 </View>
+                </ScrollView>
         );
     }
 }
