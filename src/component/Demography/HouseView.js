@@ -2,9 +2,9 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Card, Confirm } from '../Common';
-import { View, StyleSheet } from 'react-native';
+import { View, Alert, StyleSheet, Text, Dimensions, } from 'react-native';
 import { HouseDelete } from '../../actions';
-import { Container, Content, Button, Text, Form } from 'native-base';
+import { Container, Content, Button, Form, CardItem } from 'native-base';
 import { withNavigation } from 'react-navigation';
 
 class HouseView extends Component {
@@ -42,7 +42,7 @@ class HouseView extends Component {
   }
 
   render() {
-    const { HHNumber, Address } = this.props.navigation.state.params.HouseHold;
+    const { HHNumber, Address,Income } = this.props.navigation.state.params.HouseHold;
     return (
       <Container style={styles.back} >
         <Content padder>
@@ -53,17 +53,41 @@ class HouseView extends Component {
             <Card>
               <Text>{"\n"}</Text>
               <Text style={styles.contentview}>Household Number :{"\t"}{HHNumber} </Text>
-              <Text style={styles.contentview}>Location:{"\t"}{Address} </Text>
+              <Text style={styles.contentview}>Address:{"\t"}{Address} </Text>
+              <Text style={styles.contentview}>Household Income :{"\t"}{Income} </Text>
+             
+              
             </Card>
             {(this.state.show) ? <Card style={styles.develop}><Text> Currently under development!!</Text></Card> : null
             }
             <View style={styles.projectText} >
               <View style={styles.projectTextchild1}>
-                <Button onPress={() => { this.props.navigation.navigate('HouseHoldNumberEdit', { HouseHold: this.props.navigation.state.params.HouseHold }) }}><Text>Edit</Text></Button>
-              <Button style={styles.Buttons}onPress={() => this.setState({ showModal: !this.state.showModal })}><Text>Delete</Text></Button>
-        </View>
-              <Confirm 
-              visible={this.state.showModal}
+                <Card>
+                  <CardItem>
+
+
+                    <Button
+                      block success
+                      style={{ width: Dimensions.get('window').width - 40, marginLeft: 0, marginRight: 0 }}
+                      onPress={() => { this.props.navigation.navigate('HouseHoldNumberEdit', { HouseHold: this.props.navigation.state.params.HouseHold }) }}><Text>Edit</Text>
+                    </Button>
+                  </CardItem>
+                </Card>
+                <Card>
+                  <CardItem>
+                    <Button
+                      block success
+                      style={{ width: Dimensions.get('window').width - 40, marginLeft: 0, marginRight: 0 }}
+
+                    onPress={() => this.setState({ showModal: !this.state.showModal })}>
+                      <Text>Delete</Text>
+                    </Button>
+                  </CardItem>
+                </Card>
+
+              </View>
+              <Confirm
+                visible={this.state.showModal}
                 onAccept={this.onAccept.bind(this)}
                 onDecline={this.onDecline.bind(this)}
               >
@@ -88,15 +112,15 @@ const styles = StyleSheet.create({
     flex: 3.0,
     flexDirection: 'column'
   },
-  projectTextchild1:{
+  projectTextchild1: {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  Buttons:{
+  Buttons: {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
+
   develop: {
     backgroundColor: "#FFFF33",
   },

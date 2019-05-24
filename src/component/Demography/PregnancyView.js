@@ -69,7 +69,7 @@ let awcid = 0;
         <Content padder>
           <Form>
             <Card>
-              <Text style={{ marginLeft: 95, fontSize: 24 }}>Expectant Women Report </Text>
+              <Text style={{ marginLeft: 35, fontSize: 24 }}>Expectant Women Report </Text>
             </Card>
             <Card>
               <Text>{"\n"}</Text>

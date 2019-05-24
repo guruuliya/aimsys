@@ -2,7 +2,8 @@ import firebase from 'firebase';
 import { Alert } from 'react-native';
 import {
     HOUSEHOLD_UPDATE, HOUSEHOLD_CREATE, HOUSEHOLD_FETCH_SUCCESS,
-    HOUSEHOLD_SAVE, FETCH_ALL, HOUSEHOLD_Name_FETCH_SUCCESS,
+    HOUSEHOLD_SAVE, FETCH_ALL,
+    HOUSEHOLD_Name_FETCH_SUCCESS,
     HOUSEHOLD_FETCH_LOAD_START,
     HOUSEHOLD_FETCH_LOAD_END,
     HOUSEHOLD_NAME_FETCH_END,
@@ -95,7 +96,7 @@ export const HouseholdCreate = ({ HHNumber, Income, Address }) => {
                         count--;
 
                     } else {
-                        
+
                         database.ref(`/users/${awcid}/Demographic/HouseHold`).on('value', snapshot => {
                             snapshot.forEach(child => {
                                 if (HHNumber === child.val().HHNumber) {
@@ -145,16 +146,44 @@ export const HouseDelete = (uid, navigate, HNo) => {
                         const k = keys[i];
                         awcid = value[k].anganwadicenter_code;
                     }
-                    database.ref(`/users/${awcid}/Demographic/HouseHold/${HNo}`)
-                        .remove()
 
-                        .then(() => {
-                            navigate.navigate('Householdtab');
-                        });
 
+                      // removing Household
+                      database.ref(`/users/${awcid}/Demographic/HouseHold/${HNo}`)
+                      .remove();
+
+                    // removing Expectant women
+                    var abc = firebase.database().ref(`/users/${awcid}/Demographic/Pregnancy`);
+
+                    var query = abc.orderByChild('HHNumber').equalTo(HNo);
+                    query.once('child_added', snapshot3 => {
+                        snapshot3.ref.remove();
+                    });
+                    // removing HouseholdMember
                     database.ref(`/users/${awcid}/Demographic/HouseholdMember/${HNo}`)
                         .remove();
+                  
 
+                    //removing Maternal/ChildRegistration
+                    var abc = firebase.database().ref(`/users/${awcid}/Maternal/ChildRegistration`);
+
+                    var query = abc.orderByChild('HNumber').equalTo(HNo);
+                    query.once('value', snapshot3 => {
+                        snapshot3.ref.remove();
+                    });
+                    //removing Maternal/Nutertion
+                    var abc = firebase.database().ref(`/users/${awcid}/Maternal/Nutrition`);
+
+                    var query = abc.orderByChild('HNumber').equalTo(HNo);
+                    query.once('value', snapshot3 => {
+                        snapshot3.ref.remove();
+                    })
+                        .then(() => {
+                            Alert.alert('Record Deleted Successfully'
+                            
+                            );
+                            navigate.navigate('Householdtab');
+                        });
                     // const ref = firebase.database().ref(`/users/${awcid}/Demographic/Pregnancy`);
                     // ref.orderByChild('HHNumber').equalTo(HNo).once('child_added', (snapshot1) => {
                     //     snapshot1.ref.remove();
@@ -167,7 +196,7 @@ export const HouseDelete = (uid, navigate, HNo) => {
 };
 
 
-export const HouseHoldFormCreate = ({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, uid, Disease1, Disease2, Disease3 }) => {
+export const HouseHoldFormCreate = ({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, uid, Disease1, Disease2, Disease3, DOE }) => {
     console.log('here', HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, uid, Disease1, Disease2, Disease3, Disability);
     let awcid = 0;
     const database = firebase.database();
@@ -183,7 +212,7 @@ export const HouseHoldFormCreate = ({ HHNumber, HHName, DOB, Caste, sex, Literac
                         const k = keys[i];
                         awcid = value[k].anganwadicenter_code;
                     }
-                    if (HHNumber === undefined || HHName === undefined || Disability === undefined || DOB === undefined || sex === undefined || Status === undefined || Designation === undefined || Disease1 === undefined || Disease2 === undefined || Disease3 === undefined) {
+                    if (DOE === undefined || HHNumber === undefined || HHName === undefined || Disability === undefined || DOB === undefined || sex === undefined || Status === undefined || Designation === undefined || Disease1 === undefined || Disease2 === undefined || Disease3 === undefined || DOE === undefined) {
                         Alert.alert('Please enter the all the  details',
                             'Record Not Inserted');
                     } else if (uid === undefined) {
@@ -196,7 +225,7 @@ export const HouseHoldFormCreate = ({ HHNumber, HHName, DOB, Caste, sex, Literac
                     }
                     else {
                         database.ref(`/users/${awcid}/Demographic/HouseholdMember/${uid}`)
-                            .push({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, Disease1, Disease2, Disease3 })
+                            .push({ HHNumber, HHName, DOB, Caste, sex, LiteracyRate, Status, Designation, Disability, Phonenumber, Disease1, Disease2, Disease3, DOE })
                             .then(() => {
                                 dispatch({ type: HOUSEHOLD_CREATE });
                             });
@@ -303,7 +332,7 @@ export const HouseholdNameFetch = ({ uid }) => {
     };
 };
 
-export const HouseholdSave = ({ HHNumber, HHName, DOB, Caste, sex, Status, LiteracyRate, Designation, Phonenumber, Disease1, Disease2, Disease3, Disability }, uid, HNo) => {
+export const HouseholdSave = ({ HHNumber, DOE, HHName, DOB, Caste, sex, Status, LiteracyRate, Designation, Phonenumber, Disease1, Disease2, Disease3, Disability, navigate }, uid, HNo) => {
     let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
@@ -329,11 +358,40 @@ export const HouseholdSave = ({ HHNumber, HHName, DOB, Caste, sex, Status, Liter
                             const k = keys[i];
                             awcid = value[k].anganwadicenter_code;
                         }
-                        database.ref(`/users/${awcid}/Demographic/HouseholdMember/${HNo}/${uid}`)
-                            .update({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, LiteracyRate, Phonenumber, Disease1, Disease2, Disease3, Disability })
-                            .then(() => {
-                                dispatch({ type: HOUSEHOLD_SAVE });
-                            });
+                        Alert.alert(
+                            'Need Attention',
+                            'Do you Want to Save..',
+                            [
+                                {
+                                    text: 'Cancel',
+                                    onPress: () =>
+                                        navigate.navigate('HouseHoldEdit'),
+                                    style: 'cancel',
+                                },
+                                {
+                                    text: 'OK',
+                                    onPress: () =>
+                                        database.ref(`/users/${awcid}/Demographic/HouseholdMember/${HNo}/${uid}`)
+                                            .update({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, LiteracyRate, Phonenumber, Disease1, Disease2, Disease3, Disability, DOE })
+                                            .then(() => {
+                                                dispatch({ type: HOUSEHOLD_SAVE });
+                                               
+                                                Alert.alert(
+                                                    'Successfully ',
+                                                    'Updated',
+                                                    [
+                                                        { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                                                    ],
+                                                    {
+                                                        cancelable: false
+                                                    });
+                                                navigate.navigate('Householdtab');
+
+                                            })
+                                },
+                            ],
+                            { cancelable: false },
+                        );
                     } else {
                         console.log('no user data');
                     }
@@ -360,14 +418,15 @@ export const HouseholdDelete = (uid, navigate, HNo) => {
                     }
                     Alert.alert(
                         'Need Attention',
-                        'Do you Want to Delete..',
+                        'Are you sure you want to delete this?',
                         [
                             {
                                 text: 'Cancel',
                                 onPress: () =>
-                                    dispatch({
-                                        type: ListChild
-                                    }),
+
+                                    navigate.navigate('HouseHoldEdit'),
+
+
                                 style: 'cancel',
                             },
                             {
@@ -376,8 +435,12 @@ export const HouseholdDelete = (uid, navigate, HNo) => {
                                     database.ref(`/users/${awcid}/Demographic/HouseholdMember/${HNo}/${uid}`)
                                         .remove()
                                         .then(() => {
+                                            Alert.alert('Record',
+                                                'Deleted Successfully'
+                                            );
                                             navigate.navigate('Householdtab');
                                         })
+
                             },
                         ],
                         { cancelable: false },
