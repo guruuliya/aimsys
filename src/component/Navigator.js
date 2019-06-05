@@ -73,7 +73,6 @@ import DemographicReport from './Demography/DemographicReport';
 import AnganwadiLocation from './infrastructure/AnganwadiLocation';
 import loc from './infrastructure/loc';
 import AnganwadiLocationUpdate from './infrastructure/AnganwadiLocationUpdate';
-import LocationHouse from './Demography/Location';
 
 import AttendanceTab from './TimeLine/AttendanceTab';
 import AttendanceRegistration from './TimeLine/AttendanceRegistration';
@@ -81,7 +80,6 @@ import AttendanceRegistrationForm from './TimeLine/AttendanceRegistrationForm';
 import ListAttendance from './TimeLine/ListAttendance';
 import AttendanceEditForm from './TimeLine/AttendanceEditForm';
 import AttendanceView from './TimeLine/AttendanceView';
-import ChangePassword from './ChangePassword';
 import Attendance from './TimeLine/Attendance';
 
 import DailyUsageRequest from './TimeLine/DailyUsageRequest';
@@ -328,9 +326,6 @@ const RootStack = createStackNavigator({
   HouseholdView: {
     screen: HouseholdView
   },
-  LocationHouse: {
-    screen: LocationHouse
-  },
   PregnancyTab:
   {
     screen: PregnancyTab
@@ -414,23 +409,23 @@ const DrawerNavigation = createDrawerNavigator({
       ),
     }
   },
-  ChangePassword: {
-    screen: ChangePassword,
-    navigationOptions: ({ navigation }) => ({
-      drawerLabel: 'Change Password',
-      headerLeft:
-        <Icon
-          style={{ paddingLeft: 10 }}
-          name="md-menu"
-          onPress={() => navigation.openDrawer()}
-          size={32}
-          color="white"
-        />,
-      drawerIcon: (
-        <Icon name='md-key' size={32} style={{ color: 'green' }} />
-      )
-    })
-  }
+  // ChangePassword: {
+  //   screen: ChangePassword,
+  //   navigationOptions: ({ navigation }) => ({
+  //     drawerLabel: 'Change Password',
+  //     headerLeft:
+  //       <Icon
+  //         style={{ paddingLeft: 10 }}
+  //         name="md-menu"
+  //         onPress={() => navigation.openDrawer()}
+  //         size={32}
+  //         color="white"
+  //       />,
+  //     drawerIcon: (
+  //       <Icon name='md-key' size={32} style={{ color: 'green' }} />
+  //     )
+  //   })
+  // }
 }, {
     initialRouteName: 'Home',
     contentComponent: CustomDrawerContentComponent,
