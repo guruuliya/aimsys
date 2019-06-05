@@ -151,39 +151,35 @@ export const HouseDelete = (uid, navigate, HNo) => {
                       // removing Household
                       database.ref(`/users/${awcid}/Demographic/HouseHold/${HNo}`)
                       .remove();
-
+            // removing HouseholdMember
+            database.ref(`/users/${awcid}/Demographic/HouseholdMember/${HNo}`)
+            .remove();
                     // removing Expectant women
                     var abc = firebase.database().ref(`/users/${awcid}/Demographic/Pregnancy`);
 
                     var query = abc.orderByChild('HHNumber').equalTo(HNo);
-                    query.once('child_added', snapshot3 => {
+                    query.on('child_added', snapshot3 => {
                         snapshot3.ref.remove();
                     });
-                    // removing HouseholdMember
-                    database.ref(`/users/${awcid}/Demographic/HouseholdMember/${HNo}`)
-                        .remove();
-                  
 
                     //removing Maternal/ChildRegistration
                     var abc = firebase.database().ref(`/users/${awcid}/Maternal/ChildRegistration`);
 
                     var query = abc.orderByChild('HNumber').equalTo(HNo);
-                    query.once('value', snapshot3 => {
+                    query.on('child_added', snapshot3 => {
                         snapshot3.ref.remove();
                     });
-                    //removing Maternal/Nutertion
+                    // //removing Maternal/Nutertion
                     var abc = firebase.database().ref(`/users/${awcid}/Maternal/Nutrition`);
 
                     var query = abc.orderByChild('HNumber').equalTo(HNo);
-                    query.once('value', snapshot3 => {
+                    query.on('child_added', snapshot3 => {
                         snapshot3.ref.remove();
-                    })
-                        .then(() => {
-                            Alert.alert('Record Deleted Successfully'
-                            
-                            );
+                    });
+                      
+                            Alert.alert('Record Deleted Successfully');
                             navigate.navigate('Householdtab');
-                        });
+                      
                     // const ref = firebase.database().ref(`/users/${awcid}/Demographic/Pregnancy`);
                     // ref.orderByChild('HHNumber').equalTo(HNo).once('child_added', (snapshot1) => {
                     //     snapshot1.ref.remove();
