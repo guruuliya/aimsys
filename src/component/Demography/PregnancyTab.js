@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 import Pregnancy from './Pregnancy';
 import PregnancyList from './PregnancyList';
 
+
 class PregnancyTab extends Component {
   static navigationOptions = {
     title: 'Expectant Women',
@@ -15,25 +16,32 @@ class PregnancyTab extends Component {
       fontWeight: 'bold',
     },
   };
+  constructor(props) {
+    super(props)
+    this.state = { currentTab: 0 }
+  }
   render() {
     return (
       <Container>
-        <Tabs style={styles.tabstyle}>
-          <Tab style={styles.tabstyle} heading={<TabHeading style={styles.tabstyle}><Icon name="" /><Text>search</Text></TabHeading>}>
-            <PregnancyList />
-          </Tab>
-          <Tab style={styles.tabstyle} heading={<TabHeading style={styles.tabstyle}><Icon name="contact" /><Text>create</Text></TabHeading>}>
-            <Pregnancy />
-          </Tab>
-        </Tabs>
-      </Container>
+      <Tabs initialPage={this.state.currentPage} onChangeTab={({ i }) => this.setState({ currentTab: i })}>
+        <Tab heading={<TabHeading style={this.state.currentTab === 0 ? styles.activeTabStyle : styles.tabStyle} ><Icon name="md-list-box" /><Text>Update Records</Text></TabHeading>}>
+          <PregnancyList />
+        </Tab>
+        <Tab heading={<TabHeading style={this.state.currentTab === 1 ? styles.activeTabStyle : styles.tabStyle} ><Icon name="md-create" /><Text>Create</Text></TabHeading>}>
+          <Pregnancy />
+        </Tab>
+      </Tabs>
+    </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  tabstyle: {
-
+  activeTabStyle: {
+    backgroundColor: '#f7c744'
+  },
+  tabStyle: {
+    backgroundColor: '#355870'
   }
 });
 

@@ -28,11 +28,12 @@ class PregnancyForm extends Component {
                             const k = keys[i];
                             awcid = value[k].anganwadicenter_code;
                         }
+                      
                          database.ref(`/users/${awcid}/Demographic/HouseholdMember/${HHNumber}`)
                         // const query = db.orderByChild('HHNumber').equalTo(HHNumber);
                         .on('value', snapshot1 => {
                             if (snapshot1.val()) {
-                                
+
                                 this.setState({ scores: snapshot1.val() });
                             } else {
                                 this.setState({ scores: { noData: { HHName: 'No Data' } } });
@@ -44,6 +45,7 @@ class PregnancyForm extends Component {
                 });
     }
     getPickerElements() {
+        
         let count = 0;
         var pickerArr = [];
         var scores = this.state.scores;
@@ -79,6 +81,7 @@ class PregnancyForm extends Component {
                             placeholder="Enter The HouseHold Number"
                             underlineColorAndroid='transparent'
                             autoCorrect={false}
+                            keyboardType='numeric'
                             placeholderTextColor='#355870'
                             value={this.props.HHNumber}
                             onChangeText={this.calFun.bind(this)}
@@ -101,6 +104,7 @@ class PregnancyForm extends Component {
                         style={styles.inputs}
                             placeholder="Enter Number of Pregnancies"
                             autoCorrect={false}
+                            keyboardType='numeric'
                             value={this.props.NPregnant}
                             onChangeText={value => this.props.pregnancyUpdate({ prop: 'NPregnant', value })}
                         />

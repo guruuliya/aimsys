@@ -30,10 +30,10 @@ class DailyUsageStockTab extends Component {
       <Container>
         {/* <Header hasTabs /> */}
         <Tabs initialPage={this.state.currentPage} onChangeTab={({ i }) => this.setState({ currentTab: i })}>
-          <Tab heading={<TabHeading style={this.state.currentTab === 0 ? styles.activeTabStyle : styles.tabStyle} ><Icon name="md-list-box" /><Text>Update Records</Text></TabHeading>}>
+          <Tab heading={<TabHeading style={this.state.currentTab === 0 ? styles.activeTabStyle : styles.tabStyle} ><Icon name="md-list-box" /><Text>Check Records</Text></TabHeading>}>
             <DailyUsageStockSearch  navigation={this.props.navigation} />
           </Tab>
-          <Tab heading={<TabHeading style={this.state.currentTab === 1 ? styles.activeTabStyle : styles.tabStyle} ><Icon name="md-create" /><Text>Create</Text></TabHeading>}>
+          <Tab heading={<TabHeading style={this.state.currentTab === 1 ? styles.activeTabStyle : styles.tabStyle} ><Icon name="md-create" /><Text>Add New Stock</Text></TabHeading>}>
             <DailyUsageStock navigation={this.props.navigation}  navigation={this.props.navigation}  />
             {/* //navigate={this.props.navigate}  */}
           </Tab>

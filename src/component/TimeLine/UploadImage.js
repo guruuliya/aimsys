@@ -11,7 +11,7 @@ import { imageUpdate, imageCreate } from '../../actions';
 class UploadImage extends Component {
     state = { showModal: false };
     static navigationOptions = {
-        title: 'Image Upload Records',
+        title: 'Image Upload',
         headerStyle: {
             backgroundColor: '#203546',
         },

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Alert,Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { CardItem, Button } from 'native-base';
+import { View, StyleSheet, Text, Dimensions, Alert } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { pregnancyUpdate, PregnancyCreate } from '../../actions';
-import { Card, CardSection, Button } from '../Common';
+import { Card } from '../Common';
 import PregnancyForm from './PregnancyForm';
 
 class Pregnancy extends Component {
@@ -25,12 +26,11 @@ class Pregnancy extends Component {
             Alert.alert(
                 'Enter All The Details',
                 'Record Not Inserted');
-            }
-            else
-            {
-        
-        this.props.PregnancyCreate({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild });
-            }
+        }
+        else {
+
+            this.props.PregnancyCreate({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild });
+        }
     }
     render() {
 
@@ -39,12 +39,16 @@ class Pregnancy extends Component {
                 <View>
                     <Card>
                         <PregnancyForm {...this.props} />
-                        <CardSection>
-                            <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
-                                <Text style={styles.loginText}>Add</Text>
-                            </TouchableOpacity>
+                        <CardItem>
 
-                        </CardSection>
+                        <Button
+                                block success
+                                style={{ width: Dimensions.get('window').width - 40, marginLeft: 0, marginRight: 0 }}
+                                onPress={this.onButtonPress.bind(this)}>
+                                <Text style={styles.loginText}>Add</Text>
+                            </Button>
+
+                        </CardItem>
 
                     </Card>
                 </View>

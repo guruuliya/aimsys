@@ -22,7 +22,6 @@ import {
   dailyUsageStockUpdate,
   dailyUsageStockSaveChanges
 } from '../../actions';
-import DatePicker from 'react-native-datepicker';
 
 class DailyUsageStockViewOption extends Component {
   static navigationOptions = {
@@ -47,9 +46,6 @@ class DailyUsageStockViewOption extends Component {
     console.log(this.props.navigation.state.params);
     //console.log(this.props.navigation.state.params)
     const {
-      food_received,
-      food_provided,
-      food_remaining,
       nutritious_food,
       protien_food,
       oil,
@@ -60,13 +56,11 @@ class DailyUsageStockViewOption extends Component {
       grams,
       mustard_seeds,
       rice,
+      wheat,
       amalice_rich,
       green_gram,
-      food_provided_today,
-      Extra,
       DPickdobStock
     } = this.props.navigation.state.params.child;
-    handleOnPress = () => this.setState({ show: 1 });
     return (
       <Container style={styles.back}>
         <Content padder>
@@ -80,23 +74,8 @@ class DailyUsageStockViewOption extends Component {
               </Text>
 
               <Text style={styles.contentview}>
-                Food Received :{'\t'}
-                {food_received}{' '}
-              </Text>
-
-              <Text style={styles.contentview}>
-                Food Provided :{'\t'}
-                {food_provided}{' '}
-              </Text>
-
-              <Text style={styles.contentview}>
-                Food Remaining :{'\t'}
-                {food_remaining}{' '}
-              </Text>
-
-              <Text style={styles.contentview}>
                 Nutritious Food :{'\t'}
-                {nutritious_food}{' '}
+                {nutritious_food}{' '}{'kg\'s'}
               </Text>
 
               <Text style={styles.contentview}>
@@ -143,6 +122,10 @@ class DailyUsageStockViewOption extends Component {
                 {rice}{' '}
               </Text>
               <Text style={styles.contentview}>
+                Wheat :{'\t'}
+                {wheat}{' '}
+              </Text>
+              <Text style={styles.contentview}>
                 Amalice Rich :{'\t'}
                 {amalice_rich}{' '}
               </Text>
@@ -150,30 +133,9 @@ class DailyUsageStockViewOption extends Component {
                 Green gram :{'\t'}
                 {green_gram}{' '}
               </Text>
-              <Text style={styles.contentview}>
-                Food provided today :{'\t'}
-                {food_provided_today}{' '}
-              </Text>
-              <Text style={styles.contentview}>
-                Extra :{'\t'}
-                {Extra}{' '}
-              </Text>
-              <Text style={styles.contentview}>Signature :{'\t'}</Text>
 
               <Text>{'\n'}</Text>
             </Card>
-
-            {this.state.show ? (
-              <Card style={styles.develop}>
-                <Text> Currently under development!!</Text>
-              </Card>
-            ) : null}
-
-            <Text>{'\n'}</Text>
-            {/* <Button block danger onPress={this.handleOnPress} >
-            <Icon name='md-save' />
-              <Text>EXPORT TO PDF</Text>
-            </Button> */}
             <Text>{'\n'}</Text>
             <Text>{'\n'}</Text>
           </Form>

@@ -42,14 +42,13 @@ class DemographyDash extends Component {
                         </TouchableOpacity>
                     </View>
 
-
-                    {/* <View style={styles.bottomitem}>
-                        <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('LocationHouse')} >
+                    <View style={styles.bottomitem}>
+                        <TouchableOpacity style={styles.bottomitemInner} onPress={() => this.props.navigation.navigate('DailyUsageRequestTab1')} >
                             <View>
-                            <Text>Location</Text>
+                                <Text>Images uploads</Text>
                             </View>
                         </TouchableOpacity>
-                    </View> */}
+                    </View>
 
                 </View>
                 </View>

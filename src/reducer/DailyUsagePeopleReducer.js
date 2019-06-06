@@ -18,7 +18,20 @@ const INITIAL_STATE = {
     pw_postnatal: 0,
     pw_3rdgrade: 0,
     pw_4thgrade: 0,
-    DPickdob: new Date(),
+    DPickdob: '',
+    nutritious_food: '',
+    protien_food: '',
+    oil: '',
+    jaggery: '',
+    chilli: '',
+    egg: '',
+    salt: '',
+    grams: '',
+    mustard_seeds: '',
+    rice: '',
+    wheat: '',
+    amalice_rich: '',
+    green_gram: '',
     uid: ''
 
 };

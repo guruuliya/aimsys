@@ -194,26 +194,25 @@ export default class Timeline extends Component {
                         </TouchableOpacity>
                     </View>
 
-                    {/* <View style={styles.bottomitem}>
+                    <View style={styles.bottomitem}>
                         <TouchableOpacity 
                         style={styles.bottomitemInner} 
-                        onPress={() => this.props.navigation.navigate('DailyUsageRequestTab1')} 
+                        onPress={() => this.props.navigation.navigate('DailyUsageRequestTab')} 
                         >
                             <View>
                                 <Image style={styles.icon} source={require('../../images/tim_request.png')} />
                             </View>
-                        </TouchableOpacity> */}
-                    {/* </View> */} 
-                    <View style={styles.bottomitem}>
+                        </TouchableOpacity>
+                    </View>
+                    {/* <View style={styles.bottomitem}>
                         <TouchableOpacity 
                         style={styles.bottomitemInner}  
-                        onPress={() => this.props.navigation.navigate('DailyUsageRequestTab1')} 
-                        >
+                        onPress={() => this.props.navigation.navigate('MedicineLog')} >
                             <View>
                                 <Image style={styles.icon} source={require('../../images/demo_searchpeople.png')} />
                             </View>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
 
 
                 </View>
@@ -271,4 +270,4 @@ const styles = StyleSheet.create({
         color: '#696969',
     },
     
-})
+});

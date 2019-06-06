@@ -67,6 +67,9 @@ export const PregnancyCreate = ({ HHNumber, PregnantName, NPregnant, LPerioddate
                                     .then(() => {
                                         dispatch({ type: PREGNANCY_CREATE });
                                     });
+                                    Alert.alert(
+                                        'Sucessfully',
+                                        'Record Inserted ');
                             }
                         });
 
@@ -122,11 +125,35 @@ export const PregnancySave = ({ HHNumber, PregnantName, NPregnant, LPerioddate, 
                         const k = keys[i];
                         awcid = value[k].anganwadicenter_code;
                     }
-                    database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
-                        .update({ HHNumber, PregnantName, NPregnant, LPerioddate, Delivery })
-                        .then(() => {
-                            dispatch({ type: PREGNENT_SAVE });
-                        });
+                    if (FirstDose !== undefined) {
+                        database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
+                            .update({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, Delivery })
+                            .then(() => {
+                                dispatch({ type: PREGNENT_SAVE });
+                            });
+                    }
+                    if (SecondDose !== undefined) {
+                        if (FirstDose === undefined)
+                        {
+                            Alert.alert('FirstDose is Not Given');
+                        }
+                        else
+                        {
+                        database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
+                            .update({ HHNumber, PregnantName, NPregnant, LPerioddate, SecondDose, Delivery })
+                            .then(() => {
+                                dispatch({ type: PREGNENT_SAVE });
+                            });
+                           
+                        }
+                }
+                    else {
+                        database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
+                            .update({ HHNumber, PregnantName, NPregnant, LPerioddate, Delivery })
+                            .then(() => {
+                                dispatch({ type: PREGNENT_SAVE });
+                            });
+                    }
                 } else {
                     console.log('no user data');
                 }
@@ -157,9 +184,7 @@ export const PregnancyDelete = ({ uid }, navigate) => {
                             {
                                 text: 'Cancel',
                                 onPress: () =>
-                                    dispatch({
-                                        type: ListChild
-                                    }),
+                                navigate.navigate('PregnancyEdit'),
                                 style: 'cancel',
                             },
                             {
@@ -168,6 +193,9 @@ export const PregnancyDelete = ({ uid }, navigate) => {
                                     database.ref(`/users/${awcid}/Demographic/Pregnancy/${uid}`)
                                         .remove()
                                         .then(() => {
+                                            Alert.alert('Record',
+                                            'Deleted Successfull '
+                                            );
                                             navigate.navigate('PregnancyTab');
                                         })
                             },

@@ -22,7 +22,7 @@ class HouseholdView extends Component {
   }
 
   render() {
-    const { HHNumber, LiteracyRate, HHName, DOB, sex, Status,Income, Relationship, Designation, Phonenumber, Caste } = this.props.navigation.state.params.HouseHold;
+    const { HHNumber, LiteracyRate, HHName, DOB, sex, Status, Disability, Designation, Phonenumber, Caste,Disease1,Disease2,Disease3 } = this.props.navigation.state.params.HouseHold;
     var today = new Date();
     var Brday = new Date(DOB);
     var totalMonths = (today.getFullYear() - Brday.getFullYear()) * 12 + today.getMonth() - Brday.getMonth();
@@ -95,12 +95,15 @@ class HouseholdView extends Component {
               <Text style={styles.contentview} >Gender :{"\t"}{sex} </Text>
               <Text style={styles.contentview} >DOB :{"\t"}{DOB} </Text>
               <Text style={styles.contentview} >Age :{"\t"}{age} </Text>
-              <Text style={styles.contentview} >Education :{"\t"}{LiteracyRate} </Text>
-              <Text style={styles.contentview} >Income:{"\t"}{Income} </Text>
+              <Text style={styles.contentview} >Qualification :{"\t"}{LiteracyRate} </Text>
               <Text style={styles.contentview}>Status:{"\t"}{Status} </Text>
+              <Text style={styles.contentview} >PhysicalyDisabled:{"\t"}{Disability} </Text>
               <Text style={styles.contentview}>Ocupation :{"\t"}{Designation} </Text>
               <Text style={styles.contentview} >Phonenumber:{"\t"}{Phonenumber} </Text>
               <Text style={styles.contentview}>Caste:{"\t"}{Caste} </Text>
+              <Text style={styles.contentview}>Disease1 :{"\t"}{Disease1} </Text>
+              <Text style={styles.contentview} >Disease2:{"\t"}{Disease2} </Text>
+              <Text style={styles.contentview}>Disease3:{"\t"}{Disease3} </Text>
               <Text>{"\n"}</Text>
             </Card>
             {(this.state.show) ? <Card style={styles.develop}><Text> Currently under development!!</Text></Card> : null
