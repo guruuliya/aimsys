@@ -6,7 +6,7 @@ import { Container, Content, Text, Card, Form } from 'native-base';
 class InjectionView extends Component {
 
   static navigationOptions = {
-    title: 'Child Registration',
+    title: 'Immunization details',
     headerStyle: {
       backgroundColor: '#355870',
     },
@@ -19,7 +19,7 @@ class InjectionView extends Component {
     super(props);
     this.state = {
       show: '',
-    }
+    };
   }
 
   render() {
@@ -27,7 +27,7 @@ class InjectionView extends Component {
      console.log(this.props.navigation.state.params);
    const { HNumber, CName, DPickdob, poliodate, hepa, BCG, DPT1, hepa1, OPV1, DPT2, hepa2, OPV2, DPT3, hepa3, OPV3, dadara1, nutri1, dptbooster, dadara2, complete } = this.props.navigation.state.params.injection;
    // eslint-disable-next-line no-undef
-   handleOnPress = () => this.setState({ 'show': 1 });
+   handleOnPress = () => this.setState({ show: 1 });
     return (
       <Container style={styles.back} >
         <Content padder>

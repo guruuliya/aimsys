@@ -40,7 +40,7 @@ class ChildSearch extends Component {
   onSearchValueChange = (value, index) => {
     this.setState({
       "searchName": value
-    })
+    });
   }
 
 

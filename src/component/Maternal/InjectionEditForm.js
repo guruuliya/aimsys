@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { Alert, StyleSheet, Picker, View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { Label } from 'native-base';
 import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
 import { InjectionUpdate, InjectionSave, InjectionDelete } from '../../actions/InjectionAction';
@@ -15,7 +16,7 @@ class InjectionEditForm extends Component {
         showModal: false,
     };
     static navigationOptions = {
-        title: 'Injection Update',
+        title: 'Immunization Update',
         headerStyle: {
             backgroundColor: '#203546',
         },
@@ -117,19 +118,22 @@ class InjectionEditForm extends Component {
     getPickerElements() {
         let count = 0;
         var pickerArr = [];
-        var  scores = this.state.scores;
+        var scores = this.state.scores;
         console.log('year', scores);
-        var  keys = Object.keys(scores);
+        var keys = Object.keys(scores);
         for (let i = 0; i < keys.length; i++) {
-            var  k = keys[i];
-            var  Name = scores[k].CName;
+            var k = keys[i];
+            var Name = scores[k].CName;
             pickerArr.push(<Picker.Item label={Name} value={k} />);
             count++;
         }
-        if (count == 0)
-            {pickerArr.push(<Picker.Item label={'No Data'} value={'No Data'} />);}
+        if (count == 0) { pickerArr.push(<Picker.Item label={'No Data'} value={'No Data'} />); }
 
         return pickerArr;
+    }
+
+    calFun(text) {
+        this.props.InjectionUpdate({ name: 'HNumber', value: text });
     }
 
     render() {
@@ -138,20 +142,24 @@ class InjectionEditForm extends Component {
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.mainview}>
+                        <Label style={{ marginLeft: 15 }}>HouseHold Number</Label>
                         <View style={styles.inputContainer}>
                             <TextInput
                                 style={styles.inputs}
                                 placeholder="HouseHold Number"
+                                keyboardType='numeric'
                                 underlineColorAndroid='transparent'
                                 autoCorrect={false}
                                 placeholderTextColor='#355870'
-                                onChangeText={(value) => this.props.InjectionUpdate({ name: 'HNumber', value })}
-                                value={this.props.HNumber}
+                               // onChangeText={(value) => this.props.InjectionUpdate({ name: 'HNumber', value })}
+                               onChangeText={this.calFun.bind(this)}
+                               value={this.props.HNumber}
                             />
                         </View>
 
                         <View style={styles.inputContainer}>
                             <Picker
+                               selectedValue={this.props.CName}
                                 style={styles.picker}
                                 itemStyle={styles.pickerItem}
                                 selectedValue={this.props.CName}
@@ -447,9 +455,9 @@ class InjectionEditForm extends Component {
                                 </View>
                                 : null
                         }
-                        <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
-                            <Text style={styles.loginText}>ADD</Text>
-                        </TouchableOpacity>
+                        <CardSection>
+                            <Button onPress={this.onButtonPress.bind(this)}>ADD</Button>
+                        </CardSection>
                         <CardSection>
                             <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Delete</Button>
                         </CardSection>

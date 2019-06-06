@@ -1,17 +1,29 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import { CardItem, Button } from 'native-base';
+import { View, StyleSheet,Picker, Text ,TextInput, Dimensions, Alert } from 'react-native';
 import firebase from 'firebase';
-import { Alert, TextInput, Picker, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Datepicker from 'react-native-datepicker';
 import { pregnancyUpdate, PregnancySave, PregnancyDelete } from '../../actions/PregnancyActions';
-import {CardSection, Button, Confirm } from '../Common';
+import { Confirm } from '../Common';
 import { ScrollView } from 'react-native-gesture-handler';
 class PregnancyEdit extends Component {
     state = {
         snapshotList: {},
         scores: {},
         showModal: false
+    };
+
+    static navigationOptions = {
+        title: 'Expectant Women ',
+        headerStyle: {
+            backgroundColor: '#355870',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
     };
 
 
@@ -34,8 +46,8 @@ class PregnancyEdit extends Component {
             {
         this.props.PregnancySave({ PregnantName, PhoneNumber, NPregnant, LPerioddate, EDeliveryplace, FirstDose, SecondDose, DeliveryDate, option, Dplace, FirstWeightDate, Nchild, uid: this.props.navigation.state.params.Pregnancy.uid, HHNumber });
         Alert.alert(
-            'Yes',
-            'Updated Successfully',
+            'Successfully',
+            ' Record Updated ',
            
         );
         }
@@ -119,6 +131,7 @@ let awcid = 0;
                                 underlineColorAndroid='transparent'
                                 autoCorrect={false}
                                 placeholderTextColor='#355870'
+                                keyboardType='numeric'
                                 value={this.props.HHNumber}
                                 onChangeText={this.calFun.bind(this)}
                             />
@@ -142,6 +155,7 @@ let awcid = 0;
                                 placeholder="Enter Number of Pregnancies"
                                 autoCorrect={false}
                                 value={this.props.NPregnant}
+                                keyboardType='numeric'
                                 onChangeText={value => this.props.pregnancyUpdate({ prop: 'NPregnant', value })}
                             />
                         </View>
@@ -221,20 +235,27 @@ let awcid = 0;
 
 
                     {/* Update Buttons */}
-                    <CardSection>
-                        < Button onPress={this.onButtonPress.bind(this)}>
-                            Save changes
+                    <CardItem>
+                        < Button 
+                        block success
+                        style={{ width: Dimensions.get('window').width - 40, marginLeft: 0, marginRight: 0 }}
+                        onPress={this.onButtonPress.bind(this)}>
+                        <Text> Save changes</Text>
                     </Button>
-                    </CardSection>
-                    <CardSection>
-                        <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>Delete</Button>
-                    </CardSection>
+                    </CardItem>
+                    <CardItem>
+                        <Button
+                        block success
+                        style={{ width: Dimensions.get('window').width - 40, marginLeft: 0, marginRight: 0 }}
+                        onPress={() => this.setState({ showModal: !this.state.showModal })}><Text> Delete </Text></Button>
+                    </CardItem>
                     <Confirm
                         visible={this.state.showModal}
                         onAccept={this.onAccept.bind(this)}
                         onDecline={this.onDecline.bind(this)}
                     >
-                        Are you sure you want to delete this?
+                    <Text>    Are you sure you want to delete this?</Text>
+                     
                 </Confirm>
                 </View>
             </ScrollView>

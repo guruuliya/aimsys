@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, StyleSheet,ScrollView,Text,TextInput,Alert } from 'react-native';
-import { Input, Card, CardSection, Button,Confirm } from '../Common';
+import { CardItem, Button } from 'native-base';
+import { View,ScrollView,Alert, StyleSheet, TextInput, Text, Dimensions, } from 'react-native';
+import { Card } from '../Common';
 import { connect } from 'react-redux';
 import HouseHoldNumber from './HouseHoldForm';
 import { HouseholdUpdate, HouseholdNumberSave } from '../../actions';
@@ -26,10 +27,10 @@ class HouseHoldNumberEdit extends Component {
     }
   
     onButtonPress() {
-        const { HHNumber, Address } = this.props;
-        this.props.HouseholdNumberSave({ HHNumber, Address });
+        const { HHNumber, Address , Income } = this.props;
+        this.props.HouseholdNumberSave({ HHNumber, Address, Income });
         Alert.alert(
-            'Yes !',
+            'Record ',
             'Updated Successfully',
             [
                 { text: 'OK', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
@@ -53,7 +54,19 @@ class HouseHoldNumberEdit extends Component {
                             placeholderTextColor='#355870'
                             placeholder="Enter The HouseHold Number"
                             value={this.props.HHNumber}
+                            editable={false}
                             onChangeText={value => this.props.HouseholdUpdate({ name: 'HHNumber', value })}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.inputs}
+                            placeholder="Enter The Household Income"
+                            keyboardType="numeric"
+                            autoCorrect={false}
+                            label="Income"
+                            onChangeText={value => this.props.HouseholdUpdate({ name: 'Income', value })}
+                            value={this.props.Income}
                         />
                     </View>
 
@@ -70,11 +83,16 @@ class HouseHoldNumberEdit extends Component {
                     </View>
                     </View>
                     </View>
-                <CardSection>
-                    <Button onPress={this.onButtonPress.bind(this)}>
-                        Save
+                <CardItem>
+                     
+                     <Button
+                     block success
+                     style={{ width: Dimensions.get('window').width - 40, marginLeft: 0, marginRight: 0  }}
+                    
+                    onPress={this.onButtonPress.bind(this)}>
+                        <Text>Save</Text>
                 </Button>
-                </CardSection>
+                </CardItem>
                 
             </Card>
         </ScrollView>
@@ -226,12 +244,10 @@ const styles = StyleSheet.create({
     }
 });
 
-
-
 const mapStateToProps = (state) => {
-    const { HHNumber, Address } = state.HouseHoldForm;
+    const { HHNumber, Address, Income } = state.HouseHoldForm;
     console.log(HHNumber, Address);
-    return { HHNumber, Address };
+    return { HHNumber, Address, Income };
 };
 
 export default connect(mapStateToProps, { HouseholdUpdate, HouseholdNumberSave })(withNavigation(HouseHoldNumberEdit));

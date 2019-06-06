@@ -99,6 +99,7 @@ class ChildRegistrationForm extends Component {
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.inputs}
+                            keyboardType='numeric'
                             placeholder="HouseHold Number"
                             underlineColorAndroid='transparent'
                             autoCorrect={false}
@@ -187,7 +188,7 @@ class ChildRegistrationForm extends Component {
                                 </View>
 
                                 <View style={styles.inputContainer}>
-                                    <Text> Health</Text>
+                                <Label style={{ marginLeft: 22 }}>Health</Label>
                                     <Picker
                                         style={styles.picker} itemStyle={styles.pickerItem}
                                         selectedValue={this.props.health}
@@ -218,7 +219,7 @@ class ChildRegistrationForm extends Component {
 
 
 
-
+                                <Label style={{marginLeft:15}}>Enter Date of Birth</Label>
                                 <View style={styles.inputContainer}>
                                     <DatePicker
                                         style={styles.dateblock}
@@ -234,7 +235,7 @@ class ChildRegistrationForm extends Component {
                                     />
                                 </View>
 
-
+                                <Label style={{marginLeft:15}}>Enter Registration Date</Label>
                                 <View style={styles.inputContainer}>
                                     <DatePicker
                                         style={styles.dateblock}
@@ -247,6 +248,21 @@ class ChildRegistrationForm extends Component {
                                         format="YYYY-MM-DD"
                                         onDateChange={value => this.props.childUpdate({ name: 'DPickregdate', value })}
                                         date={this.props.DPickregdate}
+                                    />
+                                </View>
+                                <Label style={{marginLeft:15}}>Enter Expectant Women Benifits Date</Label>
+                                <View style={styles.inputContainer}>
+                                    <DatePicker
+                                        style={styles.dateblock}
+                                        customStyles={{ dateInput: { borderWidth: 0 } }}
+                                        placeholder="Benifits Date"
+                                        mode="date"
+                                        round
+                                        // maxDate={new Date()}
+                                        placeholder="expiry of benifits"
+                                        format="YYYY-MM-DD"
+                                        onDateChange={value => this.props.childUpdate({ name: 'ebenifits', value })}
+                                        date={this.props.ebenifits}
                                     />
                                 </View>
 
@@ -382,7 +398,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
-        width: 300,
+        width: 350,
         borderRadius: 30,
         backgroundColor: 'transparent'
     },
@@ -392,7 +408,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 20,
-        width: 300,
+        width: 350,
         backgroundColor: 'transparent'
     },
     loginButton: {
@@ -439,9 +455,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     console.log(state);
 
-    const { HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, placedied } = state.child;
+    const { HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, placedied, ebenifits } = state.child;
     console.log('registration  mother id form ', CMotherId);
-    return { HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, placedied };
+    return { HNumber, CName, CMotherId, status, option, babytype, health, DPickdob, DPickregdate, placedied, ebenifits };
 };
 
 export default connect(mapStateToProps, { childUpdate })(ChildRegistrationForm);

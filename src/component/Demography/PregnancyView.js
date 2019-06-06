@@ -63,13 +63,13 @@ let awcid = 0;
             });
   }
   render() {
-    const { NPregnant, LPerioddate, DeliveryDate } = this.props.navigation.state.params.Pregnancy;
+    const { NPregnant, LPerioddate, DeliveryDate,FirstDose,SecondDose } = this.props.navigation.state.params.Pregnancy;
     return (
       <Container style={styles.back} >
         <Content padder>
           <Form>
             <Card>
-              <Text style={{ marginLeft: 95, fontSize: 24 }}>Expectant Women Report </Text>
+              <Text style={{ marginLeft: 35, fontSize: 24 }}>Expectant Women Report </Text>
             </Card>
             <Card>
               <Text>{"\n"}</Text>
@@ -77,8 +77,8 @@ let awcid = 0;
               <Text style={styles.contentview} >PhoneNumber :{"\t"}{this.state.PhoneNumber} </Text>
               <Text style={styles.contentview} >Number of Pregnant :{"\t"}{NPregnant} </Text>
               <Text style={styles.contentview}>Last Period:{"\t"}{LPerioddate} </Text>
-             {/* <Text style={styles.contentview}>FirstDose:{"\t"}{FirstDose} </Text>
-              <Text style={styles.contentview}>SecondDose :{"\t"}{SecondDose} </Text> */}
+             <Text style={styles.contentview}>FirstDose:{"\t"}{FirstDose} </Text>
+              <Text style={styles.contentview}>SecondDose :{"\t"}{SecondDose} </Text>
               <Text style={styles.contentview}>Expected DeliveryDate:{"\t"}{DeliveryDate} </Text>
               <Text>{"\n"}</Text>
             </Card>

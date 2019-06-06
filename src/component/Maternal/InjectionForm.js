@@ -73,6 +73,7 @@ class InjectionForm extends Component {
                     <View style={styles.inputContainer}>
                         <Input style={styles.inputs}
                             placeholder="HouseHold Number"
+                            keyboardType='numeric'
                             underlineColorAndroid='transparent'
                             autoCorrect={false}
                             placeholderTextColor='#355870'
@@ -241,7 +242,7 @@ class InjectionForm extends Component {
                                     customStyles={{ dateInput: { borderWidth: 0 } }}
                                     mode="date"
                                     round
-                                    minDate={new Date()}
+                                    //minDate={new Date()}
                                     placeholder="enter Hepatitis2 date"
                                     format="YYYY-MM-DD"
                                     onDateChange={value => this.props.InjectionUpdate({ name: 'hepa2', value })}
@@ -258,7 +259,7 @@ class InjectionForm extends Component {
                                     customStyles={{ dateInput: { borderWidth: 0 } }}
                                     mode="date"
                                     round
-                                    minDate={new Date()}
+                                  //  minDate={new Date()}
                                     placeholder="enter OPV2 date"
                                     format="YYYY-MM-DD"
                                     onDateChange={value => this.props.InjectionUpdate({ name: 'OPV2', value })}
@@ -275,7 +276,7 @@ class InjectionForm extends Component {
                                     customStyles={{ dateInput: { borderWidth: 0 } }}
                                     mode="date"
                                     round
-                                    minDate={new Date()}
+                                  //  minDate={new Date()}
                                     placeholder="enter DPT3 date"
                                     format="YYYY-MM-DD"
                                     onDateChange={value => this.props.InjectionUpdate({ name: 'DPT3', value })}
@@ -292,7 +293,7 @@ class InjectionForm extends Component {
                                     customStyles={{ dateInput: { borderWidth: 0 } }}
                                     mode="date"
                                     round
-                                    minDate={new Date()}
+                                  //  minDate={new Date()}
                                     placeholder="enter Hepatitis3 date"
                                     format="YYYY-MM-DD"
                                     onDateChange={value => this.props.InjectionUpdate({ name: 'hepa3', value })}
@@ -309,7 +310,7 @@ class InjectionForm extends Component {
                                     customStyles={{ dateInput: { borderWidth: 0 } }}
                                     mode="date"
                                     round
-                                    minDate={new Date()}
+                                  //  minDate={new Date()}
                                     placeholder="enter OPV3 date"
                                     format="YYYY-MM-DD"
                                     onDateChange={value => this.props.InjectionUpdate({ name: 'OPV3', value })}
@@ -326,7 +327,7 @@ class InjectionForm extends Component {
                                     customStyles={{ dateInput: { borderWidth: 0 } }}
                                     mode="date"
                                     round
-                                    minDate={new Date()}
+                                   // minDate={new Date()}
                                     placeholder="enter Dadara1 date"
                                     format="YYYY-MM-DD"
                                     onDateChange={value => this.props.InjectionUpdate({ name: 'dadara1', value })}
@@ -343,7 +344,7 @@ class InjectionForm extends Component {
                                     customStyles={{ dateInput: { borderWidth: 0 } }}
                                     mode="date"
                                     round
-                                    minDate={new Date()}
+                                  //  minDate={new Date()}
                                     placeholder="enter Nutrition1 date"
                                     format="YYYY-MM-DD"
                                     onDateChange={value => this.props.InjectionUpdate({ name: 'nutri1', value })}
@@ -356,11 +357,12 @@ class InjectionForm extends Component {
                     {
                         this.props.update === 'dptbooster' ?
                             <View style={styles.inputContainer}>
-                                <DatePicker style={styles.dateblock}
+                                <DatePicker 
+                                    style={styles.dateblock}
                                     customStyles={{ dateInput: { borderWidth: 0 } }}
                                     mode="date"
                                     round
-                                    minDate={new Date()}
+                                   // minDate={new Date()}
                                     placeholder="enter dptbooster date"
                                     format="YYYY-MM-DD"
                                     onDateChange={value => this.props.InjectionUpdate({ name: 'dptbooster', value })}
@@ -378,7 +380,7 @@ class InjectionForm extends Component {
                                     customStyles={{ dateInput: { borderWidth: 0 } }}
                                     mode="date"
                                     round
-                                    minDate={new Date()}
+                                  //  minDate={new Date()}
                                     placeholder="enter Ddadara2 date"
                                     format="YYYY-MM-DD"
                                     onDateChange={value => this.props.InjectionUpdate({ name: 'dadara2', value })}

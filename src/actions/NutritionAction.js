@@ -12,7 +12,7 @@ export const NutritionUpdate = ({ name, value }) => {
 };
 
 // eslint-disable-next-line max-len
-export const NutritionCreate = ({ HNumber, CName, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli }) => {
+export const NutritionCreate = ({ HNumber, CName, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli }) => {
     let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
@@ -31,7 +31,7 @@ export const NutritionCreate = ({ HNumber, CName, height, weight, under, wast, s
                     }
                     console.log(firebase.auth());
                     database.ref(`/users/${awcid}/Maternal/Nutrition`)
-                        .push({ HNumber, CName, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli })
+                        .push({ HNumber, CName, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli })
                         .then(() => {
                             dispatch({
                                 type: NUTRITION_CREATE
@@ -81,7 +81,7 @@ export const NutritionFetch = () => {
 };
 
 // eslint-disable-next-line max-len
-export const NutritionSave = ({ HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli, uid }) => {
+export const NutritionSave = ({ HNumber, CName, Age, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli, uid }) => {
     let awcid = 0;
     const database = firebase.database();
     const { currentUser } = firebase.auth();
@@ -99,7 +99,7 @@ export const NutritionSave = ({ HNumber, CName, Age, height, weight, under, wast
                         awcid = value[k].anganwadicenter_code;
                     }
                     database.ref(`/users/${awcid}/Maternal/Nutrition/${uid}`)
-                        .set({ HNumber, CName, Age, height, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli })
+                        .set({ HNumber, CName, Age, weight, under, wast, stunt, lowbirth, breastfeed, exfeed, cfeed, ideli })
                         .then(() => {
                             dispatch({
                                 type: NUTRITION_SAVE
@@ -132,17 +132,17 @@ export const NutritionDelete = ({ uid }, navigate) => {
                         awcid = value[k].anganwadicenter_code;
                     }
                     Alert.alert(
-                        'Need Attention',
-                        'Do you Want to Delete..',
+                        'Confirm',
+                       
                         [
-                            {
-                                text: 'Cancel',
-                                onPress: () =>
-                                    dispatch({
-                                        type: ListNutrition
-                                    }),
-                                style: 'cancel',
-                            },
+                            // {
+                            //     text: 'Cancel',
+                            //     onPress: () =>
+                            //         dispatch({
+                            //             type: ListNutrition
+                            //         }),
+                            //     style: 'cancel',
+                            // },
                             {
                                 text: 'OK',
                                 onPress: () =>

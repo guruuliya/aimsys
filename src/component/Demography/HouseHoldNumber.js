@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native';
-import { Input, Card, CardSection, Button } from '../Common';
+import { CardItem, Button } from 'native-base';
+import { Card } from '../Common';
+import { View, StyleSheet, TextInput, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { HouseholdUpdate, HouseholdCreate } from '../../actions';
 import { withNavigation } from 'react-navigation';
 class HouseHoldNumber extends Component {
     onButtonPress() {
-        const { HHNumber, Address } = this.props;
-        this.props.HouseholdCreate({ HHNumber, Address });
+        const { HHNumber, Income, Address } = this.props;
+        this.props.HouseholdCreate({ HHNumber, Income, Address });
     }
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.mainview}>
+                
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.inputs}
@@ -29,6 +31,18 @@ class HouseHoldNumber extends Component {
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.inputs}
+                            placeholder="Enter The Household Income"
+                            placeholderTextColor='#355870'
+                            keyboardType="numeric"
+                            autoCorrect={false}
+                            label="Income"
+                            onChangeText={value => this.props.HouseholdUpdate({ name: 'Income', value })}
+                            value={this.props.Income}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.inputs}
                             underlineColorAndroid='transparent'
                             autoCorrect={false}
                             placeholderTextColor='#355870'
@@ -37,10 +51,14 @@ class HouseHoldNumber extends Component {
                             onChangeText={value => this.props.HouseholdUpdate({ name: 'Address', value })}
                         />
                     </View>
-                    <TouchableOpacity
-                        style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
-                        <Text style={styles.loginText}>Add</Text>
-                    </TouchableOpacity>
+                    
+                        <Button
+                            block success
+                            style={{ width: Dimensions.get('window').width - 80, marginLeft: 5, marginRight: 0  }}
+                             onPress={this.onButtonPress.bind(this)}>
+                            <Text style={styles.loginText}>Add</Text>
+                        </Button>
+                   
 
                 </View>
             </View>
@@ -195,9 +213,9 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
-    const { HHNumber, Address } = state.HouseHoldForm;
+    const { HHNumber, Income, Address } = state.HouseHoldForm;
     console.log(HHNumber, Address);
-    return { HHNumber, Address };
+    return { HHNumber, Income, Address };
 };
 
 export default connect(mapStateToProps, { HouseholdUpdate, HouseholdCreate })(withNavigation(HouseHoldNumber));

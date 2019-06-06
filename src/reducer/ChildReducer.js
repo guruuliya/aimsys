@@ -1,3 +1,4 @@
+
 import { CHILDUPDATE, CHILD_CREATE, CHILD_SAVE, CHILD_FETCH_LOAD_START, CHILD_FETCH_LOAD_END } from '../actions/types';
 var _ = require('lodash');
 
@@ -9,6 +10,7 @@ const INITIAL_STATE = {
     option: '',
     DPickdob: '1995-03-05',
     DPickregdate: '1995-03-05',
+    ebenifits: '1995-03-05',
     health: '',
     babytype: '',
     Loading: false

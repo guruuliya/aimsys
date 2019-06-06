@@ -20,6 +20,8 @@ const INITIAL_STATE = {
     Disease1:'',
     Disease2:'',
     Disease3:'',
+    Disability:'',
+    DOE: '',
 };
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {

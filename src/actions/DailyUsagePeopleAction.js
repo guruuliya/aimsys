@@ -7,7 +7,6 @@ import {
   DAILY_USAGE_SAVECHANGES_SUCCESS
 } from './types';
 
-
 export const dailyUsageUpdate = ({ name, value }) => ({
   type: DAILY_USAGE_UPDATE,
   payload: { name, value }
@@ -25,6 +24,18 @@ export const dailyUsageCreate = ({
   total1,
   total2,
   totalfinal,
+  nutritious_food,
+  protien_food,
+  oil,
+  jaggery,
+  chilli,
+  egg,
+  salt,
+  grams,
+  mustard_seeds,
+  rice,
+  amalice_rich,
+  green_gram,
   navigate
 }) => {
   let awcid = 0;
@@ -44,31 +55,73 @@ export const dailyUsageCreate = ({
             const k = keys[i];
             awcid = value[k].anganwadicenter_code;
           }
-
-          database
-            .ref(`/users/${awcid}/Timeline/DailyUsagePeople`)
-            .push({
-              six_months_to_one_year,
-              one_year_to_three_year,
-              three_year_to_six_year,
-              pw_prenatal,
-              pw_postnatal,
-              pw_3rdgrade,
-              pw_4thgrade,
-              DPickdob,
-              total1,
-              total2,
-              totalfinal
-            })
-            .then(() => {
-              dispatch({
-                type: DAILY_USAGE_CREATE_SUCCESS
+          if (
+           ( six_months_to_one_year === ' ' ||
+            six_months_to_one_year === undefined) ||
+            (one_year_to_three_year === ' ' ||
+              one_year_to_three_year === undefined) ||
+            (three_year_to_six_year === ' ' ||
+              three_year_to_six_year === undefined) ||
+            (pw_prenatal === ' ' || pw_prenatal === undefined) ||
+            (pw_postnatal === ' ' || pw_postnatal === undefined) ||
+            (pw_3rdgrade === ' ' || pw_3rdgrade === undefined) ||
+            (pw_4thgrade === ' ' || pw_4thgrade === undefined) ||
+            (DPickdob === ' ' || DPickdob === undefined) ||
+            (total1 === ' ' || total1 === undefined) ||
+            (total2 === ' ' || total2 === undefined) ||
+            (totalfinal === 0 || totalfinal === undefined) ||
+            (nutritious_food=== 0 ||nutritious_food=== undefined) ||
+            (protien_food=== 0 ||protien_food=== undefined) ||
+            (oil=== 0 ||oil=== undefined) ||
+            (jaggery=== 0 ||jaggery=== undefined) ||
+            (chilli=== 0 ||chilli=== undefined) ||
+            (egg=== 0 ||egg=== undefined) ||
+            ( salt=== 0 ||salt=== undefined) ||
+            (grams=== 0 ||grams=== undefined) ||
+            (mustard_seeds=== 0 ||mustard_seeds=== undefined) ||
+            ( rice=== 0 ||rice=== undefined) ||
+            ( amalice_rich=== 0 ||amalice_rich=== undefined) ||
+            ( green_gram=== 0 ||green_gram=== undefined)
+          ) {
+            Alert.alert('Please enter all the details');
+          } else {
+            database
+              .ref(`/users/${awcid}/Timeline/DailyUsagePeople/${DPickdob}`)
+              .set({
+                six_months_to_one_year,
+                one_year_to_three_year,
+                three_year_to_six_year,
+                pw_prenatal,
+                pw_postnatal,
+                pw_3rdgrade,
+                pw_4thgrade,
+                DPickdob,
+                total1,
+                total2,
+                totalfinal,
+                nutritious_food,
+                protien_food,
+                oil,
+                jaggery,
+                chilli,
+                egg,
+                salt,
+                grams,
+                mustard_seeds,
+                rice,
+                amalice_rich,
+                green_gram,
+              })
+              .then(() => {
+                dispatch({
+                  type: DAILY_USAGE_CREATE_SUCCESS
+                });
+                dailyUsageCreateSuccess(dispatch, navigate);
+              })
+              .catch(error => {
+                console.log(error);
               });
-              dailyUsageCreateSuccess(dispatch, navigate);
-            })
-            .catch(error => {
-              console.log(error);
-            });
+          }
         } else {
           console.log('no user data');
         }

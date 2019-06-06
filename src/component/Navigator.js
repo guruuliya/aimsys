@@ -73,7 +73,6 @@ import DemographicReport from './Demography/DemographicReport';
 import AnganwadiLocation from './infrastructure/AnganwadiLocation';
 import loc from './infrastructure/loc';
 import AnganwadiLocationUpdate from './infrastructure/AnganwadiLocationUpdate';
-import LocationHouse from './Demography/Location';
 
 import AttendanceTab from './TimeLine/AttendanceTab';
 import AttendanceRegistration from './TimeLine/AttendanceRegistration';
@@ -81,11 +80,11 @@ import AttendanceRegistrationForm from './TimeLine/AttendanceRegistrationForm';
 import ListAttendance from './TimeLine/ListAttendance';
 import AttendanceEditForm from './TimeLine/AttendanceEditForm';
 import AttendanceView from './TimeLine/AttendanceView';
-import ChangePassword from './ChangePassword';
 import Attendance from './TimeLine/Attendance';
 
 import DailyUsageRequest from './TimeLine/DailyUsageRequest';
 import DailyUsageRequestTab from './TimeLine/DailyUsageRequestTab';
+import DailyUsageRequestTab1 from './TimeLine/UploadImageTab';
 import DailyUsageRequestSearch from './TimeLine/DailyUsageRequestSearch';
 import DailyUsageRequestListItem from './TimeLine/DailyUsageRequestListItem';
 import DailyUsageRequestView from './TimeLine/DailyUsageRequestView';
@@ -93,6 +92,8 @@ import DailyUsageRequestViewOption from './TimeLine/DailyUsageRequestViewOption'
 
 import HouseHoldNumberEdit from './Demography/HouseHoldNumberEdit';
 import HouseView from './Demography/HouseView';
+import ImageView from './TimeLine/ImageView';
+import ImageSearch from './TimeLine/ImageSearch';
 
 const CustomDrawerContentComponent = (props) => (
   <Container>
@@ -325,9 +326,6 @@ const RootStack = createStackNavigator({
   HouseholdView: {
     screen: HouseholdView
   },
-  LocationHouse: {
-    screen: LocationHouse
-  },
   PregnancyTab:
   {
     screen: PregnancyTab
@@ -370,6 +368,9 @@ const RootStack = createStackNavigator({
   DailyUsageRequestTab: {
     screen: DailyUsageRequestTab
   },
+  DailyUsageRequestTab1: {
+    screen: DailyUsageRequestTab1
+  },
   DailyUsageRequestListItem: {
     screen: DailyUsageRequestListItem
   },
@@ -378,6 +379,12 @@ const RootStack = createStackNavigator({
   },
   DailyUsageRequestViewOption: {
     screen: DailyUsageRequestViewOption
+  },
+  ImageView: {
+    screen: ImageView
+  },
+  ImageSearch: {
+    screen: ImageSearch
   },
 }, {
     defaultNavigationOptions: {
@@ -402,23 +409,23 @@ const DrawerNavigation = createDrawerNavigator({
       ),
     }
   },
-  ChangePassword: {
-    screen: ChangePassword,
-    navigationOptions: ({ navigation }) => ({
-      drawerLabel: 'Change Password',
-      headerLeft:
-        <Icon
-          style={{ paddingLeft: 10 }}
-          name="md-menu"
-          onPress={() => navigation.openDrawer()}
-          size={32}
-          color="white"
-        />,
-      drawerIcon: (
-        <Icon name='md-key' size={32} style={{ color: 'green' }} />
-      )
-    })
-  }
+  // ChangePassword: {
+  //   screen: ChangePassword,
+  //   navigationOptions: ({ navigation }) => ({
+  //     drawerLabel: 'Change Password',
+  //     headerLeft:
+  //       <Icon
+  //         style={{ paddingLeft: 10 }}
+  //         name="md-menu"
+  //         onPress={() => navigation.openDrawer()}
+  //         size={32}
+  //         color="white"
+  //       />,
+  //     drawerIcon: (
+  //       <Icon name='md-key' size={32} style={{ color: 'green' }} />
+  //     )
+  //   })
+  // }
 }, {
     initialRouteName: 'Home',
     contentComponent: CustomDrawerContentComponent,

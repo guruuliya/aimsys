@@ -60,44 +60,79 @@ export const dailyUsageStockCreate = ({
             awcid = value[k].anganwadicenter_code;
           }
           const Request_Status = 0;
-          database
-            .ref(`/users/${awcid}/Timeline/DailyUsageRequest`)
-            .push({
-              nutritious_food,
-              protien_food,
-              oil,
-              jaggery,
-              chilli,
-              egg,
-              salt,
-              grams,
-              mustard_seeds,
-              amalice_rich,
-              green_gram,
-              food_provided_today,
-              Oralrehydrationsalts,
-              Chloroquine,
-              Iron_and_folic_acid,
-              Co_trimoxazole_tablet,
-              Co_trimoxazole_syrup,
-              Mebendazole,
-              Benzyl_benzoate,
-              Vitamin_A_solution,
-              Aspirin,
-              Sulphadimidine,
-              Paracetamol,
-              DPickdobStock,
-              Request_Status
-            })
-            .then(() => {
-              dispatch({
-                type: DAILY_USAGE_STOCK_CREATE
+          if (
+            (nutritious_food === ' ' ||
+            nutritious_food === undefined) ||
+            (protien_food === ' ' || protien_food === undefined) ||
+            (oil === ' ' || oil === undefined) ||
+            (jaggery === ' ' || jaggery === undefined) ||
+            (chilli === ' ' || chilli === undefined) ||
+            (egg === ' ' || egg === undefined) ||
+            (salt === ' ' || salt === undefined) ||
+            (grams === ' ' || grams === undefined) ||
+            (mustard_seeds === ' ' || mustard_seeds === undefined) ||
+            (amalice_rich === ' ' || amalice_rich === undefined) ||
+            (green_gram === ' ' || green_gram === undefined) ||
+            (food_provided_today === ' ' ||
+              food_provided_today === undefined) ||
+            (Oralrehydrationsalts === ' ' ||
+              Oralrehydrationsalts === undefined) ||
+            (Chloroquine === ' ' || Chloroquine === undefined) ||
+            (Iron_and_folic_acid === ' ' ||
+              Iron_and_folic_acid === undefined) ||
+            (Co_trimoxazole_tablet === ' ' ||
+              Co_trimoxazole_tablet === undefined) ||
+            (Co_trimoxazole_syrup === ' ' ||
+              Co_trimoxazole_syrup === undefined) ||
+            (Mebendazole === ' ' || Mebendazole === undefined) ||
+            (Benzyl_benzoate === ' ' || Benzyl_benzoate === undefined) ||
+            (Vitamin_A_solution === ' ' || Vitamin_A_solution === undefined) ||
+            (Aspirin === ' ' || Aspirin === undefined) ||
+            (Sulphadimidine === ' ' || Sulphadimidine === undefined) ||
+            (Paracetamol === ' ' || Paracetamol === undefined) ||
+            (DPickdobStock === ' ' || DPickdobStock === undefined)
+          ) {
+            Alert.alert('Please enter all the details');
+          } else {
+            database
+              .ref(`/users/${awcid}/Timeline/DailyUsageRequest`)
+              .push({
+                nutritious_food,
+                protien_food,
+                oil,
+                jaggery,
+                chilli,
+                egg,
+                salt,
+                grams,
+                mustard_seeds,
+                amalice_rich,
+                green_gram,
+                food_provided_today,
+                Oralrehydrationsalts,
+                Chloroquine,
+                Iron_and_folic_acid,
+                Co_trimoxazole_tablet,
+                Co_trimoxazole_syrup,
+                Mebendazole,
+                Benzyl_benzoate,
+                Vitamin_A_solution,
+                Aspirin,
+                Sulphadimidine,
+                Paracetamol,
+                DPickdobStock,
+                Request_Status
+              })
+              .then(() => {
+                dispatch({
+                  type: DAILY_USAGE_STOCK_CREATE
+                });
+                dailyUsageStockCreateSuccess(dispatch, navigate);
+              })
+              .catch(error => {
+                console.log(error);
               });
-              dailyUsageStockCreateSuccess(dispatch, navigate);
-            })
-            .catch(error => {
-              console.log(error);
-            });
+          }
         } else {
           console.log('no user data');
         }
