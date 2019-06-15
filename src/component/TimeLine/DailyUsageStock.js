@@ -100,7 +100,7 @@ class DailyUsageStock extends Component {
                 if ((parseInt(data[i].anganwadicode)) === (parseInt(awcid))) {
                   if (data[i].Timeline) {
                     const data2 = data[i].Timeline.DailyUsageStock;
-                    console.log(data2.key);
+                   // console.log(data2.key);
                     for (const obj in data[i].Timeline.DailyUsageStock) {
                       
                       var d = new Date(),

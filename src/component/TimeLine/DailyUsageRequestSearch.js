@@ -242,11 +242,13 @@ class DailyUsageRequestSearch extends Component {
                 renderRow={this.renderRow}
               />
             ) : (
+              <View style={styles.ac}>
+                <Text style={styles.textstyle}>Please select date</Text>
               <ActivityIndicator
                 size='large'
                 color='#275DAD'
                 style={styles.aistyle}
-              />
+              /></View>
             )}
           </View>
         </ScrollView>
@@ -292,12 +294,19 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     textAlign: 'center'
   },
-
-  aistyle: {
+  textstyle: {
+    fontSize: 20,
+    marginTop: 15,
+  },
+  ac: {
     flex: 1,
+    
     justifyContent: 'center',
     alignItems: 'center',
-    height: 80
+  },
+  aistyle: {
+    marginTop: 15,
+    height: 30
   },
 
   pickertick: {
